@@ -15,11 +15,7 @@ pub struct CliOpt {
   #[structopt(long, default_value = "diff")]
   details: DetailLevel,
 
-  /// Glob pattern of paths to avoid
-  #[structopt(long, short = "i", number_of_values = 1)]
-  ignore: Vec<String>,
-
-  /// Path to files or directories of files to format
-  #[structopt(name = "FILES")]
-  files: Vec<std::path::PathBuf>,
+  /// Glob patterns of files to format
+  #[structopt(name = "patterns")]
+  patterns: Vec<String>,
 }
