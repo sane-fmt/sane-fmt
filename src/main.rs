@@ -1,12 +1,8 @@
 mod cli_opt;
 
-use std::{
-    env,
-    fs,
-    path::Path,
-};
-use globwalk::GlobWalkerBuilder;
 use cli_opt::CliOpt;
+use globwalk::GlobWalkerBuilder;
+use std::{env, fs, path::Path};
 
 fn main() -> Result<(), String> {
     use structopt::*;
@@ -38,8 +34,7 @@ fn main() -> Result<(), String> {
         match res {
             Ok(entry) => {
                 let path: &Path = entry.path();
-                let stats = fs::metadata(path)
-                    .map_err(|error| error.to_string())?;
+                let stats = fs::metadata(path).map_err(|error| error.to_string())?;
                 if stats.is_file() {
                     println!("file {:?}", path);
                     file_count += 1;
@@ -48,16 +43,19 @@ fn main() -> Result<(), String> {
                     skip_count += 1;
                 }
                 file_count += 1;
-            },
+            }
 
             Err(error) => {
                 eprintln!("error: {}", error);
                 err_count += 1;
-            },
+            }
         }
     }
 
-    println!("SUMMARY: scanned {}; skipped {}; failed {}", file_count, skip_count, err_count);
+    println!(
+        "SUMMARY: scanned {}; skipped {}; failed {}",
+        file_count, skip_count, err_count,
+    );
 
     if err_count != 0 {
         return Err(format!("There are {} errors", err_count));
