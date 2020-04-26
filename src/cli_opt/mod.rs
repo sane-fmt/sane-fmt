@@ -15,6 +15,7 @@ pub struct CliOpt {
   #[structopt(long, default_value = "diff")]
   details: DetailLevel,
 
+  /// Path to files or directories of files to format
   #[structopt(name = "FILES")]
   files: Vec<std::path::PathBuf>,
 }
