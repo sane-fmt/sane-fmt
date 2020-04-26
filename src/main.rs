@@ -30,7 +30,7 @@ fn main() -> Result<(), String> {
         .map_err(|error| format!("error: {}", error))?
         .into_iter();
 
-    let mut count = 0;
+    let mut file_count = 0;
     let mut skip_count = 0;
     let mut err_count = 0;
 
@@ -42,12 +42,12 @@ fn main() -> Result<(), String> {
                     .map_err(|error| error.to_string())?;
                 if stats.is_file() {
                     println!("file {:?}", path);
-                    count += 1;
+                    file_count += 1;
                 } else {
                     println!("skip {:?} (not a file)", path);
                     skip_count += 1;
                 }
-                count += 1;
+                file_count += 1;
             },
 
             Err(error) => {
@@ -57,13 +57,13 @@ fn main() -> Result<(), String> {
         }
     }
 
-    println!("SUMMARY: scanned {}; skipped {}; failed {}", count, skip_count, err_count);
+    println!("SUMMARY: scanned {}; skipped {}; failed {}", file_count, skip_count, err_count);
 
     if err_count != 0 {
         return Err(format!("There are {} errors", err_count));
     }
 
-    if count == 0 {
+    if file_count == 0 {
         return Err("No files found".to_owned());
     }
 
