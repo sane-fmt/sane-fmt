@@ -14,4 +14,7 @@ pub struct CliOpt {
   /// [possible values: count, name, diff]
   #[structopt(long, default_value = "diff")]
   details: DetailLevel,
+
+  #[structopt(name = "FILES")]
+  files: Vec<std::path::PathBuf>,
 }
