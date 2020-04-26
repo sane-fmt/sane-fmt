@@ -16,6 +16,8 @@ pub struct CliOpt {
   pub details: DetailLevel,
 
   /// Glob patterns of files to format
+  ///
+  /// If none are provided, a default set of patterns will be assumed
   #[structopt(name = "patterns")]
   pub patterns: Vec<String>,
 }
