@@ -8,14 +8,14 @@ pub use detail_level::*;
 pub struct CliOpt {
   /// Whether to write or check
   #[structopt(long, short = "w")]
-  write: bool,
+  pub write: bool,
 
   /// File diff detail
   /// [possible values: count, name, diff]
   #[structopt(long, default_value = "diff")]
-  details: DetailLevel,
+  pub details: DetailLevel,
 
   /// Glob patterns of files to format
   #[structopt(name = "patterns")]
-  patterns: Vec<String>,
+  pub patterns: Vec<String>,
 }
