@@ -1,4 +1,6 @@
-use dprint_plugin_typescript::configuration::{QuoteStyle, SemiColons, TrailingCommas, UseParentheses};
+use dprint_plugin_typescript::configuration::{
+    QuoteStyle, SemiColons, TrailingCommas, UseParentheses,
+};
 pub use dprint_plugin_typescript::{
     configuration::{Configuration as Cfg, ConfigurationBuilder as CfgBuilder},
     Formatter as Fmt,
