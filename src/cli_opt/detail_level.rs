@@ -1,6 +1,4 @@
-use structopt::StructOpt;
-
-#[derive(StructOpt, Debug, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub enum DetailLevel {
     Count,
     Name,
