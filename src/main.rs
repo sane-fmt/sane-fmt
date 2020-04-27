@@ -41,13 +41,13 @@ fn main() -> Result<(), String> {
     for res in walker {
         let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
         let path: &Path = entry.path();
+        println!("scan {:?}", path);
         let stats = fs::metadata(path).map_err(|error| error.to_string())?;
         if !stats.is_file() {
             println!("skip {:?} (not a file)", path);
             skip_count += 1;
             continue;
         }
-        println!("file {:?}", path);
         let file_content = fs::read_to_string(path)
             .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
         let formatted = fmt
@@ -63,7 +63,7 @@ fn main() -> Result<(), String> {
     }
 
     println!(
-        "SUMMARY: scanned {}; formatted {}; skipped {}",
+        "SUMMARY: scanned {}; found {}; skipped {}",
         file_count, fmt_count, skip_count,
     );
 

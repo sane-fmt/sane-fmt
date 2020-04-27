@@ -8,10 +8,10 @@ pub fn get(details: DetailLevel) -> Act {
     match details {
         Count => |_, _, _| (),
         Name => |path, _, _| {
-            println!("fmt {:?}", path);
+            println!("find {:?}", path);
         },
         Diff => |path, old, new| {
-            println!("fmt {:?}", path);
+            println!("find {:?}", path);
             let diff = diff_text(old, new);
             let indented_diff = add_indent(diff, "  ");
             println!("{}", indented_diff);
