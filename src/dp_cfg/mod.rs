@@ -1,3 +1,4 @@
+use dprint_plugin_typescript::configuration::{QuoteStyle, SemiColons, TrailingCommas};
 pub use dprint_plugin_typescript::{
     configuration::{Configuration as Cfg, ConfigurationBuilder as CfgBuilder},
     Formatter as Fmt,
@@ -5,7 +6,11 @@ pub use dprint_plugin_typescript::{
 
 /// Shape a `ConfigurationBuilder` to desired configuration
 pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
-    builder.deno()
+    builder
+        .deno()
+        .quote_style(QuoteStyle::PreferSingle)
+        .semi_colons(SemiColons::Asi)
+        .trailing_commas(TrailingCommas::OnlyMultiLine)
 }
 
 /// Create desired configuration
