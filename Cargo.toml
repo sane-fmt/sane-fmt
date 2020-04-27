@@ -9,3 +9,4 @@ edition = "2018"
 [dependencies]
 structopt = "^0.3.14"
 globwalk = "^0.8.0"
+dprint-plugin-typescript = "^0.13.2"

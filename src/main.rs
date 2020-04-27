@@ -1,6 +1,8 @@
 mod cli_opt;
+mod dp_cfg;
 
 use cli_opt::CliOpt;
+use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use std::{env, fs, path::Path};
 
@@ -29,6 +31,7 @@ fn main() -> Result<(), String> {
     let mut file_count = 0;
     let mut skip_count = 0;
     let mut err_count = 0;
+    let fmt = build_fmt();
 
     for res in walker {
         match res {
@@ -37,6 +40,12 @@ fn main() -> Result<(), String> {
                 let stats = fs::metadata(path).map_err(|error| error.to_string())?;
                 if stats.is_file() {
                     println!("file {:?}", path);
+                    let file_content = fs::read_to_string(path)
+                        .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
+                    let formatted = fmt
+                        .format_text(&path.to_string_lossy(), &file_content)
+                        .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
+                    // TODO
                     file_count += 1;
                 } else {
                     println!("skip {:?} (not a file)", path);
