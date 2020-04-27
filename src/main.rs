@@ -2,6 +2,7 @@ mod act;
 mod cli_opt;
 mod diff;
 mod dp_cfg;
+mod term;
 
 use cli_opt::{CliOpt, DetailLevel};
 use dp_cfg::build_fmt;
@@ -37,6 +38,7 @@ fn main() -> Result<(), String> {
 
     let log_unformatted = act::log_unformatted::get(opt.details);
     let may_write = act::may_write::get(opt.write);
+    let clear_current_line = act::may_clear_current_line::get(true); // TODO: Check for color support
 
     for res in walker {
         let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
@@ -44,15 +46,17 @@ fn main() -> Result<(), String> {
             .unwrap()
             .normalize()
             .to_path("");
-        println!("scan {:?}", path);
+        print!("scan {:?}", path);
         let stats = fs::symlink_metadata(path).map_err(|error| error.to_string())?;
         if !stats.is_file() {
+            clear_current_line();
             println!("skip {:?} (not a file)", path);
             skip_count += 1;
             continue;
         }
         let file_content = fs::read_to_string(path)
             .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
+        clear_current_line();
         let formatted = fmt
             .format_text(&path.to_string_lossy(), &file_content)
             .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
