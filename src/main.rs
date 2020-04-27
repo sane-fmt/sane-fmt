@@ -33,10 +33,10 @@ fn main() -> Result<(), String> {
     let mut file_count = 0;
     let mut fmt_count = 0;
     let mut skip_count = 0;
-    let mut err_count = 0;
     let fmt = build_fmt();
 
     let log_unformatted = act::log_unformatted::get(opt.details);
+    let may_write = act::may_write::get(opt.write);
 
     for res in walker {
         match res {
@@ -52,7 +52,9 @@ fn main() -> Result<(), String> {
                         .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
                     if file_content != formatted {
                         fmt_count += 1;
-                        log_unformatted(path, file_content, formatted);
+                        log_unformatted(path, &file_content, &formatted);
+                        may_write(path, &formatted)
+                            .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
                     }
                     file_count += 1;
                 } else {
@@ -63,20 +65,15 @@ fn main() -> Result<(), String> {
             }
 
             Err(error) => {
-                eprintln!("error: {}", error);
-                err_count += 1;
+                return Err(format!("Unexpected Error: {}", error));
             }
         }
     }
 
     println!(
-        "SUMMARY: scanned {}; formatted {}; skipped {}; failed {}",
-        file_count, fmt_count, skip_count, err_count,
+        "SUMMARY: scanned {}; formatted {}; skipped {}",
+        file_count, fmt_count, skip_count,
     );
-
-    if err_count != 0 {
-        return Err(format!("There are {} errors", err_count));
-    }
 
     if file_count == 0 {
         return Err("No files found".to_owned());
