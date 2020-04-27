@@ -39,35 +39,27 @@ fn main() -> Result<(), String> {
     let may_write = act::may_write::get(opt.write);
 
     for res in walker {
-        match res {
-            Ok(entry) => {
-                let path: &Path = entry.path();
-                let stats = fs::metadata(path).map_err(|error| error.to_string())?;
-                if stats.is_file() {
-                    println!("file {:?}", path);
-                    let file_content = fs::read_to_string(path)
-                        .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
-                    let formatted = fmt
-                        .format_text(&path.to_string_lossy(), &file_content)
-                        .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
-                    if file_content != formatted {
-                        fmt_count += 1;
-                        log_unformatted(path, &file_content, &formatted);
-                        may_write(path, &formatted)
-                            .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
-                    }
-                    file_count += 1;
-                } else {
-                    println!("skip {:?} (not a file)", path);
-                    skip_count += 1;
-                }
-                file_count += 1;
-            }
-
-            Err(error) => {
-                return Err(format!("Unexpected Error: {}", error));
-            }
+        let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
+        let path: &Path = entry.path();
+        let stats = fs::metadata(path).map_err(|error| error.to_string())?;
+        if !stats.is_file() {
+            println!("skip {:?} (not a file)", path);
+            skip_count += 1;
+            continue;
         }
+        println!("file {:?}", path);
+        let file_content = fs::read_to_string(path)
+            .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
+        let formatted = fmt
+            .format_text(&path.to_string_lossy(), &file_content)
+            .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
+        if file_content != formatted {
+            fmt_count += 1;
+            log_unformatted(path, &file_content, &formatted);
+            may_write(path, &formatted)
+                .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
+        }
+        file_count += 1;
     }
 
     println!(
