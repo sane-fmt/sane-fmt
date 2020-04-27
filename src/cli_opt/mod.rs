@@ -12,7 +12,7 @@ pub struct CliOpt {
 
     /// File diff detail
     /// [possible values: count, name, diff]
-    #[structopt(long, default_value = "diff")]
+    #[structopt(long, default_value = "name")]
     pub details: DetailLevel,
 
     /// Glob patterns of files to format
