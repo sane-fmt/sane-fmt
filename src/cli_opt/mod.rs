@@ -2,8 +2,8 @@ pub mod detail_level;
 pub mod when;
 
 pub use detail_level::*;
-pub use when::*;
 use structopt::StructOpt;
+pub use when::*;
 
 #[derive(StructOpt, Debug)]
 #[structopt(name = "sane-fmt", rename_all = "kebab")]
