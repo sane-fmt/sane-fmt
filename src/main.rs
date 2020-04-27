@@ -42,7 +42,7 @@ fn main() -> Result<(), String> {
         let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
         let path: &Path = entry.path();
         println!("scan {:?}", path);
-        let stats = fs::metadata(path).map_err(|error| error.to_string())?;
+        let stats = fs::symlink_metadata(path).map_err(|error| error.to_string())?;
         if !stats.is_file() {
             println!("skip {:?} (not a file)", path);
             skip_count += 1;
