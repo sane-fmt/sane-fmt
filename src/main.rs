@@ -38,7 +38,7 @@ fn main() -> Result<(), String> {
 
     let log_scan = act::log_scan::get(opt.color);
     let log_skip = act::log_skip::get(opt.details);
-    let log_unformatted = act::log_unformatted::get(opt.details);
+    let log_find = act::log_find::get(opt.details);
     let may_write = act::may_write::get(opt.write);
     let clear_current_line = act::may_clear_current_line::get(opt.color);
 
@@ -64,7 +64,7 @@ fn main() -> Result<(), String> {
             .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
         if file_content != formatted {
             fmt_count += 1;
-            log_unformatted(path, &file_content, &formatted);
+            log_find(path, &file_content, &formatted);
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
         }
