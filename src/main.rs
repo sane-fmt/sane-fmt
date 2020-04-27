@@ -37,7 +37,7 @@ fn main() -> Result<(), String> {
     type Act<Return> = fn(path: &Path, old: String, new: String) -> Return;
 
     let log_unformatted: Act<()> = match opt.details {
-        DetailLevel::Count => |_, _, _| { () },
+        DetailLevel::Count => |_, _, _| (),
         DetailLevel::Name => |path, _, _| {
             println!("fmt {:?}", path);
         },
