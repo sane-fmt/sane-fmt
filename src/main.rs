@@ -1,7 +1,7 @@
 mod cli_opt;
 mod dp_cfg;
 
-use cli_opt::CliOpt;
+use cli_opt::{CliOpt, DetailLevel};
 use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use std::{env, fs, path::Path};
@@ -29,9 +29,23 @@ fn main() -> Result<(), String> {
         .into_iter();
 
     let mut file_count = 0;
+    let mut fmt_count = 0;
     let mut skip_count = 0;
     let mut err_count = 0;
     let fmt = build_fmt();
+
+    type Act<Return> = fn(path: &Path, old: String, new: String) -> Return;
+
+    let log_unformatted: Act<()> = match opt.details {
+        DetailLevel::Count => |_, _, _| { () },
+        DetailLevel::Name => |path, _, _| {
+            println!("fmt {:?}", path);
+        },
+        DetailLevel::Diff => |path, _old, _new| {
+            println!("fmt {:?}", path);
+            // TODO: show diff
+        },
+    };
 
     for res in walker {
         match res {
@@ -45,7 +59,10 @@ fn main() -> Result<(), String> {
                     let formatted = fmt
                         .format_text(&path.to_string_lossy(), &file_content)
                         .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
-                    // TODO
+                    if file_content != formatted {
+                        fmt_count += 1;
+                        log_unformatted(path, file_content, formatted);
+                    }
                     file_count += 1;
                 } else {
                     println!("skip {:?} (not a file)", path);
@@ -62,8 +79,8 @@ fn main() -> Result<(), String> {
     }
 
     println!(
-        "SUMMARY: scanned {}; skipped {}; failed {}",
-        file_count, skip_count, err_count,
+        "SUMMARY: scanned {}; formatted {}; skipped {}; failed {}",
+        file_count, fmt_count, skip_count, err_count,
     );
 
     if err_count != 0 {
@@ -72,6 +89,10 @@ fn main() -> Result<(), String> {
 
     if file_count == 0 {
         return Err("No files found".to_owned());
+    }
+
+    if !opt.write && fmt_count != 0 {
+        return Err(format!("There are {} unformatted files", fmt_count));
     }
 
     Ok(())
