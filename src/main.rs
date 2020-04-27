@@ -6,6 +6,7 @@ mod dp_cfg;
 use cli_opt::{CliOpt, DetailLevel};
 use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
+use relative_path::RelativePath;
 use std::{fs, path::Path};
 
 fn main() -> Result<(), String> {
@@ -39,7 +40,10 @@ fn main() -> Result<(), String> {
 
     for res in walker {
         let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
-        let path: &Path = entry.path();
+        let path: &Path = &RelativePath::from_path(entry.path())
+            .unwrap()
+            .normalize()
+            .to_path("");
         println!("scan {:?}", path);
         let stats = fs::symlink_metadata(path).map_err(|error| error.to_string())?;
         if !stats.is_file() {
