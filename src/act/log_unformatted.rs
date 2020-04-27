@@ -13,15 +13,7 @@ pub fn get(details: DetailLevel) -> Act {
         Diff => |path, old, new| {
             println!("find {:?}", path);
             let diff = diff_text(old, new);
-            let indented_diff = add_indent(diff, "  ");
-            println!("{}", indented_diff);
+            println!("{}", diff);
         },
     }
-}
-
-fn add_indent(text: String, indent: &str) -> String {
-    text.split("\n")
-        .map(|line| format!("{}{}", indent, line))
-        .collect::<Vec<_>>()
-        .join("\n")
 }
