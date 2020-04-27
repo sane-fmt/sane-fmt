@@ -4,7 +4,7 @@ mod diff;
 mod dp_cfg;
 mod term;
 
-use cli_opt::{CliOpt, DetailLevel};
+use cli_opt::{CliOpt, DetailLevel, Ternary};
 use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
@@ -38,7 +38,7 @@ fn main() -> Result<(), String> {
 
     let log_unformatted = act::log_unformatted::get(opt.details);
     let may_write = act::may_write::get(opt.write);
-    let clear_current_line = act::may_clear_current_line::get(true); // TODO: Check for color support
+    let clear_current_line = act::may_clear_current_line::get(opt.color);
 
     for res in walker {
         let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
