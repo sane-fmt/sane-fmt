@@ -1,5 +1,6 @@
 mod cli_opt;
 mod dp_cfg;
+mod act;
 
 use cli_opt::{CliOpt, DetailLevel};
 use dp_cfg::build_fmt;
@@ -34,18 +35,7 @@ fn main() -> Result<(), String> {
     let mut err_count = 0;
     let fmt = build_fmt();
 
-    type Act<Return> = fn(path: &Path, old: String, new: String) -> Return;
-
-    let log_unformatted: Act<()> = match opt.details {
-        DetailLevel::Count => |_, _, _| (),
-        DetailLevel::Name => |path, _, _| {
-            println!("fmt {:?}", path);
-        },
-        DetailLevel::Diff => |path, _old, _new| {
-            println!("fmt {:?}", path);
-            // TODO: show diff
-        },
-    };
+    let log_unformatted = act::log_unformatted::get(opt.details);
 
     for res in walker {
         match res {
