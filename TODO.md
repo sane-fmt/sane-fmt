@@ -2,7 +2,7 @@
 
 * [ ] Integration tests
 * [ ] Improve messages
-  * [ ] `--details count` should not print even `scan` messages
+  * [x] `--details count` should not print even `scan` messages
   * [ ] ANSI color
 * [ ] CI
   * [ ] GitHub Actions: Test
