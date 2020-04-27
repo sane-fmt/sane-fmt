@@ -1,4 +1,4 @@
-use std::{fs, path::Path, io};
+use std::{fs, io, path::Path};
 
 pub type Act = fn(&Path, &String) -> io::Result<()>;
 

@@ -1,6 +1,6 @@
-use std::path::Path;
 use super::super::diff::diff_text;
 use super::super::DetailLevel::{self, *};
+use std::path::Path;
 
 pub type Act = fn(path: &Path, old: &String, new: &String);
 
