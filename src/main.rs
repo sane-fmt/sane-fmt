@@ -6,7 +6,7 @@ mod dp_cfg;
 use cli_opt::{CliOpt, DetailLevel};
 use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
-use std::{env, fs, path::Path};
+use std::{fs, path::Path};
 
 fn main() -> Result<(), String> {
     use structopt::*;
@@ -23,8 +23,7 @@ fn main() -> Result<(), String> {
         ]
     };
 
-    let current_dir = env::current_dir().unwrap();
-    let walker = GlobWalkerBuilder::from_patterns(current_dir, patterns)
+    let walker = GlobWalkerBuilder::from_patterns(".", patterns)
         .follow_links(false)
         .build()
         .map_err(|error| format!("error: {}", error))?
