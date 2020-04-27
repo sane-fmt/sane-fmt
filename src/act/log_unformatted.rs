@@ -1,4 +1,4 @@
-use super::super::diff::diff_text;
+use super::super::diff::diff_lines;
 use super::super::DetailLevel::{self, *};
 use std::path::Path;
 
@@ -12,8 +12,9 @@ pub fn get(details: DetailLevel) -> Act {
         },
         Diff => |path, old, new| {
             println!("find {:?}", path);
-            let diff = diff_text(old, new);
-            println!("{}", diff);
+            for line in diff_lines(old, new) {
+                println!("{}", line);
+            }
         },
     }
 }
