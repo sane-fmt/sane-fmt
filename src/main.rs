@@ -1,6 +1,7 @@
-mod cli_opt;
-mod dp_cfg;
 mod act;
+mod cli_opt;
+mod diff;
+mod dp_cfg;
 
 use cli_opt::{CliOpt, DetailLevel};
 use dp_cfg::build_fmt;
