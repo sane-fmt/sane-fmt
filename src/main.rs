@@ -37,6 +37,7 @@ fn main() -> Result<(), String> {
     let fmt = build_fmt();
 
     let log_scan = act::log_scan::get(opt.color);
+    let log_skip = act::log_skip::get(opt.details);
     let log_unformatted = act::log_unformatted::get(opt.details);
     let may_write = act::may_write::get(opt.write);
     let clear_current_line = act::may_clear_current_line::get(opt.color);
@@ -51,7 +52,7 @@ fn main() -> Result<(), String> {
         let stats = fs::symlink_metadata(path).map_err(|error| error.to_string())?;
         if !stats.is_file() {
             clear_current_line();
-            println!("skip {:?} (not a file)", path);
+            log_skip(path);
             skip_count += 1;
             continue;
         }
