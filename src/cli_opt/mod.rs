@@ -1,8 +1,8 @@
 pub mod detail_level;
-pub mod ternary;
+pub mod when;
 
 pub use detail_level::*;
-pub use ternary::*;
+pub use when::*;
 use structopt::StructOpt;
 
 #[derive(StructOpt, Debug)]
@@ -20,7 +20,7 @@ pub struct CliOpt {
     /// When to use terminal color
     /// [possible values: auto, never, always]
     #[structopt(long, default_value = "auto")]
-    pub color: Ternary,
+    pub color: When,
 
     /// Glob patterns of files to format
     ///

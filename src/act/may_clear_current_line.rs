@@ -1,8 +1,8 @@
 use super::super::term::clear_current_line;
-use super::super::Ternary;
+use super::super::When;
 
-pub fn get(color: Ternary) -> fn() {
-    if color == Ternary::Never {
+pub fn get(color: When) -> fn() {
+    if color == When::Never {
         || ()
     } else {
         clear_current_line

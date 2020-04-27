@@ -4,7 +4,7 @@ mod diff;
 mod dp_cfg;
 mod term;
 
-use cli_opt::{CliOpt, DetailLevel, Ternary};
+use cli_opt::{CliOpt, DetailLevel, When};
 use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
