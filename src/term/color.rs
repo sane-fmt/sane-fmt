@@ -1,3 +1,5 @@
+pub use ansi_term::Style;
+
 pub trait Color {
     fn paint(&self, text: &str) -> String;
 }
@@ -9,8 +11,6 @@ pub struct ColorScheme<C: Color> {
     pub find_indicator: C,
     pub find_name: C,
 }
-
-pub use ansi_term::Style;
 
 pub struct Colorless;
 impl Color for Colorless {
