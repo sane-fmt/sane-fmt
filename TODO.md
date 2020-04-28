@@ -3,7 +3,7 @@
 * [ ] Integration tests
 * [ ] Improve messages
   * [x] `--details count` should not print even `scan` messages
-  * [ ] `--details count` should not print `find` and `skip`
+  * [x] `--details count` should not print `find` and `skip`
   * [ ] ANSI color
 * [ ] CI
   * [ ] GitHub Actions: Test
