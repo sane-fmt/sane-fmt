@@ -35,10 +35,24 @@ impl Color for Colorful {
     }
 }
 
-pub const COLORLESS: ColorScheme<Colorless> = ColorScheme {
-    scan: Colorless,
-    skip: Colorless,
-    skip_name: Colorless,
-    find_indicator: Colorless,
-    find_name: Colorless,
-};
+pub fn colorless() -> ColorScheme<Colorless> {
+    ColorScheme {
+        scan: Colorless,
+        skip: Colorless,
+        skip_name: Colorless,
+        find_indicator: Colorless,
+        find_name: Colorless,
+    }
+}
+
+pub fn colorful() -> ColorScheme<Colorful> {
+    let style = || Style::default();
+
+    ColorScheme {
+        scan: Colorful::new(style().dimmed()),
+        skip: Colorful::new(style().dimmed()),
+        skip_name: Colorful::new(style().dimmed().strikethrough()),
+        find_indicator: Colorful::new(style()),
+        find_name: Colorful::new(style().bold()),
+    }
+}
