@@ -7,6 +7,7 @@
   * [ ] ANSI color
   * [ ] Refactor: `color.rs` should return `Style` directly
   * [ ] Use symbols or emoji for log indicators
+  * [ ] Diff should have color
 * [ ] CI
   * [ ] GitHub Actions: Test
   * [ ] GitHub Actions: Release
