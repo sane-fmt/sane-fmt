@@ -6,7 +6,7 @@
   * [x] `--details count` should not print `find` and `skip`
   * [x] ANSI color
   * [x] Refactor: `color.rs` should return `Style` directly
-  * [ ] Use symbols or emoji for log indicators
+  * [x] Use symbols or emoji for log indicators
   * [ ] Diff should have color
 * [ ] CI
   * [ ] GitHub Actions: Test

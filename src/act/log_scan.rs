@@ -12,7 +12,7 @@ pub fn get(color: When) -> fn(&Path) {
     } else {
         |path| {
             let theme = ColorfulScheme;
-            let message = format!("scan {}", path.to_string_lossy());
+            let message = format!("🔎 {}", path.to_string_lossy());
             let styled_message = theme.scan().paint(message.as_str()).to_string();
             eprint!("{}", styled_message);
         }
