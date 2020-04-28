@@ -6,7 +6,7 @@ pub use dprint_plugin_typescript::{
     Formatter as Fmt,
 };
 
-/// Shape a `ConfigurationBuilder` to desired configuration
+/// Shape a `ConfigurationBuilder` to desired configuration.
 pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
     builder
         .deno()
@@ -16,14 +16,14 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .arrow_function_use_parentheses(UseParentheses::PreferNone)
 }
 
-/// Create desired configuration
+/// Create desired configuration.
 pub fn build_cfg() -> Cfg {
     let mut builder = CfgBuilder::new();
     modify(&mut builder);
     builder.build()
 }
 
-/// Create a formatter for desired configuration
+/// Create a formatter for desired configuration.
 pub fn build_fmt() -> Fmt {
     Fmt::new(build_cfg())
 }
