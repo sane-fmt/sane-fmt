@@ -1,5 +1,5 @@
 pub trait Color {
-    fn paint<'a>(&self, text: &'a str) -> &'a str;
+    fn paint<'a>(&self, text: &'a str) -> String;
 }
 
 pub struct ColorScheme<C: Color> {
@@ -12,21 +12,28 @@ pub struct ColorScheme<C: Color> {
 
 pub mod collection {
     use super::Color;
+    pub use ansi_term::Style;
 
     pub struct Colorless;
     impl Color for Colorless {
-        fn paint<'a>(&self, text: &'a str) -> &'a str {
-            text
+        fn paint<'a>(&self, text: &'a str) -> String {
+            text.to_owned()
         }
     }
 
-    pub struct Colorful<F: Fn(&str) -> &str>(F);
-    impl<F> Color for Colorful<F>
-    where
-        F: Fn(&str) -> &str,
-    {
-        fn paint<'a>(&self, text: &'a str) -> &'a str {
-            self.0(text)
+    pub struct Colorful {
+        style: Style,
+    }
+
+    impl Colorful {
+        pub fn new(style: Style) -> Self {
+            Colorful { style }
+        }
+    }
+
+    impl Color for Colorful {
+        fn paint<'a>(&self, text: &'a str) -> String {
+            format!("{}", self.style.paint(text))
         }
     }
 }
