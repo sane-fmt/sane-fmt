@@ -9,7 +9,7 @@ use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
 use std::{fs, path::Path};
-use term::color::{BoxedColorScheme, ColorScheme, ColorfulScheme, ColorlessScheme};
+use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
     use structopt::*;
