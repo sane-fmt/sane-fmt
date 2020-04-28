@@ -1,5 +1,5 @@
 pub trait Color {
-    fn paint<'a>(&self, text: &'a str) -> String;
+    fn paint(&self, text: &str) -> String;
 }
 
 pub struct ColorScheme<C: Color> {
@@ -16,7 +16,7 @@ pub mod collection {
 
     pub struct Colorless;
     impl Color for Colorless {
-        fn paint<'a>(&self, text: &'a str) -> String {
+        fn paint(&self, text: &str) -> String {
             text.to_owned()
         }
     }
@@ -32,7 +32,7 @@ pub mod collection {
     }
 
     impl Color for Colorful {
-        fn paint<'a>(&self, text: &'a str) -> String {
+        fn paint(&self, text: &str) -> String {
             format!("{}", self.style.paint(text))
         }
     }
