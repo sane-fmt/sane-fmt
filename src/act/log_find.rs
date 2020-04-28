@@ -3,7 +3,7 @@ use super::super::DetailLevel::{self, *};
 use std::path::Path;
 
 /// Log found filesystem object and maybe diff if `--details` is not `count`.
-pub type Act = fn(path: &Path, old: &String, new: &String);
+pub type Act = fn(path: &Path, old: &str, new: &str);
 
 /// Lookup a function that may log found filesystem object according to `--details`.
 /// * If `--details=count`, the returning function would do nothing.

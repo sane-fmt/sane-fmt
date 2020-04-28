@@ -7,8 +7,10 @@ pub fn diff(old: &String, new: &String) -> Diff {
 }
 
 /// Emit printable lines of diff.
-pub fn diff_lines(old: &String, new: &String) -> impl Iterator<Item = String> {
-    diff(old, new).diffs.into_iter().map(|diff| match diff {
+pub fn diff_lines(old: &str, new: &str) -> impl Iterator<Item = String> {
+    let old_r = &old.to_owned();
+    let new_r = &new.to_owned();
+    diff(old_r, new_r).diffs.into_iter().map(|diff| match diff {
         Same(line) => add_prefix(line, "   "),
         Add(line) => add_prefix(line, "  +"),
         Rem(line) => add_prefix(line, "  -"),

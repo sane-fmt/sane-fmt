@@ -1,7 +1,7 @@
 use std::{fs, io, path::Path};
 
 /// Overwrite unformatted file if `--write` is present.
-pub type Act = fn(&Path, &String) -> io::Result<()>;
+pub type Act = fn(&Path, &str) -> io::Result<()>;
 
 /// Lookup a function that may write unformatted file.
 /// * If `--write` is present, the returning function would overwrite
