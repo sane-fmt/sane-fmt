@@ -1,6 +1,8 @@
-use super::super::diff::diff_lines;
-use super::super::term::color::*;
-use super::super::DetailLevel::{self, *};
+use super::super::{
+    diff::diff_lines,
+    term::color::*,
+    DetailLevel::{self, *},
+};
 use std::path::Path;
 
 /// Log found filesystem object and maybe diff if `--details` is not `count`.
