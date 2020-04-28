@@ -22,7 +22,7 @@ pub fn get<'a>(details: DetailLevel, theme: &'a BoxedColorScheme) -> Act {
         Count => Box::new(|_, _, _| ()),
         Name => Box::new(move |path, _, _| print_name(path)),
         Diff => Box::new(move |path, old, new| {
-            println!("find {:?}", path);
+            print_name(path);
             for line in diff_lines(old, new) {
                 println!("{}", line);
             }
