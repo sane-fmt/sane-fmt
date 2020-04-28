@@ -10,9 +10,8 @@ pub fn get<'a>(details: DetailLevel, theme: &'a BoxedColorScheme) -> Box<dyn Fn(
     } else {
         Box::new(move |path| {
             let indicator = theme.skip().paint("skip");
-            let name = theme
-                .skip_name()
-                .paint(path.to_string_lossy().to_string().as_str());
+            let path_str = path.to_string_lossy().to_string();
+            let name = theme.skip_name().paint(path_str.as_str());
             let reason = theme.skip().paint("(not a file)");
             println!("{} {} {}", indicator, name, reason);
         })

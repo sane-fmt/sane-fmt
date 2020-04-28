@@ -15,9 +15,8 @@ pub type Act<'a> = Box<dyn Fn(&Path, &str, &str) + 'a>;
 pub fn get<'a>(details: DetailLevel, theme: &'a BoxedColorScheme) -> Act {
     let print_name = move |path: &Path| {
         let indicator = theme.find_indicator().paint("find");
-        let name = theme
-            .find_name()
-            .paint(path.to_string_lossy().to_string().as_str());
+        let path_str = path.to_string_lossy().to_string();
+        let name = theme.find_name().paint(path_str.as_str());
         println!("{} {}", indicator, name);
     };
     match details {
