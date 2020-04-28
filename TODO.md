@@ -5,6 +5,7 @@
   * [x] `--details count` should not print even `scan` messages
   * [x] `--details count` should not print `find` and `skip`
   * [ ] ANSI color
+  * [ ] Refactor: `color.rs` should return `Style` directly
 * [ ] CI
   * [ ] GitHub Actions: Test
   * [ ] GitHub Actions: Release
