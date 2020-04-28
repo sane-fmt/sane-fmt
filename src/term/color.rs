@@ -34,3 +34,11 @@ impl Color for Colorful {
         format!("{}", self.style.paint(text))
     }
 }
+
+pub const COLORLESS: ColorScheme<Colorless> = ColorScheme {
+    scan: Colorless,
+    skip: Colorless,
+    skip_name: Colorless,
+    find_indicator: Colorless,
+    find_name: Colorless,
+};
