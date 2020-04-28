@@ -9,6 +9,7 @@
   * [x] Use symbols or emoji for log indicators
   * [ ] Diff should have color
   * [ ] Log passed files
+  * [ ] Use actual color for logs (red, green, dim)
 * [ ] CI
   * [ ] GitHub Actions: Test
   * [ ] GitHub Actions: Release
