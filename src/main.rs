@@ -9,6 +9,7 @@ use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
 use std::{fs, path::Path};
+use term::color::{ColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
     use structopt::*;
@@ -35,6 +36,12 @@ fn main() -> Result<(), String> {
     let mut fmt_count = 0;
     let mut skip_count = 0;
     let fmt = build_fmt();
+
+    let theme: Box<dyn ColorScheme> = if opt.color == When::Never {
+        Box::new(ColorlessScheme)
+    } else {
+        Box::new(ColorfulScheme)
+    };
 
     let log_scan = act::log_scan::get(opt.color);
     let log_skip = act::log_skip::get(opt.details);
