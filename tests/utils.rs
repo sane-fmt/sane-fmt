@@ -128,8 +128,8 @@ pub fn assert_str_eq(a: &str, b: &str) {
     };
 
     let same_style = Style::new().dimmed();
-    let add_style = Style::new().on(Color::Red);
-    let rem_style = Style::new().on(Color::Green);
+    let add_style = Color::Red.into();
+    let rem_style = Color::Green.into();
 
     fn paint(text: String, style: &Style) -> String {
         style.paint(text).to_string()
