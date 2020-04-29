@@ -60,6 +60,7 @@ impl Exe {
             .tempdir()
             .unwrap()
             .into_path();
+        abs_copy_dir(fixtures(), temp_dir.join("fixtures"));
         Self::new(&temp_dir)
     }
 }
