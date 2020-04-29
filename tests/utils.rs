@@ -1,4 +1,5 @@
 #![cfg(test)]
+use ansi_term::{Color, Style};
 use copy_dir::copy_dir;
 use difference::{Changeset, Difference};
 use std::{
@@ -104,17 +105,31 @@ pub fn assert_str_eq(a: &str, b: &str) {
     let change_set = Changeset::new(a, b, "\n");
     let mut diff_text = String::new();
 
-    let mut add_prefix = |text: String, prefix: &str| {
+    let mut add_prefix = |text: String, prefix: String| {
         for line in text.split("\n") {
             writeln!(&mut diff_text, "{}{}", prefix, line).expect("add a line to diff_text");
         }
     };
 
+    let same_style = Style::new().dimmed();
+    let add_style = Style::new().on(Color::Red);
+    let rem_style = Style::new().on(Color::Green);
+
+    fn paint(text: String, style: &Style) -> String {
+        style.paint(text).to_string()
+    }
+
     for diff in change_set.diffs {
         match diff {
-            Difference::Same(text) => add_prefix(text, "   "),
-            Difference::Add(text) => add_prefix(text, "  +"),
-            Difference::Rem(text) => add_prefix(text, "  -"),
+            Difference::Same(text) => add_prefix(paint(text, &same_style), "   ".to_string()),
+            Difference::Add(text) => add_prefix(
+                paint(text, &add_style),
+                paint("  +".to_string(), &add_style),
+            ),
+            Difference::Rem(text) => add_prefix(
+                paint(text, &rem_style),
+                paint("  -".to_string(), &rem_style),
+            ),
         };
     }
 
