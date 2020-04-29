@@ -5,8 +5,8 @@ pub trait ColorScheme {
     fn scan(&self) -> Style;
     fn skip(&self) -> Style;
     fn skip_name(&self) -> Style;
-    fn passed(&self) -> Style;
-    fn find(&self) -> Style;
+    fn same(&self) -> Style;
+    fn diff(&self) -> Style;
 }
 
 /// Scheme of no color
@@ -21,10 +21,10 @@ impl ColorScheme for ColorlessScheme {
     fn skip_name(&self) -> Style {
         Style::new()
     }
-    fn passed(&self) -> Style {
+    fn same(&self) -> Style {
         Style::new()
     }
-    fn find(&self) -> Style {
+    fn diff(&self) -> Style {
         Style::new()
     }
 }
@@ -41,10 +41,10 @@ impl ColorScheme for ColorfulScheme {
     fn skip_name(&self) -> Style {
         self.skip().strikethrough()
     }
-    fn passed(&self) -> Style {
+    fn same(&self) -> Style {
         Color::Green.into()
     }
-    fn find(&self) -> Style {
+    fn diff(&self) -> Style {
         Color::Red.into()
     }
 }

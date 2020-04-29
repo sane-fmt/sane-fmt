@@ -14,7 +14,7 @@ pub type Act<'a> = Box<dyn Fn(&Path) + 'a>;
 pub fn get<'a>(details: DetailLevel, hide_passed: bool, theme: &'a BoxedColorScheme) -> Act {
     let print_name = move |path: &Path| {
         let message = format!("🗸 {}", path.to_string_lossy());
-        println!("{}", theme.passed().paint(message));
+        println!("{}", theme.same().paint(message));
     };
     match (details, hide_passed) {
         (Count, _) | (_, true) => Box::new(|_| ()),
