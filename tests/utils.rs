@@ -175,3 +175,14 @@ pub fn assert_trimmed_str_eq(a: &str, b: &str) {
         trim_trailing_whitespaces(b).as_str(),
     );
 }
+
+pub fn assert_same_trimmed_lines(a: &str, b: &str) {
+    fn sort_lines(text: &str) -> String {
+        let trimmed = trim_trailing_whitespaces(text);
+        let mut vec = trimmed.split("\n").collect::<Vec<_>>();
+        vec.sort();
+        vec.join("\n")
+    }
+
+    assert_str_eq(sort_lines(a).as_str(), sort_lines(b).as_str());
+}
