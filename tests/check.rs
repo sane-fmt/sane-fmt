@@ -18,6 +18,11 @@ fn show_skipped_details_diff() {
         u8v_to_utf8(&output.stdout),
         include_str!("./expected-output/show-skipped-details-diff.stdout.txt"),
     );
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stderr),
+        include_str!("./expected-output/stderr.txt"),
+    );
+    assert_eq!(output.status.success(), false);
 }
 
 #[test]
@@ -36,6 +41,11 @@ fn show_skipped_details_name() {
         u8v_to_utf8(&output.stdout),
         include_str!("./expected-output/show-skipped-details-name.stdout.txt"),
     );
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stderr),
+        include_str!("./expected-output/stderr.txt"),
+    );
+    assert_eq!(output.status.success(), false);
 }
 
 #[test]
@@ -52,6 +62,11 @@ fn hide_skipped_details_diff() {
         u8v_to_utf8(&output.stdout),
         include_str!("./expected-output/hide-skipped-details-diff.stdout.txt"),
     );
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stderr),
+        include_str!("./expected-output/stderr.txt"),
+    );
+    assert_eq!(output.status.success(), false);
 }
 
 #[test]
@@ -68,6 +83,11 @@ fn hide_skipped_details_name() {
         u8v_to_utf8(&output.stdout),
         include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
     );
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stderr),
+        include_str!("./expected-output/stderr.txt"),
+    );
+    assert_eq!(output.status.success(), false);
 }
 
 #[test]
@@ -84,4 +104,9 @@ fn details_count() {
         u8v_to_utf8(&output.stdout),
         "SUMMARY: scanned 9; found 4; skipped 3\n",
     );
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stderr),
+        include_str!("./expected-output/stderr.txt"),
+    );
+    assert_eq!(output.status.success(), false);
 }
