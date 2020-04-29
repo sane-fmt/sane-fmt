@@ -34,3 +34,23 @@ fn color_match_non_color() {
     // But different in bytes
     assert_ne!(&with_color, &without_color);
 }
+
+#[test]
+fn without_color() {
+    let output = Exe::workspace()
+        .mut_cmd(|cmd| {
+            cmd.arg("--show-skipped")
+                .arg("--details=diff")
+                .arg("--color=never");
+        })
+        .cmd
+        .output()
+        .expect("spawn command without color");
+
+    fn test(text: &Vec<u8>) {
+        assert_eq!(&strip_ansi(text).unwrap(), text);
+    }
+
+    test(&output.stdout);
+    test(&output.stderr);
+}
