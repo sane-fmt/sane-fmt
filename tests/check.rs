@@ -5,12 +5,10 @@ pub use utils::*;
 #[test]
 fn show_skipped_details_diff() {
     let output = Exe::workspace()
-        .mut_cmd(|cmd| {
-            cmd.arg("--show-skipped")
-                .arg("--details=diff")
-                .arg("--color=never");
-        })
         .cmd
+        .arg("--show-skipped")
+        .arg("--details=diff")
+        .arg("--color=never")
         .output()
         .expect("spawn command without color");
 
@@ -28,12 +26,10 @@ fn show_skipped_details_diff() {
 #[test]
 fn show_skipped_details_name() {
     let output = Exe::workspace()
-        .mut_cmd(|cmd| {
-            cmd.arg("--show-skipped")
-                .arg("--details=name")
-                .arg("--color=never");
-        })
         .cmd
+        .arg("--show-skipped")
+        .arg("--details=name")
+        .arg("--color=never")
         .output()
         .expect("spawn command without color");
 
@@ -51,10 +47,9 @@ fn show_skipped_details_name() {
 #[test]
 fn hide_skipped_details_diff() {
     let output = Exe::workspace()
-        .mut_cmd(|cmd| {
-            cmd.arg("--details=diff").arg("--color=never");
-        })
         .cmd
+        .arg("--details=diff")
+        .arg("--color=never")
         .output()
         .expect("spawn command without color");
 
@@ -72,10 +67,9 @@ fn hide_skipped_details_diff() {
 #[test]
 fn hide_skipped_details_name() {
     let output = Exe::workspace()
-        .mut_cmd(|cmd| {
-            cmd.arg("--details=name").arg("--color=never");
-        })
         .cmd
+        .arg("--details=name")
+        .arg("--color=never")
         .output()
         .expect("spawn command without color");
 
@@ -93,10 +87,9 @@ fn hide_skipped_details_name() {
 #[test]
 fn details_count() {
     let output = Exe::workspace()
-        .mut_cmd(|cmd| {
-            cmd.arg("--details=count").arg("--color=never");
-        })
         .cmd
+        .arg("--details=count")
+        .arg("--color=never")
         .output()
         .expect("spawn command without color");
 
@@ -114,12 +107,10 @@ fn details_count() {
 #[test]
 fn colored() {
     let output = Exe::workspace()
-        .mut_cmd(|cmd| {
-            cmd.arg("--show-skipped")
-                .arg("--details=diff")
-                .arg("--color=always");
-        })
         .cmd
+        .arg("--show-skipped")
+        .arg("--details=diff")
+        .arg("--color=always")
         .output()
         .expect("spawn command without color");
 
