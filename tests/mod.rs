@@ -16,6 +16,7 @@ fn color_match_non_color() {
         .output()
         .expect("spawn command with color")
         .stdout;
+
     let without_color = Exe::workspace()
         .mut_cmd(|cmd| {
             cmd.arg("--show-skipped")
