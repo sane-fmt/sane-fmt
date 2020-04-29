@@ -39,12 +39,42 @@ fn show_skipped_details_name() {
 }
 
 #[test]
-fn show_skipped_details_count() {
+fn hide_skipped_details_diff() {
     let output = Exe::workspace()
         .mut_cmd(|cmd| {
-            cmd.arg("--show-skipped")
-                .arg("--details=count")
-                .arg("--color=never");
+            cmd.arg("--details=diff").arg("--color=never");
+        })
+        .cmd
+        .output()
+        .expect("spawn command without color");
+
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stdout),
+        include_str!("./expected-output/hide-skipped-details-diff.stdout.txt"),
+    );
+}
+
+#[test]
+fn hide_skipped_details_name() {
+    let output = Exe::workspace()
+        .mut_cmd(|cmd| {
+            cmd.arg("--details=name").arg("--color=never");
+        })
+        .cmd
+        .output()
+        .expect("spawn command without color");
+
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stdout),
+        include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
+    );
+}
+
+#[test]
+fn details_count() {
+    let output = Exe::workspace()
+        .mut_cmd(|cmd| {
+            cmd.arg("--details=count").arg("--color=never");
         })
         .cmd
         .output()

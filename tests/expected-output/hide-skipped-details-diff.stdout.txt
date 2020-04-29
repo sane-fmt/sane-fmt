@@ -1,0 +1,43 @@
+✗ tests/fixtures/incorrect/b.ts
+  -export const name = "b";
+  -
+  +export const name = 'b'
+  +
+✗ tests/fixtures/incorrect/a.ts
+  -export const name = "a";
+  -
+  +export const name = 'a'
+  +
+✗ tests/fixtures/incorrect/c.js
+  -export const name = "c";
+  -
+  +export const name = 'c'
+  +
+✗ tests/fixtures/incorrect/multiple-lines.ts
+   export const a = 'correct'
+   export const b = 'correct'
+  -export const c = "incorrect"
+  +export const c = 'incorrect'
+   export const d = 'correct'
+  -export const e = "incorrect";
+  -export const f =   'incorrect'
+  +export const e = 'incorrect'
+  +export const f = 'incorrect'
+   export const g = 'correct'
+   
+   interface Func {
+  -  (x: number): number;
+  +  (x: number): number
+   }
+   
+  -export function func (): Func {
+  +export function func(): Func {
+     return x => x * x
+   }
+   
+🗸 tests/fixtures/correct/arrow-parens.ts
+🗸 tests/fixtures/correct/b.ts
+🗸 tests/fixtures/correct/a.ts
+🗸 tests/fixtures/correct/c.js
+🗸 tests/fixtures/correct/arrow-parens.js
+SUMMARY: scanned 9; found 4; skipped 3
