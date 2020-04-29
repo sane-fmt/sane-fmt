@@ -1,12 +1,11 @@
 #![cfg(test)]
 use ansi_term::{Color, Style};
 use difference::{Changeset, Difference};
-use fs_extra::dir::{copy as copy_dir, CopyOptions};
 use std::{
     ffi::OsStr,
     fmt::Write,
     path::{Path, PathBuf},
-    process::{Child as ChildProcess, Command},
+    process::{Child as ChildProcess, Command, Output as CommandOutput},
 };
 use tempfile as tmp;
 
@@ -63,7 +62,10 @@ impl Exe {
             .tempdir()
             .unwrap()
             .into_path();
-        abs_copy_dir(fixtures(), temp_dir.join("fixtures"));
+        abs_copy_dir(
+            &fixtures().to_string_lossy(),
+            &temp_dir.join("fixtures").to_string_lossy(),
+        );
         Self::new(&temp_dir)
     }
 
@@ -78,16 +80,32 @@ impl Exe {
 }
 
 /// Copy directory recursively without room for errors
-pub fn abs_copy_dir<Src, Dst>(source: Src, destination: Dst)
-where
-    Src: AsRef<Path>,
-    Dst: AsRef<Path>,
-{
-    let mut options = CopyOptions::new();
-    options.overwrite = true;
-    copy_dir(source, destination, &options)
-        .map_err(|error| format!("Failed to copy directory: {}", error))
-        .unwrap();
+pub fn abs_copy_dir(source: &str, destination: &str) {
+    // I have attempted to use libraries such as fs_extra::dir::copy and
+    // copy_dir::copy_dir but none of them can handle symbolic link.
+    // For this reason, I will just use the cp command.
+
+    let output = Command::new("cp")
+        .arg("--recursive")
+        .arg("--no-dereference")
+        .arg(source)
+        .arg(destination)
+        .output()
+        .expect("spawn cp command");
+
+    let CommandOutput {
+        status,
+        stdout,
+        stderr,
+    } = output;
+
+    if !status.success() {
+        let mut text = format!("Failed to copy {} to {}", &source, &destination);
+        writeln!(text, "STATUS: {}\n", status.code().unwrap()).unwrap();
+        writeln!(text, "STDOUT:\n{}\n", u8v_to_utf8(&stdout)).unwrap();
+        writeln!(text, "STDERR:\n{}\n", u8v_to_utf8(&stderr)).unwrap();
+        panic!(text);
+    }
 }
 
 /// Assert two strings are equal.
