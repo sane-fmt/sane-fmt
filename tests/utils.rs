@@ -1,9 +1,9 @@
 #![cfg(test)]
 use copy_dir::copy_dir;
 use difference::{Changeset, Difference};
-use std::fmt::Write;
 use std::{
     ffi::OsStr,
+    fmt::Write,
     path::{Path, PathBuf},
     process::{Child as ChildProcess, Command},
 };
@@ -119,4 +119,9 @@ pub fn assert_str_eq(a: &str, b: &str) {
     }
 
     panic!("strings are not equal:\n{}", diff_text);
+}
+
+/// Convert a vector of bytes to UTF-8 string
+pub fn u8v_to_utf8(u8v: &Vec<u8>) -> &str {
+    std::str::from_utf8(u8v).expect("convert a vector of bytes to UTF-8 string")
 }
