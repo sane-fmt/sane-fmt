@@ -44,7 +44,7 @@ fn main() -> Result<(), String> {
     };
 
     let log_scan = act::log_scan::get(opt.color);
-    let log_skip = act::log_skip::get(opt.details, &theme);
+    let log_skip = act::log_skip::get(opt.details, opt.show_skipped, &theme);
     let log_same = act::log_same::get(opt.details, opt.hide_passed, &theme);
     let log_diff = act::log_diff::get(opt.details, &theme);
     let may_write = act::may_write::get(opt.write);
