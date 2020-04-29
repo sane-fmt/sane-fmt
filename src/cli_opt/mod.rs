@@ -17,6 +17,10 @@ pub struct CliOpt {
     #[structopt(long, default_value = "name")]
     pub details: DetailLevel,
 
+    /// Do not log passed filenames
+    #[structopt(long)]
+    pub hide_passed: bool,
+
     /// When to use terminal color
     /// [possible values: auto, never, always]
     #[structopt(long, default_value = "auto")]
