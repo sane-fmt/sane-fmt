@@ -7,7 +7,7 @@
   * [x] ANSI color
   * [x] Refactor: `color.rs` should return `Style` directly
   * [x] Use symbols or emoji for log indicators
-  * [ ] Diff should have color
+  * [x] Diff should have color
   * [x] Log passed files (green)
   * [x] Use actual color for logs (red, green, dim)
 * [ ] CI

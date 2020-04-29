@@ -12,7 +12,7 @@ pub type Act<'a> = Box<dyn Fn(&Path, &str, &str) + 'a>;
 /// * If `--details=count`, the returning function would do nothing.
 /// * If `--details=name`, the returning function would log names.
 /// * If `--details=diff`, the returning function would log names and diffs.
-pub fn get<'a>(details: DetailLevel, theme: &'a BoxedColorScheme) -> Act {
+pub fn get(details: DetailLevel, theme: &BoxedColorScheme) -> Act {
     let print_name = move |path: &Path| {
         let message = format!("✗ {}", path.to_string_lossy());
         println!("{}", theme.diff().paint(message));
@@ -22,7 +22,7 @@ pub fn get<'a>(details: DetailLevel, theme: &'a BoxedColorScheme) -> Act {
         Name => Box::new(move |path, _, _| print_name(path)),
         Diff => Box::new(move |path, old, new| {
             print_name(path);
-            for line in diff_lines(old, new) {
+            for line in diff_lines(old, new, theme) {
                 println!("{}", line);
             }
         }),

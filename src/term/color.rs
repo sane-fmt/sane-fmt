@@ -7,6 +7,9 @@ pub trait ColorScheme {
     fn skip_name(&self) -> Style;
     fn same(&self) -> Style;
     fn diff(&self) -> Style;
+    fn diff_line_same(&self) -> Style;
+    fn diff_line_add(&self) -> Style;
+    fn diff_line_rem(&self) -> Style;
 }
 
 /// Scheme of no color
@@ -25,6 +28,15 @@ impl ColorScheme for ColorlessScheme {
         Style::new()
     }
     fn diff(&self) -> Style {
+        Style::new()
+    }
+    fn diff_line_same(&self) -> Style {
+        Style::new()
+    }
+    fn diff_line_add(&self) -> Style {
+        Style::new()
+    }
+    fn diff_line_rem(&self) -> Style {
         Style::new()
     }
 }
@@ -46,6 +58,15 @@ impl ColorScheme for ColorfulScheme {
     }
     fn diff(&self) -> Style {
         Color::Red.into()
+    }
+    fn diff_line_same(&self) -> Style {
+        Style::default().dimmed()
+    }
+    fn diff_line_add(&self) -> Style {
+        Color::RGB(0, 127, 0).into()
+    }
+    fn diff_line_rem(&self) -> Style {
+        Color::RGB(127, 0, 0).into()
     }
 }
 

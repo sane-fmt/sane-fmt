@@ -1,5 +1,6 @@
+use super::term::color::BoxedColorScheme;
 pub use difference::Changeset as Diff;
-use difference::Difference::*;
+use difference::Difference::{self, *};
 
 /// Calculate changeset of two strings.
 pub fn diff(old: &String, new: &String) -> Diff {
@@ -7,14 +8,21 @@ pub fn diff(old: &String, new: &String) -> Diff {
 }
 
 /// Emit printable lines of diff.
-pub fn diff_lines(old: &str, new: &str) -> impl Iterator<Item = String> {
-    let old_r = &old.to_owned();
-    let new_r = &new.to_owned();
-    diff(old_r, new_r).diffs.into_iter().map(|diff| match diff {
-        Same(line) => add_prefix(line, "   "),
-        Add(line) => add_prefix(line, "  +"),
-        Rem(line) => add_prefix(line, "  -"),
-    })
+pub fn diff_lines<'a>(
+    old: &str,
+    new: &str,
+    theme: &'a BoxedColorScheme,
+) -> impl Iterator<Item = String> + 'a {
+    let make_line = move |diff: Difference| match diff {
+        Same(line) => theme.diff_line_same().paint(add_prefix(line, "   ")),
+        Add(line) => theme.diff_line_add().paint(add_prefix(line, "  +")),
+        Rem(line) => theme.diff_line_rem().paint(add_prefix(line, "  -")),
+    };
+    diff(&old.to_owned(), &new.to_owned())
+        .diffs
+        .into_iter()
+        .map(make_line)
+        .map(|line| format!("{}", line))
 }
 
 /// Add prefix to every line in a string.
