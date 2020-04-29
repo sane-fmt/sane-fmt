@@ -32,7 +32,7 @@ pub struct Exe {
 
 impl Exe {
     /// Create a wrapper with specified working directory
-    fn new<S: AsRef<OsStr> + ?Sized>(wdir_ref: &S) -> Self {
+    pub fn new<S: AsRef<OsStr> + ?Sized>(wdir_ref: &S) -> Self {
         let mut cmd = Command::new(EXE);
         let wdir = Path::new(wdir_ref).to_path_buf();
         cmd.current_dir(&wdir);
@@ -40,7 +40,7 @@ impl Exe {
     }
 
     /// Run the command
-    fn run(&mut self) -> ChildProcess {
+    pub fn run(&mut self) -> ChildProcess {
         self.cmd
             .spawn()
             .map_err(|error| format!("Failed to execute main command: {}", error))
@@ -48,12 +48,12 @@ impl Exe {
     }
 
     /// Use workspace directory as working directory
-    fn workspace() -> Self {
+    pub fn workspace() -> Self {
         Exe::new(WORKSPACE)
     }
 
     /// Use a temporary directory as working directory
-    fn temp() -> Self {
+    pub fn temp() -> Self {
         let temp_dir = tmp::Builder::new()
             .prefix(TEMP_PREFIX)
             .suffix(TEMP_SUFFIX)
