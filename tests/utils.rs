@@ -45,4 +45,6 @@ impl Exe {
     fn workspace() -> Self {
         Exe::new(WORKSPACE)
     }
+
+    /// Use a temporary directory as working directory
 }
