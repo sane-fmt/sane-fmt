@@ -1,7 +1,7 @@
 #![cfg(test)]
 use ansi_term::{Color, Style};
-use copy_dir::copy_dir;
 use difference::{Changeset, Difference};
+use fs_extra::dir::{copy as copy_dir, CopyOptions};
 use std::{
     ffi::OsStr,
     fmt::Write,
@@ -83,16 +83,9 @@ where
     Src: AsRef<Path>,
     Dst: AsRef<Path>,
 {
-    let errors: Vec<std::io::Error> = copy_dir(source, destination)
-        .map_err(|error| format!("Failed to copy recursively: {}", error))
-        .unwrap();
-    if errors.len() != 0 {
-        panic!(
-            "Failed to copy recursively: {} errors: {:?}",
-            errors.len(),
-            errors
-        );
-    }
+    let mut options = CopyOptions::new();
+    options.overwrite = true;
+    copy_dir(source, destination, &options).expect("copy directory recursively");
 }
 
 /// Assert two strings are equal.
