@@ -1,10 +1,5 @@
 pub use ansi_term::Style;
 
-/// Define a single color
-pub trait Color {
-    fn paint(&self, text: &str) -> String;
-}
-
 /// Define a scheme of color
 pub trait ColorScheme {
     fn scan(&self) -> Style;
