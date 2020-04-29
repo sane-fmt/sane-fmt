@@ -45,6 +45,7 @@ fn main() -> Result<(), String> {
 
     let log_scan = act::log_scan::get(opt.color);
     let log_skip = act::log_skip::get(opt.details, &theme);
+    let log_passed = act::log_passed::get(opt.details, &theme);
     let log_find = act::log_find::get(opt.details, &theme);
     let may_write = act::may_write::get(opt.write);
     let clear_current_line = act::may_clear_current_line::get(opt.color);
@@ -74,6 +75,8 @@ fn main() -> Result<(), String> {
             log_find(path, &file_content, &formatted);
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
+        } else {
+            log_passed(path);
         }
         file_count += 1;
     }

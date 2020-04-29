@@ -5,6 +5,7 @@ pub trait ColorScheme {
     fn scan(&self) -> Style;
     fn skip(&self) -> Style;
     fn skip_name(&self) -> Style;
+    fn passed(&self) -> Style;
     fn find(&self) -> Style;
 }
 
@@ -18,6 +19,9 @@ impl ColorScheme for ColorlessScheme {
         Style::new()
     }
     fn skip_name(&self) -> Style {
+        Style::new()
+    }
+    fn passed(&self) -> Style {
         Style::new()
     }
     fn find(&self) -> Style {
@@ -36,6 +40,9 @@ impl ColorScheme for ColorfulScheme {
     }
     fn skip_name(&self) -> Style {
         self.skip().strikethrough()
+    }
+    fn passed(&self) -> Style {
+        Color::Green.into()
     }
     fn find(&self) -> Style {
         Color::Red.into()
