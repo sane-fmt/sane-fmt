@@ -85,7 +85,9 @@ where
 {
     let mut options = CopyOptions::new();
     options.overwrite = true;
-    copy_dir(source, destination, &options).expect("copy directory recursively");
+    copy_dir(source, destination, &options)
+        .map_err(|error| format!("Failed to copy directory: {}", error))
+        .unwrap();
 }
 
 /// Assert two strings are equal.
