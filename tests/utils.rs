@@ -1,5 +1,7 @@
 #![cfg(test)]
 use copy_dir::copy_dir;
+use difference::{Changeset, Difference};
+use std::fmt::Write;
 use std::{
     ffi::OsStr,
     path::{Path, PathBuf},
@@ -90,4 +92,31 @@ where
             errors
         );
     }
+}
+
+/// Assert two strings are equal.
+/// If not, print diffs and panic.
+pub fn assert_str_eq(a: &str, b: &str) {
+    if a == b {
+        return;
+    }
+
+    let change_set = Changeset::new(a, b, "\n");
+    let mut diff_text = String::new();
+
+    let mut add_prefix = |text: String, prefix: &str| {
+        for line in text.split("\n") {
+            writeln!(&mut diff_text, "{}{}", prefix, line).expect("add a line to diff_text");
+        }
+    };
+
+    for diff in change_set.diffs {
+        match diff {
+            Difference::Same(text) => add_prefix(text, "   "),
+            Difference::Add(text) => add_prefix(text, "  +"),
+            Difference::Rem(text) => add_prefix(text, "  -"),
+        };
+    }
+
+    panic!("strings are not equal:\n{}", diff_text);
 }
