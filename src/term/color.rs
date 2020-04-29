@@ -35,7 +35,7 @@ impl ColorScheme for ColorfulScheme {
         Style::default().dimmed()
     }
     fn skip_name(&self) -> Style {
-        Style::default().dimmed().strikethrough()
+        self.skip().strikethrough()
     }
     fn find(&self) -> Style {
         Color::Red.into()
