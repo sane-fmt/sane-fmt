@@ -29,7 +29,10 @@ fn color_match_non_color() {
         .stdout;
 
     // Identical in visible content
-    assert_eq!(&strip_ansi(&with_color).unwrap(), &without_color);
+    assert_str_eq(
+        u8v_to_utf8(&strip_ansi(&with_color).unwrap()),
+        u8v_to_utf8(&without_color),
+    );
 
     // But different in bytes
     assert_ne!(&with_color, &without_color);
@@ -48,7 +51,7 @@ fn without_color() {
         .expect("spawn command without color");
 
     fn test(text: &Vec<u8>) {
-        assert_eq!(&strip_ansi(text).unwrap(), text);
+        assert_str_eq(u8v_to_utf8(&strip_ansi(text).unwrap()), u8v_to_utf8(text));
     }
 
     test(&output.stdout);
