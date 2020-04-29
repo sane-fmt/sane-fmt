@@ -120,7 +120,7 @@ pub fn assert_str_eq(a: &str, b: &str) {
 
     let mut add_prefix = |text: String, prefix: String| {
         for line in text.split("\n") {
-            writeln!(&mut diff_text, "{}{}", prefix, line).expect("add a line to diff_text");
+            writeln!(diff_text, "{}{}", prefix, line).expect("add a line to diff_text");
         }
     };
 
