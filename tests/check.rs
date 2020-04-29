@@ -110,3 +110,31 @@ fn details_count() {
     );
     assert_eq!(output.status.success(), false);
 }
+
+#[test]
+fn colored() {
+    let output = Exe::workspace()
+        .mut_cmd(|cmd| {
+            cmd.arg("--show-skipped")
+                .arg("--details=diff")
+                .arg("--color=always");
+        })
+        .cmd
+        .output()
+        .expect("spawn command without color");
+
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stdout)
+            .split("")
+            .map(|ch| match ch {
+                "\x00" => "\\0",
+                "\x1B" => "\\e",
+                "\\" => "\\",
+                _ => ch,
+            })
+            .collect::<Vec<_>>()
+            .join("")
+            .as_str(),
+        include_str!("./expected-output/colored.stdout.txt"),
+    );
+}
