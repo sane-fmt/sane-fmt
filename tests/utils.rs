@@ -4,6 +4,7 @@ use difference::{Changeset, Difference};
 use std::{
     ffi::OsStr,
     fmt::Write,
+    fs::create_dir,
     path::{Path, PathBuf},
     process::{Child as ChildProcess, Command, Output as CommandOutput},
 };
@@ -62,9 +63,11 @@ impl Exe {
             .tempdir()
             .unwrap()
             .into_path();
+        let sub_dir = temp_dir.join("tests");
+        create_dir(&sub_dir).expect("mkdir");
         abs_copy_dir(
             &fixtures().to_string_lossy(),
-            &temp_dir.join("fixtures").to_string_lossy(),
+            &sub_dir.join("fixtures").to_string_lossy(),
         );
         Self::new(&temp_dir)
     }
