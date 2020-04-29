@@ -138,8 +138,8 @@ pub fn assert_str_eq(a: &str, b: &str) {
     };
 
     let same_style = Style::new().dimmed();
-    let add_style = Color::Red.into();
-    let rem_style = Color::Green.into();
+    let add_style = Color::Green.into();
+    let rem_style = Color::Red.into();
 
     for diff in change_set.diffs {
         match diff {
