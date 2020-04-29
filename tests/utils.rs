@@ -176,6 +176,8 @@ pub fn assert_trimmed_str_eq(a: &str, b: &str) {
     );
 }
 
+/// Assert two strings have the same lines after being trimmed of trailing whitespaces.
+/// If not, print diffs and panic.
 pub fn assert_same_trimmed_lines(a: &str, b: &str) {
     fn sort_lines(text: &str) -> String {
         let trimmed = trim_trailing_whitespaces(text);
