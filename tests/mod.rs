@@ -26,5 +26,5 @@ fn color_match_non_color() {
         .output()
         .expect("spawn command without color")
         .stdout;
-    debug_assert_eq!(strip_ansi(with_color).unwrap(), without_color);
+    assert_eq!(strip_ansi(with_color).unwrap(), without_color);
 }
