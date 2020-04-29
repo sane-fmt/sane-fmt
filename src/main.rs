@@ -70,13 +70,13 @@ fn main() -> Result<(), String> {
         let formatted = fmt
             .format_text(&path.to_string_lossy(), &file_content)
             .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
-        if file_content != formatted {
+        if file_content == formatted {
+            log_passed(path);
+        } else {
             fmt_count += 1;
             log_find(path, &file_content, &formatted);
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
-        } else {
-            log_passed(path);
         }
         file_count += 1;
     }
