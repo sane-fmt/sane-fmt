@@ -24,17 +24,17 @@
   +export const e = 'incorrect'
   +export const f = 'incorrect'
    export const g = 'correct'
-   
+
    interface Func {
   -  (x: number): number;
   +  (x: number): number
    }
-   
+
   -export function func (): Func {
   +export function func(): Func {
      return x => x * x
    }
-   
+
 🗸 tests/fixtures/correct/arrow-parens.ts
 🗸 tests/fixtures/correct/b.ts
 🗸 tests/fixtures/correct/a.ts
