@@ -1,4 +1,4 @@
-pub use ansi_term::Style;
+pub use ansi_term::{Color, Style};
 
 /// Define a scheme of color
 pub trait ColorScheme {
@@ -42,10 +42,10 @@ impl ColorScheme for ColorfulScheme {
         Style::default().dimmed().strikethrough()
     }
     fn find_indicator(&self) -> Style {
-        Style::default()
+        Color::Red.into()
     }
     fn find_name(&self) -> Style {
-        Style::default().bold()
+        Color::Red.into()
     }
 }
 
