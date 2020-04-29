@@ -1,8 +1,6 @@
 #![cfg(test)]
 use std::{
-    env::temp_dir,
     ffi::OsStr,
-    fs::{copy, create_dir},
     path::{Path, PathBuf},
     process::{Child as ChildProcess, Command},
 };
