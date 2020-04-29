@@ -1,4 +1,5 @@
 #![cfg(test)]
+use copy_dir::copy_dir;
 use std::{
     ffi::OsStr,
     path::{Path, PathBuf},
@@ -60,5 +61,23 @@ impl Exe {
             .unwrap()
             .into_path();
         Self::new(&temp_dir)
+    }
+}
+
+/// Copy directory recursively without room for errors
+pub fn abs_copy_dir<Src, Dst>(source: Src, destination: Dst)
+where
+    Src: AsRef<Path>,
+    Dst: AsRef<Path>,
+{
+    let errors: Vec<std::io::Error> = copy_dir(source, destination)
+        .map_err(|error| format!("Failed to copy recursively: {}", error))
+        .unwrap();
+    if errors.len() != 0 {
+        panic!(
+            "Failed to copy recursively: {} errors: {:?}",
+            errors.len(),
+            errors
+        );
     }
 }
