@@ -140,3 +140,13 @@ pub fn assert_str_eq(a: &str, b: &str) {
 pub fn u8v_to_utf8(u8v: &Vec<u8>) -> &str {
     std::str::from_utf8(u8v).expect("convert a vector of bytes to UTF-8 string")
 }
+
+/// Trim trailing whitespaces from every line of text and trailing newlines.
+pub fn trim_trailing_whitespaces(text: &str) -> String {
+    text.split("\n")
+        .map(|line| line.trim_end())
+        .collect::<Vec<_>>()
+        .join("\n")
+        .trim_end()
+        .to_string()
+}
