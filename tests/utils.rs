@@ -6,12 +6,19 @@ use std::{
     path::{Path, PathBuf},
     process::{Child as ChildProcess, Command},
 };
+use tempfile as tmp;
 
 /// Path to main executable.
 pub const EXE: &str = env!("CARGO_BIN_EXE_sane-fmt");
 
 /// Path to manifest.
 pub const WORKSPACE: &str = env!("CARGO_MANIFEST_DIR");
+
+/// Prefix of temp dir
+pub const TEMP_PREFIX: &str = "sane-fmt-";
+
+/// Suffix of temp dir
+pub const TEMP_SUFFIX: &str = ".test.wdir";
 
 /// Get path to directory of fixtures
 pub fn fixtures() -> PathBuf {
@@ -47,4 +54,13 @@ impl Exe {
     }
 
     /// Use a temporary directory as working directory
+    fn temp() -> Self {
+        let temp_dir = tmp::Builder::new()
+            .prefix(TEMP_PREFIX)
+            .suffix(TEMP_SUFFIX)
+            .tempdir()
+            .unwrap()
+            .into_path();
+        Self::new(&temp_dir)
+    }
 }
