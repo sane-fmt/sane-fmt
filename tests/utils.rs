@@ -63,6 +63,15 @@ impl Exe {
         abs_copy_dir(fixtures(), temp_dir.join("fixtures"));
         Self::new(&temp_dir)
     }
+
+    /// Use a function to mutate cmd
+    pub fn mut_cmd<F>(&mut self, mutate: F) -> &mut Self
+    where
+        F: FnOnce(&mut Command),
+    {
+        mutate(&mut self.cmd);
+        self
+    }
 }
 
 /// Copy directory recursively without room for errors
