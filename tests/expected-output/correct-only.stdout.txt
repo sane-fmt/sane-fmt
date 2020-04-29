@@ -1,0 +1,6 @@
+🗸 tests/fixtures/correct/arrow-parens.ts
+🗸 tests/fixtures/correct/b.ts
+🗸 tests/fixtures/correct/a.ts
+🗸 tests/fixtures/correct/c.js
+🗸 tests/fixtures/correct/arrow-parens.js
+SUMMARY: scanned 5; found 0; skipped 0

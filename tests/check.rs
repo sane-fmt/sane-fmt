@@ -129,3 +129,21 @@ fn colored() {
         include_str!("./expected-output/colored.stdout.txt"),
     );
 }
+
+#[test]
+fn correct_only() {
+    let output = Exe::workspace()
+        .cmd
+        .arg("--show-skipped")
+        .arg("--details=diff")
+        .arg("--color=never")
+        .arg("tests/fixtures/correct/**/*.{ts,js}")
+        .output()
+        .expect("spawn command without color");
+    assert_trimmed_str_eq(
+        u8v_to_utf8(&output.stdout),
+        include_str!("./expected-output/correct-only.stdout.txt"),
+    );
+    assert_str_eq(u8v_to_utf8(&output.stderr), "");
+    assert_eq!(output.status.success(), true);
+}
