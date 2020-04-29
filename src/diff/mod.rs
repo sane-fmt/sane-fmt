@@ -18,7 +18,7 @@ pub fn diff_lines<'a>(
         Add(line) => theme.diff_line_add().paint(add_prefix(line, "  +")),
         Rem(line) => theme.diff_line_rem().paint(add_prefix(line, "  -")),
     };
-    diff(&old.to_owned(), &new.to_owned())
+    diff(&old.to_string(), &new.to_string())
         .diffs
         .into_iter()
         .map(make_line)

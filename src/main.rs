@@ -19,10 +19,10 @@ fn main() -> Result<(), String> {
         opt.patterns
     } else {
         vec![
-            "*.{ts,js}".to_owned(),
-            "!*.d.ts".to_owned(),
-            "!.git".to_owned(),
-            "!node_modules".to_owned(),
+            "*.{ts,js}".to_string(),
+            "!*.d.ts".to_string(),
+            "!.git".to_string(),
+            "!node_modules".to_string(),
         ]
     };
 
@@ -87,7 +87,7 @@ fn main() -> Result<(), String> {
     );
 
     if file_count == 0 {
-        return Err("No files found".to_owned());
+        return Err("No files found".to_string());
     }
 
     if !opt.write && fmt_count != 0 {
