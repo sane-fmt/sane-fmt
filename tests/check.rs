@@ -135,7 +135,7 @@ fn correct_only() {
     let output = Exe::workspace()
         .cmd
         .arg("--show-skipped")
-        .arg("--details=diff")
+        .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures/correct/**/*.{ts,js}")
         .output()
