@@ -48,16 +48,16 @@ impl ColorScheme for ColorfulScheme {
         Style::default().dimmed()
     }
     fn skip(&self) -> Style {
-        Style::default().dimmed()
+        Style::default().bold().dimmed()
     }
     fn skip_name(&self) -> Style {
         self.skip().strikethrough()
     }
     fn same(&self) -> Style {
-        Color::RGB(64, 255, 64).into()
+        Color::RGB(64, 255, 64).bold().into()
     }
     fn diff(&self) -> Style {
-        Color::RGB(255, 64, 64).into()
+        Color::RGB(255, 64, 64).bold().into()
     }
     fn diff_line_same(&self) -> Style {
         Style::default().dimmed()
