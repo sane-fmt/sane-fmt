@@ -8,18 +8,18 @@ use std::{
 };
 
 /// Path to main executable.
-const EXE: &str = env!("CARGO_BIN_EXE_sane-fmt");
+pub const EXE: &str = env!("CARGO_BIN_EXE_sane-fmt");
 
 /// Path to manifest.
-const WORKSPACE: &str = env!("CARGO_MANIFEST_DIR");
+pub const WORKSPACE: &str = env!("CARGO_MANIFEST_DIR");
 
 /// Get path to directory of fixtures
-fn fixtures() -> PathBuf {
+pub fn fixtures() -> PathBuf {
     Path::new(WORKSPACE).join("tests").join("fixtures")
 }
 
 /// Wrapper of main executable
-struct Exe {
+pub struct Exe {
     pub cmd: Command,
     pub wdir: PathBuf,
 }
