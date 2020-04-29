@@ -3,6 +3,12 @@
   -\e[0m
 \e[38;2;0;127;0m  +export const name = 'b'
   +\e[0m
+\e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/react.tsx\e[0m
+\e[38;2;127;0;0m  -export const name =
+  -"react";
+  -\e[0m
+\e[38;2;0;127;0m  +export const name = 'react'
+  +\e[0m
 \e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/a.ts\e[0m
 \e[38;2;127;0;0m  -export const name = "a";
   -\e[0m
@@ -40,7 +46,8 @@
 \e[1;2m•\e[0m \e[1;2;9mtests/fixtures/ignored/dir.js\e[0m \e[1;2m(not a file)\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.ts\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/b.ts\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/react.tsx\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/a.ts\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/c.js\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.js\e[0m
-SUMMARY: scanned 9; found 4; skipped 3
+SUMMARY: scanned 11; found 5; skipped 3

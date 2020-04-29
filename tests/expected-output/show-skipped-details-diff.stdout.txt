@@ -3,6 +3,12 @@
   -
   +export const name = 'b'
   +
+✗ tests/fixtures/incorrect/react.tsx
+  -export const name =
+  -"react";
+  -
+  +export const name = 'react'
+  +
 ✗ tests/fixtures/incorrect/a.ts
   -export const name = "a";
   -
@@ -40,7 +46,8 @@
 • tests/fixtures/ignored/dir.js (not a file)
 🗸 tests/fixtures/correct/arrow-parens.ts
 🗸 tests/fixtures/correct/b.ts
+🗸 tests/fixtures/correct/react.tsx
 🗸 tests/fixtures/correct/a.ts
 🗸 tests/fixtures/correct/c.js
 🗸 tests/fixtures/correct/arrow-parens.js
-SUMMARY: scanned 9; found 4; skipped 3
+SUMMARY: scanned 11; found 5; skipped 3

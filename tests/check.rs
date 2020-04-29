@@ -137,7 +137,7 @@ fn correct_only() {
         .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
-        .arg("tests/fixtures/correct/**/*.{ts,js}")
+        .arg("tests/fixtures/correct/**/*.{ts,js,tsx,jsx}")
         .output()
         .expect("spawn command without color");
     assert_trimmed_str_eq(

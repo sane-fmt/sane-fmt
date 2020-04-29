@@ -19,7 +19,7 @@ fn main() -> Result<(), String> {
         opt.patterns
     } else {
         vec![
-            "*.{ts,js}".to_string(),
+            "*.{ts,js,tsx,jsx}".to_string(),
             "!*.d.ts".to_string(),
             "!.git".to_string(),
             "!node_modules".to_string(),
