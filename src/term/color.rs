@@ -54,10 +54,10 @@ impl ColorScheme for ColorfulScheme {
         self.skip().strikethrough()
     }
     fn same(&self) -> Style {
-        Color::Green.into()
+        Color::RGB(64, 255, 64).into()
     }
     fn diff(&self) -> Style {
-        Color::Red.into()
+        Color::RGB(255, 64, 64).into()
     }
     fn diff_line_same(&self) -> Style {
         Style::default().dimmed()
