@@ -26,6 +26,10 @@ fn color_match_non_color() {
         .output()
         .expect("spawn command without color")
         .stdout;
+
+    // Identical in visible content
     assert_eq!(&strip_ansi(&with_color).unwrap(), &without_color);
+
+    // But different in bytes
     assert_ne!(&with_color, &without_color);
 }
