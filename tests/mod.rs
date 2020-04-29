@@ -1,2 +1,3 @@
 #![cfg(test)]
-mod utils;
+pub mod utils;
+pub use utils::*;
