@@ -150,3 +150,12 @@ pub fn trim_trailing_whitespaces(text: &str) -> String {
         .trim_end()
         .to_string()
 }
+
+/// Assert two strings are equal after being trimmed of trailing whitespaces.
+/// If not, print diffs and panic.
+pub fn assert_trimmed_str_eq(a: &str, b: &str) {
+    assert_str_eq(
+        trim_trailing_whitespaces(a).as_str(),
+        trim_trailing_whitespaces(b).as_str(),
+    );
+}
