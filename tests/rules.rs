@@ -190,3 +190,44 @@ test_rule!(
         .as_str()
     ]
 );
+
+test_rule!(
+    multi_line_union_of_multi_line_object,
+    "ts",
+    vec![
+        "export type MyUnion =",
+        "  | {",
+        "    readonly type: 0",
+        "    readonly value: number",
+        "  }",
+        "  | {",
+        "    readonly type: 1",
+        "    readonly value: string",
+        "  }",
+        "  | {",
+        "    readonly type: 2",
+        "    readonly value: symbol",
+        "  }",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
+    &vec![vec![
+        "export type MyUnion =",
+        "  {",
+        "    readonly type: 0",
+        "    readonly value: number",
+        "  }",
+        "  | {",
+        "    readonly type: 1",
+        "    readonly value: string",
+        "  }",
+        "  | {",
+        "    readonly type: 2",
+        "    readonly value: symbol",
+        "  }",
+        "",
+    ]
+    .join("\n")
+    .as_str()]
+);
