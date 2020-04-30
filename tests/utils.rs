@@ -188,3 +188,33 @@ pub fn assert_same_trimmed_lines(a: &str, b: &str) {
 
     assert_str_eq(sort_lines(a).as_str(), sort_lines(b).as_str());
 }
+
+/// Builder of a multi-line string
+pub struct MultilineString<'a>(Option<(&'a MultilineString<'a>, &'a str)>);
+
+impl<'a> MultilineString<'a> {
+    /// Begin constructing multi-line string
+    pub const fn new() -> Self {
+        Self(None)
+    }
+
+    /// Add a new line
+    pub const fn line(&'a self, line: &'a str) -> Self {
+        Self(Some((self, line)))
+    }
+
+    /// End multi-line string construction
+    pub fn get(&self) -> String {
+        self.to_string()
+    }
+}
+
+impl<'a> ToString for MultilineString<'a> {
+    fn to_string(&self) -> String {
+        if let Self(Some((acc, cur))) = self {
+            format!("{}\n{}", acc.to_string(), cur)
+        } else {
+            String::new()
+        }
+    }
+}
