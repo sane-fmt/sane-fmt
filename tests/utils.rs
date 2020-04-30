@@ -249,3 +249,15 @@ pub fn run_rule_test(
         assert!(!successful(content), "{}: unformatted", test_name);
     }
 }
+
+/// Test a rule
+#[macro_export]
+macro_rules! test_rule {
+    ($test_name:ident, $file_ext:expr, $formatted:expr, $unformatted:expr) => {
+        #[test]
+        fn $test_name() {
+            let test_name = std::stringify!($ident);
+            run_rule_test(test_name, $file_ext, $formatted, $unformatted);
+        }
+    };
+}
