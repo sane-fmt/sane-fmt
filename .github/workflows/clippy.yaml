@@ -29,9 +29,7 @@ jobs:
         with:
           path: |-
             ~/.cargo/registry
-            target/*/.*
-            target/*/build
-            target/*/deps
+            target
           key: cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             rust-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
