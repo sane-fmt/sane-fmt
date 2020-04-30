@@ -10,7 +10,7 @@ jobs:
 
     strategy:
       matrix:
-        rust: 1.43.0
+        rust: '1.43.0'
 
     steps:
       - uses: actions/checkout@v2
