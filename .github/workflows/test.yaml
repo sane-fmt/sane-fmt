@@ -60,7 +60,7 @@ jobs:
           cargo build
 
       - name: Test
-        if: "runner.os !== 'Windows'"
+        if: "runner.os != 'Windows'"
         run: cargo test
 
       - name: Setting up MSYS2
