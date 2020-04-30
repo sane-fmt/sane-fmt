@@ -1,13 +1,13 @@
 mod act;
 mod cli_opt;
 mod diff;
-mod dp_cfg;
+mod rules;
 mod term;
 
 use cli_opt::{CliOpt, DetailLevel, When};
-use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
+use rules::build_fmt;
 use std::{fs, path::Path};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
