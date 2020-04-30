@@ -95,7 +95,7 @@ fn details_count() {
 
     assert_str_eq(
         u8v_to_utf8(&output.stdout),
-        "SUMMARY: scanned 9; found 4; skipped 3\n",
+        "SUMMARY: scanned 11; found 5; skipped 3\n",
     );
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stderr),
