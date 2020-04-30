@@ -82,8 +82,11 @@ fn main() -> Result<(), String> {
     }
 
     println!(
-        "SUMMARY: scanned {}; found {}; skipped {}",
-        file_count, fmt_count, skip_count,
+        "SUMMARY: total {}; changed {}; unchanged {}; skipped {}",
+        file_count,
+        fmt_count,
+        file_count - fmt_count - skip_count,
+        skip_count,
     );
 
     if file_count == 0 {
