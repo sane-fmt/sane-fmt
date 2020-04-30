@@ -14,6 +14,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .semi_colons(SemiColons::Asi)
         .trailing_commas(TrailingCommas::OnlyMultiLine)
         .arrow_function_use_parentheses(UseParentheses::PreferNone)
+        .union_and_intersection_type_prefer_hanging(true)
 }
 
 /// Create desired configuration.
