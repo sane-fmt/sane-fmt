@@ -11,7 +11,7 @@ There shouldn't be any error as [./valid-typescript-file.ts](./valid-typescript-
 
 ## Actual behavior
 
-There is an error.
+There is an error. It prints out a different format of `MyIntersection`, which is not what I want.
 
 ## Formatting Rules
 
