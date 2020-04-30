@@ -115,5 +115,24 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![]
+    &vec![
+        vec![
+            "export type MyUnion =",
+            "  { type: 0; value: number }",
+            "  | { type: 1; value: string }",
+            "  | { type: 2; value: symbol }",
+            "",
+        ]
+        .join("\n")
+        .as_str(),
+        vec![
+            "export type MyUnion =",
+            "  { type: 0; value: number } |",
+            "  { type: 1; value: string } |",
+            "  { type: 2; value: symbol }",
+            "",
+        ]
+        .join("\n")
+        .as_str()
+    ]
 );
