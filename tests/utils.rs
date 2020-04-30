@@ -226,27 +226,42 @@ impl<'a> ToString for MultilineString<'a> {
 /// Run a rule test
 pub fn run_rule_test(
     test_name: &'static str,
-    file_ext: &str,
+    file_ext: &'static str,
     formatted: &str,
     unformatted: &Vec<&str>,
 ) {
     let file_name = format!("{}.{}", test_name, file_ext);
 
-    let successful = |content| {
+    let output = |content| {
         Exe::temp_file(file_name.as_str(), content)
             .cmd
-            .arg("--details=count")
-            .arg("--color=never")
+            .arg("--details=diff")
+            .arg("--color=auto")
             .arg(file_name.as_str())
             .output()
             .unwrap()
-            .status
-            .success()
     };
 
-    assert!(successful(formatted), "{}: formatted", test_name);
+    let test = |assert: fn(bool) -> bool, content| {
+        let CommandOutput {
+            stdout,
+            stderr,
+            status,
+        } = output(content);
+        if !assert(status.success()) {
+            panic!(
+                "{test_name}: Assertion failed.\nSTATUS: {status}\nSTDOUT:\n{stdout}\nSTDERR:\n{stderr}\n",
+                test_name = test_name,
+                status = status.code().unwrap(),
+                stdout = u8v_to_utf8(&stdout),
+                stderr = u8v_to_utf8(&stderr),
+            );
+        }
+    };
+
+    test(|x| x, formatted);
     for content in unformatted {
-        assert!(!successful(content), "{}: unformatted", test_name);
+        test(|x| !x, content);
     }
 }
 
