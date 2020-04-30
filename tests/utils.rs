@@ -4,7 +4,7 @@ use difference::{Changeset, Difference};
 use std::{
     ffi::OsStr,
     fmt::Write,
-    fs::create_dir,
+    fs::{create_dir, write as write_file},
     path::{Path, PathBuf},
     process::{Child as ChildProcess, Command, Output as CommandOutput},
 };
@@ -69,6 +69,19 @@ impl Exe {
             &fixtures().to_string_lossy(),
             &sub_dir.join("fixtures").to_string_lossy(),
         );
+        Self::new(&temp_dir)
+    }
+
+    /// Use a temporary directory of a temporary file as a working directory
+    pub fn temp_file(file_name: &str, file_content: &str) -> Self {
+        let temp_dir = tmp::Builder::new()
+            .prefix(TEMP_PREFIX)
+            .suffix(TEMP_SUFFIX)
+            .tempdir()
+            .unwrap()
+            .into_path();
+        let file_path = temp_dir.join(file_name);
+        write_file(&file_path, file_content).expect("write file");
         Self::new(&temp_dir)
     }
 
