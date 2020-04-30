@@ -68,7 +68,7 @@ fn main() -> Result<(), String> {
             .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
         clear_current_line();
         let formatted = fmt
-            .format_text(&path.to_string_lossy(), &file_content)
+            .format_text(&path.to_path_buf(), &file_content)
             .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
         if file_content == formatted {
             log_same(path);
