@@ -100,18 +100,13 @@ pub fn abs_copy_dir(source: &str, destination: &str) {
         .output()
         .expect("spawn cp command");
 
-    let CommandOutput {
-        status,
-        stdout,
-        stderr,
-    } = output;
-
-    if !status.success() {
-        let mut text = format!("Failed to copy {} to {}", &source, &destination);
-        writeln!(text, "STATUS: {}\n", status.code().unwrap()).unwrap();
-        writeln!(text, "STDOUT:\n{}\n", u8v_to_utf8(&stdout)).unwrap();
-        writeln!(text, "STDERR:\n{}\n", u8v_to_utf8(&stderr)).unwrap();
-        panic!(text);
+    if !output.status.success() {
+        panic!(
+            "Failed to copy {} to {}\n{}",
+            &source,
+            &destination,
+            visualize_command_output(&output, &Style::new()),
+        );
     }
 }
 
@@ -243,19 +238,12 @@ pub fn run_rule_test(
     };
 
     let test = |assert: fn(bool) -> bool, content| {
-        let CommandOutput {
-            stdout,
-            stderr,
-            status,
-        } = output(content);
-        if !assert(status.success()) {
-            panic!(
-                "{test_name}: Assertion failed.\nSTATUS: {status}\nSTDOUT:\n{stdout}\nSTDERR:\n{stderr}\n",
-                test_name = test_name,
-                status = status.code().unwrap(),
-                stdout = u8v_to_utf8(&stdout),
-                stderr = u8v_to_utf8(&stderr),
-            );
+        let out = output(content);
+        if !assert(out.status.success()) {
+            panic!(visualize_command_output(
+                &out,
+                &Style::new().bold().underline()
+            ));
         }
     };
 
@@ -275,4 +263,23 @@ macro_rules! test_rule {
             run_rule_test(test_name, $file_ext, $formatted, $unformatted);
         }
     };
+}
+
+/// Show status code, stdout, and stderr of a command in a pretty manner
+pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> String {
+    let mut result = format!(
+        "\n{} {}\n",
+        title_style.paint("status"),
+        output.status.code().expect("get status code")
+    );
+    let mut write_stream = |title, stream| {
+        writeln!(result, "{}", title_style.paint(title)).expect("write title");
+        for line in u8v_to_utf8(stream).split("\n") {
+            let line = line.replace("\r", "\r  "); // make sure "\r" does not delete indentation
+            writeln!(result, "{}", line).expect("write line");
+        }
+    };
+    write_stream("stdout", &output.stdout);
+    write_stream("stderr", &output.stderr);
+    result
 }
