@@ -59,7 +59,7 @@ jobs:
           cargo update
           cargo build
 
-      - name: Test
+      - name: Test on Unix
         if: runner.os != 'Windows'
         run: cargo test
 
@@ -70,6 +70,6 @@ jobs:
           path-type: inherit
           update: true
 
-      - name: Test
+      - name: Test on Windows
         if: runner.os == 'Windows'
         run: msys2do cargo test
