@@ -106,6 +106,11 @@ test_rule!(
         "  | { type: 1; value: string }",
         "  | { type: 2; value: symbol }",
         "",
+        "type MyIntersection =",
+        "  & { a: number }",
+        "  & { b: number }",
+        "  & { c: number }",
+        "",
     ]
     .join("\n")
     .as_str(),
