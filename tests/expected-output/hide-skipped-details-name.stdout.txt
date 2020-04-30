@@ -9,4 +9,4 @@
 🗸 tests/fixtures/correct/a.ts
 🗸 tests/fixtures/correct/c.js
 🗸 tests/fixtures/correct/arrow-parens.js
-SUMMARY: scanned 11; found 5; skipped 3
+SUMMARY: total 11; changed 5; unchanged 3; skipped 3

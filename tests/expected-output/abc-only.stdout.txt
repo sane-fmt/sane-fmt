@@ -4,4 +4,4 @@
 🗸 tests/fixtures/correct/b.ts
 🗸 tests/fixtures/correct/a.ts
 🗸 tests/fixtures/correct/c.js
-SUMMARY: scanned 6; found 3; skipped 0
+SUMMARY: total 6; changed 3; unchanged 3; skipped 0

@@ -50,4 +50,4 @@
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/a.ts\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/c.js\e[0m
 \e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.js\e[0m
-SUMMARY: scanned 11; found 5; skipped 3
+SUMMARY: total 11; changed 5; unchanged 3; skipped 3
