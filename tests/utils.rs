@@ -222,3 +222,30 @@ impl<'a> ToString for MultilineString<'a> {
         }
     }
 }
+
+/// Run a rule test
+pub fn run_rule_test(
+    test_name: &'static str,
+    file_ext: &str,
+    formatted: &str,
+    unformatted: &Vec<&str>,
+) {
+    let file_name = format!("{}.{}", test_name, file_ext);
+
+    let successful = |content| {
+        Exe::temp_file(file_name.as_str(), content)
+            .cmd
+            .arg("--details=count")
+            .arg("--color=never")
+            .arg(file_name.as_str())
+            .output()
+            .unwrap()
+            .status
+            .success()
+    };
+
+    assert!(successful(formatted), "{}: formatted", test_name);
+    for content in unformatted {
+        assert!(!successful(content), "{}: unformatted", test_name);
+    }
+}
