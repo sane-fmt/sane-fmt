@@ -8,12 +8,24 @@ use cli_opt::{CliOpt, DetailLevel, When};
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
 use rules::build_fmt;
-use std::{fs, path::Path};
+use std::{env::args, fs, path::Path};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
     use structopt::*;
-    let opt: CliOpt = CliOpt::from_args();
+    let opt = match CliOpt::from_iter_safe(args()) as Result<CliOpt, clap::Error> {
+        Ok(value) => value,
+        Err(clap::Error { kind, message, .. }) => match kind {
+            clap::ErrorKind::HelpDisplayed | clap::ErrorKind::VersionDisplayed => {
+                println!("{}", message);
+                return Ok(());
+            }
+            _ => {
+                println!("{}", message);
+                std::process::exit(1);
+            }
+        },
+    };
 
     let patterns = &if opt.patterns.len() != 0 {
         opt.patterns
