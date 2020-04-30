@@ -45,6 +45,7 @@ fn main() -> Result<(), String> {
         .collect();
 
     // TODO: Faster algorithm without unpredictable file order
+    // Alternatively, abandon glob altogether, relies on arguments provided by shell instead
     walker.sort_by(|a, b| {
         let stringify = |entry: &Result<globwalk::DirEntry, _>| -> String {
             if let Ok(entry) = entry {
