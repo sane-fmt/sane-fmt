@@ -33,7 +33,7 @@ fn main() -> Result<(), String> {
         .into_iter();
 
     let mut file_count = 0;
-    let mut fmt_count = 0;
+    let mut diff_count = 0;
     let mut skip_count = 0;
     let fmt = build_fmt();
 
@@ -73,7 +73,7 @@ fn main() -> Result<(), String> {
         if file_content == formatted {
             log_same(path);
         } else {
-            fmt_count += 1;
+            diff_count += 1;
             log_diff(path, &file_content, &formatted);
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
@@ -84,8 +84,8 @@ fn main() -> Result<(), String> {
     println!(
         "SUMMARY: total {}; changed {}; unchanged {}; skipped {}",
         file_count,
-        fmt_count,
-        file_count - fmt_count - skip_count,
+        diff_count,
+        file_count - diff_count - skip_count,
         skip_count,
     );
 
@@ -93,8 +93,8 @@ fn main() -> Result<(), String> {
         return Err("No files found".to_string());
     }
 
-    if !opt.write && fmt_count != 0 {
-        return Err(format!("There are {} unformatted files", fmt_count));
+    if !opt.write && diff_count != 0 {
+        return Err(format!("There are {} unformatted files", diff_count));
     }
 
     Ok(())
