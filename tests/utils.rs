@@ -210,10 +210,10 @@ impl<'a> MultilineString<'a> {
 
 impl<'a> ToString for MultilineString<'a> {
     fn to_string(&self) -> String {
-        if let Self(Some((acc, cur))) = self {
-            format!("{}\n{}", acc.to_string(), cur)
-        } else {
-            String::new()
+        match self.0 {
+            None => String::new(),
+            Some((Self(None), cur)) => cur.to_string(),
+            Some((acc, cur)) => format!("{}\n{}", acc.to_string(), cur),
         }
     }
 }
