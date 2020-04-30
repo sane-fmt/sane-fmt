@@ -17,7 +17,7 @@ There is an error. It prints out a different format of `MyIntersection`, which i
 
 I use `dprint-typescript-plugin` only (without `dprint-core`).
 
-The formatting rules in located in `fn modify` of [rules/mod.rs:10-18](./src/rules/mod.rs#L10-18).
+The formatting rules in located in `fn modify` of [rules/mod.rs:10-18](./src/rules/mod.rs#L10-L18).
 
 ## About this repo
 
