@@ -60,4 +60,16 @@ jobs:
           cargo build
 
       - name: Test
+        if: runner.os !== 'Windows'
         run: cargo test
+
+      - name: Setting up MSYS2
+        if: runner.os == 'Windows'
+        uses: numworks/setup-msys2@v1
+        with:
+          path-type: inherit
+          update: true
+
+      - name: Test
+        if: runner.os == 'Windows'
+        run: msys2do cargo test
