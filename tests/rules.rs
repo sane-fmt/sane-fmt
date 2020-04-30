@@ -117,6 +117,33 @@ test_rule!(
 );
 
 test_rule!(
+    object_literal_type,
+    "ts",
+    vec![
+        "export type MyObject = {",
+        "  readonly a: number",
+        "  readonly b: string",
+        "  c: number",
+        "  d: string",
+        "}",
+        ""
+    ]
+    .join("\n")
+    .as_str(),
+    &vec![vec![
+        "export type MyObject = {",
+        "  readonly a: number;",
+        "  readonly b: string;",
+        "  c: number;",
+        "  d: string;",
+        "}",
+        ""
+    ]
+    .join("\n")
+    .as_str()]
+);
+
+test_rule!(
     separator_between_properties_of_inline_object_literal_type,
     "ts",
     // NOTE: I actually prefer commas, but I have yet find the config key
