@@ -10,6 +10,12 @@ use std::{
 };
 use tempfile as tmp;
 
+/// Version of the package
+pub const VERSION: &str = env!("CARGO_PKG_VERSION");
+
+/// Name of the package
+pub const NAME: &str = env!("CARGO_PKG_NAME");
+
 /// Path to main executable.
 pub const EXE: &str = env!("CARGO_BIN_EXE_sane-fmt");
 
