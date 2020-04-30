@@ -1,0 +1,50 @@
+name: Test
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  build_and_test:
+    name: Build and Test
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        rust: 1.43.0
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: true
+          default: true
+
+      - name: Cache rust
+        uses: actions/cache@v1
+        with:
+          path: |-
+            ~/.cargo/registry
+            target/*/.*
+            target/*/build
+            target/*/deps
+          key: cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            rust-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            rust-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Build
+        run: |
+          cargo update
+          cargo build
+
+      - name: Test
+        run: cargo test

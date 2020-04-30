@@ -1,0 +1,43 @@
+name: Clippy Check
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  clippy_check:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        rust: 1.43.0
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: clippy
+          override: true
+          default: true
+
+      - name: Cache rust
+        uses: actions/cache@v1
+        with:
+          path: |-
+            ~/.cargo/registry
+            target/*/.*
+            target/*/build
+            target/*/deps
+          key: cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            rust-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            rust-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Use clippy to lint code
+        uses: actions-rs/clippy-check@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features
