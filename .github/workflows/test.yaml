@@ -4,6 +4,11 @@ on:
   - push
   - pull_request
 
+env:
+  # Enable symbolic links on Windows
+  MSYS: winsymlinks:nativestrict
+  CYGWIN: winsymlinks:nativestrict
+
 jobs:
   build_and_test:
     name: Build and Test
@@ -21,6 +26,12 @@ jobs:
           - macos-latest
 
     steps:
+      - name: Enable symbolic link for Git on Windows
+        if: runner.os == 'Windows'
+        run: |
+          git config --global core.symlinks true
+          git config --system core.symlinks true
+
       - uses: actions/checkout@v2
 
       - uses: actions-rs/toolchain@v1
