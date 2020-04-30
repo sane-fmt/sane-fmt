@@ -38,11 +38,25 @@ fn main() -> Result<(), String> {
         ]
     };
 
-    let walker = GlobWalkerBuilder::from_patterns(".", patterns)
+    let mut walker: Vec<_> = GlobWalkerBuilder::from_patterns(".", patterns)
         .follow_links(false)
         .build()
         .map_err(|error| format!("error: {}", error))?
-        .into_iter();
+        .collect();
+
+    // TODO: Faster algorithm without unpredictable file order
+    walker.sort_by(|a, b| {
+        let stringify = |entry: &Result<globwalk::DirEntry, _>| -> String {
+            if let Ok(entry) = entry {
+                format!("{:?}", entry.path())
+            } else {
+                String::new()
+            }
+        };
+        let a = stringify(a);
+        let b = stringify(b);
+        a.cmp(&b)
+    });
 
     let mut file_count = 0;
     let mut diff_count = 0;
