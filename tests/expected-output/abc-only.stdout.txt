@@ -1,0 +1,7 @@
+✗ tests/fixtures/incorrect/b.ts
+✗ tests/fixtures/incorrect/a.ts
+✗ tests/fixtures/incorrect/c.js
+🗸 tests/fixtures/correct/b.ts
+🗸 tests/fixtures/correct/a.ts
+🗸 tests/fixtures/correct/c.js
+SUMMARY: total 6; changed 3; unchanged 3; skipped 0

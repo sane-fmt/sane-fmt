@@ -9,7 +9,11 @@ edition = "2018"
 [dependencies]
 structopt = "^0.3.14"
 globwalk = "^0.8.0"
-dprint-plugin-typescript = "^0.13.2"
+dprint-plugin-typescript = "^0.14.0"
 difference = "^2.0.0"
 relative-path = "^1.0.0"
 ansi_term = "^0.12.1"
+
+[dev-dependencies]
+tempfile = "^3.1.0"
+strip-ansi-escapes = "^0.1.0"

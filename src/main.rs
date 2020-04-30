@@ -1,28 +1,40 @@
 mod act;
 mod cli_opt;
 mod diff;
-mod dp_cfg;
+mod rules;
 mod term;
 
 use cli_opt::{CliOpt, DetailLevel, When};
-use dp_cfg::build_fmt;
 use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
-use std::{fs, path::Path};
+use rules::build_fmt;
+use std::{env::args, fs, path::Path};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
     use structopt::*;
-    let opt: CliOpt = CliOpt::from_args();
+    let opt = match CliOpt::from_iter_safe(args()) as Result<CliOpt, clap::Error> {
+        Ok(value) => value,
+        Err(clap::Error { kind, message, .. }) => match kind {
+            clap::ErrorKind::HelpDisplayed | clap::ErrorKind::VersionDisplayed => {
+                println!("{}", message);
+                return Ok(());
+            }
+            _ => {
+                println!("{}", message);
+                std::process::exit(1);
+            }
+        },
+    };
 
     let patterns = &if opt.patterns.len() != 0 {
         opt.patterns
     } else {
         vec![
-            "*.{ts,js}".to_owned(),
-            "!*.d.ts".to_owned(),
-            "!.git".to_owned(),
-            "!node_modules".to_owned(),
+            "*.{ts,js,tsx,jsx}".to_string(),
+            "!*.d.ts".to_string(),
+            "!.git".to_string(),
+            "!node_modules".to_string(),
         ]
     };
 
@@ -33,7 +45,7 @@ fn main() -> Result<(), String> {
         .into_iter();
 
     let mut file_count = 0;
-    let mut fmt_count = 0;
+    let mut diff_count = 0;
     let mut skip_count = 0;
     let fmt = build_fmt();
 
@@ -68,12 +80,12 @@ fn main() -> Result<(), String> {
             .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
         clear_current_line();
         let formatted = fmt
-            .format_text(&path.to_string_lossy(), &file_content)
+            .format_text(&path.to_path_buf(), &file_content)
             .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
         if file_content == formatted {
             log_same(path);
         } else {
-            fmt_count += 1;
+            diff_count += 1;
             log_diff(path, &file_content, &formatted);
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
@@ -82,16 +94,19 @@ fn main() -> Result<(), String> {
     }
 
     println!(
-        "SUMMARY: scanned {}; found {}; skipped {}",
-        file_count, fmt_count, skip_count,
+        "SUMMARY: total {}; changed {}; unchanged {}; skipped {}",
+        file_count,
+        diff_count,
+        file_count - diff_count - skip_count,
+        skip_count,
     );
 
     if file_count == 0 {
-        return Err("No files found".to_owned());
+        return Err("No files found".to_string());
     }
 
-    if !opt.write && fmt_count != 0 {
-        return Err(format!("There are {} unformatted files", fmt_count));
+    if !opt.write && diff_count != 0 {
+        return Err(format!("There are {} unformatted files", diff_count));
     }
 
     Ok(())

@@ -1,0 +1,33 @@
+USAGE:
+    sane-fmt [FLAGS] [OPTIONS] [patterns]...
+
+FLAGS:
+    -h, --help
+            Prints help information
+
+        --hide-passed
+            Do not log passed filenames
+
+        --show-skipped
+            Log skipped filesystem objects
+
+    -V, --version
+            Prints version information
+
+    -w, --write
+            Whether to write or check
+
+
+OPTIONS:
+        --color <color>
+            When to use terminal color [possible values: auto, never, always] [default: auto]
+
+        --details <details>
+            File diff detail [possible values: count, name, diff] [default: name]
+
+
+ARGS:
+    <patterns>...
+            Glob patterns of files to format
+
+            If none are provided, a default set of patterns will be assumed
