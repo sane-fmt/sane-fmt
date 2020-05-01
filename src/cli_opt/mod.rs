@@ -2,7 +2,7 @@ pub mod detail_level;
 pub mod when;
 
 pub use detail_level::*;
-use std::{env::args, process::exit};
+use std::{env::args, path::PathBuf, process::exit};
 use structopt::*;
 pub use when::*;
 
@@ -31,11 +31,11 @@ pub struct CliOpt {
     #[structopt(long, default_value = "auto")]
     pub color: When,
 
-    /// Glob patterns of files to format
+    /// Files to process
     ///
-    /// If none are provided, a default set of patterns will be assumed
-    #[structopt(name = "patterns")]
-    pub patterns: Vec<String>,
+    /// If none are provided, a default set of files will be assumed
+    #[structopt(name = "files")]
+    pub files: Vec<PathBuf>,
 }
 
 impl CliOpt {
