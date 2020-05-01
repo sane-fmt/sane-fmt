@@ -116,9 +116,19 @@ pub fn abs_copy_dir(source: &str, destination: &str) {
     }
 }
 
+/// Convert all newlines (be it LF or CRLF) to LF
+pub fn normalize_line_ending(text: &str) -> String {
+    text.lines().collect::<Vec<_>>().join("\n")
+}
+
 /// Assert two strings are equal.
 /// If not, print diffs and panic.
 pub fn assert_str_eq(a: &str, b: &str) {
+    let a = normalize_line_ending(a);
+    let a = a.as_str();
+    let b = normalize_line_ending(b);
+    let b = b.as_str();
+
     if a == b {
         return;
     }
@@ -131,7 +141,7 @@ pub fn assert_str_eq(a: &str, b: &str) {
     }
 
     let mut make_lines = |text: String, prefix: &str, style: &Style| {
-        for line in text.split('\n') {
+        for line in text.lines() {
             writeln!(
                 diff_text,
                 "{}{}",
@@ -164,7 +174,7 @@ pub fn u8v_to_utf8(u8v: &[u8]) -> &str {
 
 /// Trim trailing whitespaces from every line of text and trailing newlines.
 pub fn trim_trailing_whitespaces(text: &str) -> String {
-    text.split('\n')
+    text.lines()
         .map(|line| line.trim_end())
         .collect::<Vec<_>>()
         .join("\n")

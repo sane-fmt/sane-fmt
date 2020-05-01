@@ -27,7 +27,7 @@ pub fn diff_lines<'a>(
 
 /// Add prefix to every line in a string.
 fn add_prefix(text: String, prefix: &str) -> String {
-    text.split('\n')
+    text.lines()
         .map(|line| format!("{}{}", prefix, line))
         .collect::<Vec<_>>()
         .join("\n")
