@@ -11,7 +11,7 @@ pub type Act<'a> = Box<dyn Fn(&Path) + 'a>;
 /// * If `--details=count`, the returning function would do nothing.
 /// * If `--details=name`, the returning function would log names.
 /// * If `--details=diff`, the returning function would log names and diffs.
-pub fn get<'a>(details: DetailLevel, hide_passed: bool, theme: &'a BoxedColorScheme) -> Act<'a> {
+pub fn get(details: DetailLevel, hide_passed: bool, theme: &'_ BoxedColorScheme) -> Act<'_> {
     let print_name = move |path: &Path| {
         let message = format!("🗸 {}", path.to_string_lossy());
         println!("{}", theme.same().paint(message));

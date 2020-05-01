@@ -13,7 +13,7 @@ impl std::str::FromStr for When {
             "auto" => When::Auto,
             "never" => When::Never,
             "always" => When::Always,
-            _ => Err(text.to_string())?,
+            _ => return Err(text.to_string()),
         })
     }
 }
