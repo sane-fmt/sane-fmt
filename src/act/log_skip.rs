@@ -1,4 +1,5 @@
 use super::super::{term::color::*, DetailLevel};
+use path_slash::*;
 use std::path::Path;
 
 /// Lookup a function that may print skipped filesystem objects according to `--details`.
@@ -14,7 +15,7 @@ pub fn get<'a>(
     } else {
         Box::new(move |path| {
             let indicator = theme.skip().paint("•");
-            let path_str = path.to_string_lossy().to_string();
+            let path_str = path.to_slash_lossy();
             let name = theme.skip_name().paint(path_str.as_str());
             let reason = theme.skip().paint("(not a file)");
             println!("{} {} {}", indicator, name, reason);

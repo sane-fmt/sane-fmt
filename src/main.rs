@@ -6,9 +6,10 @@ mod rules;
 mod term;
 
 use cli_opt::{CliOpt, DetailLevel, When};
+use path_slash::*;
 use relative_path::RelativePath;
 use rules::build_fmt;
-use std::{fs, path::Path};
+use std::fs;
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
@@ -44,7 +45,7 @@ fn main() -> Result<(), String> {
             ref path,
             file_type: stats,
         } = item;
-        let path: &Path = &RelativePath::from_path(path)
+        let path = &RelativePath::from_path(path)
             .unwrap()
             .normalize()
             .to_path("");
@@ -56,18 +57,19 @@ fn main() -> Result<(), String> {
             continue;
         }
         let file_content = fs::read_to_string(path)
-            .map_err(|error| format!("Failed to read {:?}: {}", path, error))?;
+            .map_err(|error| format!("Failed to read {:?}: {}", path.to_slash_lossy(), error))?;
         clear_current_line();
         let formatted = fmt
             .format_text(&path.to_path_buf(), &file_content)
-            .map_err(|error| format!("Failed to parse {:?}: {}", path, error))?;
+            .map_err(|error| format!("Failed to parse {:?}: {}", path.to_slash_lossy(), error))?;
         if file_content == formatted {
             log_same(path);
         } else {
             diff_count += 1;
             log_diff(path, &file_content, &formatted);
-            may_write(path, &formatted)
-                .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
+            may_write(path, &formatted).map_err(|error| {
+                format!("failed to write to {:?}: {}", path.to_slash_lossy(), error)
+            })?;
         }
     }
 

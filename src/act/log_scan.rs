@@ -1,4 +1,5 @@
 use super::super::{term::color::*, When};
+use path_slash::*;
 use std::path::Path;
 
 /// Lookup a function that may print scanned filesystem objects according to color support.
@@ -12,7 +13,7 @@ pub fn get(color: When) -> fn(&Path) {
     } else {
         |path| {
             let theme = ColorfulScheme;
-            let message = format!("🔎 {}", path.to_string_lossy());
+            let message = format!("🔎 {}", path.to_slash_lossy());
             let styled_message = theme.scan().paint(message.as_str()).to_string();
             eprint!("{}", styled_message);
         }

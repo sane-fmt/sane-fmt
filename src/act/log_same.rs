@@ -2,6 +2,7 @@ use super::super::{
     term::color::*,
     DetailLevel::{self, *},
 };
+use path_slash::*;
 use std::path::Path;
 
 /// Log found filesystem object and maybe diff if `--details` is not `count`.
@@ -13,7 +14,7 @@ pub type Act<'a> = Box<dyn Fn(&Path) + 'a>;
 /// * If `--details=diff`, the returning function would log names and diffs.
 pub fn get(details: DetailLevel, hide_passed: bool, theme: &'_ BoxedColorScheme) -> Act<'_> {
     let print_name = move |path: &Path| {
-        let message = format!("🗸 {}", path.to_string_lossy());
+        let message = format!("🗸 {}", path.to_slash_lossy());
         println!("{}", theme.same().paint(message));
     };
     match (details, hide_passed) {

@@ -1,6 +1,7 @@
 #![cfg(test)]
 use ansi_term::{Color, Style};
 use difference::{Changeset, Difference};
+use path_slash::*;
 use std::{
     ffi::OsStr,
     fmt::Write,
@@ -72,8 +73,8 @@ impl Exe {
         let sub_dir = temp_dir.join("tests");
         create_dir(&sub_dir).expect("mkdir");
         abs_copy_dir(
-            &fixtures().to_string_lossy(),
-            &sub_dir.join("fixtures").to_string_lossy(),
+            &fixtures().to_slash_lossy(),
+            &sub_dir.join("fixtures").to_slash_lossy(),
         );
         Self::new(&temp_dir)
     }

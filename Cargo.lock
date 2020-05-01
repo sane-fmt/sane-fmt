@@ -482,6 +482,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "path-slash"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a0858af4d9136275541f4eac7be1af70add84cf356d901799b065ac1b8ff6e2f"
+
+[[package]]
 name = "percent-encoding"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -806,6 +812,7 @@ dependencies = [
  "ansi_term 0.12.1",
  "difference",
  "dprint-plugin-typescript",
+ "path-slash",
  "relative-path",
  "strip-ansi-escapes",
  "structopt",
