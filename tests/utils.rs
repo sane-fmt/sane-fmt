@@ -181,19 +181,6 @@ pub fn assert_trimmed_str_eq(a: &str, b: &str) {
     );
 }
 
-/// Assert two strings have the same lines after being trimmed of trailing whitespaces.
-/// If not, print diffs and panic.
-pub fn assert_same_trimmed_lines(a: &str, b: &str) {
-    fn sort_lines(text: &str) -> String {
-        let trimmed = trim_trailing_whitespaces(text);
-        let mut vec = trimmed.split("\n").collect::<Vec<_>>();
-        vec.sort();
-        vec.join("\n")
-    }
-
-    assert_str_eq(sort_lines(a).as_str(), sort_lines(b).as_str());
-}
-
 /// Run a rule test
 pub fn run_rule_test(
     test_name: &'static str,
