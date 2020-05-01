@@ -6,7 +6,7 @@ test_rule!(
     prefer_single_quotes,
     "ts",
     "const a = 'hello world'\n",
-    &vec!["const a = \"hello world\"\n"]
+    &["const a = \"hello world\"\n"]
 );
 
 test_rule!(
@@ -21,14 +21,14 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![]
+    &[]
 );
 
 test_rule!(
     allow_double_quotes_in_some_cases,
     "ts",
     "const a = \"'hello world'\"\n",
-    &vec!["const a = '\\'hello there\\''\n"]
+    &["const a = '\\'hello there\\''\n"]
 );
 
 test_rule!(
@@ -50,7 +50,7 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![vec![
+    &[[
         "const array = [",
         "  123,",
         "  456,",
@@ -72,21 +72,21 @@ test_rule!(
     do_not_use_parentheses_for_arrow_function_with_one_parameter,
     "js",
     "const fn = x => x * x\n",
-    &vec!["const fn = (x) => x * x\n"]
+    &["const fn = (x) => x * x\n"]
 );
 
 test_rule!(
     allow_using_parentheses_for_arrow_function_with_one_parameter_when_there_is_type,
     "ts",
     "const fn = (x: number) => x * x\n",
-    &vec![]
+    &[]
 );
 
 test_rule!(
     allow_using_parentheses_for_arrow_function_with_multiple_parameters,
     "js",
     "const fn = (a, b, c) => a * b + c\n",
-    &vec![]
+    &[]
 );
 
 test_rule!(
@@ -103,7 +103,7 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![vec![
+    &[[
         "export interface MyInterface {",
         "  readonly a: number;",
         "  readonly b: string;",
@@ -130,7 +130,7 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![vec![
+    &[vec![
         "export type MyObject = {",
         "  readonly a: number;",
         "  readonly b: string;",
@@ -148,7 +148,7 @@ test_rule!(
     "ts",
     // NOTE: I actually prefer commas, but I have yet find the config key
     "export type MyObject = { foo: number; bar: string }\n",
-    &vec![]
+    &[]
 );
 
 test_rule!(
@@ -169,7 +169,7 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![
+    &[
         vec![
             "export type MyUnion =",
             "  { type: 0; value: number }",
@@ -212,7 +212,7 @@ test_rule!(
     ]
     .join("\n")
     .as_str(),
-    &vec![vec![
+    &[vec![
         "export type MyUnion =",
         "  {",
         "    readonly type: 0",

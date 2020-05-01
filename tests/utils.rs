@@ -131,7 +131,7 @@ pub fn assert_str_eq(a: &str, b: &str) {
     }
 
     let mut make_lines = |text: String, prefix: &str, style: &Style| {
-        for line in text.split("\n") {
+        for line in text.split('\n') {
             writeln!(
                 diff_text,
                 "{}{}",
@@ -158,13 +158,13 @@ pub fn assert_str_eq(a: &str, b: &str) {
 }
 
 /// Convert a vector of bytes to UTF-8 string
-pub fn u8v_to_utf8(u8v: &Vec<u8>) -> &str {
+pub fn u8v_to_utf8(u8v: &[u8]) -> &str {
     std::str::from_utf8(u8v).expect("convert a vector of bytes to UTF-8 string")
 }
 
 /// Trim trailing whitespaces from every line of text and trailing newlines.
 pub fn trim_trailing_whitespaces(text: &str) -> String {
-    text.split("\n")
+    text.split('\n')
         .map(|line| line.trim_end())
         .collect::<Vec<_>>()
         .join("\n")
@@ -186,7 +186,7 @@ pub fn run_rule_test(
     test_name: &'static str,
     file_ext: &'static str,
     formatted: &str,
-    unformatted: &Vec<&str>,
+    unformatted: &[&str],
 ) {
     let file_name = format!("{}.{}", test_name, file_ext);
 
@@ -237,7 +237,7 @@ pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> 
     );
     let mut write_stream = |title, stream| {
         writeln!(result, "{}", title_style.paint(title)).expect("write title");
-        for line in u8v_to_utf8(stream).split("\n") {
+        for line in u8v_to_utf8(stream).split('\n') {
             let line = line.replace("\r", "\r  "); // make sure "\r" does not delete indentation
             writeln!(result, "{}", line).expect("write line");
         }
