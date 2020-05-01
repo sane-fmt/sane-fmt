@@ -21,7 +21,9 @@ fn add_files(list: &mut List, dirname: &PathBuf) -> io::Result<()> {
             }
         } else if file_type.is_file() {
             if let Some(extension) = path.extension() {
-                if EXTENSIONS.contains(&extension.to_string_lossy().to_string().as_str()) {
+                if EXTENSIONS.contains(&extension.to_string_lossy().to_string().as_str())
+                    && !path.to_string_lossy().ends_with(".d.ts")
+                {
                     list.push(Item { path, file_type });
                 }
             }
