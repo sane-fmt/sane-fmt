@@ -1,5 +1,6 @@
 mod act;
 mod cli_opt;
+mod cross_platform_path;
 mod diff;
 mod file_list;
 mod rules;
@@ -18,7 +19,11 @@ fn main() -> Result<(), String> {
     let files = if opt.files.is_empty() {
         file_list::default_files()
     } else {
-        file_list::create_list(opt.files.iter().map(Clone::clone))
+        file_list::create_list(
+            opt.files
+                .iter()
+                .map(|x| cross_platform_path::from_string(x.as_str())),
+        )
     }
     .map_err(|error| error.to_string())?;
 

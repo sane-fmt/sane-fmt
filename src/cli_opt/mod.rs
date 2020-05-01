@@ -1,10 +1,8 @@
-pub mod cross_platform_path;
 pub mod detail_level;
 pub mod when;
 
-use cross_platform_path::from_string as parse_path;
 pub use detail_level::*;
-use std::{env::args, path::PathBuf, process::exit};
+use std::{env::args, process::exit};
 use structopt::*;
 pub use when::*;
 
@@ -36,8 +34,8 @@ pub struct CliOpt {
     /// Files to process
     ///
     /// If none are provided, a default set of files will be assumed
-    #[structopt(name = "files", parse(from_str = parse_path))]
-    pub files: Vec<PathBuf>,
+    #[structopt(name = "files")]
+    pub files: Vec<String>,
 }
 
 impl CliOpt {
