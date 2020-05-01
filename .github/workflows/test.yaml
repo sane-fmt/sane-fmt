@@ -47,7 +47,7 @@ jobs:
           path: |-
             ~/.cargo/registry
             target
-          key: cargo-registry-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: rust-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             rust-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             rust-${{ matrix.rust }}-${{ runner.os }}-
