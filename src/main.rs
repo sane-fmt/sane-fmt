@@ -45,6 +45,9 @@ fn main() -> Result<(), String> {
             ref path,
             file_type: stats,
         } = item;
+        if cfg!(win32) {
+            println!("WINDOWS {:?}", path);
+        }
         let path = &RelativePath::from_path(path)
             .unwrap()
             .normalize()
