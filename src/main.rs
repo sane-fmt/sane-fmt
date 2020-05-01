@@ -28,12 +28,16 @@ fn main() -> Result<(), String> {
     .map_err(|error| error.to_string())?;
 
     if cfg!(target_os = "windows") && !opt.files.is_empty() {
-        println!("MAIN_SEPARATOR {}", std::path::MAIN_SEPARATOR,);
+        println!("MAIN_SEPARATOR {}", std::path::MAIN_SEPARATOR);
+        println!(
+            "TEST cross_platform_path::from_string => {}",
+            cross_platform_path::from_string(r"abc/def\ghi\jkl/mno").to_string_lossy(),
+        );
         for item in opt.files {
             println!("ARG {}", item);
         }
         for item in &files {
-            println!("PATH {:?} => {}", item.path, item.path.to_slash_lossy());
+            println!("PATH {:?} => {}", item.path, item.path.to_string_lossy());
         }
     }
 
