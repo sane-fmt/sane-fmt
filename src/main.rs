@@ -22,7 +22,7 @@ fn main() -> Result<(), String> {
         file_list::create_list(
             opt.files
                 .iter()
-                .map(|x| cross_platform_path::from_string(x.as_str())),
+                .map(|x| cross_platform_path::from_string(x.as_str(), '/')),
         )
     }
     .map_err(|error| error.to_string())?;
