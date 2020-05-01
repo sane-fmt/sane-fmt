@@ -42,7 +42,7 @@ jobs:
           default: true
 
       - name: Cache rust
-        uses: actions/cache@v1
+        uses: actions/cache@v1.1.2
         with:
           path: |-
             ~/.cargo/registry
