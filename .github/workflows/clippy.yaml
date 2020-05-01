@@ -24,16 +24,23 @@ jobs:
           override: true
           default: true
 
-      - name: Cache rust
+      - name: Cache Rust Cargo
         uses: actions/cache@v1.1.2
         with:
-          path: |-
-            ~/.cargo/registry
-            target
-          key: clippy-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          path: ~/.cargo
+          key: clippy-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            clippy-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            clippy-${{ matrix.rust }}-${{ runner.os }}-
+            clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        with:
+          path: target
+          key: clippy-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            clippy-build-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
