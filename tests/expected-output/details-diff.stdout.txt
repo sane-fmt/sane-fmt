@@ -6,7 +6,6 @@
 🗸 tests/fixtures/correct/react.tsx
 ✗ tests/fixtures/incorrect/a.ts
   -export const name = "a";
-  -
   +export const name = 'a'
   +
 ✗ tests/fixtures/incorrect/b.ts
@@ -35,16 +34,12 @@
   -  (x: number): number;
   +  (x: number): number
    }
-
   -export function func (): Func {
   +export function func(): Func {
      return x => x * x
    }
-
 ✗ tests/fixtures/incorrect/react.tsx
   -export const name =
   -"react";
-  -
   +export const name = 'react'
-  +
 SUMMARY: total 11; changed 5; unchanged 6; skipped 0
