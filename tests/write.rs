@@ -13,7 +13,7 @@ fn write() {
     let first_check = check_cmd.output().unwrap();
     assert_same_trimmed_lines(
         u8v_to_utf8(&first_check.stdout),
-        include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
+        include_str!("./expected-output/details-name.stdout.txt"),
     );
     assert_str_eq(
         u8v_to_utf8(&first_check.stderr),
@@ -30,7 +30,7 @@ fn write() {
         .unwrap();
     assert_same_trimmed_lines(
         u8v_to_utf8(&write_output.stdout),
-        include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
+        include_str!("./expected-output/details-name.stdout.txt"),
     );
     assert_str_eq(u8v_to_utf8(&write_output.stderr), "");
     assert_eq!(write_output.status.success(), true);

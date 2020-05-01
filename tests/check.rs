@@ -3,49 +3,7 @@ pub mod utils;
 pub use utils::*;
 
 #[test]
-fn show_skipped_details_diff() {
-    let output = Exe::workspace()
-        .cmd
-        .arg("--show-skipped")
-        .arg("--details=diff")
-        .arg("--color=never")
-        .output()
-        .expect("spawn command without color");
-
-    assert_trimmed_str_eq(
-        u8v_to_utf8(&output.stdout),
-        include_str!("./expected-output/show-skipped-details-diff.stdout.txt"),
-    );
-    assert_trimmed_str_eq(
-        u8v_to_utf8(&output.stderr),
-        include_str!("./expected-output/stderr.txt"),
-    );
-    assert_eq!(output.status.success(), false);
-}
-
-#[test]
-fn show_skipped_details_name() {
-    let output = Exe::workspace()
-        .cmd
-        .arg("--show-skipped")
-        .arg("--details=name")
-        .arg("--color=never")
-        .output()
-        .expect("spawn command without color");
-
-    assert_trimmed_str_eq(
-        u8v_to_utf8(&output.stdout),
-        include_str!("./expected-output/show-skipped-details-name.stdout.txt"),
-    );
-    assert_trimmed_str_eq(
-        u8v_to_utf8(&output.stderr),
-        include_str!("./expected-output/stderr.txt"),
-    );
-    assert_eq!(output.status.success(), false);
-}
-
-#[test]
-fn hide_skipped_details_diff() {
+fn details_diff() {
     let output = Exe::workspace()
         .cmd
         .arg("--details=diff")
@@ -55,7 +13,7 @@ fn hide_skipped_details_diff() {
 
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
-        include_str!("./expected-output/hide-skipped-details-diff.stdout.txt"),
+        include_str!("./expected-output/details-diff.stdout.txt"),
     );
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stderr),
@@ -65,7 +23,7 @@ fn hide_skipped_details_diff() {
 }
 
 #[test]
-fn hide_skipped_details_name() {
+fn details_name() {
     let output = Exe::workspace()
         .cmd
         .arg("--details=name")
@@ -75,7 +33,7 @@ fn hide_skipped_details_name() {
 
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
-        include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
+        include_str!("./expected-output/details-name.stdout.txt"),
     );
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stderr),
