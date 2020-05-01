@@ -14,10 +14,10 @@ use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 fn main() -> Result<(), String> {
     let opt = CliOpt::get();
 
-    let files = if opt.files.len() != 0 {
-        file_list::create_list(opt.files.iter().map(Clone::clone))
-    } else {
+    let files = if opt.files.is_empty() {
         file_list::default_files()
+    } else {
+        file_list::create_list(opt.files.iter().map(Clone::clone))
     }
     .map_err(|error| error.to_string())?;
 
