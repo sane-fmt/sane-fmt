@@ -21,7 +21,7 @@ fn main() -> Result<(), String> {
     }
     .map_err(|error| error.to_string())?;
 
-    let mut file_count = 0;
+    let file_count = files.len();
     let mut diff_count = 0;
     let mut skip_count = 0;
     let fmt = build_fmt();
@@ -69,7 +69,6 @@ fn main() -> Result<(), String> {
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
         }
-        file_count += 1;
     }
 
     println!(
