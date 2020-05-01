@@ -28,6 +28,7 @@ fn main() -> Result<(), String> {
     .map_err(|error| error.to_string())?;
 
     if cfg!(target_os = "windows") && !opt.files.is_empty() {
+        println!("MAIN_SEPARATOR {}", std::path::MAIN_SEPARATOR,);
         for item in opt.files {
             println!("ARG {}", item);
         }
