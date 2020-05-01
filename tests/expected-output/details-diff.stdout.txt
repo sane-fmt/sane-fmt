@@ -7,17 +7,12 @@
 ✗ tests/fixtures/incorrect/a.ts
   -export const name = "a";
   +export const name = 'a'
-  +
 ✗ tests/fixtures/incorrect/b.ts
   -export const name = "b";
-  -
   +export const name = 'b'
-  +
 ✗ tests/fixtures/incorrect/c.js
   -export const name = "c";
-  -
   +export const name = 'c'
-  +
 ✗ tests/fixtures/incorrect/multiple-lines.ts
    export const a = 'correct'
    export const b = 'correct'
