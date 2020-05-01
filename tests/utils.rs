@@ -246,3 +246,16 @@ pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> 
     write_stream("stderr", &output.stderr);
     result
 }
+
+/// Convert special characters to escaped form
+pub fn encode_ansi_text(text: &str) -> String {
+    text.split("")
+        .map(|ch| match ch {
+            "\x00" => "\\0",
+            "\x1B" => "\\e",
+            "\\" => "\\",
+            _ => ch,
+        })
+        .collect::<Vec<_>>()
+        .join("")
+}
