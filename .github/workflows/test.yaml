@@ -47,10 +47,10 @@ jobs:
           path: |-
             ~/.cargo/registry
             target
-          key: rust-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-rust-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            rust-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            rust-${{ matrix.rust }}-${{ runner.os }}-
+            test-rust-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-rust-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Build
         run: cargo build --locked
