@@ -45,7 +45,7 @@ jobs:
         uses: actions/cache@v1.1.2
         with:
           path: ~/.cargo/registry
-          key: clippy-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
@@ -54,7 +54,7 @@ jobs:
         uses: actions/cache@v1.1.2
         with:
           path: ~/.cargo/git
-          key: clippy-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
@@ -119,7 +119,7 @@ jobs:
         uses: actions/cache@v1.1.2
         with:
           path: ~/.cargo
-          key: clippy-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-
@@ -128,7 +128,7 @@ jobs:
         uses: actions/cache@v1.1.2
         with:
           path: target
-          key: clippy-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-build-${{ matrix.rust }}-${{ runner.os }}-
