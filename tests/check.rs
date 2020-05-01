@@ -9,7 +9,7 @@ fn details_diff() {
         .arg("--details=diff")
         .arg("--color=never")
         .output()
-        .expect("spawn command without color");
+        .unwrap();
 
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
@@ -29,7 +29,7 @@ fn details_name() {
         .arg("--details=name")
         .arg("--color=never")
         .output()
-        .expect("spawn command without color");
+        .unwrap();
 
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
@@ -49,7 +49,7 @@ fn details_count() {
         .arg("--details=count")
         .arg("--color=never")
         .output()
-        .expect("spawn command without color");
+        .unwrap();
 
     assert_str_eq(
         u8v_to_utf8(&output.stdout),
@@ -70,7 +70,7 @@ fn colored() {
         .arg("--details=diff")
         .arg("--color=always")
         .output()
-        .expect("spawn command without color");
+        .unwrap();
 
     assert_trimmed_str_eq(
         encode_ansi_text(u8v_to_utf8(&output.stdout)).as_str(),
@@ -89,7 +89,7 @@ fn correct_only() {
         .arg("tests/fixtures/correct/b.ts")
         .arg("tests/fixtures/correct/c.js")
         .output()
-        .expect("spawn command without color");
+        .unwrap();
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
         include_str!("./expected-output/correct-only.stdout.txt"),
