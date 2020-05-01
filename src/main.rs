@@ -31,7 +31,7 @@ fn main() -> Result<(), String> {
         println!("MAIN_SEPARATOR {}", std::path::MAIN_SEPARATOR);
         println!(
             "TEST cross_platform_path::from_string => {}",
-            cross_platform_path::from_string(r"abc/def\ghi\jkl/mno").to_string_lossy(),
+            cross_platform_path::from_string(r"abc/def\ghi\jkl/mno", '/').to_string_lossy(),
         );
         for item in opt.files {
             println!("ARG {}", item);
@@ -39,8 +39,11 @@ fn main() -> Result<(), String> {
         for item in &files {
             println!("PATH {:?} => {}", item.path, item.path.to_string_lossy());
         }
-        let a = RelativePath::from_path(&cross_platform_path::from_string(r"abc/def\ghi\jkl/mno"))
-            .map(|x| x.normalize().to_path(""));
+        let a = RelativePath::from_path(&cross_platform_path::from_string(
+            r"abc/def\ghi\jkl/mno",
+            '\\',
+        ))
+        .map(|x| x.normalize().to_path(""));
         println!("WINDOWS PATH {:?}", a);
         let a = RelativePath::from_path(&std::path::PathBuf::from("abc/def/ghi"))
             .map(|x| x.normalize().to_path(""));
