@@ -2,7 +2,8 @@ pub mod detail_level;
 pub mod when;
 
 pub use detail_level::*;
-use structopt::StructOpt;
+use std::{env::args, process::exit};
+use structopt::*;
 pub use when::*;
 
 #[derive(StructOpt, Debug)]
@@ -35,4 +36,25 @@ pub struct CliOpt {
     /// If none are provided, a default set of patterns will be assumed
     #[structopt(name = "patterns")]
     pub patterns: Vec<String>,
+}
+
+impl CliOpt {
+    /// Parse arguments from `env::args`.
+    ///
+    /// Unlike `StructOpt::from_args`, this function treat unknown flags as errors.
+    pub fn get() -> Self {
+        match Self::from_iter_safe(args()) as Result<Self, clap::Error> {
+            Ok(value) => value,
+            Err(clap::Error { kind, message, .. }) => match kind {
+                clap::ErrorKind::HelpDisplayed | clap::ErrorKind::VersionDisplayed => {
+                    println!("{}", message);
+                    exit(0);
+                }
+                _ => {
+                    println!("{}", message);
+                    exit(1);
+                }
+            },
+        }
+    }
 }
