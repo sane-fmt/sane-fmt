@@ -1,50 +1,27 @@
 mod act;
 mod cli_opt;
 mod diff;
+mod file_list;
 mod rules;
 mod term;
 
 use cli_opt::{CliOpt, DetailLevel, When};
-use globwalk::GlobWalkerBuilder;
 use relative_path::RelativePath;
 use rules::build_fmt;
-use std::{env::args, fs, path::Path};
+use std::{fs, path::Path};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
-    use structopt::*;
-    let opt = match CliOpt::from_iter_safe(args()) as Result<CliOpt, clap::Error> {
-        Ok(value) => value,
-        Err(clap::Error { kind, message, .. }) => match kind {
-            clap::ErrorKind::HelpDisplayed | clap::ErrorKind::VersionDisplayed => {
-                println!("{}", message);
-                return Ok(());
-            }
-            _ => {
-                println!("{}", message);
-                std::process::exit(1);
-            }
-        },
-    };
+    let opt = CliOpt::get();
 
-    let patterns = &if opt.patterns.len() != 0 {
-        opt.patterns
+    let files = if opt.files.len() != 0 {
+        file_list::create_list(opt.files.iter().map(Clone::clone))
     } else {
-        vec![
-            "*.{ts,js,tsx,jsx}".to_string(),
-            "!*.d.ts".to_string(),
-            "!.git".to_string(),
-            "!node_modules".to_string(),
-        ]
-    };
+        file_list::default_files()
+    }
+    .map_err(|error| error.to_string())?;
 
-    let walker = GlobWalkerBuilder::from_patterns(".", patterns)
-        .follow_links(false)
-        .build()
-        .map_err(|error| format!("error: {}", error))?
-        .into_iter();
-
-    let mut file_count = 0;
+    let file_count = files.len();
     let mut diff_count = 0;
     let mut skip_count = 0;
     let fmt = build_fmt();
@@ -62,14 +39,16 @@ fn main() -> Result<(), String> {
     let may_write = act::may_write::get(opt.write);
     let clear_current_line = act::may_clear_current_line::get(opt.color);
 
-    for res in walker {
-        let entry = res.map_err(|error| format!("Unexpected Error: {}", error))?;
-        let path: &Path = &RelativePath::from_path(entry.path())
+    for item in files {
+        let file_list::Item {
+            ref path,
+            file_type: stats,
+        } = item;
+        let path: &Path = &RelativePath::from_path(path)
             .unwrap()
             .normalize()
             .to_path("");
         log_scan(path);
-        let stats = fs::symlink_metadata(path).map_err(|error| error.to_string())?;
         if !stats.is_file() {
             clear_current_line();
             log_skip(path);
@@ -90,7 +69,6 @@ fn main() -> Result<(), String> {
             may_write(path, &formatted)
                 .map_err(|error| format!("failed to write to {:?}: {}", path, error))?;
         }
-        file_count += 1;
     }
 
     println!(

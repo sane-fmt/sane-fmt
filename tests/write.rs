@@ -11,9 +11,9 @@ fn write() {
     check_cmd.arg("--details=name").arg("--color=never");
 
     let first_check = check_cmd.output().unwrap();
-    assert_same_trimmed_lines(
+    assert_trimmed_str_eq(
         u8v_to_utf8(&first_check.stdout),
-        include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
+        include_str!("./expected-output/details-name.stdout.txt"),
     );
     assert_str_eq(
         u8v_to_utf8(&first_check.stderr),
@@ -28,15 +28,15 @@ fn write() {
         .arg("--write")
         .output()
         .unwrap();
-    assert_same_trimmed_lines(
+    assert_trimmed_str_eq(
         u8v_to_utf8(&write_output.stdout),
-        include_str!("./expected-output/hide-skipped-details-name.stdout.txt"),
+        include_str!("./expected-output/details-name.stdout.txt"),
     );
     assert_str_eq(u8v_to_utf8(&write_output.stderr), "");
     assert_eq!(write_output.status.success(), true);
 
     let second_check = check_cmd.output().unwrap();
-    assert_same_trimmed_lines(
+    assert_trimmed_str_eq(
         u8v_to_utf8(&second_check.stdout),
         include_str!("./expected-output/all-passed.stdout.txt"),
     );

@@ -1,0 +1,12 @@
+🗸 tests/fixtures/correct/a.ts
+🗸 tests/fixtures/correct/arrow-parens.js
+🗸 tests/fixtures/correct/arrow-parens.ts
+🗸 tests/fixtures/correct/b.ts
+🗸 tests/fixtures/correct/c.js
+🗸 tests/fixtures/correct/react.tsx
+✗ tests/fixtures/incorrect/a.ts
+✗ tests/fixtures/incorrect/b.ts
+✗ tests/fixtures/incorrect/c.js
+✗ tests/fixtures/incorrect/multiple-lines.ts
+✗ tests/fixtures/incorrect/react.tsx
+SUMMARY: total 11; changed 5; unchanged 6; skipped 0

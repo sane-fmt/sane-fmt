@@ -1,18 +1,18 @@
-\e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/b.ts\e[0m
-\e[38;2;127;0;0m  -export const name = "b";
-  -\e[0m
-\e[38;2;0;127;0m  +export const name = 'b'
-  +\e[0m
-\e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/react.tsx\e[0m
-\e[38;2;127;0;0m  -export const name =
-  -"react";
-  -\e[0m
-\e[38;2;0;127;0m  +export const name = 'react'
-  +\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/a.ts\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.js\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.ts\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/b.ts\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/c.js\e[0m
+\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/react.tsx\e[0m
 \e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/a.ts\e[0m
 \e[38;2;127;0;0m  -export const name = "a";
   -\e[0m
 \e[38;2;0;127;0m  +export const name = 'a'
+  +\e[0m
+\e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/b.ts\e[0m
+\e[38;2;127;0;0m  -export const name = "b";
+  -\e[0m
+\e[38;2;0;127;0m  +export const name = 'b'
   +\e[0m
 \e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/c.js\e[0m
 \e[38;2;127;0;0m  -export const name = "c";
@@ -41,13 +41,10 @@
 \e[2m     return x => x * x
    }
    \e[0m
-\e[1;2m•\e[0m \e[1;2;9mtests/fixtures/ignored/symlink.ts\e[0m \e[1;2m(not a file)\e[0m
-\e[1;2m•\e[0m \e[1;2;9mtests/fixtures/ignored/dir.ts\e[0m \e[1;2m(not a file)\e[0m
-\e[1;2m•\e[0m \e[1;2;9mtests/fixtures/ignored/dir.js\e[0m \e[1;2m(not a file)\e[0m
-\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.ts\e[0m
-\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/b.ts\e[0m
-\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/react.tsx\e[0m
-\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/a.ts\e[0m
-\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/c.js\e[0m
-\e[1;38;2;64;255;64m🗸 tests/fixtures/correct/arrow-parens.js\e[0m
-SUMMARY: total 11; changed 5; unchanged 3; skipped 3
+\e[1;38;2;255;64;64m✗ tests/fixtures/incorrect/react.tsx\e[0m
+\e[38;2;127;0;0m  -export const name =
+  -"react";
+  -\e[0m
+\e[38;2;0;127;0m  +export const name = 'react'
+  +\e[0m
+SUMMARY: total 11; changed 5; unchanged 6; skipped 0

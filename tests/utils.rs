@@ -181,19 +181,6 @@ pub fn assert_trimmed_str_eq(a: &str, b: &str) {
     );
 }
 
-/// Assert two strings have the same lines after being trimmed of trailing whitespaces.
-/// If not, print diffs and panic.
-pub fn assert_same_trimmed_lines(a: &str, b: &str) {
-    fn sort_lines(text: &str) -> String {
-        let trimmed = trim_trailing_whitespaces(text);
-        let mut vec = trimmed.split("\n").collect::<Vec<_>>();
-        vec.sort();
-        vec.join("\n")
-    }
-
-    assert_str_eq(sort_lines(a).as_str(), sort_lines(b).as_str());
-}
-
 /// Run a rule test
 pub fn run_rule_test(
     test_name: &'static str,
@@ -258,4 +245,17 @@ pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> 
     write_stream("stdout", &output.stdout);
     write_stream("stderr", &output.stderr);
     result
+}
+
+/// Convert special characters to escaped form
+pub fn encode_ansi_text(text: &str) -> String {
+    text.split("")
+        .map(|ch| match ch {
+            "\x00" => "\\0",
+            "\x1B" => "\\e",
+            "\\" => "\\",
+            _ => ch,
+        })
+        .collect::<Vec<_>>()
+        .join("")
 }
