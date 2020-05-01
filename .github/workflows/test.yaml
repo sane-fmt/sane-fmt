@@ -53,9 +53,7 @@ jobs:
             rust-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Build
-        run: |
-          cargo update
-          cargo build
+        run: cargo build --locked
 
       - name: Test on Unix
         if: runner.os != 'Windows'
