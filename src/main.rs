@@ -27,6 +27,15 @@ fn main() -> Result<(), String> {
     }
     .map_err(|error| error.to_string())?;
 
+    if cfg!(target_os = "windows") && !opt.files.is_empty() {
+        for item in opt.files {
+            println!("ARG {}", item);
+        }
+        for item in &files {
+            println!("PATH {:?} => {}", item.path, item.path.to_slash_lossy());
+        }
+    }
+
     let file_count = files.len();
     let mut diff_count = 0;
     let mut skip_count = 0;
@@ -50,9 +59,6 @@ fn main() -> Result<(), String> {
             ref path,
             file_type: stats,
         } = item;
-        if cfg!(win32) {
-            println!("WINDOWS {:?}", path);
-        }
         let path = &RelativePath::from_path(path)
             .unwrap()
             .normalize()
