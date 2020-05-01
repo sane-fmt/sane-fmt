@@ -41,14 +41,23 @@ jobs:
           override: true
           default: true
 
-      - name: Cache Rust Cargo
+      - name: Cache Rust Cargo Registry
         uses: actions/cache@v1.1.2
         with:
-          path: ~/.cargo
+          path: ~/.cargo/registry
           key: clippy-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-
+            clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.cargo/git
+          key: clippy-cargo-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
