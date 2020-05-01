@@ -1,7 +1,4 @@
-🗸 tests/fixtures/correct/arrow-parens.ts
-🗸 tests/fixtures/correct/b.ts
-🗸 tests/fixtures/correct/react.tsx
 🗸 tests/fixtures/correct/a.ts
+🗸 tests/fixtures/correct/b.ts
 🗸 tests/fixtures/correct/c.js
-🗸 tests/fixtures/correct/arrow-parens.js
-SUMMARY: total 6; changed 0; unchanged 6; skipped 0
+SUMMARY: total 3; changed 0; unchanged 3; skipped 0

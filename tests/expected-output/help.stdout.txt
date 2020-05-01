@@ -1,5 +1,5 @@
 USAGE:
-    sane-fmt [FLAGS] [OPTIONS] [patterns]...
+    sane-fmt [FLAGS] [OPTIONS] [files]...
 
 FLAGS:
     -h, --help
@@ -27,7 +27,7 @@ OPTIONS:
 
 
 ARGS:
-    <patterns>...
-            Glob patterns of files to format
+    <files>...
+            Files to process
 
-            If none are provided, a default set of patterns will be assumed
+            If none are provided, a default set of files will be assumed

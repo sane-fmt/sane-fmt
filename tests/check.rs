@@ -53,7 +53,7 @@ fn details_count() {
 
     assert_str_eq(
         u8v_to_utf8(&output.stdout),
-        "SUMMARY: total 11; changed 5; unchanged 3; skipped 3\n",
+        "SUMMARY: total 11; changed 5; unchanged 6; skipped 0\n",
     );
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stderr),
@@ -95,7 +95,9 @@ fn correct_only() {
         .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
-        .arg("tests/fixtures/correct/**/*.{ts,js,tsx,jsx}")
+        .arg("tests/fixtures/correct/a.ts")
+        .arg("tests/fixtures/correct/b.ts")
+        .arg("tests/fixtures/correct/c.js")
         .output()
         .expect("spawn command without color");
     assert_trimmed_str_eq(
