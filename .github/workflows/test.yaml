@@ -55,13 +55,19 @@ jobs:
       - name: Build
         run: cargo build --locked
 
-      - name: Install GNU utilities
+      - name: Test on Linux
+        if: runner.os == 'Linux'
+        run: cargo test
+
+      - name: Install GNU utilities for macOS
         if: runner.os == 'macOS'
         run: brew install coreutils
 
-      - name: Test on Unix
-        if: runner.os != 'Windows'
-        run: cargo test
+      - name: Test on macOS
+        if: runner.os == 'macOS'
+        run: |
+          export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+          cargo test
 
       - name: Setting up MSYS2
         if: runner.os == 'Windows'
