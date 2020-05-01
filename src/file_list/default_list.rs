@@ -14,9 +14,8 @@ fn add_files(list: &mut List, dirname: &PathBuf) -> io::Result<()> {
         let path = entry.path();
         let file_type = symlink_metadata(&path)?.file_type();
         if file_type.is_dir() {
-            let name_b = entry.file_name().to_string_lossy().to_string();
-            let name = name_b.as_str();
-            if !IGNORED_NAMES.contains(&name) {
+            let name = entry.file_name().to_string_lossy().to_string();
+            if !IGNORED_NAMES.contains(&name.as_str()) {
                 add_files(list, &dirname.join(name))?;
             }
         } else if file_type.is_file() {
