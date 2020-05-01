@@ -55,6 +55,10 @@ jobs:
       - name: Build
         run: cargo build --locked
 
+      - name: Install GNU utilities
+        if: runner.os == 'macOS'
+        run: brew install coreutils
+
       - name: Test on Unix
         if: runner.os != 'Windows'
         run: cargo test
