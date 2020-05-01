@@ -241,20 +241,31 @@ macro_rules! test_rule {
 
 /// Show status code, stdout, and stderr of a command in a pretty manner
 pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> String {
-    let mut result = format!(
-        "\n{} {}\n",
-        title_style.paint("status"),
-        output.status.code().expect("get status code")
-    );
-    let mut write_stream = |title, stream| {
+    visualize_fake_command_output(
+        output.status.code().expect("get status code"),
+        u8v_to_utf8(&output.stdout),
+        u8v_to_utf8(&output.stderr),
+        title_style,
+    )
+}
+
+/// Show status code, stdout, and stderr of a command in a pretty manner
+pub fn visualize_fake_command_output(
+    status: i32,
+    stdout: &str,
+    stderr: &str,
+    title_style: &Style,
+) -> String {
+    let mut result = format!("\n{} {}\n", title_style.paint("status"), status);
+    let mut write_stream = |title, stream: &str| {
         writeln!(result, "{}", title_style.paint(title)).expect("write title");
-        for line in u8v_to_utf8(stream).split('\n') {
+        for line in stream.split('\n') {
             let line = line.replace("\r", "\r  "); // make sure "\r" does not delete indentation
             writeln!(result, "{}", line).expect("write line");
         }
     };
-    write_stream("stdout", &output.stdout);
-    write_stream("stderr", &output.stderr);
+    write_stream("stdout", stdout);
+    write_stream("stderr", stderr);
     result
 }
 
