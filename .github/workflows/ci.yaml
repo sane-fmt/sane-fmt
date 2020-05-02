@@ -71,7 +71,7 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: clippy-build-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
             clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-build-${{ matrix.rust }}-${{ runner.os }}-
