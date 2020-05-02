@@ -153,5 +153,6 @@ jobs:
         uses: actions-rs/clippy-check@v1
         timeout-minutes: 1
         with:
+          name: clippy-report-${{ matrix.rust }}-${{ matrix.os }}
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features --all-targets -- -D warnings
