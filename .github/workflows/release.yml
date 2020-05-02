@@ -111,19 +111,6 @@ jobs:
         if: runner.os == 'Linux'
         run: ./clippy.sh
 
-  release:
-    name: Release
-
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v2.0
-
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.1
@@ -137,31 +124,34 @@ jobs:
 
       - name: Upload Linux executable
         id: upload_release_asset_linux
+        if: runner.os == 'Linux'
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Linux
+          asset_path: ./target/release/sane-fmt
           asset_name: sane-fmt-linux
           asset_content_type: application/x-pie-executable
 
       - name: Upload macOS executable
         id: upload_release_asset_macos
+        if: runner.os == 'macOS'
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-macOS
+          asset_path: ./target/sane-fmt
           asset_name: sane-fmt-macos
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
+        if: runner.os == 'Windows'
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Windows
+          asset_path: ./target/sane-fmt.exe
           asset_name: sane-fmt-windows
