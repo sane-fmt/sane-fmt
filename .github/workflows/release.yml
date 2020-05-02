@@ -143,7 +143,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-Linux
-          asset_name: sane-fmt-linux
+          asset_name: sane-fmt-linux/target/release/sane-fmt
           asset_content_type: application/x-pie-executable
 
       - name: Upload macOS executable
@@ -153,8 +153,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-macOS
+          asset_path: ./sane-fmt-macOS/target/release/sane-fmt
           asset_name: sane-fmt-macos
+          asset_content_type: application/x-pie-executable
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
@@ -163,5 +164,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Windows
+          asset_path: ./sane-fmt-Windows/target/release/sane-fmt.exe
           asset_name: sane-fmt-windows
+          asset_content_type: application/vnd.microsoft.portable-executable
