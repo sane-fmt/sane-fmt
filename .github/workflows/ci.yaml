@@ -136,6 +136,7 @@ jobs:
           restore-keys: |
             clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-
+            clippy-cargo-${{ matrix.rust }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -146,6 +147,7 @@ jobs:
           restore-keys: |
             clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             clippy-build-${{ matrix.rust }}-${{ runner.os }}-
+            clippy-build-${{ matrix.rust }}-
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
