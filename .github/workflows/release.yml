@@ -42,9 +42,6 @@ jobs:
         with:
           path: ~/.cargo/registry
           key: release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -53,9 +50,6 @@ jobs:
         with:
           path: ~/.cargo/git
           key: release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -64,9 +58,6 @@ jobs:
         with:
           path: target
           key: release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            release-build-${{ matrix.rust }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.6
         with:
