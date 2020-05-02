@@ -79,6 +79,14 @@ jobs:
       - name: Build
         run: cargo build --locked --release
 
+      - run: ls -a target/*
+        if: runner.os != 'Windows'
+        continue-on-error: true
+
+      - run: dir target/release
+        if: runner.os == 'Windows'
+        continue-on-error: true
+
       - name: Upload build artifact (UNIX)
         if: runner.os != 'Windows'
         uses: actions/upload-artifact@v2
@@ -125,6 +133,7 @@ jobs:
         uses: actions/download-artifact@v2.0
 
       - run: ls -R
+        continue-on-error: true
 
       - name: Create Release
         id: create_release
