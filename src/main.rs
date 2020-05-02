@@ -44,7 +44,18 @@ fn main() -> Result<(), String> {
             '\\',
         ))
         .map(|x| x.normalize().to_path(""));
-        println!("CROSS_PLATFORM_PATH {:?}", a);
+        println!("RelativePath::from (UNIX) {:?}", a);
+        let a = RelativePath::from_path("abc/def/ghi").map(|x| x.normalize().to_path(""));
+        println!("RelativePath::from (WINDOWS) {:?}", a);
+        let a = RelativePath::from_path(r"abc\def\ghi").map(|x| x.normalize().to_path(""));
+        println!("PathBufExt::from_slash (mixed) {:?}", a);
+        let a =
+            RelativePath::from_path(&std::path::PathBuf::from_slash(r"abc/def/ghi\jkl\mno/pqrs"))
+                .map(|x| x.normalize().to_path(""));
+        println!("PathBufExt::from_slash {:?}", a);
+        let a = RelativePath::from_path(&std::path::PathBuf::from_slash("abc/def/ghi"))
+            .map(|x| x.normalize().to_path(""));
+        println!("PathBuf::from {:?}", a);
         let a = RelativePath::from_path(&std::path::PathBuf::from("abc/def/ghi"))
             .map(|x| x.normalize().to_path(""));
         println!("UNIX PATH {:?}", a);
