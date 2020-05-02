@@ -25,7 +25,7 @@ fn version() {
     let output = Exe::workspace().cmd.arg("--version").output().unwrap();
     assert_str_eq(
         u8v_to_utf8(&output.stdout),
-        format!("{} {}\n", executable(), VERSION).as_str(),
+        format!("{} {}\n", NAME, VERSION).as_str(),
     );
     assert_eq!(output.status.success(), true);
 }
@@ -38,7 +38,7 @@ fn help() {
         u8v_to_utf8(&output.stdout),
         format!(
             "{} {}\n\n{}",
-            executable(),
+            NAME,
             VERSION,
             correct_snapshot(include_str!("./expected-output/help.stdout.txt"))
         )
