@@ -79,7 +79,7 @@ jobs:
       - name: Build
         run: cargo build --locked --release
 
-      - run: ls -a target/*
+      - run: ls -aR target
         if: runner.os != 'Windows'
         continue-on-error: true
 
