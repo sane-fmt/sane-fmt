@@ -1,0 +1,15 @@
+language: rust
+
+rust:
+  - '1.43.0'
+
+cache: cargo
+
+before_install:
+  - rustup component add clippy rustfmt
+
+script:
+  - cargo build
+  - cargo test
+  - ./clippy.sh
+  - ./test.sh
