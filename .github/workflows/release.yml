@@ -144,7 +144,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-Linux
           asset_name: sane-fmt-linux
-          asset_content_type: application/x-pie-executable
+          asset_content_type: application/gzip
 
       - name: Upload macOS executable
         id: upload_release_asset_macos
@@ -155,6 +155,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-macOS
           asset_name: sane-fmt-macos
+          asset_content_type: application/gzip
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
@@ -165,3 +166,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-Windows
           asset_name: sane-fmt-windows
+          asset_content_type: application/gzip
