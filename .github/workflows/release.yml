@@ -17,7 +17,7 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         rust:
           - '1.43.0'
@@ -145,6 +145,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./target/sane-fmt
           asset_name: sane-fmt-macos
+          asset_content_type: application/x-pie-executable
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
@@ -155,4 +156,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./target/sane-fmt.exe
-          asset_name: sane-fmt-windows
+          asset_name: sane-fmt-windows.exe
+          asset_content_type: application/vnd.microsoft.portable-executable
