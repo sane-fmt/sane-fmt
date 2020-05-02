@@ -11,6 +11,6 @@
   * [x] Log passed files (green)
   * [x] Use actual color for logs (red, green, dim)
 * [ ] CI
-  * [ ] GitHub Actions: Test
+  * [x] GitHub Actions: Test
   * [ ] GitHub Actions: Release
   * [ ] Travis CI: Test
