@@ -140,7 +140,7 @@ jobs:
 
       - name: Upload Linux executable
         id: upload_release_asset_linux
-        uses: actions/upload-0-release-asset@v1.0.2
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -151,7 +151,7 @@ jobs:
 
       - name: Upload macOS executable
         id: upload_release_asset_macos
-        uses: actions/upload-0-release-asset@v1.0.2
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -161,7 +161,7 @@ jobs:
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
-        uses: actions/upload-0-release-asset@v1.0.2
+        uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
