@@ -47,11 +47,11 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
-            test-cargo-registry-${{ matrix.rust }}-
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -59,11 +59,11 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
-            test-cargo-index-${{ matrix.rust }}-
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -71,11 +71,11 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            test-build-${{ matrix.rust }}-${{ runner.os }}-
-            test-build-${{ matrix.rust }}-
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-build-${{ matrix.rust }}-
 
       - name: Build
         run: cargo build --locked
@@ -134,11 +134,11 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            clippy-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
-            clippy-cargo-registry-${{ matrix.rust }}-
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -146,11 +146,11 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            clippy-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
-            clippy-cargo-index-${{ matrix.rust }}-
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -158,14 +158,14 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            clippy-build-${{ matrix.rust }}-${{ runner.os }}-
-            clippy-build-${{ matrix.rust }}-
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-build-${{ matrix.rust }}-
 
       - name: Use clippy to lint code
-        uses: actions-rs/clippy-check@v1
+        uses: actions-rs/${{ github.job }}-check@v1
         timeout-minutes: 1
         with:
           name: Clippy Report (${{ matrix.rust }}, ${{ matrix.os }})
