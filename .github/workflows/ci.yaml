@@ -91,13 +91,6 @@ jobs:
           export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
           cargo test
 
-      - name: Setting up MSYS2
-        if: runner.os == 'Windows'
-        uses: numworks/setup-msys2@v1
-        with:
-          path-type: inherit
-          update: true
-
       - name: Test on Windows
         if: runner.os == 'Windows'
         run: msys2do cargo test
