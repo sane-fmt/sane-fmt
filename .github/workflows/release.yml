@@ -124,7 +124,7 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v2.0
 
-      - run: ls -aR .
+      - run: ls -a .
         continue-on-error: true
 
       - name: Create Release
@@ -137,6 +137,9 @@ jobs:
           release_name: ${{ github.ref }}
           draft: false
           prerelease: true
+
+      - run: ls -a .
+        continue-on-error: true
 
       - name: Upload Linux executable
         id: upload_release_asset_linux
