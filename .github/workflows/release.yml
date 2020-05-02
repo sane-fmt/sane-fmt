@@ -112,6 +112,7 @@ jobs:
         run: ./clippy.sh
 
       - name: Inspect MIME type of the executable
+        if: runner.os != 'Windows'
         continue-on-error: true
         run: file -i target/release/sane-fmt
 
