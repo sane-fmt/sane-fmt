@@ -41,10 +41,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -52,10 +52,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -63,10 +63,10 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            release-build-${{ matrix.rust }}-${{ runner.os }}-
+            0-release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-release-build-${{ matrix.rust }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.6
         with:
@@ -137,7 +137,7 @@ jobs:
 
       - name: Upload Linux executable
         id: upload_release_asset_linux
-        uses: actions/upload-release-asset@v1.0.2
+        uses: actions/upload-0-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -148,7 +148,7 @@ jobs:
 
       - name: Upload macOS executable
         id: upload_release_asset_macos
-        uses: actions/upload-release-asset@v1.0.2
+        uses: actions/upload-0-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -158,7 +158,7 @@ jobs:
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
-        uses: actions/upload-release-asset@v1.0.2
+        uses: actions/upload-0-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
