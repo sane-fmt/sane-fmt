@@ -41,10 +41,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: 0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -52,10 +52,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: 0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -63,10 +63,10 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: 0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-build-${{ matrix.rust }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -128,10 +128,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: 0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: build-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            build-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -139,10 +139,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: 0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: build-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            build-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -150,10 +150,10 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: 0-release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: build-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-release-build-${{ matrix.rust }}-${{ runner.os }}-
+            build-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            build-build-${{ matrix.rust }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.6
         with:
