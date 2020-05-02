@@ -10,8 +10,8 @@ env:
   CYGWIN: winsymlinks:nativestrict
 
 jobs:
-  build_and_test:
-    name: Build and Test
+  test:
+    name: Test
 
     runs-on: ${{ matrix.os }}
 
@@ -166,7 +166,7 @@ jobs:
             ${{ github.job }}-build-${{ matrix.rust }}-
 
       - name: Use clippy to lint code
-        uses: actions-rs/${{ github.job }}-check@v1
+        uses: actions-rs/clippy-check@v1
         timeout-minutes: 1
         with:
           name: Clippy Report (${{ matrix.rust }}, ${{ matrix.os }})
