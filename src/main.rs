@@ -57,17 +57,27 @@ fn main() -> Result<(), String> {
 
         let a = RelativePath::from_path(&cross_platform_path::from_string(
             r"abc\def\ghi/jkl/mno",
-            '/',
+            '\x2F',
         ))
         .map(|x| x.normalize().to_path(""));
         println!("PathBufExt::from_slash (cross_platform_path '/') {:?}", a);
 
         let a = RelativePath::from_path(&cross_platform_path::from_string(
             r"abc\def\ghi/jkl/mno",
-            '\\',
+            '\x5C',
         ))
         .map(|x| x.normalize().to_path(""));
         println!("PathBufExt::from_slash (cross_platform_path '\\') {:?}", a);
+
+        let a = RelativePath::from_path(&cross_platform_path::from_string(
+            r"abc\def\ghi/jkl/mno",
+            MAIN_SEPARATOR,
+        ))
+        .map(|x| x.normalize().to_path(""));
+        println!(
+            "PathBufExt::from_slash (cross_platform_path MAIN_SEPARATOR) {:?}",
+            a
+        );
 
         let a = RelativePath::from_path(&std::path::PathBuf::from("./abc/def/ghi"))
             .map(|x| x.normalize().to_path(""));
