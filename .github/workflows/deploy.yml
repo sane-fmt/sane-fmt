@@ -72,7 +72,7 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
-          components: clippy rustfmt
+          components: clippy, rustfmt
           override: 'true'
           default: 'true'
 
