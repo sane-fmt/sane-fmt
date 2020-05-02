@@ -111,6 +111,10 @@ jobs:
         if: runner.os == 'Linux'
         run: ./clippy.sh
 
+      - name: Inspect MIME type of the executable
+        continue-on-error: true
+        run: file -i target/release/sane-fmt
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.1
