@@ -124,6 +124,9 @@ jobs:
       - name: Download all artifacts
         uses: actions/download-artifact@v2.0
 
+      - run: ls -a sane-fmt-*
+        continue-on-error: true
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1.0.1
@@ -155,6 +158,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-macOS
           asset_name: sane-fmt-macos
+          asset_content_type: application/x-pie-executable
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
@@ -165,3 +169,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-Windows
           asset_name: sane-fmt-windows
+          asset_content_type: application/x-pie-executable
