@@ -5,7 +5,7 @@ use std::{
     ffi::OsStr,
     fmt::Write,
     fs::{create_dir, write as write_file},
-    path::{Path, PathBuf},
+    path::{Path, PathBuf, MAIN_SEPARATOR},
     process::{Child as ChildProcess, Command, Output as CommandOutput},
 };
 use tempfile as tmp;
@@ -92,17 +92,31 @@ impl Exe {
     }
 }
 
+/// Replace `/` and `\` in a string with MAIN_SEPARATOR
+pub fn correct_path_str<Text: AsRef<str>>(text: Text) -> String {
+    text.as_ref()
+        .chars()
+        .map(|ch| match ch {
+            '/' | '\\' => MAIN_SEPARATOR,
+            _ => ch,
+        })
+        .collect()
+}
+
 /// Copy directory recursively without room for errors
 pub fn abs_copy_dir(source: &str, destination: &str) {
     // I have attempted to use libraries such as fs_extra::dir::copy and
     // copy_dir::copy_dir but none of them can handle symbolic link.
     // For this reason, I will just use the cp command.
 
+    let source = correct_path_str(source);
+    let destination = correct_path_str(destination);
+
     let output = Command::new("cp")
         .arg("--recursive")
         .arg("--no-dereference")
-        .arg(source)
-        .arg(destination)
+        .arg(&source)
+        .arg(&destination)
         .output()
         .expect("spawn cp command");
 
