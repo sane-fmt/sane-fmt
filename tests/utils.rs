@@ -112,6 +112,8 @@ pub fn abs_copy_dir(source: &str, destination: &str) {
     let source = correct_path_str(source);
     let destination = correct_path_str(destination);
 
+    // TODO: Convert this to native solution
+    // TODO: Enable tests/write.rs#write for Windows
     let output = Command::new("cp")
         .arg("--recursive")
         .arg("--no-dereference")
