@@ -77,6 +77,11 @@ jobs:
       - name: Build
         run: cargo build --locked
 
+      - name: Inspect MIME type of the executable
+        if: runner.os != 'Windows'
+        continue-on-error: true
+        run: file -i target/debug/sane-fmt
+
       - name: Test on Linux and Windows
         if: runner.os == 'Linux' || runner.os == 'Windows'
         run: cargo test
