@@ -11,6 +11,96 @@ env:
   CYGWIN: winsymlinks:nativestrict
 
 jobs:
+  test:
+    name: Test
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        rust:
+          - '1.43.0'
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    steps:
+      - name: Enable symbolic link for Git on Windows
+        if: runner.os == 'Windows'
+        run: |
+          git config --global core.symlinks true
+          git config --system core.symlinks true
+
+      - uses: actions/checkout@v2
+
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: 0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: 0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: 0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: clippy rustfmt
+          override: true
+          default: true
+
+      - name: Build
+        run: cargo build --locked
+
+      - name: Test on Linux and Windows
+        if: runner.os == 'Linux' || runner.os == 'Windows'
+        run: cargo test
+
+      - name: Install GNU utilities for macOS
+        if: runner.os == 'macOS'
+        run: brew install coreutils
+
+      - name: Test on macOS
+        if: runner.os == 'macOS'
+        run: |
+          export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+          cargo test
+
+      - name: Check formatting
+        if: runner.os == 'Linux'
+        run: ./fmt.sh --check
+
+      - name: Clippy check
+        if: runner.os == 'Linux'
+        run: ./clippy.sh
+
   build:
     name: Build
 
@@ -114,7 +204,9 @@ jobs:
   release:
     name: Release
 
-    needs: build
+    needs:
+      - test
+      - build
 
     runs-on: ubuntu-latest
 
