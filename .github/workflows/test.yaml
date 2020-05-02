@@ -144,8 +144,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           components: clippy
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
@@ -174,8 +174,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           components: rustfmt
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Check code formatting
         run: cargo fmt -- --check
