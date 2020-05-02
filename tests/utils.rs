@@ -109,8 +109,14 @@ pub fn abs_copy_dir(source: &str, destination: &str) {
     // copy_dir::copy_dir but none of them can handle symbolic link.
     // For this reason, I will just use the cp command.
 
+    println!("BEFORE SOURCE {}", source);
+    println!("BEFORE DESTINATION {}", destination);
+
     let source = correct_path_str(source);
     let destination = correct_path_str(destination);
+
+    println!("AFTER SOURCE {}", &source);
+    println!("AFTER DESTINATION {}", &destination);
 
     // TODO: Convert this to native solution
     // TODO: Enable tests/write.rs#write for Windows
