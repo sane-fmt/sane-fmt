@@ -73,8 +73,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           components: clippy rustfmt
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Build
         run: cargo build --locked
@@ -160,8 +160,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           target: ${{ matrix.target }}
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Build
         run: cargo build --target ${{ matrix.target }} --release
@@ -200,8 +200,8 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          draft: false
-          prerelease: true
+          draft: 'false'
+          prerelease: 'true'
 
   upload_release_assets:
     name: Create Release
