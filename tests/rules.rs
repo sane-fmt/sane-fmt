@@ -160,12 +160,11 @@ test_rule!(
         "  | { type: 1; value: string }",
         "  | { type: 2; value: symbol }",
         "",
-        // issue: https://github.com/dprint/dprint/issues/192
-        // "type MyIntersection =",
-        // "  & { a: number }",
-        // "  & { b: number }",
-        // "  & { c: number }",
-        // "",
+        "type MyIntersection =",
+        "  & { a: number }",
+        "  & { b: number }",
+        "  & { c: number }",
+        "",
     ]
     .join("\n")
     .as_str(),
@@ -187,7 +186,24 @@ test_rule!(
             "",
         ]
         .join("\n")
-        .as_str()
+        .as_str(),
+        vec![
+            "type MyIntersection =",
+            "  { a: number }",
+            "  & { b: number }",
+            "  & { c: number }",
+            "",
+        ]
+        .join("\n")
+        .as_str(),
+        vec![
+            "type MyIntersection = { a: number }",
+            "  & { b: number }",
+            "  & { c: number }",
+            "",
+        ]
+        .join("\n")
+        .as_str(),
     ]
 );
 
