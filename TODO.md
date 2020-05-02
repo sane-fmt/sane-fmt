@@ -10,7 +10,7 @@
   * [x] Diff should have color
   * [x] Log passed files (green)
   * [x] Use actual color for logs (red, green, dim)
-* [ ] CI
+* [x] CI
   * [x] GitHub Actions: Test
-  * [ ] GitHub Actions: Release
-  * [ ] Travis CI: Test
+  * [x] GitHub Actions: Release
+  * [x] Travis CI: Test
