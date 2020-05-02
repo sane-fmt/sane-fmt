@@ -1,5 +1,4 @@
 use super::{Item, List};
-use path_slash::*;
 use std::{
     fs::{read_dir, symlink_metadata},
     io,
@@ -29,7 +28,7 @@ fn add_files(list: &mut List, dirname: &PathBuf) -> io::Result<()> {
         } else if file_type.is_file() {
             if let Some(extension) = path.extension() {
                 if EXTENSIONS.contains(&extension.to_string_lossy().to_string().as_str())
-                    && !path.to_slash_lossy().ends_with(".d.ts")
+                    && !path.to_string_lossy().ends_with(".d.ts")
                 {
                     list.push(Item { path, file_type });
                 }

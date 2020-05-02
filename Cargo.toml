@@ -10,7 +10,6 @@ edition = "2018"
 structopt = "^0.3.14"
 dprint-plugin-typescript = "^0.15.0"
 difference = "^2.0.0"
-path-slash = "^0.1.1"
 relative-path = "^1.0.0"
 ansi_term = "^0.12.1"
 

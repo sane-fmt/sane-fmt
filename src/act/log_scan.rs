@@ -1,5 +1,4 @@
-use super::super::{term::color::*, When};
-use path_slash::*;
+use super::super::{cross_platform_path, term::color::*, When};
 use std::path::Path;
 
 /// Lookup a function that may print scanned filesystem objects according to color support.
@@ -13,7 +12,7 @@ pub fn get(color: When) -> fn(&Path) {
     } else {
         |path| {
             let theme = ColorfulScheme;
-            let message = format!("🔎 {}", path.to_slash_lossy());
+            let message = format!("🔎 {}", cross_platform_path::to_string(path, '/'));
             let styled_message = theme.scan().paint(message.as_str()).to_string();
             eprint!("{}", styled_message);
         }

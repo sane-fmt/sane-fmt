@@ -7,10 +7,9 @@ mod rules;
 mod term;
 
 use cli_opt::{CliOpt, DetailLevel, When};
-use path_slash::*;
 use relative_path::RelativePath;
 use rules::build_fmt;
-use std::fs;
+use std::{fs, path::MAIN_SEPARATOR};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
@@ -22,7 +21,7 @@ fn main() -> Result<(), String> {
         file_list::create_list(
             opt.files
                 .iter()
-                .map(|x| cross_platform_path::from_string(x.as_str(), '/')),
+                .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR)),
         )
     }
     .map_err(|error| error.to_string())?;
@@ -109,19 +108,34 @@ fn main() -> Result<(), String> {
             skip_count += 1;
             continue;
         }
-        let file_content = fs::read_to_string(path)
-            .map_err(|error| format!("Failed to read {:?}: {}", path.to_slash_lossy(), error))?;
+        let file_content = fs::read_to_string(path).map_err(|error| {
+            format!(
+                "Failed to read {:?}: {}",
+                cross_platform_path::to_string(path, '/'),
+                error
+            )
+        })?;
         clear_current_line();
         let formatted = fmt
             .format_text(&path.to_path_buf(), &file_content)
-            .map_err(|error| format!("Failed to parse {:?}: {}", path.to_slash_lossy(), error))?;
+            .map_err(|error| {
+                format!(
+                    "Failed to parse {:?}: {}",
+                    cross_platform_path::to_string(path, '/'),
+                    error
+                )
+            })?;
         if file_content == formatted {
             log_same(path);
         } else {
             diff_count += 1;
             log_diff(path, &file_content, &formatted);
             may_write(path, &formatted).map_err(|error| {
-                format!("failed to write to {:?}: {}", path.to_slash_lossy(), error)
+                format!(
+                    "failed to write to {:?}: {}",
+                    cross_platform_path::to_string(path, '/'),
+                    error
+                )
             })?;
         }
     }
