@@ -103,6 +103,8 @@ jobs:
         run: msys2do cargo test
 
   clippy_check:
+    name: Clippy
+
     runs-on: ubuntu-latest
 
     strategy:
