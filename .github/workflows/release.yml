@@ -91,7 +91,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ runner.os }}
-          path: target/release/sane-fmt
+          path: target/release/sane-fmt.exe
 
       - name: Test on Linux and Windows
         if: runner.os == 'Linux' || runner.os == 'Windows'
