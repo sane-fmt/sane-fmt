@@ -52,8 +52,22 @@ fn main() -> Result<(), String> {
         let a = RelativePath::from_path("abc/def/ghi").map(|x| x.normalize().to_path(""));
         println!("RelativePath::from (WINDOWS) {:?}", a);
 
-        let a = RelativePath::from_path(r"abc\def\ghi").map(|x| x.normalize().to_path(""));
+        let a = RelativePath::from_path(r"abc\def\ghi/jkl/mno").map(|x| x.normalize().to_path(""));
         println!("PathBufExt::from_slash (mixed) {:?}", a);
+
+        let a = RelativePath::from_path(&cross_platform_path::from_string(
+            r"abc\def\ghi/jkl/mno",
+            '/',
+        ))
+        .map(|x| x.normalize().to_path(""));
+        println!("PathBufExt::from_slash (cross_platform_path '/') {:?}", a);
+
+        let a = RelativePath::from_path(&cross_platform_path::from_string(
+            r"abc\def\ghi/jkl/mno",
+            '\\',
+        ))
+        .map(|x| x.normalize().to_path(""));
+        println!("PathBufExt::from_slash (cross_platform_path '\\') {:?}", a);
 
         let a = RelativePath::from_path(&std::path::PathBuf::from("abc/def/ghi"))
             .map(|x| x.normalize().to_path(""));
