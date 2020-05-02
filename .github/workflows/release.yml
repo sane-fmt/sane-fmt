@@ -1,0 +1,167 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*.*.*'
+
+env:
+  # Enable symbolic links on Windows
+  MSYS: winsymlinks:nativestrict
+  CYGWIN: winsymlinks:nativestrict
+
+jobs:
+  build:
+    name: Build
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        rust:
+          - '1.43.0'
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    steps:
+      - name: Enable symbolic link for Git on Windows
+        if: runner.os == 'Windows'
+        run: |
+          git config --global core.symlinks true
+          git config --system core.symlinks true
+
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt, clippy
+
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            release-build-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Build
+        run: cargo build --locked --release
+
+      - name: Upload build artifact (UNIX)
+        if: runner.os != 'Windows'
+        uses: actions/upload-artifact@v2
+        with:
+          name: same-fmt-${{ runner.os }}
+          path: target/release/same-fmt
+
+      - name: Upload build artifact (Windows)
+        if: runner.os == 'Windows'
+        uses: actions/upload-artifact@v2
+        with:
+          name: same-fmt-${{ runner.os }}.exe
+          path: target/release/same-fmt.exe
+
+      - name: Test on Linux
+        if: runner.os == 'Linux'
+        run: cargo test --release
+
+      - name: Install GNU utilities for macOS
+        if: runner.os == 'macOS'
+        run: brew install coreutils
+
+      - name: Test on macOS
+        if: runner.os == 'macOS'
+        run: |
+          export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+          cargo test --release
+
+      - name: Test on Windows
+        if: runner.os == 'Windows'
+        run: msys2do cargo test --release
+
+      - name: Use clippy to lint code
+        if: runner.os == 'Linux'
+        run: ./clippy.sh
+
+  release:
+    name: Release
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2.0
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: true # TODO: Check if a tag is prerelease
+
+      - name: Upload Linux executable
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: same-fmt-Linux
+          asset_name: same-fmt-linux
+          asset_content_type: application/x-pie-executable
+
+      - name: Upload macOS executable
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: same-fmt-macOS
+          asset_name: same-fmt-macos
+
+      - name: Upload Windows executable
+        id: upload_release_asset
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: same-fmt-Windows.exe
+          asset_name: same-fmt-windows.exe
