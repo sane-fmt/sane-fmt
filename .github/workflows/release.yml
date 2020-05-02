@@ -134,7 +134,7 @@ jobs:
           prerelease: true
 
       - name: Upload Linux executable
-        id: upload_release_asset
+        id: upload_release_asset_linux
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -145,7 +145,7 @@ jobs:
           asset_content_type: application/x-pie-executable
 
       - name: Upload macOS executable
-        id: upload_release_asset
+        id: upload_release_asset_macos
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -155,7 +155,7 @@ jobs:
           asset_name: same-fmt-macos
 
       - name: Upload Windows executable
-        id: upload_release_asset
+        id: upload_release_asset_windows
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
