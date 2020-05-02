@@ -155,7 +155,7 @@ jobs:
           args: --all-features --all-targets -- -D warnings
 
   fmt_check:
-    name: RustFmt
+    name: Fmt
 
     runs-on: ${{ matrix.os }}
 
