@@ -10,7 +10,7 @@ use cli_opt::{CliOpt, DetailLevel, When};
 use path_slash::*;
 use relative_path::RelativePath;
 use rules::build_fmt;
-use std::fs;
+use std::{fs, path::MAIN_SEPARATOR};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
 fn main() -> Result<(), String> {
@@ -22,7 +22,7 @@ fn main() -> Result<(), String> {
         file_list::create_list(
             opt.files
                 .iter()
-                .map(|x| cross_platform_path::from_string(x.as_str(), '/')),
+                .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR)),
         )
     }
     .map_err(|error| error.to_string())?;
