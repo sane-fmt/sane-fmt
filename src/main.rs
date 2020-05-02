@@ -44,10 +44,13 @@ fn main() -> Result<(), String> {
             '\\',
         ))
         .map(|x| x.normalize().to_path(""));
-        println!("WINDOWS PATH {:?}", a);
+        println!("CROSS_PLATFORM_PATH {:?}", a);
         let a = RelativePath::from_path(&std::path::PathBuf::from("abc/def/ghi"))
             .map(|x| x.normalize().to_path(""));
         println!("UNIX PATH {:?}", a);
+        let a = RelativePath::from_path(&std::path::PathBuf::from(r"abc\def\ghi"))
+            .map(|x| x.normalize().to_path(""));
+        println!("WINDOWS PATH {:?}", a);
     }
 
     let file_count = files.len();
