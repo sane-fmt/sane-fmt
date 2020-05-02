@@ -34,13 +34,6 @@ jobs:
 
       - uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1
-        with:
-          profile: minimal
-          toolchain: ${{ matrix.rust }}
-          override: true
-          default: true
-
       - name: Cache Rust Cargo Registry
         uses: actions/cache@v1.1.2
         timeout-minutes: 1
@@ -73,6 +66,13 @@ jobs:
           restore-keys: |
             ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: true
+          default: true
 
       - name: Build
         run: cargo build --locked
@@ -106,14 +106,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions-rs/toolchain@v1.0.6
-        with:
-          profile: minimal
-          toolchain: ${{ matrix.rust }}
-          components: clippy
-          override: true
-          default: true
-
       - name: Cache Rust Cargo Registry
         uses: actions/cache@v1.1.2
         timeout-minutes: 1
@@ -146,6 +138,14 @@ jobs:
           restore-keys: |
             ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
             ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: clippy
+          override: true
+          default: true
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
