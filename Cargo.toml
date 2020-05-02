@@ -1,6 +1,6 @@
 [package]
 name = "sane-fmt"
-version = "0.1.0"
+version = "0.0.0"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
 
@@ -16,3 +16,9 @@ ansi_term = "^0.12.1"
 [dev-dependencies]
 tempfile = "^3.1.0"
 strip-ansi-escapes = "^0.1.0"
+
+[profile.dev]
+opt-level = 0
+
+[profile.release]
+opt-level = 3
