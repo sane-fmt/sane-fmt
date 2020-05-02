@@ -73,6 +73,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           components: rustfmt, clippy
+          override: true
+          default: true
 
       - name: Build
         run: cargo build --locked --release
