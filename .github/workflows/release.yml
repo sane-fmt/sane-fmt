@@ -155,6 +155,7 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-macOS/sane-fmt
           asset_name: sane-fmt-macos
+          asset_content_type: application/x-pie-executable
 
       - name: Upload Windows executable
         id: upload_release_asset_windows
@@ -165,3 +166,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./sane-fmt-Windows/sane-fmt.exe
           asset_name: sane-fmt-windows
+          asset_content_type: application/vnd.microsoft.portable-executable
