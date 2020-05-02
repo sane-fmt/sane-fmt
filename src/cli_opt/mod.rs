@@ -2,7 +2,7 @@ pub mod detail_level;
 pub mod when;
 
 pub use detail_level::*;
-use std::{env::args, path::PathBuf, process::exit};
+use std::{env::args, process::exit};
 use structopt::*;
 pub use when::*;
 
@@ -35,7 +35,7 @@ pub struct CliOpt {
     ///
     /// If none are provided, a default set of files will be assumed
     #[structopt(name = "files")]
-    pub files: Vec<PathBuf>,
+    pub files: Vec<String>,
 }
 
 impl CliOpt {

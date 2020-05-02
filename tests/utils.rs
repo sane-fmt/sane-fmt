@@ -5,7 +5,7 @@ use std::{
     ffi::OsStr,
     fmt::Write,
     fs::{create_dir, write as write_file},
-    path::{Path, PathBuf},
+    path::{Path, PathBuf, MAIN_SEPARATOR},
     process::{Child as ChildProcess, Command, Output as CommandOutput},
 };
 use tempfile as tmp;
@@ -92,17 +92,33 @@ impl Exe {
     }
 }
 
+/// Replace `/` and `\` in a string with MAIN_SEPARATOR
+pub fn correct_path_str<Text: AsRef<str>>(text: Text) -> String {
+    text.as_ref()
+        .chars()
+        .map(|ch| match ch {
+            '/' | '\\' => MAIN_SEPARATOR,
+            _ => ch,
+        })
+        .collect()
+}
+
 /// Copy directory recursively without room for errors
 pub fn abs_copy_dir(source: &str, destination: &str) {
     // I have attempted to use libraries such as fs_extra::dir::copy and
     // copy_dir::copy_dir but none of them can handle symbolic link.
     // For this reason, I will just use the cp command.
 
+    let source = correct_path_str(source);
+    let destination = correct_path_str(destination);
+
+    // TODO: Convert this to native solution
+    // TODO: Enable tests/write.rs#write for Windows
     let output = Command::new("cp")
         .arg("--recursive")
         .arg("--no-dereference")
-        .arg(source)
-        .arg(destination)
+        .arg(&source)
+        .arg(&destination)
         .output()
         .expect("spawn cp command");
 
@@ -116,9 +132,19 @@ pub fn abs_copy_dir(source: &str, destination: &str) {
     }
 }
 
+/// Convert all newlines (be it LF or CRLF) to LF
+pub fn normalize_line_ending(text: &str) -> String {
+    text.lines().collect::<Vec<_>>().join("\n")
+}
+
 /// Assert two strings are equal.
 /// If not, print diffs and panic.
 pub fn assert_str_eq(a: &str, b: &str) {
+    let a = normalize_line_ending(a);
+    let a = a.as_str();
+    let b = normalize_line_ending(b);
+    let b = b.as_str();
+
     if a == b {
         return;
     }
@@ -131,7 +157,7 @@ pub fn assert_str_eq(a: &str, b: &str) {
     }
 
     let mut make_lines = |text: String, prefix: &str, style: &Style| {
-        for line in text.split("\n") {
+        for line in text.lines() {
             writeln!(
                 diff_text,
                 "{}{}",
@@ -158,13 +184,13 @@ pub fn assert_str_eq(a: &str, b: &str) {
 }
 
 /// Convert a vector of bytes to UTF-8 string
-pub fn u8v_to_utf8(u8v: &Vec<u8>) -> &str {
+pub fn u8v_to_utf8(u8v: &[u8]) -> &str {
     std::str::from_utf8(u8v).expect("convert a vector of bytes to UTF-8 string")
 }
 
 /// Trim trailing whitespaces from every line of text and trailing newlines.
 pub fn trim_trailing_whitespaces(text: &str) -> String {
-    text.split("\n")
+    text.lines()
         .map(|line| line.trim_end())
         .collect::<Vec<_>>()
         .join("\n")
@@ -186,7 +212,7 @@ pub fn run_rule_test(
     test_name: &'static str,
     file_ext: &'static str,
     formatted: &str,
-    unformatted: &Vec<&str>,
+    unformatted: &[&str],
 ) {
     let file_name = format!("{}.{}", test_name, file_ext);
 
@@ -230,20 +256,31 @@ macro_rules! test_rule {
 
 /// Show status code, stdout, and stderr of a command in a pretty manner
 pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> String {
-    let mut result = format!(
-        "\n{} {}\n",
-        title_style.paint("status"),
-        output.status.code().expect("get status code")
-    );
-    let mut write_stream = |title, stream| {
+    visualize_fake_command_output(
+        output.status.code().expect("get status code"),
+        u8v_to_utf8(&output.stdout),
+        u8v_to_utf8(&output.stderr),
+        title_style,
+    )
+}
+
+/// Show status code, stdout, and stderr of a command in a pretty manner
+pub fn visualize_fake_command_output(
+    status: i32,
+    stdout: &str,
+    stderr: &str,
+    title_style: &Style,
+) -> String {
+    let mut result = format!("\n{} {}\n", title_style.paint("status"), status);
+    let mut write_stream = |title, stream: &str| {
         writeln!(result, "{}", title_style.paint(title)).expect("write title");
-        for line in u8v_to_utf8(stream).split("\n") {
+        for line in stream.split('\n') {
             let line = line.replace("\r", "\r  "); // make sure "\r" does not delete indentation
             writeln!(result, "{}", line).expect("write line");
         }
     };
-    write_stream("stdout", &output.stdout);
-    write_stream("stderr", &output.stderr);
+    write_stream("stdout", stdout);
+    write_stream("stderr", stderr);
     result
 }
 

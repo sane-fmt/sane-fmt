@@ -1,4 +1,5 @@
 use super::super::{
+    cross_platform_path,
     diff::diff_lines,
     term::color::*,
     DetailLevel::{self, *},
@@ -14,7 +15,7 @@ pub type Act<'a> = Box<dyn Fn(&Path, &str, &str) + 'a>;
 /// * If `--details=diff`, the returning function would log names and diffs.
 pub fn get(details: DetailLevel, theme: &BoxedColorScheme) -> Act {
     let print_name = move |path: &Path| {
-        let message = format!("✗ {}", path.to_string_lossy());
+        let message = format!("✗ {}", cross_platform_path::to_string(path, '/'));
         println!("{}", theme.diff().paint(message));
     };
     match details {

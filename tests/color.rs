@@ -21,7 +21,7 @@ fn color_match_non_color() {
         .arg("--details=diff")
         .arg("--color=never")
         .output()
-        .expect("spawn command without color")
+        .unwrap()
         .stdout;
 
     // Identical in visible content
@@ -42,10 +42,10 @@ fn without_color() {
         .arg("--details=diff")
         .arg("--color=never")
         .output()
-        .expect("spawn command without color");
+        .unwrap();
 
-    fn test(text: &Vec<u8>) {
-        assert_str_eq(u8v_to_utf8(&strip_ansi(text).unwrap()), u8v_to_utf8(text));
+    fn test(text: &[u8]) {
+        assert_str_eq(u8v_to_utf8(&strip_ansi(text).unwrap()), u8v_to_utf8(&text));
     }
 
     test(&output.stdout);

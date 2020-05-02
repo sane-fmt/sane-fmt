@@ -6,19 +6,13 @@
 🗸 tests/fixtures/correct/react.tsx
 ✗ tests/fixtures/incorrect/a.ts
   -export const name = "a";
-  -
   +export const name = 'a'
-  +
 ✗ tests/fixtures/incorrect/b.ts
   -export const name = "b";
-  -
   +export const name = 'b'
-  +
 ✗ tests/fixtures/incorrect/c.js
   -export const name = "c";
-  -
   +export const name = 'c'
-  +
 ✗ tests/fixtures/incorrect/multiple-lines.ts
    export const a = 'correct'
    export const b = 'correct'
@@ -30,21 +24,17 @@
   +export const e = 'incorrect'
   +export const f = 'incorrect'
    export const g = 'correct'
-   
+
    interface Func {
   -  (x: number): number;
   +  (x: number): number
    }
-   
   -export function func (): Func {
   +export function func(): Func {
      return x => x * x
    }
-   
 ✗ tests/fixtures/incorrect/react.tsx
   -export const name =
   -"react";
-  -
   +export const name = 'react'
-  +
 SUMMARY: total 11; changed 5; unchanged 6; skipped 0

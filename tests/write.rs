@@ -2,6 +2,7 @@
 pub mod utils;
 pub use utils::*;
 
+#[cfg(not(windows))] // It fails on Windows because of symlink
 #[test]
 fn write() {
     let Exe {
