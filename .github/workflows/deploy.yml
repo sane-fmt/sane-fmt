@@ -104,25 +104,22 @@ jobs:
   build:
     name: Build
 
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: true
       matrix:
         rust:
           - '1.43.0'
-        os:
-          - ubuntu-latest
-          - windows-latest
-          - macos-latest
+        target:
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
+          - x86_64-pc-windows-gnu
+          - x86_64-pc-windows-msvc
+          - x86_64-apple-darwin
+          - wasm32-wasi
 
     steps:
-      - name: Enable symbolic link for Git on Windows
-        if: runner.os == 'Windows'
-        run: |
-          git config --global core.symlinks true
-          git config --system core.symlinks true
-
       - uses: actions/checkout@v2
 
       - name: Cache Rust Cargo Registry
@@ -162,44 +159,16 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
-          components: rustfmt, clippy
+          components: ${{ matrix.target }}
           override: true
           default: true
 
-      - name: Build
-        run: cargo build --locked --release
-
-      - name: Upload build artifact (UNIX)
+      - name: Upload build artifact
         if: runner.os != 'Windows'
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ runner.os }}
           path: target/release/sane-fmt
-
-      - name: Upload build artifact (Windows)
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v2
-        with:
-          name: sane-fmt-${{ runner.os }}
-          path: target/release/sane-fmt.exe
-
-      - name: Test on Linux and Windows
-        if: runner.os == 'Linux' || runner.os == 'Windows'
-        run: cargo test --release
-
-      - name: Install GNU utilities for macOS
-        if: runner.os == 'macOS'
-        run: brew install coreutils
-
-      - name: Test on macOS
-        if: runner.os == 'macOS'
-        run: |
-          export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-          cargo test --release
-
-      - name: Use clippy to lint code
-        if: runner.os == 'Linux'
-        run: ./clippy.sh
 
   release:
     name: Release
