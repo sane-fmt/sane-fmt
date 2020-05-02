@@ -123,6 +123,7 @@ jobs:
 
       - name: Cache Rust Cargo
         uses: actions/cache@v1.1.2
+        timeout-minutes: 1
         with:
           path: ~/.cargo
           key: clippy-cargo-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
@@ -132,6 +133,7 @@ jobs:
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
+        timeout-minutes: 1
         with:
           path: target
           key: clippy-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
@@ -141,6 +143,7 @@ jobs:
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
+        timeout-minutes: 1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features --all-targets -- -D warnings
