@@ -108,13 +108,24 @@ fn main() -> Result<(), String> {
 
     for item in files {
         let file_list::Item {
-            ref path,
+            path,
             file_type: stats,
         } = item;
-        let path = &RelativePath::from_path(path)
+
+        // Problem: RelativePath only recognize unix path separator
+        // Workaround: Always use unix path separator
+        let path = if cfg!(unix) {
+            path
+        } else {
+            // This is an expensive operation, therefore should only be performed when necessary
+            cross_platform_path::convert_path(&path, '/')
+        };
+
+        let path = &RelativePath::from_path(&path)
             .unwrap()
             .normalize()
             .to_path("");
+
         log_scan(path);
         if !stats.is_file() {
             clear_current_line();
@@ -130,6 +141,7 @@ fn main() -> Result<(), String> {
             )
         })?;
         clear_current_line();
+
         let formatted = fmt
             .format_text(&path.to_path_buf(), &file_content)
             .map_err(|error| {

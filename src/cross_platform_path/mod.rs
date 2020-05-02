@@ -16,6 +16,11 @@ pub fn convert_string<Text: AsRef<str>>(text: Text, separator: char) -> String {
     convert_chars(text.as_ref().chars(), separator).collect()
 }
 
+/// Replace `/` and `\` in a path.
+pub fn convert_path<P: AsRef<Path>>(path: P, separator: char) -> PathBuf {
+    from_string(path.as_ref().to_string_lossy(), separator)
+}
+
 /// Replace `/` and `\` in a string and convert it into path.
 pub fn from_string<Text: AsRef<str>>(text: Text, separator: char) -> PathBuf {
     PathBuf::from(convert_string(text, separator))
