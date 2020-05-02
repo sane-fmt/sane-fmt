@@ -159,19 +159,29 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
-          components: ${{ matrix.target }}
+          target: ${{ matrix.target }}
           override: true
           default: true
 
-      - name: Upload build artifact
-        if: runner.os != 'Windows'
+      - name: Build
+        run: cargo build --target ${{ matrix.target }} --release
+
+      - name: Upload build artifact (non-Windows)
+        if: "!contains(matrix.target, 'windows')"
         uses: actions/upload-artifact@v2
         with:
-          name: sane-fmt-${{ runner.os }}
+          name: sane-fmt-${{ matrix.target }}
           path: target/release/sane-fmt
 
-  release:
-    name: Release
+      - name: Upload build artifact (Windows)
+        if: contains(matrix.target, 'windows')
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/release/sane-fmt.exe
+
+  create_release:
+    name: Create Release
 
     needs:
       - test
@@ -181,9 +191,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Download all artifacts
-        uses: actions/download-artifact@v2.0
 
       - name: Create Release
         id: create_release
@@ -196,35 +203,51 @@ jobs:
           draft: false
           prerelease: true
 
-      - name: Upload Linux executable
-        id: upload_release_asset_linux
+  upload_release_assets:
+    name: Create Release
+
+    needs:
+      - create_release
+      - test
+      - build
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
+          - x86_64-pc-windows-gnu
+          - x86_64-pc-windows-msvc
+          - x86_64-apple-darwin
+          - wasm32-wasi
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2.0
+
+      - name: Release executable (non-Windows)
+        if: "!contains(matrix.target, 'windows')"
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Linux/sane-fmt
-          asset_name: sane-fmt-linux
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt
+          asset_name: sane-fmt-${{ matrix.target }}
           asset_content_type: application/x-pie-executable
 
-      - name: Upload macOS executable
-        id: upload_release_asset_macos
+      - name: Release executable (Windows)
+        if: contains(matrix.target, 'windows')
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-macOS/sane-fmt
-          asset_name: sane-fmt-macos
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.exe
+          asset_name: sane-fmt-${{ matrix.target }}.exe
           asset_content_type: application/x-pie-executable
-
-      - name: Upload Windows executable
-        id: upload_release_asset_windows
-        uses: actions/upload-release-asset@v1.0.2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Windows/sane-fmt.exe
-          asset_name: sane-fmt-windows
-          asset_content_type: application/vnd.microsoft.portable-executable
