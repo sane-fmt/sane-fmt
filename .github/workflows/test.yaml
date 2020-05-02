@@ -71,8 +71,8 @@ jobs:
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Build
         run: cargo build --locked

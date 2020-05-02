@@ -73,8 +73,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           components: rustfmt, clippy
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Build
         run: cargo build --locked --release
@@ -132,8 +132,8 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
-          draft: false
-          prerelease: true
+          draft: 'false'
+          prerelease: 'true'
 
       - name: Upload Linux executable
         id: upload_release_asset_linux
