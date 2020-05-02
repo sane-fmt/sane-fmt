@@ -59,11 +59,19 @@ fn main() -> Result<(), String> {
             cross_platform_path::convert_path(&path, '/')
         };
 
-        let path = &RelativePath::from_path(&path)
+        let path = RelativePath::from_path(&path)
             .unwrap()
             .normalize()
             .to_path("");
 
+        // Because of the above workaround, this is necessary
+        let path = if cfg!(unix) {
+            path
+        } else {
+            cross_platform_path::convert_path(&path, MAIN_SEPARATOR)
+        };
+
+        let path = &path;
         log_scan(path);
         if !stats.is_file() {
             clear_current_line();
