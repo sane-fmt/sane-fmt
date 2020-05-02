@@ -135,7 +135,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: false
-          prerelease: true # TODO: Check if a tag is prerelease
+          prerelease: false
 
       - name: Upload Linux executable
         id: upload_release_asset
