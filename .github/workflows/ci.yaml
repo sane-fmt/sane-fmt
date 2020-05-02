@@ -49,8 +49,8 @@ jobs:
           path: ~/.cargo/registry
           key: ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}--CLEAR-CACHE
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -60,8 +60,8 @@ jobs:
           path: ~/.cargo/git
           key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}--CLEAR-CACHE
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -71,8 +71,8 @@ jobs:
           path: target
           key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}--CLEAR-CACHE
 
       - name: Build
         run: cargo build --locked
@@ -133,8 +133,8 @@ jobs:
           path: ~/.cargo/registry
           key: ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
+            ${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}--CLEAR-CACHE
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -142,10 +142,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
           restore-keys: |
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
+            ${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}--CLEAR-CACHE
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -153,10 +153,10 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
           restore-keys: |
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}-CLEAR-CACHE
+            ${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}--CLEAR-CACHE
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
