@@ -1,2 +1,16 @@
 #! /usr/bin/env node
-require('./main')
+
+// The WASM program requires WASM BigInt support, which isn't enabled in Node.js by default.
+// This program will spawn a new Node.js process with WASM BigInt support.
+
+const process = require('process')
+const child_process = require('child_process')
+const main = require.resolve('./main.js')
+const { status } = child_process.spawnSync('node', [
+  '--experimental-wasm-bigint',
+  main,
+  ...process.argv.slice(2),
+], {
+  stdio: 'inherit',
+})
+process.exit(status)

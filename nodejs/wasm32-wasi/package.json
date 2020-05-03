@@ -8,7 +8,6 @@
   },
   "dependencies": {
     "@wasmer/wasi": "^0.10.2",
-    "@wasmer/wasmfs": "^0.10.2",
     "@types/node": "^13.13.4"
   },
   "devDependencies": {

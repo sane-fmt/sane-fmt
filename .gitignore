@@ -3,4 +3,7 @@
 /.vscode
 /dist
 /nodejs/**/*.wasm
+/nodejs/**/*.js
+/nodejs/**/*.d.ts
+/nodejs/**/*.map
 node_modules

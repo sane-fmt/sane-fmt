@@ -1,7 +1,6 @@
 dependencies:
   '@types/node': 13.13.4
   '@wasmer/wasi': 0.10.2
-  '@wasmer/wasmfs': 0.10.2
 devDependencies:
   tslib: 1.11.1
   typescript: 3.8.3
@@ -20,20 +19,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-zEcZnGmPcO+b6o95W+uF4AK4oGBvBaM6oyyIOH1Kv/Sigy/knRMmawHWPDdJlImYmea7NLvn6PwdN+XJBYSz5A==
-  /@wasmer/wasmfs/0.10.2:
-    dependencies:
-      memfs: 3.0.4
-      pako: 1.0.11
-      tar-stream: 2.1.0
-    dev: false
-    resolution:
-      integrity: sha512-/sH64+/nyWwqY+gJO+q5qMrEG9SaTxmqr8jVvB6fiLOKEPCFnp9Dz+4dhc9O9W1tjScmcf15yGpZ+196w2m/6A==
-  /bl/3.0.0:
-    dependencies:
-      readable-stream: 3.6.0
-    dev: false
-    resolution:
-      integrity: sha512-EUAyP5UHU5hxF8BPT0LKW8gjYLhq1DQIcneOX/pL/m2Alo+OYDQAJlHq+yseMP50Os2nHXOSic6Ss3vSQeyf4A==
   /browser-process-hrtime/1.0.0:
     dev: false
     resolution:
@@ -42,45 +27,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-8mNHuC33b9N+GLy1KIxJcM/VxAQ=
-  /end-of-stream/1.4.4:
-    dependencies:
-      once: 1.4.0
-    dev: false
-    resolution:
-      integrity: sha512-+uw1inIHVPQoaVuHzRyXd21icM+cnt4CzD5rW+NC1wjOUSTOs+Te7FOv7AhN7vS9x/oIyhLP5PR1H+phQAHu5Q==
-  /fast-extend/1.0.2:
-    dev: false
-    resolution:
-      integrity: sha512-XXA9RmlPatkFKUzqVZAFth18R4Wo+Xug/S+C7YlYA3xrXwfPlW3dqNwOb4hvQo7wZJ2cNDYhrYuPzVOfHy5/uQ==
-  /fs-constants/1.0.0:
-    dev: false
-    resolution:
-      integrity: sha512-y6OAwoSIf7FyjMIv94u+b5rdheZEjzR63GTyZJm5qh4Bi+2YgwLCcI/fPFZkL5PSixOt6ZNKm+w+Hfp/Bciwow==
-  /fs-monkey/0.3.3:
-    dev: false
-    resolution:
-      integrity: sha512-FNUvuTAJ3CqCQb5ELn+qCbGR/Zllhf2HtwsdAtBi59s1WeCjKMT81fHcSu7dwIskqGVK+MmOrb7VOBlq3/SItw==
-  /inherits/2.0.4:
-    dev: false
-    resolution:
-      integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
-  /memfs/3.0.4:
-    dependencies:
-      fast-extend: 1.0.2
-      fs-monkey: 0.3.3
-    dev: false
-    resolution:
-      integrity: sha512-OcZEzwX9E5AoY8SXjuAvw0DbIAYwUzV/I236I8Pqvrlv7sL/Y0E9aRCon05DhaV8pg1b32uxj76RgW0s5xjHBA==
-  /once/1.4.0:
-    dependencies:
-      wrappy: 1.0.2
-    dev: false
-    resolution:
-      integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
-  /pako/1.0.11:
-    dev: false
-    resolution:
-      integrity: sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
   /path-browserify/1.0.0:
     dev: false
     resolution:
@@ -98,36 +44,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-87lcbR8+MhcWcUiQ+9e+Rwx8MyR2P7qnt15ynUlbm3TU/fjbgz4GsvfSUDTemtCCtVCqb4ZcEFlyPNTh9bBTLw==
-  /readable-stream/3.6.0:
-    dependencies:
-      inherits: 2.0.4
-      string_decoder: 1.3.0
-      util-deprecate: 1.0.2
-    dev: false
-    engines:
-      node: '>= 6'
-    resolution:
-      integrity: sha512-BViHy7LKeTz4oNnkcLJ+lVSL6vpiFeX6/d3oSH8zCW7UxP2onchk+vTGB143xuFjHS3deTgkKoXXymXqymiIdA==
   /safe-buffer/5.2.0:
     dev: false
     resolution:
       integrity: sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
-  /string_decoder/1.3.0:
-    dependencies:
-      safe-buffer: 5.2.0
-    dev: false
-    resolution:
-      integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==
-  /tar-stream/2.1.0:
-    dependencies:
-      bl: 3.0.0
-      end-of-stream: 1.4.4
-      fs-constants: 1.0.0
-      inherits: 2.0.4
-      readable-stream: 3.6.0
-    dev: false
-    resolution:
-      integrity: sha512-+DAn4Nb4+gz6WZigRzKEZl1QuJVOLtAwwF+WUxy1fJ6X63CaGaUAxJRD2KEn1OMfcbCjySTYpNC6WmfQoIEOdw==
   /tslib/1.11.1:
     dev: true
     resolution:
@@ -139,17 +59,8 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
-  /util-deprecate/1.0.2:
-    dev: false
-    resolution:
-      integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
-  /wrappy/1.0.2:
-    dev: false
-    resolution:
-      integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8=
 specifiers:
   '@types/node': ^13.13.4
   '@wasmer/wasi': ^0.10.2
-  '@wasmer/wasmfs': ^0.10.2
   tslib: ^1.11.1
   typescript: ^3.8.2
