@@ -11,8 +11,8 @@ env:
   CYGWIN: winsymlinks:nativestrict
 
 jobs:
-  build:
-    name: Build
+  test:
+    name: Test
 
     runs-on: ${{ matrix.os }}
 
@@ -41,10 +41,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: 0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-release-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v1.1.2
@@ -52,10 +52,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: 0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-release-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v1.1.2
@@ -63,39 +63,25 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: 0-release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-release-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-release-build-${{ matrix.rust }}-${{ runner.os }}-
+            test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            test-build-${{ matrix.rust }}-${{ runner.os }}-
 
-      - uses: actions-rs/toolchain@v1.0.6
+      - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
           toolchain: ${{ matrix.rust }}
-          components: rustfmt, clippy
+          components: clippy, rustfmt
           override: 'true'
           default: 'true'
 
       - name: Build
-        run: cargo build --locked --release
-
-      - name: Upload build artifact (UNIX)
-        if: runner.os != 'Windows'
-        uses: actions/upload-artifact@v2
-        with:
-          name: sane-fmt-${{ runner.os }}
-          path: target/release/sane-fmt
-
-      - name: Upload build artifact (Windows)
-        if: runner.os == 'Windows'
-        uses: actions/upload-artifact@v2
-        with:
-          name: sane-fmt-${{ runner.os }}
-          path: target/release/sane-fmt.exe
+        run: cargo build --locked
 
       - name: Test on Linux and Windows
         if: runner.os == 'Linux' || runner.os == 'Windows'
-        run: cargo test --release
+        run: cargo test
 
       - name: Install GNU utilities for macOS
         if: runner.os == 'macOS'
@@ -105,24 +91,241 @@ jobs:
         if: runner.os == 'macOS'
         run: |
           export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-          cargo test --release
+          cargo test
 
-      - name: Use clippy to lint code
+      - name: Check formatting
+        if: runner.os == 'Linux'
+        run: ./fmt.sh --check
+
+      - name: Clippy check
         if: runner.os == 'Linux'
         run: ./clippy.sh
 
-  release:
-    name: Release
-
-    needs: build
+  build_on_linux:
+    name: Build
 
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        rust:
+          - '1.43.0'
+        target:
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
+          - wasm32-wasi
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download all artifacts
-        uses: actions/download-artifact@v2.0
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.target }}
+          override: 'true'
+          default: 'true'
+
+      - name: Build
+        run: cargo build --target ${{ matrix.target }} --release
+
+      - name: Upload build artifact (non-WASM)
+        if: "!contains(matrix.target, 'wasm')"
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/sane-fmt
+
+      - name: Upload build artifact (WASM)
+        if: contains(matrix.target, 'wasm')
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/sane-fmt.wasm
+
+  build_on_macos:
+    name: Build
+
+    runs-on: macos-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        rust:
+          - '1.43.0'
+        target:
+          - x86_64-apple-darwin
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.target }}
+          override: 'true'
+          default: 'true'
+
+      - name: Build
+        run: cargo build --target ${{ matrix.target }} --release
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/sane-fmt
+
+  build_on_windows:
+    name: Build
+
+    runs-on: windows-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        rust:
+          - '1.43.0'
+        target:
+          - x86_64-pc-windows-gnu
+          - x86_64-pc-windows-msvc
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.target }}
+          override: 'true'
+          default: 'true'
+
+      - name: Build
+        run: cargo build --target ${{ matrix.target }} --release
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/sane-fmt.exe
+
+  create_release:
+    name: Create Release
+
+    needs:
+      - test
+      - build_on_linux
+      - build_on_macos
+      - build_on_windows
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+
+    steps:
+      - uses: actions/checkout@v2
 
       - name: Create Release
         id: create_release
@@ -135,35 +338,64 @@ jobs:
           draft: 'false'
           prerelease: 'true'
 
-      - name: Upload Linux executable
-        id: upload_release_asset_linux
+  upload_release_assets:
+    name: Upload Release Assets
+
+    needs:
+      - create_release
+      - test
+      - build_on_linux
+      - build_on_macos
+      - build_on_windows
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
+          - x86_64-pc-windows-gnu
+          - x86_64-pc-windows-msvc
+          - x86_64-apple-darwin
+          - wasm32-wasi
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2.0
+
+      - name: Release executable (non-Windows, non-WASM)
+        if: "!contains(matrix.target, 'windows') && !contains(matrix.target, 'wasm')"
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Linux/sane-fmt
-          asset_name: sane-fmt-linux
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt
+          asset_name: sane-fmt-${{ matrix.target }}
           asset_content_type: application/x-pie-executable
 
-      - name: Upload macOS executable
-        id: upload_release_asset_macos
+      - name: Release executable (WASM)
+        if: contains(matrix.target, 'wasm')
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-macOS/sane-fmt
-          asset_name: sane-fmt-macos
-          asset_content_type: application/x-pie-executable
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.wasm
+          asset_name: sane-fmt-${{ matrix.target }}.wasm
+          asset_content_type: application/wasm
 
-      - name: Upload Windows executable
-        id: upload_release_asset_windows
+      - name: Release executable (Windows)
+        if: contains(matrix.target, 'windows')
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-Windows/sane-fmt.exe
-          asset_name: sane-fmt-windows
-          asset_content_type: application/vnd.microsoft.portable-executable
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.exe
+          asset_name: sane-fmt-${{ matrix.target }}.exe
+          asset_content_type: application/x-dosexec

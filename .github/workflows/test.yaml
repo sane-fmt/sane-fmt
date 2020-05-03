@@ -133,8 +133,8 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.rust }}
           components: clippy
-          override: true
-          default: true
+          override: 'true'
+          default: 'true'
 
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
@@ -142,3 +142,29 @@ jobs:
           name: Clippy Report (${{ matrix.rust }}, ${{ matrix.os }})
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features --all-targets -- -D warnings
+
+  fmt_check:
+    name: Fmt
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        rust:
+          - '1.43.0'
+        os:
+          - ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt
+          override: 'true'
+          default: 'true'
+
+      - name: Check code formatting
+        run: cargo fmt -- --check
