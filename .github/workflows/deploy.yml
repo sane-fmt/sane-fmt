@@ -372,6 +372,7 @@ jobs:
         uses: actions/download-artifact@v2.0
 
       - run: ls -AR sane-fmt-*
+        continue-on-error: true
 
       - name: Release executable (non-Windows, non-WASM)
         if: "!contains(matrix.target, 'windows') && !contains(matrix.target, 'wasm')"
