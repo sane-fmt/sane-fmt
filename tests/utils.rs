@@ -67,7 +67,7 @@ impl Exe {
         Exe::new(&fixtures())
     }
 
-    /// Use a temporary directory as working directory
+    /// Use a temporary copy of workspace as working directory
     pub fn temp_workspace() -> Self {
         let temp_dir = tmp::Builder::new()
             .prefix(TEMP_PREFIX)
@@ -81,6 +81,18 @@ impl Exe {
             &fixtures().to_string_lossy(),
             &sub_dir.join("fixtures").to_string_lossy(),
         );
+        Self::new(&temp_dir)
+    }
+
+    /// Use a temporary copy of fixtures as working directory
+    pub fn temp_fixtures() -> Self {
+        let temp_dir = tmp::Builder::new()
+            .prefix(TEMP_PREFIX)
+            .suffix(TEMP_SUFFIX)
+            .tempdir()
+            .unwrap()
+            .into_path();
+        abs_copy_dir(&fixtures().to_string_lossy(), &temp_dir.to_string_lossy());
         Self::new(&temp_dir)
     }
 
