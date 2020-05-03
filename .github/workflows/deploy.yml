@@ -79,6 +79,13 @@ jobs:
       - name: Build
         run: cargo build --locked
 
+      - run: ls target
+        continue-on-error: true
+      - run: ls target/${{ matrix.target }}
+        continue-on-error: true
+      - run: ls target/${{ matrix.target }}/release
+        continue-on-error: true
+
       - name: Test on Linux and Windows
         if: runner.os == 'Linux' || runner.os == 'Windows'
         run: cargo test
