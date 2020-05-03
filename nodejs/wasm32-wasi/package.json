@@ -1,6 +1,11 @@
 {
   "name": "@sane-fmt/wasm32-wasi",
   "version": "0.0.0",
+  "bin": {
+    "sane-fmt": "./bin",
+    "sane-fmt-wasi": "./bin",
+    "sane-fmt-wasm32-wasi": "./bin"
+  },
   "dependencies": {
     "@wasmer/wasi": "^0.10.2",
     "@wasmer/wasmfs": "^0.10.2",
