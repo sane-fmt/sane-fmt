@@ -1,8 +1,0 @@
-🗸 tests/fixtures/correct/a.ts
-🗸 tests/fixtures/correct/a.ts
-• tests/fixtures/ignored (not a file)
-🗸 tests/fixtures/correct/b.ts
-🗸 tests/fixtures/correct/b.ts
-🗸 tests/fixtures/correct/c.js
-🗸 tests/fixtures/correct/c.js
-SUMMARY: total 7; changed 0; unchanged 6; skipped 1

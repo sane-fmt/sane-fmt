@@ -1,2 +1,0 @@
-\e[1;2m•\e[0m \e[1;2;9mtests/fixtures/ignored\e[0m \e[1;2m(not a file)\e[0m
-SUMMARY: total 1; changed 0; unchanged 0; skipped 1
