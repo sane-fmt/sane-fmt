@@ -307,7 +307,7 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: sane-fmt-${{ matrix.target }}.exe
+          name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt.exe
 
   create_release:
