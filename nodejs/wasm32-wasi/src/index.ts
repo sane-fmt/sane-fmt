@@ -26,7 +26,7 @@ export async function main(process: Process): Promise<void> {
   const wasmBytes = fs.readFileSync(wasmFile)
   const wasmModule = await WebAssembly.compile(wasmBytes)
   const wasmInstance = await WebAssembly.instantiate(wasmModule, {
-    ...wasi.getImports(wasmModule)
+    ...wasi.getImports(wasmModule),
   })
 
   wasi.start(wasmInstance)
