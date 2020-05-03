@@ -70,7 +70,6 @@ fn details_count() {
 fn colored() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=diff")
         .arg("--color=always")
         .output()
@@ -86,7 +85,6 @@ fn colored() {
 fn directory() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures")
@@ -108,7 +106,6 @@ fn directory() {
 fn some_correct_files_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures/correct/a.ts")
@@ -132,7 +129,6 @@ fn some_correct_files_only() {
 fn correct_directory_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures/correct")

@@ -8,9 +8,6 @@ FLAGS:
         --hide-passed
             Do not log passed filenames
 
-        --show-skipped
-            Log skipped filesystem objects
-
     -V, --version
             Prints version information
 

@@ -7,7 +7,6 @@ pub use utils::*;
 fn unix_style_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures/correct/a.ts")
@@ -31,7 +30,6 @@ fn unix_style_only() {
 fn windows_style_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg(r"tests\fixtures\correct\a.ts")
@@ -55,7 +53,6 @@ fn windows_style_only() {
 fn both_styles() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg(r"tests/fixtures/correct/a.ts")
