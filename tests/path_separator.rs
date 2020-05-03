@@ -19,7 +19,7 @@ fn unix_style_only() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
@@ -43,7 +43,7 @@ fn windows_style_only() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
@@ -67,7 +67,7 @@ fn both_styles() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
