@@ -8,7 +8,6 @@ use strip_ansi_escapes::strip as strip_ansi;
 fn color_match_non_color() {
     let with_color = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=diff")
         .arg("--color=always")
         .output()
@@ -17,7 +16,6 @@ fn color_match_non_color() {
 
     let without_color = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=diff")
         .arg("--color=never")
         .output()
@@ -38,7 +36,6 @@ fn color_match_non_color() {
 fn without_color() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=diff")
         .arg("--color=never")
         .output()

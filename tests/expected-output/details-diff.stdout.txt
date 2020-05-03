@@ -37,4 +37,4 @@
   -export const name =
   -"react";
   +export const name = 'react'
-SUMMARY: total 11; changed 5; unchanged 6; skipped 0
+SUMMARY: total 11; changed 5; unchanged 6

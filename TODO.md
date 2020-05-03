@@ -15,7 +15,7 @@
   * [x] GitHub Actions: Release
   * [x] Travis CI: Test
 * [x] Treat symlink like a normal file
-* [ ] When a directory name is given, traverse that directory
+* [x] When a directory name is given, traverse that directory
 * [x] Do not use `cp` for test
 * [x] Enable `write.rs` for Windows
 * [ ] Add a README

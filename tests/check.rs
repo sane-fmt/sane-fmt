@@ -58,7 +58,7 @@ fn details_count() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            "SUMMARY: total 11; changed 5; unchanged 6; skipped 0\n",
+            "SUMMARY: total 11; changed 5; unchanged 6\n",
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
@@ -70,7 +70,6 @@ fn details_count() {
 fn colored() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=diff")
         .arg("--color=always")
         .output()
@@ -83,10 +82,30 @@ fn colored() {
 }
 
 #[test]
-fn correct_only() {
+fn directory() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
+        .arg("--details=name")
+        .arg("--color=never")
+        .arg("tests/fixtures")
+        .output()
+        .unwrap();
+    assert_trimmed_str_eq(
+        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_fake_command_output(
+            1,
+            include_str!("./expected-output/details-name.stdout.txt"),
+            include_str!("./expected-output/stderr.txt"),
+            &Style::new(),
+        )
+        .as_str(),
+    );
+}
+
+#[test]
+fn some_correct_files_only() {
+    let output = Exe::workspace()
+        .cmd
         .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures/correct/a.ts")
@@ -98,7 +117,7 @@ fn correct_only() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
@@ -107,46 +126,22 @@ fn correct_only() {
 }
 
 #[test]
-fn some_are_skipped() {
+fn correct_directory_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
-        .arg("tests/fixtures/correct/a.ts")
-        .arg("tests/fixtures/correct/a.ts")
-        .arg("tests/fixtures/ignored")
-        .arg("tests/fixtures/correct/b.ts")
-        .arg("tests/fixtures/correct/b.ts")
-        .arg("tests/fixtures/correct/c.js")
-        .arg("tests/fixtures/correct/c.js")
+        .arg("tests/fixtures/correct")
         .output()
         .unwrap();
     assert_trimmed_str_eq(
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/some-are-skipped.stdout.txt"),
+            include_str!("./expected-output/correct-directory-only.stdout.txt"),
             "",
             &Style::new(),
         )
         .as_str(),
     );
-}
-
-#[test]
-fn colored_and_skipped() {
-    let output = Exe::workspace()
-        .cmd
-        .arg("--show-skipped")
-        .arg("--details=name")
-        .arg("--color=always")
-        .arg("tests/fixtures/ignored")
-        .output()
-        .unwrap();
-    assert_trimmed_str_eq(
-        encode_ansi_text(u8v_to_utf8(&output.stdout)).as_str(),
-        include_str!("./expected-output/colored-and-skipped.stdout.txt"),
-    );
-    assert_eq!(output.status.success(), true);
 }

@@ -7,7 +7,6 @@ pub use utils::*;
 fn unix_style_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg("tests/fixtures/correct/a.ts")
@@ -19,7 +18,7 @@ fn unix_style_only() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
@@ -31,7 +30,6 @@ fn unix_style_only() {
 fn windows_style_only() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg(r"tests\fixtures\correct\a.ts")
@@ -43,7 +41,7 @@ fn windows_style_only() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
@@ -55,7 +53,6 @@ fn windows_style_only() {
 fn both_styles() {
     let output = Exe::workspace()
         .cmd
-        .arg("--show-skipped")
         .arg("--details=name")
         .arg("--color=never")
         .arg(r"tests/fixtures/correct/a.ts")
@@ -67,7 +64,7 @@ fn both_styles() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             0,
-            include_str!("./expected-output/correct-only.stdout.txt"),
+            include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
             &Style::new(),
         )
