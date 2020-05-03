@@ -374,6 +374,21 @@ jobs:
       - run: ls -AR sane-fmt-*
         continue-on-error: true
 
+      - run: echo "${{ toJson(needs) }}"
+        env:
+          OBJECT: ${{ toJson(needs) }}
+        continue-on-error: true
+
+      - run: echo "${{ toJson(needs.create_release) }}"
+        env:
+          OBJECT: ${{ toJson(needs.create_release) }}
+        continue-on-error: true
+
+      - run: echo "${{ toJson(needs.create_release.outputs) }}"
+        env:
+          OBJECT: ${{ toJson(needs.create_release.outputs) }}
+        continue-on-error: true
+
       - name: Release executable (non-Windows, non-WASM)
         if: "!contains(matrix.target, 'windows') && !contains(matrix.target, 'wasm')"
         uses: actions/upload-release-asset@v1.0.2
