@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 if [ "$FMT_UPDATE" = 'true' ]; then
   cargo_fmt_flag=()

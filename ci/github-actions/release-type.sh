@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 
 if [ -z "$RELEASE_TAG" ]; then
   echo '::error ::Environment variable RELEASE_TAG is required but misssing'

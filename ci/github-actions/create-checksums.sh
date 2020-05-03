@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 # shellcheck disable=SC2035
 cd ./flatten || exit $?
 sha1sum * > ../sha1sum.txt || exit $?

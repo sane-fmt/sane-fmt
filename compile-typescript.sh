@@ -1,4 +1,4 @@
-#!/bin/sh
+#! /bin/sh
 
 compile() {
   dirname=./nodejs/"$1"
