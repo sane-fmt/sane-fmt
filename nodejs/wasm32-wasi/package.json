@@ -1,0 +1,11 @@
+{
+  "name": "@sane-fmt/wasm32-wasi",
+  "version": "0.0.0",
+  "dependencies": {
+    "@wasmer/wasi": "^0.10.2",
+    "@wasmer/wasmfs": "^0.10.2"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.2"
+  }
+}

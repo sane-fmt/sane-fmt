@@ -2,3 +2,5 @@
 *.log
 /.vscode
 /dist
+/nodejs/**/*.wasm
+node_modules
