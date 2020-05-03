@@ -83,6 +83,28 @@ fn colored() {
 }
 
 #[test]
+fn directory() {
+    let output = Exe::workspace()
+        .cmd
+        .arg("--show-skipped")
+        .arg("--details=name")
+        .arg("--color=never")
+        .arg("tests/fixtures")
+        .output()
+        .unwrap();
+    assert_trimmed_str_eq(
+        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_fake_command_output(
+            1,
+            include_str!("./expected-output/details-name.stdout.txt"),
+            include_str!("./expected-output/stderr.txt"),
+            &Style::new(),
+        )
+        .as_str(),
+    );
+}
+
+#[test]
 fn some_correct_files_only() {
     let output = Exe::workspace()
         .cmd
