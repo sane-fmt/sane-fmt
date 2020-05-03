@@ -170,11 +170,19 @@ jobs:
       - name: Build
         run: cargo build --target ${{ matrix.target }} --release
 
-      - name: Upload build artifact
+      - name: Upload build artifact (non-WASM)
+        if: "!contains(matrix.target, 'wasm')"
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}
-          path: target/release/${{ matrix.target }}/sane-fmt
+          path: target/${{ matrix.target }}/release/sane-fmt
+
+      - name: Upload build artifact (WASM)
+        if: contains(matrix.target, 'wasm')
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/sane-fmt.wasm
 
   build_on_macos:
     name: Build
@@ -240,7 +248,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}
-          path: target/release/${{ matrix.target }}/sane-fmt
+          path: target/${{ matrix.target }}/release/sane-fmt
 
   build_on_windows:
     name: Build
@@ -307,7 +315,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}.exe
-          path: target/release/${{ matrix.target }}/sane-fmt.exe
+          path: target/${{ matrix.target }}/release/sane-fmt.exe
 
   create_release:
     name: Create Release
@@ -335,7 +343,7 @@ jobs:
           prerelease: 'true'
 
   upload_release_assets:
-    name: Create Release
+    name: Upload Release Assets
 
     needs:
       - create_release
@@ -365,16 +373,27 @@ jobs:
 
       - run: ls -AR sane-fmt-*
 
-      - name: Release executable (non-Windows)
-        if: "!contains(matrix.target, 'windows')"
+      - name: Release executable (non-Windows, non-WASM)
+        if: "!contains(matrix.target, 'windows') && !contains(matrix.target, 'wasm')"
         uses: actions/upload-release-asset@v1.0.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.create_release.upload_url }}
           asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt
           asset_name: sane-fmt-${{ matrix.target }}
           asset_content_type: application/x-pie-executable
+
+      - name: Release executable (WASM)
+        if: contains(matrix.target, 'wasm')
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.create_release.upload_url }}
+          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.wasm
+          asset_name: sane-fmt-${{ matrix.target }}.wasm
+          asset_content_type: application/wasm
 
       - name: Release executable (Windows)
         if: contains(matrix.target, 'windows')
@@ -382,7 +401,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.create_release.upload_url }}
           asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.exe
           asset_name: sane-fmt-${{ matrix.target }}.exe
           asset_content_type: application/x-dosexec
