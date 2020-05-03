@@ -3,7 +3,7 @@ import fs from 'fs'
 import { WASI } from '@wasmer/wasi'
 import bindings from '@wasmer/wasi/lib/bindings/node'
 
-export const wasmFile = require.resolve('./sane-fmt.wasm')
+export const wasmFile = require.resolve('../sane-fmt.wasm')
 
 export interface Process {
   readonly argv: readonly string[]
