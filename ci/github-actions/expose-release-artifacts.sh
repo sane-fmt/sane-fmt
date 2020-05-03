@@ -6,7 +6,16 @@ mkdir ./flatten
   exit 1
 }
 
-for folder in ./downloads/*; do
-  echo Copying "$folder"/* ...
-  cp "$folder"/* ./flatten/ || exit $?
+# shellcheck disable=SC2012
+ls ./downloads | while read -r name; do
+  case "$name" in
+    *wasm*) suffix=.wasm;;
+    *windows*) suffix=.exe;;
+    *) suffix='';;
+  esac
+
+  src="./downloads/${name}/sane-fmt${suffix}"
+  dst="./flatten/${name}${suffix}"
+  echo Copying "$src" to "$dst"...
+  cp "$src" "$dst" || exit $?
 done
