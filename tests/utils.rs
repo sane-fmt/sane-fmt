@@ -68,7 +68,7 @@ impl Exe {
     }
 
     /// Use a temporary directory as working directory
-    pub fn temp() -> Self {
+    pub fn temp_workspace() -> Self {
         let temp_dir = tmp::Builder::new()
             .prefix(TEMP_PREFIX)
             .suffix(TEMP_SUFFIX)

@@ -7,7 +7,7 @@ fn write() {
     let Exe {
         cmd: mut check_cmd,
         wdir,
-    } = Exe::temp();
+    } = Exe::temp_workspace();
     check_cmd.arg("--details=name").arg("--color=never");
 
     let first_check = check_cmd.output().unwrap();
