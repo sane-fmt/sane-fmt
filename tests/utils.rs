@@ -62,6 +62,11 @@ impl Exe {
         Exe::new(WORKSPACE)
     }
 
+    /// Use fixtures directory as working directory
+    pub fn fixtures() -> Self {
+        Exe::new(&fixtures())
+    }
+
     /// Use a temporary directory as working directory
     pub fn temp() -> Self {
         let temp_dir = tmp::Builder::new()

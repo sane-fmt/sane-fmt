@@ -5,7 +5,7 @@ pub use utils::*;
 
 #[test]
 fn details_diff() {
-    let output = Exe::workspace()
+    let output = Exe::fixtures()
         .cmd
         .arg("--details=diff")
         .arg("--color=never")
@@ -26,7 +26,7 @@ fn details_diff() {
 
 #[test]
 fn details_name() {
-    let output = Exe::workspace()
+    let output = Exe::fixtures()
         .cmd
         .arg("--details=name")
         .arg("--color=never")
@@ -47,7 +47,7 @@ fn details_name() {
 
 #[test]
 fn details_count() {
-    let output = Exe::workspace()
+    let output = Exe::fixtures()
         .cmd
         .arg("--details=count")
         .arg("--color=never")
@@ -68,7 +68,7 @@ fn details_count() {
 
 #[test]
 fn colored() {
-    let output = Exe::workspace()
+    let output = Exe::fixtures()
         .cmd
         .arg("--details=diff")
         .arg("--color=always")
