@@ -3,9 +3,11 @@
   "version": "0.0.0",
   "dependencies": {
     "@wasmer/wasi": "^0.10.2",
-    "@wasmer/wasmfs": "^0.10.2"
+    "@wasmer/wasmfs": "^0.10.2",
+    "@types/node": "^13.11.1"
   },
   "devDependencies": {
+    "tslib": "^1.11.1",
     "typescript": "^3.8.2"
   }
 }
