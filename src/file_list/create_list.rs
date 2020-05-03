@@ -1,5 +1,5 @@
 use super::{Item, List};
-use std::{fs::symlink_metadata, io, path::PathBuf};
+use std::{fs::metadata, io, path::PathBuf};
 
 pub fn create_list<Input>(files: Input) -> io::Result<List>
 where
@@ -9,7 +9,7 @@ where
 
     for path in files {
         result.push(Item {
-            file_type: symlink_metadata(&path)?.file_type(),
+            file_type: metadata(&path)?.file_type(),
             path,
         })
     }

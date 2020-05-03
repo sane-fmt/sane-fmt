@@ -118,7 +118,6 @@ fn some_are_skipped() {
         .arg("tests/fixtures/ignored")
         .arg("tests/fixtures/correct/b.ts")
         .arg("tests/fixtures/correct/b.ts")
-        .arg("tests/fixtures/ignored/symlink.ts")
         .arg("tests/fixtures/correct/c.js")
         .arg("tests/fixtures/correct/c.js")
         .output()
@@ -143,7 +142,6 @@ fn colored_and_skipped() {
         .arg("--details=name")
         .arg("--color=always")
         .arg("tests/fixtures/ignored")
-        .arg("tests/fixtures/ignored/symlink.ts")
         .output()
         .unwrap();
     assert_trimmed_str_eq(

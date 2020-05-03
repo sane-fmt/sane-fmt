@@ -1,6 +1,7 @@
 #![cfg(test)]
 use ansi_term::{Color, Style};
 use difference::{Changeset, Difference};
+use fs_extra::dir::{copy as copy_dir, CopyOptions as DirCopyOptions};
 use std::{
     ffi::OsStr,
     fmt::Write,
@@ -105,31 +106,15 @@ pub fn correct_path_str<Text: AsRef<str>>(text: Text) -> String {
 
 /// Copy directory recursively without room for errors
 pub fn abs_copy_dir(source: &str, destination: &str) {
-    // I have attempted to use libraries such as fs_extra::dir::copy and
-    // copy_dir::copy_dir but none of them can handle symbolic link.
-    // For this reason, I will just use the cp command.
-
     let source = correct_path_str(source);
     let destination = correct_path_str(destination);
 
-    // TODO: Convert this to native solution
-    // TODO: Enable tests/write.rs#write for Windows
-    let output = Command::new("cp")
-        .arg("--recursive")
-        .arg("--no-dereference")
-        .arg(&source)
-        .arg(&destination)
-        .output()
-        .expect("spawn cp command");
+    let mut options = DirCopyOptions::new();
+    options.overwrite = true;
+    options.copy_inside = true;
 
-    if !output.status.success() {
-        panic!(
-            "Failed to copy {} to {}\n{}",
-            &source,
-            &destination,
-            visualize_command_output(&output, &Style::new()),
-        );
-    }
+    copy_dir(&source, &destination, &options)
+        .unwrap_or_else(|_| panic!("copy from {} to {} recursively", &source, &destination));
 }
 
 /// Convert all newlines (be it LF or CRLF) to LF
