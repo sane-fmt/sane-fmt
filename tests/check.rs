@@ -105,3 +105,25 @@ fn some_correct_files_only() {
         .as_str(),
     );
 }
+
+#[test]
+fn correct_directory_only() {
+    let output = Exe::workspace()
+        .cmd
+        .arg("--show-skipped")
+        .arg("--details=name")
+        .arg("--color=never")
+        .arg("tests/fixtures/correct")
+        .output()
+        .unwrap();
+    assert_trimmed_str_eq(
+        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_fake_command_output(
+            0,
+            include_str!("./expected-output/correct-directory-only.stdout.txt"),
+            "",
+            &Style::new(),
+        )
+        .as_str(),
+    );
+}
