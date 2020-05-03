@@ -12,4 +12,4 @@ script:
   - cargo build
   - cargo test
   - ./clippy.sh
-  - ./test.sh
+  - ./fmt.sh
