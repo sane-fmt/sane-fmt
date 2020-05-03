@@ -9,4 +9,4 @@
 🗸 tests/fixtures/incorrect/c.js
 🗸 tests/fixtures/incorrect/multiple-lines.ts
 🗸 tests/fixtures/incorrect/react.tsx
-SUMMARY: total 11; changed 0; unchanged 11; skipped 0
+SUMMARY: total 11; changed 0; unchanged 11

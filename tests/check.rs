@@ -58,7 +58,7 @@ fn details_count() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            "SUMMARY: total 11; changed 5; unchanged 6; skipped 0\n",
+            "SUMMARY: total 11; changed 5; unchanged 6\n",
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
