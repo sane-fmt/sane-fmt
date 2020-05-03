@@ -1,0 +1,12 @@
+🗸 correct/a.ts
+🗸 correct/arrow-parens.js
+🗸 correct/arrow-parens.ts
+🗸 correct/b.ts
+🗸 correct/c.js
+🗸 correct/react.tsx
+🗸 incorrect/a.ts
+🗸 incorrect/b.ts
+🗸 incorrect/c.js
+🗸 incorrect/multiple-lines.ts
+🗸 incorrect/react.tsx
+SUMMARY: total 11; changed 0; unchanged 11

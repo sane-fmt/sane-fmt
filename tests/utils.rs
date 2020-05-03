@@ -91,7 +91,8 @@ impl Exe {
             .suffix(TEMP_SUFFIX)
             .tempdir()
             .unwrap()
-            .into_path();
+            .into_path()
+            .join("fixtures");
         abs_copy_dir(&fixtures().to_string_lossy(), &temp_dir.to_string_lossy());
         Self::new(&temp_dir)
     }

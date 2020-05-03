@@ -94,7 +94,7 @@ fn directory() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/details-name.stdout.txt"),
+            include_str!("./expected-output/directory.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
