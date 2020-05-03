@@ -28,7 +28,6 @@ fn main() -> Result<(), String> {
 
     let file_count = files.len();
     let mut diff_count = 0;
-    let mut skip_count = 0;
     let fmt = build_fmt();
 
     let theme: BoxedColorScheme = if opt.color == When::Never {
@@ -38,17 +37,13 @@ fn main() -> Result<(), String> {
     };
 
     let log_scan = act::log_scan::get(opt.color);
-    let log_skip = act::log_skip::get(opt.details, opt.show_skipped, &theme);
     let log_same = act::log_same::get(opt.details, opt.hide_passed, &theme);
     let log_diff = act::log_diff::get(opt.details, &theme);
     let may_write = act::may_write::get(opt.write);
     let clear_current_line = act::may_clear_current_line::get(opt.color);
 
     for item in files {
-        let file_list::Item {
-            path,
-            file_type: stats,
-        } = item;
+        let file_list::Item { path, .. } = item;
 
         // Problem: RelativePath only recognize unix path separator
         // Workaround: Always use unix path separator
@@ -73,12 +68,6 @@ fn main() -> Result<(), String> {
 
         let path = &path;
         log_scan(path);
-        if !stats.is_file() {
-            clear_current_line();
-            log_skip(path);
-            skip_count += 1;
-            continue;
-        }
         let file_content = fs::read_to_string(path).map_err(|error| {
             format!(
                 "Failed to read {:?}: {}",
@@ -113,11 +102,10 @@ fn main() -> Result<(), String> {
     }
 
     println!(
-        "SUMMARY: total {}; changed {}; unchanged {}; skipped {}",
+        "SUMMARY: total {}; changed {}; unchanged {}",
         file_count,
         diff_count,
-        file_count - diff_count - skip_count,
-        skip_count,
+        file_count - diff_count,
     );
 
     if file_count == 0 {
