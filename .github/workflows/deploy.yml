@@ -167,7 +167,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}
-          path: target/release/${{ matrix.target }}/sane-fmt
+          path: target/${{ matrix.target }}/release/sane-fmt
 
   build_on_macos:
     name: Build
@@ -233,7 +233,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}
-          path: target/release/${{ matrix.target }}/sane-fmt
+          path: target/${{ matrix.target }}/release/sane-fmt
 
   build_on_windows:
     name: Build
@@ -300,7 +300,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}.exe
-          path: target/release/${{ matrix.target }}/sane-fmt.exe
+          path: target/${{ matrix.target }}/release/sane-fmt.exe
 
   create_release:
     name: Create Release
