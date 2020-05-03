@@ -425,7 +425,7 @@ jobs:
 
       - name: Create checksums
         run: |
-          cd ./flatten
+          cd ./flatten || exit $?
           sha1sum * > ../sha1sum.txt
           sha256sum * > ../sha256sum.txt
           sha512sum * > ../sha512sum.txt
