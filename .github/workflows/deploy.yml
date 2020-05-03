@@ -370,7 +370,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.create_release.upload_url }}
           asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt
           asset_name: sane-fmt-${{ matrix.target }}
           asset_content_type: application/x-pie-executable
@@ -381,7 +381,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.create_release.upload_url }}
           asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.wasm
           asset_name: sane-fmt-${{ matrix.target }}.wasm
           asset_content_type: application/wasm
@@ -392,7 +392,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          upload_url: ${{ needs.create_release.outputs.create_release.upload_url }}
           asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.exe
           asset_name: sane-fmt-${{ matrix.target }}.exe
           asset_content_type: application/x-dosexec
