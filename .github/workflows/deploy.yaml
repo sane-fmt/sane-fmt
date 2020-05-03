@@ -101,7 +101,7 @@ jobs:
         if: runner.os == 'Linux'
         run: ./clippy.sh
 
-  build_on_linux:
+  build_linux:
     name: Build
 
     runs-on: ubuntu-latest
@@ -114,7 +114,6 @@ jobs:
         target:
           - x86_64-unknown-linux-gnu
           - x86_64-unknown-linux-musl
-          - wasm32-wasi
 
     steps:
       - uses: actions/checkout@v2
@@ -163,21 +162,13 @@ jobs:
       - name: Build
         run: cargo build --target ${{ matrix.target }} --release
 
-      - name: Upload build artifact (non-WASM)
-        if: "!contains(matrix.target, 'wasm')"
+      - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt
 
-      - name: Upload build artifact (WASM)
-        if: contains(matrix.target, 'wasm')
-        uses: actions/upload-artifact@v2
-        with:
-          name: sane-fmt-${{ matrix.target }}
-          path: target/${{ matrix.target }}/release/sane-fmt.wasm
-
-  build_on_macos:
+  build_macos:
     name: Build
 
     runs-on: macos-latest
@@ -243,7 +234,7 @@ jobs:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt
 
-  build_on_windows:
+  build_windows:
     name: Build
 
     runs-on: windows-latest
@@ -310,14 +301,84 @@ jobs:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt.exe
 
+  build_wasm:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        rust:
+          - '1.43.0'
+        target:
+          - wasm32-wasi
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
+            build-build-${{ matrix.rust }}-${{ matrix.target }}-
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          target: ${{ matrix.target }}
+          override: 'true'
+          default: 'true'
+
+      - name: Install cargo wasi
+        run: cargo install cargo-wasi
+
+      - name: Build
+        run: cargo wasi build --release
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: target/${{ matrix.target }}/release/sane-fmt.wasm
+
   create_release:
     name: Create Release
 
     needs:
       - test
-      - build_on_linux
-      - build_on_macos
-      - build_on_windows
+      - build_linux
+      - build_macos
+      - build_windows
+      - build_wasm
 
     runs-on: ubuntu-latest
 
@@ -342,9 +403,10 @@ jobs:
     needs:
       - create_release
       - test
-      - build_on_linux
-      - build_on_macos
-      - build_on_windows
+      - build_linux
+      - build_macos
+      - build_windows
+      - build_wasm
 
     runs-on: ubuntu-latest
 
@@ -406,9 +468,10 @@ jobs:
     needs:
       - create_release
       - test
-      - build_on_linux
-      - build_on_macos
-      - build_on_windows
+      - build_linux
+      - build_macos
+      - build_windows
+      - build_wasm
 
     runs-on: ubuntu-latest
 
