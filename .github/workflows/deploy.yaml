@@ -101,7 +101,7 @@ jobs:
         if: runner.os == 'Linux'
         run: ./clippy.sh
 
-  build_on_linux:
+  build_linux:
     name: Build
 
     runs-on: ubuntu-latest
@@ -168,7 +168,7 @@ jobs:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt
 
-  build_on_macos:
+  build_macos:
     name: Build
 
     runs-on: macos-latest
@@ -234,7 +234,7 @@ jobs:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt
 
-  build_on_windows:
+  build_windows:
     name: Build
 
     runs-on: windows-latest
@@ -375,9 +375,9 @@ jobs:
 
     needs:
       - test
-      - build_on_linux
-      - build_on_macos
-      - build_on_windows
+      - build_linux
+      - build_macos
+      - build_windows
       - build_wasm
 
     runs-on: ubuntu-latest
@@ -403,9 +403,9 @@ jobs:
     needs:
       - create_release
       - test
-      - build_on_linux
-      - build_on_macos
-      - build_on_windows
+      - build_linux
+      - build_macos
+      - build_windows
       - build_wasm
 
     runs-on: ubuntu-latest
@@ -466,9 +466,9 @@ jobs:
     needs:
       - create_release
       - test
-      - build_on_linux
-      - build_on_macos
-      - build_on_windows
+      - build_linux
+      - build_macos
+      - build_windows
       - build_wasm
 
     runs-on: ubuntu-latest
