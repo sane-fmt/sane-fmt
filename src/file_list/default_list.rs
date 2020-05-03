@@ -1,6 +1,6 @@
 use super::{Item, List};
 use std::{
-    fs::{read_dir, symlink_metadata},
+    fs::{metadata, read_dir},
     io,
     path::PathBuf,
 };
@@ -13,13 +13,12 @@ fn add_files(list: &mut List, dirname: &PathBuf) -> io::Result<()> {
         .map(|entry| -> io::Result<_> {
             let entry = entry?;
             let path = entry.path();
-            let metadata = symlink_metadata(&path)?;
-            Ok((entry, path, metadata))
+            let file_type = metadata(&path)?.file_type();
+            Ok((entry, path, file_type))
         })
         .collect::<io::Result<Vec<_>>>()?;
     entries.sort_by(|(_, a, _), (_, b, _)| a.cmp(b));
-    for (entry, path, metadata) in entries {
-        let file_type = metadata.file_type();
+    for (entry, path, file_type) in entries {
         if file_type.is_dir() {
             let name = entry.file_name().to_string_lossy().to_string();
             if !IGNORED_NAMES.contains(&name.as_str()) {
