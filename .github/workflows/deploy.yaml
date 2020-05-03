@@ -384,10 +384,22 @@ jobs:
 
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      release_type: ${{ steps.release_type.outputs.release_type }}
+      is_release: ${{ steps.release_type.outputs.is_release }}
+      is_prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Determine release type
+        id: release_type
+        run: ./ci/github-actions/release-type.sh
+        env:
+          RELEASE_TAG: ${{ github.ref }}
+
       - name: Create Release
         id: create_release
+        if: steps.release_type.outputs.is_release
         uses: actions/create-release@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -395,7 +407,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: 'false'
-          prerelease: 'true'
+          prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
   upload_release_assets:
     name: Upload Release Assets
@@ -409,6 +421,8 @@ jobs:
       - build_wasm
 
     runs-on: ubuntu-latest
+
+    if: needs.create_release.outputs.is_release
 
     strategy:
       fail-fast: true
@@ -472,6 +486,8 @@ jobs:
       - build_macos
       - build_windows
       - build_wasm
+
+    if: needs.create_release.outputs.is_release
 
     runs-on: ubuntu-latest
 
