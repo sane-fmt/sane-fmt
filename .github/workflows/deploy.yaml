@@ -426,6 +426,8 @@ jobs:
 
       - name: Download all artifacts
         uses: actions/download-artifact@v2.0
+        with:
+          name: sane-fmt-${{ matrix.target }}
 
       - name: Release executable (non-Windows, non-WASM)
         if: "!contains(matrix.target, 'windows') && !contains(matrix.target, 'wasm')"
@@ -434,7 +436,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt
+          asset_path: ./sane-fmt
           asset_name: sane-fmt-${{ matrix.target }}
           asset_content_type: application/x-pie-executable
 
@@ -445,7 +447,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.wasm
+          asset_path: ./sane-fmt.wasm
           asset_name: sane-fmt-${{ matrix.target }}.wasm
           asset_content_type: application/wasm
 
@@ -456,7 +458,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.exe
+          asset_path: ./sane-fmt.exe
           asset_name: sane-fmt-${{ matrix.target }}.exe
           asset_content_type: application/x-dosexec
 
