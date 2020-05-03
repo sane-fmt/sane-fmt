@@ -12,12 +12,12 @@ where
 
         if file_type.is_dir() {
             read_into(&mut result, &path)?;
+        } else {
+            result.push(Item {
+                file_type: metadata(&path)?.file_type(),
+                path,
+            });
         }
-
-        result.push(Item {
-            file_type: metadata(&path)?.file_type(),
-            path,
-        })
     }
 
     Ok(result)
