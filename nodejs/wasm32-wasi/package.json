@@ -1,6 +1,8 @@
 {
   "name": "@sane-fmt/wasm32-wasi",
   "version": "0.0.0",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "bin": {
     "sane-fmt": "./bin",
     "sane-fmt-wasi": "./bin",
