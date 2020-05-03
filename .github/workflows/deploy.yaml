@@ -399,3 +399,59 @@ jobs:
           asset_path: ./sane-fmt-${{ matrix.target }}/sane-fmt.exe
           asset_name: sane-fmt-${{ matrix.target }}.exe
           asset_content_type: application/x-dosexec
+
+  upload_checksums:
+    name: Upload Checksums
+
+    needs:
+      - create_release
+      - test
+      - build_on_linux
+      - build_on_macos
+      - build_on_windows
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download all artifacts
+        uses: actions/download-artifact@v2.0
+        with:
+          path: ./downloads
+
+      - name: Flatten directory
+        run: ./ci/github-actions/expose-release-artifacts.sh
+
+      - name: Create checksums
+        run: ./ci/github-actions/create-checksums.sh
+
+      - name: Release sha1sum
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sha1sum.txt
+          asset_name: sha1sum.txt
+          asset_content_type: text/plain
+
+      - name: Release sha256sum
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sha256sum.txt
+          asset_name: sha256sum.txt
+          asset_content_type: text/plain
+
+      - name: Release sha512sum
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./sha512sum.txt
+          asset_name: sha512sum.txt
+          asset_content_type: text/plain
