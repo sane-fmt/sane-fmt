@@ -11,7 +11,7 @@ export interface Process {
 }
 
 export async function main(process: Process): Promise<void> {
-  const args = [wasmFile, ...process.argv.slice(2)]
+  const args = ['sane-fmt', ...process.argv.slice(2)]
   const wdir = process.cwd()
 
   const wasi = new WASI({
