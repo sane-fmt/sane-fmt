@@ -10,10 +10,11 @@
   * [x] Diff should have color
   * [x] Log passed files (green)
   * [x] Use actual color for logs (red, green, dim)
-* [x] CI
+* [ ] CI
   * [x] GitHub Actions: Test
   * [x] GitHub Actions: Release
   * [x] Travis CI: Test
+  * [ ] Properly marks release as pre/official-release
 * [x] Treat symlink like a normal file
 * [x] When a directory name is given, traverse that directory
 * [x] Do not use `cp` for test
