@@ -21,6 +21,17 @@ jobs:
           - macos-latest
 
     steps:
+      - name: Setting some output parameters
+        id: setting_outputs
+        continue-on-error: true
+        run: |
+          echo '::set-output name=foo::bar'
+          echo '::set-output name=hello::world'
+
+      - name: Inspect output parameters above
+        continue-on-error: true
+        run: echo "${{ toJson(steps) }}"
+
       - uses: actions/checkout@v2
 
       - name: Cache Rust Cargo Registry
