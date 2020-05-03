@@ -424,11 +424,7 @@ jobs:
         run: ./ci/github-actions/expose-release-artifacts.sh
 
       - name: Create checksums
-        run: |
-          cd ./flatten || exit $?
-          sha1sum * > ../sha1sum.txt
-          sha256sum * > ../sha256sum.txt
-          sha512sum * > ../sha512sum.txt
+        run: ./ci/github-actions/create-checksums.sh
 
       - name: Release sha1sum
         uses: actions/upload-release-asset@v1.0.2
