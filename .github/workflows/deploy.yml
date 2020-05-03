@@ -328,7 +328,7 @@ jobs:
           prerelease: 'true'
 
   upload_release_assets:
-    name: Create Release
+    name: Upload Release Assets
 
     needs:
       - create_release
