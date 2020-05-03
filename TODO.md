@@ -18,3 +18,5 @@
 * [ ] When a directory name is given, traverse that directory
 * [ ] Do not use `cp` for test
 * [ ] Enable `write.rs` for Windows
+* [ ] Add a README
+* [ ] Change description
