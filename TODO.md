@@ -20,3 +20,8 @@
 * [x] Enable `write.rs` for Windows
 * [ ] Add a README
 * [ ] Change description
+* [ ] Run sha256 and sha512 for released artifacts
+* [ ] Release for Node.js
+  * [ ] WASM as main package
+  * [ ] Native binary as side packages
+  * [ ] Automatic deployment
