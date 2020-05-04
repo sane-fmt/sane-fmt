@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/wasm32-wasi",
-  "version": "0.0.0-npm0",
+  "version": "0.0.0-npm1",
   "private": false,
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
