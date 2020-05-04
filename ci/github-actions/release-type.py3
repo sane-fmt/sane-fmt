@@ -22,7 +22,7 @@ with open('./nodejs/wasm32-wasi/package.json') as package_json:
     print('::error ::package.json#version is required but missing')
     exit(1)
 
-  if version != release_tag:
+  if version != release_tag and f'refs/tags/{version}' != release_tag:
     print(f'::warning ::RELEASE_TAG ({release_tag}) does not match package.json#version ({version})')
     print('::set-output name=release_type::none')
     print('::set-output name=is_release::false')
