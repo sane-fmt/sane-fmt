@@ -178,9 +178,3 @@ jobs:
           B: ${{ steps.create_outputs.outputs.b }}
           C: ${{ steps.create_outputs.outputs.c }}
         run: bash -c 'echo env.A $A; echo env.B $B; echo env.C $C;'
-      - id: inspect_input
-        with:
-          aaa: ${{ steps.create_outputs.outputs.a }}
-          bbb: ${{ steps.create_outputs.outputs.b }}
-          ccc: ${{ steps.create_outputs.outputs.c }}
-        run: bash -c 'env'
