@@ -7,3 +7,4 @@ dist
 /nodejs/**/*.d.ts
 /nodejs/**/*.map
 node_modules
+*.tsbuildinfo
