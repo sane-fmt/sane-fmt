@@ -377,6 +377,7 @@ jobs:
       release_type: ${{ steps.release_type.outputs.release_type }}
       is_release: ${{ steps.release_type.outputs.is_release }}
       is_prerelease: ${{ steps.release_type.outputs.is_prerelease }}
+      release_tag: ${{ steps.release_type.outputs.release_tag }}
 
     steps:
       - uses: actions/checkout@v2
@@ -397,8 +398,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: ${{ github.ref }}
+          tag_name: ${{ steps.release_type.outputs.release_tag }}
+          release_name: ${{ steps.release_type.outputs.release_tag }}
           draft: 'false'
           prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
