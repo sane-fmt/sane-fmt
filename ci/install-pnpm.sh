@@ -1,4 +1,4 @@
-#! /usr/bin/sh
+#! /bin/sh
 
 if [ -z "$PNPM_VERSION" ]; then
   # shellcheck disable=SC2016
