@@ -31,6 +31,7 @@ if (version !== wasmData.version) {
   run('cargo', 'build')
 
   console.info('Commit changes')
+  run('git', 'add', '.')
   run('git', 'commit', '-m', version)
 
   console.info('Creating git tag')
