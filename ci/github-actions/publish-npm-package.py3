@@ -10,7 +10,7 @@ if 'NPM_AUTH_TOKEN' not in environ:
 print('Creating .npmrc')
 with open('./nodejs/wasm32-wasi/.npmrc', 'w') as file:
   content = dedent('''
-    //registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}
+    //registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}
     registry=https://registry.npmjs.org/
     always-auth=true
   ''').strip()
