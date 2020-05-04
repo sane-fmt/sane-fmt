@@ -160,3 +160,15 @@ jobs:
 
       - name: Check code formatting
         run: cargo fmt -- --check
+
+  fun_inspect:
+    runs-on: ubuntu-latest
+
+    steps:
+      - id: create_outputs
+        run: |
+          echo '::set-output name=a::true'
+          echo '::set-output name=b::false'
+          echo '::set-output name=c::string'
+      - id: inspect_outputs
+        run: echo '${{ toJson(steps.create_outputs.outputs) }}'

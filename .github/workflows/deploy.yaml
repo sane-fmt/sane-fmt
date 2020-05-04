@@ -402,6 +402,8 @@ jobs:
           draft: 'false'
           prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
+      - run: echo '${{ toJson(steps.release_type.outputs) }}'
+
   upload_release_assets:
     name: Upload Release Assets
 
@@ -583,3 +585,10 @@ jobs:
           IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: ./ci/github-actions/publish-npm-package.py3
+
+  inspect_create_release:
+    name: Inspect create_release
+    needs: create_release
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo '${{ toJson(needs.create_release.outputs) }}'
