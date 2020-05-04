@@ -381,28 +381,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-
-      - name: Cache PNPM store
-        uses: actions/cache@v1.1.2
-        with:
-          path: ~/.pnpm-store
-          key: create-release-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            create-release-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-            create-release-pnpm-store-
-
-      - name: Install PNPM
-        run: ./ci/install-pnpm.sh
-
-      - name: Install Node.js dependencies
-        run: pnpm recursive install
+      - name: Install APT packages
+        run: sudo apt install -y python3
 
       - name: Determine release type
         id: release_type
-        run: ./ci/github-actions/release-type.js
+        run: ./ci/github-actions/release-type.py3
         env:
           RELEASE_TAG: ${{ github.ref }}
 
