@@ -580,5 +580,6 @@ jobs:
 
       - name: Publish NPM package
         env:
+          IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: ./ci/github-actions/publish-npm-package.py3

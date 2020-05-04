@@ -16,9 +16,21 @@ with open('./nodejs/wasm32-wasi/.npmrc', 'w') as file:
   ''').strip()
   file.write(content)
 
+is_prerelease = environ.get('IS_PRERELEASE', None)
+if not is_prerelease:
+  print('::error ::IS_PRERELEASE is required but missing')
+  exit(1)
+
+tag_dict = {
+  'true': 'prerelease',
+  'false': 'latest',
+}
+
+tag = tag_dict[is_prerelease]
+
 print('Publishing')
 process = Popen(
-  ['npm', 'publish', '--access', 'public'],
+  ['npm', 'publish', '--access', 'public', '--tag', tag],
   cwd='./nodejs/wasm32-wasi/',
 )
 process.communicate()
