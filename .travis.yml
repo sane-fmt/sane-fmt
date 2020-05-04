@@ -3,10 +3,18 @@ language: rust
 rust:
   - '1.43.0'
 
+node_js:
+  - '14'
+
+env:
+  - PNPM_VERSION=4.14.0
+
 cache: cargo
 
 before_install:
   - rustup component add clippy rustfmt
+  - ./ci/install-pnpm.sh
+  - pnpm recursive install
 
 script:
   - cargo build
