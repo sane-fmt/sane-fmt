@@ -9,6 +9,7 @@ env:
   # Enable symbolic links on Windows
   MSYS: winsymlinks:nativestrict
   CYGWIN: winsymlinks:nativestrict
+  PNPM_VERSION: 4.14.0
 
 jobs:
   test:
@@ -390,6 +391,25 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '14.x'
+
+      - name: Cache PNPM store
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.pnpm-store
+          key: create-release-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            create-release-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+            create-release-pnpm-store-
+
+      - name: Install PNPM
+        run: ./ci/install-pnpm.sh
+
+      - name: Install Node.js dependencies
+        run: pnpm recursive install
 
       - name: Determine release type
         id: release_type
