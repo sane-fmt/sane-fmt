@@ -107,7 +107,7 @@ jobs:
 
       - name: Check formatting
         if: runner.os == 'Linux'
-        run: ./fmt.sh --check
+        run: ./fmt.sh
 
       - name: Clippy check
         if: runner.os == 'Linux'
