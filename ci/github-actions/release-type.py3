@@ -9,6 +9,10 @@ if not release_tag:
   print('::error ::Environment variable RELEASE_TAG is required but missing')
   exit(1)
 
+tag_prefix = 'refs/tags/'
+if release_tag.startswith(tag_prefix):
+  release_tag = release_tag.replace(tag_prefix, '', 1)
+
 with open('./nodejs/wasm32-wasi/package.json') as package_json:
   data = json.load(package_json)
 
@@ -22,7 +26,7 @@ with open('./nodejs/wasm32-wasi/package.json') as package_json:
     print('::error ::package.json#version is required but missing')
     exit(1)
 
-  if version != release_tag and f'refs/tags/{version}' != release_tag:
+  if version != release_tag:
     print(f'::warning ::RELEASE_TAG ({release_tag}) does not match package.json#version ({version})')
     print('::set-output name=release_type::none')
     print('::set-output name=is_release::false')
