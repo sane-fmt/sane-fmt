@@ -392,7 +392,7 @@ jobs:
 
       - name: Create Release
         id: create_release
-        if: steps.release_type.outputs.is_release
+        if: steps.release_type.outputs.is_release == 'true'
         uses: actions/create-release@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -400,7 +400,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: 'false'
-          prerelease: ${{ steps.release_type.outputs.is_prerelease }}
+          prerelease: ${{ steps.release_type.outputs.is_prerelease == 'true' }}
 
   upload_release_assets:
     name: Upload Release Assets
@@ -415,7 +415,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: needs.create_release.outputs.is_release
+    if: needs.create_release.outputs.is_release == 'true'
 
     strategy:
       fail-fast: true
@@ -480,7 +480,7 @@ jobs:
       - build_windows
       - build_wasm
 
-    if: needs.create_release.outputs.is_release
+    if: needs.create_release.outputs.is_release == 'true'
 
     runs-on: ubuntu-latest
 
@@ -536,7 +536,7 @@ jobs:
       - test
       - build_wasm
 
-    if: needs.create_release.outputs.is_release
+    if: needs.create_release.outputs.is_release == 'true'
 
     runs-on: ubuntu-latest
 
@@ -580,6 +580,6 @@ jobs:
 
       - name: Publish NPM package
         env:
-          IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease }}
+          IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease == true }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: ./ci/github-actions/publish-npm-package.py3
