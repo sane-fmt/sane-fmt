@@ -99,6 +99,9 @@ jobs:
       - name: Install Node.js dependencies
         run: pnpm recursive install
 
+      - name: Compile TypeScript
+        run: ./compile-typescript.sh
+
       - name: Test
         run: cargo test
 
