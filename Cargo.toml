@@ -1,6 +1,6 @@
 [package]
 name = "sane-fmt"
-version = "0.0.0-npm0"
+version = "0.0.0-test-ci-prerelease"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
 
