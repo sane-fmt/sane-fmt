@@ -172,3 +172,15 @@ jobs:
           echo '::set-output name=c::string'
       - id: inspect_outputs
         run: echo '${{ toJson(steps.create_outputs.outputs) }}'
+      - id: inspect_env
+        env:
+          A: ${{ steps.create_outputs.outputs.a }}
+          B: ${{ steps.create_outputs.outputs.b }}
+          C: ${{ steps.create_outputs.outputs.c }}
+        run: bash -c 'echo env.A $A; echo env.B $B; echo env.C $C;'
+      - id: inspect_input
+        with:
+          aaa: ${{ steps.create_outputs.outputs.a }}
+          bbb: ${{ steps.create_outputs.outputs.b }}
+          ccc: ${{ steps.create_outputs.outputs.c }}
+        run: bash -c 'env'
