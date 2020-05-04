@@ -28,13 +28,13 @@ with open('./nodejs/wasm32-wasi/package.json') as package_json:
     print('::set-output name=is_release::false')
     exit(0)
 
-if re.match(r'^[0-9]+.[0-9]+.[0-9]+-.+$', release_tag):
+if re.match(r'^[0-9]+\.[0-9]+\.[0-9]+-.+$', release_tag):
   print('::set-output name=release_type::prerelease')
   print('::set-output name=is_release::true')
   print('::set-output name=is_prerelease::true')
   exit(0)
 
-if re.match(r'^[0-9]+.[0-9]+.[0-9]+$', release_tag):
+if re.match(r'^[0-9]+\.[0-9]+\.[0-9]+$', release_tag):
   print('::set-output name=release_type::official')
   print('::set-output name=is_release::true')
   print('::set-output name=is_prerelease::false')
