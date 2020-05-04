@@ -527,3 +527,58 @@ jobs:
           asset_path: ./sha512sum.txt
           asset_name: sha512sum.txt
           asset_content_type: text/plain
+
+  publish_npm_packages:
+    name: Publish NPM packages
+
+    needs:
+      - create_release
+      - test
+      - build_wasm
+
+    if: needs.create_release.outputs.is_release
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - wasm32-wasi
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2.0
+        with:
+          path: ./nodejs/${{ matrix.target }}/
+          name: sane-fmt-${{ matrix.target }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.1.0'
+
+      - name: Cache PNPM store
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm-
+
+      - name: Install pnpm
+        run: bash ci/install-pnpm.sh
+
+      - name: Install dependencies
+        run: pnpm recursive install
+
+      - name: Compile TypeScript
+        run: ./compile-typescript.sh
+
+      - name: Publish NPM package
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: ./ci/github-actions/publish-npm-package.py3
