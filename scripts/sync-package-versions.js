@@ -30,8 +30,8 @@ if (version !== wasmData.version) {
   console.info('Updating Cargo.lock')
   run('cargo', 'build')
 
-  console.info('Check if there are untracked files')
-  run('git', 'diff', '--exit-code')
+  console.info('Commit changes')
+  run('git', 'commit', '-m', version)
 
   console.info('Creating git tag')
   run('git', 'tag', version)
