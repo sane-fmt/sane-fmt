@@ -431,7 +431,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download all artifacts
+      - name: Download artifact
         uses: actions/download-artifact@v2.0
         with:
           name: sane-fmt-${{ matrix.target }}
