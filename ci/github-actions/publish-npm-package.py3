@@ -26,7 +26,7 @@ tag_dict = {
   'false': 'latest',
 }
 
-tag = tag_dict[is_prerelease]
+tag = tag_dict[is_prerelease.lower()]
 
 print('Publishing')
 process = Popen(
