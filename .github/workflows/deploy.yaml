@@ -400,7 +400,17 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: 'false'
-          prerelease: ${{ steps.release_type.outputs.is_prerelease == 'true' }}
+          prerelease: ${{ steps.release_type.outputs.is_prerelease }}
+
+      - name: 'Inspect: This should run if is_prerelease is true'
+        if: steps.release_type.outputs.is_prerelease == 'true'
+        continue-on-error: true
+        run: echo '::warning ::pre-release'
+
+      - name: 'Inspect: This should run if is_prerelease is false'
+        if: steps.release_type.outputs.is_prerelease == 'false'
+        continue-on-error: true
+        run: echo '::warning ::official'
 
   upload_release_assets:
     name: Upload Release Assets
