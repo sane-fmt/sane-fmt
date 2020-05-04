@@ -10,8 +10,6 @@ cache:
     - $HOME/.node-gyp
     - $HOME/.node_libraries
 
-cache: cargo
-
 before_install:
   - rustup component add clippy rustfmt
   - nvm install $NODE_VERSION
