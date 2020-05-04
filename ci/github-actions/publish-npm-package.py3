@@ -4,7 +4,7 @@ from subprocess import Popen
 from textwrap import dedent
 
 if 'NPM_AUTH_TOKEN' not in environ:
-  print('::error NPM_AUTH_TOKEN is required but missing')
+  print('::error ::NPM_AUTH_TOKEN is required but missing')
   exit(1)
 
 print('Creating .npmrc')
