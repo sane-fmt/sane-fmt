@@ -8,3 +8,4 @@ dist
 /nodejs/**/*.map
 node_modules
 *.tsbuildinfo
+*.mypy_cache
