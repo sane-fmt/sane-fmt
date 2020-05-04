@@ -6,7 +6,7 @@ import json
 release_tag = environ.get('RELEASE_TAG', None)
 
 if not release_tag:
-  print('Environment variable RELEASE_TAG is required but missing')
+  print('::error ::Environment variable RELEASE_TAG is required but missing')
   exit(1)
 
 with open('./nodejs/wasm32-wasi/package.json') as package_json:
