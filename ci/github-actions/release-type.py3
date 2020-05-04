@@ -1,4 +1,4 @@
-#! /bin/python3
+#! /bin/python
 from os import environ
 import re
 
