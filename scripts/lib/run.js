@@ -17,7 +17,9 @@ function run(command, ...args) {
   }
 
   if (status !== 0) {
-    console.error(`Command [${[command, ...args].join(', ')}] exited with code ${status}`)
+    console.error(
+      `Command [${[command, ...args].join(', ')}] exited with code ${status}`,
+    )
     return process.exit(1)
   }
 }
