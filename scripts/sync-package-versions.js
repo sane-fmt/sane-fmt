@@ -26,13 +26,13 @@ if (version !== wasmData.version) {
   wasmData.version = version
   const json = JSON.stringify(wasmData, undefined, 2) + '\n'
   fs.writeFileSync(wasmManifest, json)
+
+  console.info('Updating Cargo.lock')
+  run('cargo', 'build')
+
+  console.info('Commit changes')
+  run('git', 'commit', '-m', version)
+
+  console.info('Creating git tag')
+  run('git', 'tag', version)
 }
-
-console.info('Updating Cargo.lock')
-run('cargo', 'build')
-
-console.info('Check if there are untracked files')
-run('git', 'diff', '--exit-code')
-
-console.info('Creating git tag')
-run('git', 'tag', version)
