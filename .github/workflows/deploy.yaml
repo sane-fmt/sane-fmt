@@ -400,7 +400,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: 'false'
-          prerelease: ${{ steps.release_type.outputs.is_prerelease == 'true' }}
+          prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
   upload_release_assets:
     name: Upload Release Assets
