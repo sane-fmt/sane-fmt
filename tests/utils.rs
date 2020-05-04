@@ -299,3 +299,43 @@ pub fn encode_ansi_text(text: &str) -> String {
         .collect::<Vec<_>>()
         .join("")
 }
+
+pub mod cargo_toml {
+    use serde::{Deserialize, Serialize};
+
+    /// Structure of Cargo.toml
+    #[derive(Serialize, Deserialize)]
+    pub struct CargoManifest {
+        pub package: Package,
+    }
+
+    impl CargoManifest {
+        /// Load content of Cargo.toml
+        pub fn load() -> Self {
+            toml::from_str(include_str!("../Cargo.toml")).expect("parse Cargo.toml")
+        }
+    }
+
+    /// Sub object `package`
+    #[derive(Serialize, Deserialize)]
+    pub struct Package {
+        pub version: String,
+    }
+}
+
+pub mod package_json {
+    use serde::{Deserialize, Serialize};
+
+    /// Structure of package.json
+    #[derive(Serialize, Deserialize)]
+    pub struct NodeManifest {
+        pub version: String,
+    }
+
+    impl NodeManifest {
+        /// Parse a string
+        pub fn parse<Text: AsRef<str>>(text: Text) -> Self {
+            serde_json::from_str(text.as_ref()).expect("parse text as package.json")
+        }
+    }
+}
