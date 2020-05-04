@@ -3,19 +3,10 @@ language: rust
 rust:
   - '1.43.0'
 
-cache:
-  cargo: true
-  directories:
-    - $HOME/.pnpm-store
-    - $HOME/.node-gyp
-    - $HOME/.node_libraries
+cache: cargo
 
 before_install:
   - rustup component add clippy rustfmt
-  - nvm install $NODE_VERSION
-  - nvm use $NODE_VERSION
-  - ./ci/install-pnpm.sh
-  - pnpm recursive install
 
 script:
   - cargo build

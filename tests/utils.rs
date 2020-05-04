@@ -34,14 +34,6 @@ pub fn fixtures() -> PathBuf {
     Path::new(WORKSPACE).join("tests").join("fixtures")
 }
 
-/// Get path to nodejs/wasm32-wasi/bin
-pub fn wasm32_wasi_bin() -> PathBuf {
-    Path::new(WORKSPACE)
-        .join("nodejs")
-        .join("wasm32-wasi")
-        .join("bin")
-}
-
 /// Wrapper of main executable
 pub struct Exe {
     pub cmd: Command,

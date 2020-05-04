@@ -80,28 +80,6 @@ jobs:
       - name: Build
         run: cargo build --locked
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '14.x'
-
-      - name: Cache PNPM store
-        uses: actions/cache@v1.1.2
-        with:
-          path: ~/.pnpm-store
-          key: create-release-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            create-release-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-            create-release-pnpm-store-
-
-      - name: Install PNPM
-        run: ./ci/install-pnpm.sh
-
-      - name: Install Node.js dependencies
-        run: pnpm recursive install
-
-      - name: Compile TypeScript
-        run: ./compile-typescript.sh
-
       - name: Test
         run: cargo test
 
