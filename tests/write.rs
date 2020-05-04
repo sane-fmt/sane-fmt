@@ -7,7 +7,7 @@ fn write() {
     let Exe {
         cmd: mut check_cmd,
         wdir,
-    } = Exe::temp();
+    } = Exe::temp_fixtures();
     check_cmd.arg("--details=name").arg("--color=never");
 
     let first_check = check_cmd.output().unwrap();
@@ -38,7 +38,7 @@ fn write() {
     let second_check = check_cmd.output().unwrap();
     assert_trimmed_str_eq(
         u8v_to_utf8(&second_check.stdout),
-        include_str!("./expected-output/all-passed.stdout.txt"),
+        include_str!("./expected-output/write-all-passed.stdout.txt"),
     );
     assert_str_eq(u8v_to_utf8(&second_check.stderr), "");
     assert_eq!(second_check.status.success(), true);

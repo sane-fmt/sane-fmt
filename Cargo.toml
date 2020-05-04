@@ -4,8 +4,6 @@ version = "0.0.0"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 structopt = "^0.3.14"
 dprint-plugin-typescript = "^0.15.0"
@@ -17,3 +15,6 @@ ansi_term = "^0.12.1"
 tempfile = "^3.1.0"
 strip-ansi-escapes = "^0.1.0"
 fs_extra = "^1.1.0"
+serde = "^1.0.106"
+serde_json = "^1.0.52"
+toml = "^0.5.6"

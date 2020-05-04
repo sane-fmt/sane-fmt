@@ -4,6 +4,9 @@ on:
   - push
   - pull_request
 
+env:
+  PNPM_VERSION: 4.14.0
+
 jobs:
   test:
     name: Test
@@ -66,19 +69,8 @@ jobs:
       - name: Build
         run: cargo build --locked
 
-      - name: Test on Linux and Windows
-        if: runner.os == 'Linux' || runner.os == 'Windows'
+      - name: Test
         run: cargo test
-
-      - name: Install GNU utilities for macOS
-        if: runner.os == 'macOS'
-        run: brew install coreutils
-
-      - name: Test on macOS
-        if: runner.os == 'macOS'
-        run: |
-          export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-          cargo test
 
   clippy_check:
     name: Clippy

@@ -1,19 +1,19 @@
-🗸 tests/fixtures/correct/a.ts
-🗸 tests/fixtures/correct/arrow-parens.js
-🗸 tests/fixtures/correct/arrow-parens.ts
-🗸 tests/fixtures/correct/b.ts
-🗸 tests/fixtures/correct/c.js
-🗸 tests/fixtures/correct/react.tsx
-✗ tests/fixtures/incorrect/a.ts
+🗸 correct/a.ts
+🗸 correct/arrow-parens.js
+🗸 correct/arrow-parens.ts
+🗸 correct/b.ts
+🗸 correct/c.js
+🗸 correct/react.tsx
+✗ incorrect/a.ts
   -export const name = "a";
   +export const name = 'a'
-✗ tests/fixtures/incorrect/b.ts
+✗ incorrect/b.ts
   -export const name = "b";
   +export const name = 'b'
-✗ tests/fixtures/incorrect/c.js
+✗ incorrect/c.js
   -export const name = "c";
   +export const name = 'c'
-✗ tests/fixtures/incorrect/multiple-lines.ts
+✗ incorrect/multiple-lines.ts
    export const a = 'correct'
    export const b = 'correct'
   -export const c = "incorrect"
@@ -33,7 +33,7 @@
   +export function func(): Func {
      return x => x * x
    }
-✗ tests/fixtures/incorrect/react.tsx
+✗ incorrect/react.tsx
   -export const name =
   -"react";
   +export const name = 'react'

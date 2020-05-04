@@ -1,4 +1,11 @@
 /target
 *.log
 /.vscode
-/dist
+dist
+/nodejs/**/*.wasm
+/nodejs/**/*.js
+/nodejs/**/*.d.ts
+/nodejs/**/*.map
+node_modules
+*.tsbuildinfo
+*.mypy_cache

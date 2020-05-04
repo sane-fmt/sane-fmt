@@ -62,8 +62,13 @@ impl Exe {
         Exe::new(WORKSPACE)
     }
 
-    /// Use a temporary directory as working directory
-    pub fn temp() -> Self {
+    /// Use fixtures directory as working directory
+    pub fn fixtures() -> Self {
+        Exe::new(&fixtures())
+    }
+
+    /// Use a temporary copy of workspace as working directory
+    pub fn temp_workspace() -> Self {
         let temp_dir = tmp::Builder::new()
             .prefix(TEMP_PREFIX)
             .suffix(TEMP_SUFFIX)
@@ -76,6 +81,19 @@ impl Exe {
             &fixtures().to_string_lossy(),
             &sub_dir.join("fixtures").to_string_lossy(),
         );
+        Self::new(&temp_dir)
+    }
+
+    /// Use a temporary copy of fixtures as working directory
+    pub fn temp_fixtures() -> Self {
+        let temp_dir = tmp::Builder::new()
+            .prefix(TEMP_PREFIX)
+            .suffix(TEMP_SUFFIX)
+            .tempdir()
+            .unwrap()
+            .into_path()
+            .join("fixtures");
+        abs_copy_dir(&fixtures().to_string_lossy(), &temp_dir.to_string_lossy());
         Self::new(&temp_dir)
     }
 
@@ -280,4 +298,44 @@ pub fn encode_ansi_text(text: &str) -> String {
         })
         .collect::<Vec<_>>()
         .join("")
+}
+
+pub mod cargo_toml {
+    use serde::{Deserialize, Serialize};
+
+    /// Structure of Cargo.toml
+    #[derive(Serialize, Deserialize)]
+    pub struct CargoManifest {
+        pub package: Package,
+    }
+
+    impl CargoManifest {
+        /// Load content of Cargo.toml
+        pub fn load() -> Self {
+            toml::from_str(include_str!("../Cargo.toml")).expect("parse Cargo.toml")
+        }
+    }
+
+    /// Sub object `package`
+    #[derive(Serialize, Deserialize)]
+    pub struct Package {
+        pub version: String,
+    }
+}
+
+pub mod package_json {
+    use serde::{Deserialize, Serialize};
+
+    /// Structure of package.json
+    #[derive(Serialize, Deserialize)]
+    pub struct NodeManifest {
+        pub version: String,
+    }
+
+    impl NodeManifest {
+        /// Parse a string
+        pub fn parse<Text: AsRef<str>>(text: Text) -> Self {
+            serde_json::from_str(text.as_ref()).expect("parse text as package.json")
+        }
+    }
 }

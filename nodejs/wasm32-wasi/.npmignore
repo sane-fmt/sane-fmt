@@ -1,0 +1,8 @@
+*.ts
+!*.d.ts
+!*.wasm
+Makefile
+tsconfig.json
+pnpm-lock.yaml
+*.log
+*.tsbuildinfo

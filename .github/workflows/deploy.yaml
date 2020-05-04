@@ -9,6 +9,7 @@ env:
   # Enable symbolic links on Windows
   MSYS: winsymlinks:nativestrict
   CYGWIN: winsymlinks:nativestrict
+  PNPM_VERSION: 4.14.0
 
 jobs:
   test:
@@ -79,23 +80,12 @@ jobs:
       - name: Build
         run: cargo build --locked
 
-      - name: Test on Linux and Windows
-        if: runner.os == 'Linux' || runner.os == 'Windows'
+      - name: Test
         run: cargo test
-
-      - name: Install GNU utilities for macOS
-        if: runner.os == 'macOS'
-        run: brew install coreutils
-
-      - name: Test on macOS
-        if: runner.os == 'macOS'
-        run: |
-          export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-          cargo test
 
       - name: Check formatting
         if: runner.os == 'Linux'
-        run: ./fmt.sh --check
+        run: ./fmt.sh
 
       - name: Clippy check
         if: runner.os == 'Linux'
@@ -384,10 +374,25 @@ jobs:
 
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+      release_type: ${{ steps.release_type.outputs.release_type }}
+      is_release: ${{ steps.release_type.outputs.is_release }}
+      is_prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
     steps:
+      - uses: actions/checkout@v2
+
+      - name: Install APT packages
+        run: sudo apt install -y python3
+
+      - name: Determine release type
+        id: release_type
+        run: ./ci/github-actions/release-type.py3
+        env:
+          RELEASE_TAG: ${{ github.ref }}
+
       - name: Create Release
         id: create_release
+        if: steps.release_type.outputs.is_release == 'true'
         uses: actions/create-release@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -395,7 +400,7 @@ jobs:
           tag_name: ${{ github.ref }}
           release_name: ${{ github.ref }}
           draft: 'false'
-          prerelease: 'true'
+          prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
   upload_release_assets:
     name: Upload Release Assets
@@ -409,6 +414,8 @@ jobs:
       - build_wasm
 
     runs-on: ubuntu-latest
+
+    if: needs.create_release.outputs.is_release == 'true'
 
     strategy:
       fail-fast: true
@@ -424,7 +431,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Download all artifacts
+      - name: Download artifact
         uses: actions/download-artifact@v2.0
         with:
           name: sane-fmt-${{ matrix.target }}
@@ -473,6 +480,8 @@ jobs:
       - build_windows
       - build_wasm
 
+    if: needs.create_release.outputs.is_release == 'true'
+
     runs-on: ubuntu-latest
 
     steps:
@@ -518,3 +527,59 @@ jobs:
           asset_path: ./sha512sum.txt
           asset_name: sha512sum.txt
           asset_content_type: text/plain
+
+  publish_npm_packages:
+    name: Publish NPM packages
+
+    needs:
+      - create_release
+      - test
+      - build_wasm
+
+    if: needs.create_release.outputs.is_release == 'true'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - wasm32-wasi
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2.0
+        with:
+          path: ./nodejs/${{ matrix.target }}/
+          name: sane-fmt-${{ matrix.target }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.1.0'
+
+      - name: Cache PNPM store
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm-
+
+      - name: Install pnpm
+        run: bash ci/install-pnpm.sh
+
+      - name: Install dependencies
+        run: pnpm recursive install
+
+      - name: Compile TypeScript
+        run: ./compile-typescript.sh
+
+      - name: Publish NPM package
+        env:
+          IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease == true }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+        run: ./ci/github-actions/publish-npm-package.py3

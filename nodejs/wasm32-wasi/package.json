@@ -1,0 +1,20 @@
+{
+  "name": "@sane-fmt/wasm32-wasi",
+  "version": "0.0.0",
+  "private": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "sane-fmt": "./bin",
+    "sane-fmt-wasi": "./bin",
+    "sane-fmt-wasm32-wasi": "./bin"
+  },
+  "dependencies": {
+    "@wasmer/wasi": "^0.10.2",
+    "tslib": "^1.11.1",
+    "@types/node": "^13.13.4"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.2"
+  }
+}
