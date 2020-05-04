@@ -15,9 +15,12 @@ if (typeof version !== 'string') {
   throw process.exit(1)
 }
 
+console.info(`File: ${wasmManifest}`)
 if (version !== wasmData.version) {
   console.info(`Version mismatch: ${version} vs ${wasmData.version}. Correcting...`)
   wasmData.version = version
   const json = JSON.stringify(wasmData, undefined, 2) + '\n'
   fs.writeFileSync(wasmManifest, json)
+} else {
+  console.info('skip')
 }
