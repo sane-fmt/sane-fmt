@@ -21,6 +21,4 @@ if (version !== wasmData.version) {
   wasmData.version = version
   const json = JSON.stringify(wasmData, undefined, 2) + '\n'
   fs.writeFileSync(wasmManifest, json)
-} else {
-  console.info('skip')
 }
