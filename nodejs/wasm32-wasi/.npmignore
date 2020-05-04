@@ -5,3 +5,4 @@ Makefile
 tsconfig.json
 pnpm-lock.yaml
 *.log
+*.tsbuildinfo
