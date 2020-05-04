@@ -3,9 +3,12 @@ language: rust
 rust:
   - '1.43.0'
 
-env:
-  - NODE_VERSION=14.1.0
-    PNPM_VERSION=4.14.0
+cache:
+  cargo: true
+  directories:
+    - $HOME/.pnpm-store
+    - $HOME/.node-gyp
+    - $HOME/.node_libraries
 
 cache: cargo
 
