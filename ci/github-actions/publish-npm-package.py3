@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-from os import environ, system
+from os import environ
 from subprocess import Popen
 from textwrap import dedent
 
