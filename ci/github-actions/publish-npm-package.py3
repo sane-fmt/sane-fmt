@@ -16,7 +16,7 @@ with open('./nodejs/wasm32-wasi/.npmrc', 'w') as file:
   ''').strip()
   file.write(content)
 
-is_prerelease = environ.get('IS_PRERELEASE', None)
+is_prerelease = environ.get('IS_PRERELEASE')
 if not is_prerelease:
   print('::error ::IS_PRERELEASE is required but missing')
   exit(1)
