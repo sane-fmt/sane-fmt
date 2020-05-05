@@ -1,15 +1,14 @@
 #! /usr/bin/env node
 const console = require('console')
+const path = require('path')
 const fs = require('fs')
 const process = require('process')
 const toml = require('toml')
 const run = require('./lib/run')
 
 const cargoManifest = require.resolve('../Cargo.toml')
-const wasmManifest = require.resolve('../nodejs/wasm32-wasi/package.json')
-
 const version = toml.parse(fs.readFileSync(cargoManifest)).package?.version
-const wasmData = require(wasmManifest)
+const nodejsDir = path.resolve(__dirname, '../nodejs')
 
 if (typeof version !== 'string') {
   console.error(
@@ -18,14 +17,22 @@ if (typeof version !== 'string') {
   throw process.exit(1)
 }
 
-console.info(`File: ${wasmManifest}`)
-if (version !== wasmData.version) {
+let shouldUpdate = false
+for (const target of fs.readdirSync(nodejsDir)) {
+  const targetManifest = path.join(nodejsDir, target, 'package.json');
+  const targetData = require(targetManifest);
+  if (version === targetData.version) continue
+  shouldUpdate = true
   console.info(
     `Version mismatch: ${version} vs ${wasmData.version}. Correcting...`,
   )
-  wasmData.version = version
-  const json = JSON.stringify(wasmData, undefined, 2) + '\n'
-  fs.writeFileSync(wasmManifest, json)
+  targetData.version = version
+  const json = JSON.stringify(targetData, undefined, 2) + '\n';
+  fs.writeFileSync(targetManifest, json)
+}
+
+if (shouldUpdate) {
+  console.info('Change detected. Updating manifest files...')
 
   console.info('Updating Cargo.lock')
   run('cargo', 'build')
