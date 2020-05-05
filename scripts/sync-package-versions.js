@@ -20,7 +20,7 @@ if (typeof version !== 'string') {
 let shouldUpdate = false
 for (const target of fs.readdirSync(nodejsDir)) {
   const targetManifest = path.join(nodejsDir, target, 'package.json');
-  if (fs.existsSync(targetManifest)) continue
+  if (!fs.existsSync(targetManifest)) continue
   const targetData = require(targetManifest);
   if (version === targetData.version) continue
   shouldUpdate = true
