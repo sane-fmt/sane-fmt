@@ -8,6 +8,7 @@ dist
 /nodejs/**/*.js
 /nodejs/**/*.d.ts
 /nodejs/**/*.map
+/nodejs/*/*.npmrc
 node_modules
 *.tsbuildinfo
 *.mypy_cache
