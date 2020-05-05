@@ -25,7 +25,7 @@ for (const target of fs.readdirSync(nodejsDir)) {
   if (version === targetData.version) continue
   shouldUpdate = true
   console.info(
-    `Version mismatch: ${version} vs ${wasmData.version}. Correcting...`,
+    `Version mismatch: ${version} vs ${targetData.version}. Correcting...`,
   )
   targetData.version = version
   fs.writeFileSync(
