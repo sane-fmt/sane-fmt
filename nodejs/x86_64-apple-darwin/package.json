@@ -1,0 +1,13 @@
+{
+  "name": "@sane-fmt/x86_64-apple-darwin",
+  "version": "0.1.1",
+  "private": false,
+  "bin": {
+    "sane-fmt": "./sane-fmt",
+    "sane-fmt-linux": "./sane-fmt",
+    "sane-fmt-x86_64-unknown-linux-gnu": "./sane-fmt"
+  },
+  "engines": {
+    "os": "darwin"
+  }
+}
