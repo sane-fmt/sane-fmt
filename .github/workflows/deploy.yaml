@@ -535,6 +535,9 @@ jobs:
     needs:
       - create_release
       - test
+      - build_linux
+      - build_macos
+      - build_windows
       - build_wasm
 
     if: needs.create_release.outputs.is_release == 'true'
@@ -545,6 +548,11 @@ jobs:
       fail-fast: true
       matrix:
         target:
+          - x86_64-unknown-linux-gnu
+          - x86_64-unknown-linux-musl
+          - x86_64-pc-windows-gnu
+          - x86_64-pc-windows-msvc
+          - x86_64-apple-darwin
           - wasm32-wasi
 
     steps:
@@ -583,4 +591,5 @@ jobs:
         env:
           IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease == true }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+          TARGET: ${{ matrix.target }}
         run: ./ci/github-actions/publish-npm-package.py3
