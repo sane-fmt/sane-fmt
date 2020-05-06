@@ -198,7 +198,7 @@ pub fn trim_trailing_whitespaces(text: &str) -> String {
         .collect::<Vec<_>>()
         .join("\n")
         .trim_end()
-        .to_string()
+        .to_owned()
 }
 
 /// Assert two strings are equal after being trimmed of trailing whitespaces.

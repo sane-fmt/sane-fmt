@@ -13,7 +13,7 @@ pub fn get(color: When) -> fn(&Path) {
         |path| {
             let theme = ColorfulScheme;
             let message = format!("🔎 {}", cross_platform_path::to_string(path, '/'));
-            let styled_message = theme.scan().paint(message.as_str()).to_string();
+            let styled_message = theme.scan().paint(message.as_str()).to_owned();
             eprint!("{}", styled_message);
         }
     }

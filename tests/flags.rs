@@ -6,7 +6,7 @@ fn executable() -> String {
     if cfg!(windows) {
         format!("{}.exe", NAME)
     } else {
-        NAME.to_string()
+        NAME.to_owned()
     }
 }
 
@@ -16,7 +16,7 @@ fn correct_snapshot(text: &str) -> String {
         let to = format!("{} [FLAGS] [OPTIONS]", executable());
         text.replace(from.as_str(), to.as_str())
     } else {
-        text.to_string()
+        text.to_owned()
     }
 }
 
