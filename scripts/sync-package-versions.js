@@ -29,10 +29,8 @@ for (const target of fs.readdirSync(nodejsDir)) {
     `Version mismatch: ${version} vs ${targetData.version}. Correcting...`,
   )
   targetData.version = version
-  fs.writeFileSync(
-    targetManifest,
-    JSON.stringify(targetData, undefined, 2) + '\n',
-  )
+  const json = JSON.stringify(targetData, undefined, 2) + '\n'
+  fs.writeFileSync(targetManifest, json)
 }
 
 if (shouldUpdate) {
