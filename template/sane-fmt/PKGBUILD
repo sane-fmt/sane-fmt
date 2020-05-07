@@ -5,8 +5,7 @@ pkgrel=0
 arch=(x86_64)
 license=(MIT)
 url='https://github.com/KSXGitHub/sane-fmt'
-depends=(libc)
-makedepends=(cargo rustc)
+makedepends=(cargo)
 
 build() {
   cd "$srcdir"/sane-fmt-"$pkgver"
