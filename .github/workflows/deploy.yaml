@@ -607,6 +607,7 @@ jobs:
       - create_release
       - test
       - build_linux
+      - upload_release_assets
 
     if: needs.create_release.outputs.release_type == 'official'
 
