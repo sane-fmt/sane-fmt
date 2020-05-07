@@ -1,6 +1,7 @@
 # This PKGBUILD is not a full PKGBUILD
 # pkgname, pkgver, source, and sha1sums are to be generated
 pkgdesc='Opinionated code formatter for TypeScript and JavaScript'
+pkgrel=0
 arch=(x86_64)
 license=(MIT)
 url='https://github.com/KSXGitHub/sane-fmt'
