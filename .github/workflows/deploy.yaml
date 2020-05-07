@@ -628,5 +628,6 @@ jobs:
 
       - name: Generate PKGBUILD
         env:
+          TARGET: ${{ matrix.target }}
           RELEASE_TAG: ${{ needs.create_release.outputs.release_tag }}
         run: ./ci/github-actions/generate-pkgbuild.py3
