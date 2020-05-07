@@ -499,6 +499,12 @@ jobs:
       - name: Create checksums
         run: ./ci/github-actions/create-checksums.sh
 
+      - name: Upload as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: checksums
+          path: sha*sum.txt
+
       - name: Release sha1sum
         uses: actions/upload-release-asset@v1.0.2
         env:
@@ -593,3 +599,34 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           TARGET: ${{ matrix.target }}
         run: ./ci/github-actions/publish-npm-package.py3
+
+  publish_aur_package:
+    name: Publish AUR package
+
+    needs:
+      - create_release
+      - test
+      - build_linux
+
+    if: needs.create_release.outputs.release_type == 'official'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download checksums
+        uses: actions/download-artifact@v2.0
+        with:
+          name: checksums
+
+      - name: Generate PKGBUILD
+        env:
+          RELEASE_TAG: ${{ needs.create_release.outputs.release_tag }}
+        run: ./ci/github-actions/generate-pkgbuild.py3
