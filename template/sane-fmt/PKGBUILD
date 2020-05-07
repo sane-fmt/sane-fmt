@@ -5,8 +5,15 @@ arch=(x86_64)
 license=(MIT)
 url='https://github.com/KSXGitHub/sane-fmt'
 depends=(libc)
+makedepends=(cargo rustc)
+
+build() {
+  cd "$srcdir"/sane-fmt-"$pkgver"
+  cargo build --release --locked
+}
 
 package() {
-  install -Dm755 sane-fmt-$pkgver "$pkgdir"/usr/bin/sane-fmt
+  cd "$srcdir"/sane-fmt-"$pkgver"
+  install -Dm755 target/release/sane-fmt "$pkgdir"/usr/bin/sane-fmt
   install -Dm644 LICENSE.md "$pkgdir"/usr/share/"$pkgname"/LICENSE.md
 }
