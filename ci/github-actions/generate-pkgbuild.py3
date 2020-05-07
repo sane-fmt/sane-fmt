@@ -13,9 +13,10 @@ if not release_tag:
   exit(1)
 
 checksum = None
-word_splitter = re.compile(r'\s')
+word_splitter = re.compile(r'\s+')
 for line in open('checksums/sha1sum.txt').readlines():
-  if line.endswith(suffix=target):
+  line = line.strip()
+  if line.endswith(target):
     checksum, _ = word_splitter.split(line)
 
 print('checksum', checksum)
