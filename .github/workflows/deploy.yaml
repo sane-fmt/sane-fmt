@@ -499,6 +499,12 @@ jobs:
       - name: Create checksums
         run: ./ci/github-actions/create-checksums.sh
 
+      - name: Upload as artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: checksums
+          path: sha*sum.txt
+
       - name: Release sha1sum
         uses: actions/upload-release-asset@v1.0.2
         env:
@@ -593,3 +599,55 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           TARGET: ${{ matrix.target }}
         run: ./ci/github-actions/publish-npm-package.py3
+
+  publish_aur_package:
+    name: Publish AUR package
+
+    needs:
+      - create_release
+      - test
+      - build_linux
+
+    if: needs.create_release.outputs.release_type == 'official'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - x86_64-unknown-linux-gnu
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Download checksums
+        uses: actions/download-artifact@v2.0
+        with:
+          name: checksums
+
+      - name: Generate PKGBUILD
+        env:
+          TARGET: ${{ matrix.target }}
+          RELEASE_TAG: ${{ needs.create_release.outputs.release_tag }}
+        run: ./ci/github-actions/generate-pkgbuild.py3
+
+      - name: Publish sane-fmt to the AUR
+        uses: KSXGitHub/github-actions-deploy-aur@v2.0.1
+        with:
+          pkgname: sane-fmt
+          pkgbuild: ./pkgbuild/sane-fmt/PKGBUILD
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: ${{ needs.create_release.outputs.release_tag }}
+
+      - name: Publish sane-fmt-bin to the AUR
+        uses: KSXGitHub/github-actions-deploy-aur@v2.0.1
+        with:
+          pkgname: sane-fmt-bin
+          pkgbuild: ./pkgbuild/sane-fmt-bin/PKGBUILD
+          commit_username: ${{ secrets.AUR_USERNAME }}
+          commit_email: ${{ secrets.AUR_EMAIL }}
+          ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
+          commit_message: ${{ needs.create_release.outputs.release_tag }}
