@@ -10,11 +10,11 @@
   * [x] Diff should have color
   * [x] Log passed files (green)
   * [x] Use actual color for logs (red, green, dim)
-* [ ] CI
+* [x] CI
   * [x] GitHub Actions: Test
   * [x] GitHub Actions: Release
   * [x] Travis CI: Test
-  * [ ] Properly marks release as pre/official-release
+  * [x] Properly marks release as pre/official-release
 * [x] Treat symlink like a normal file
 * [x] When a directory name is given, traverse that directory
 * [x] Do not use `cp` for test
@@ -22,7 +22,7 @@
 * [ ] Add a README
 * [ ] Change description
 * [x] Run sha256 and sha512 for released artifacts
-* [ ] Release for Node.js
-  * [ ] WASM as main package
-  * [ ] Native binary as side packages
-  * [ ] Automatic deployment
+* [x] Release for Node.js
+  * [x] WASM as main package
+  * [x] Native binary as side packages
+  * [x] Automatic deployment
