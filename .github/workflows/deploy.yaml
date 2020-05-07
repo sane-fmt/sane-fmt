@@ -625,6 +625,7 @@ jobs:
         uses: actions/download-artifact@v2.0
         with:
           name: checksums
+          path: ./checksums
 
       - name: Generate PKGBUILD
         env:
