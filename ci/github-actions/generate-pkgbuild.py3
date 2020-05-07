@@ -42,7 +42,7 @@ with open('./pkgbuild/sane-fmt-bin/PKGBUILD', 'w') as pkgbuild:
   content = opening + '\n'
   content += 'pkgname=sane-fmt-bin\n'
   content += f'pkgver={release_tag}\n'
-  source_url = f'https://github.com/KSXGitHub/sane-fmt/releases/download/{release_tag}/{target}'
+  source_url = f'https://github.com/KSXGitHub/sane-fmt/releases/download/{release_tag}/sane-fmt-{target}'
   content += f'source=(sane-fmt-{release_tag}::{source_url} {license_url})\n'
   content += f'sha1sums=({checksum} SKIP)\n'
   content += open('./template/sane-fmt-bin/PKGBUILD').read() + '\n'
