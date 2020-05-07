@@ -40,7 +40,7 @@ print('Generating PKGBUILD for sane-fmt-bin...')
 makedirs('./pkgbuild/sane-fmt-bin', exist_ok=True)
 with open('./pkgbuild/sane-fmt-bin/PKGBUILD', 'w') as pkgbuild:
   content = opening + '\n'
-  content += 'pkgname=sane-fmt\n'
+  content += 'pkgname=sane-fmt-bin\n'
   content += f'pkgver={release_tag}\n'
   source_url = f'https://github.com/KSXGitHub/sane-fmt/releases/download/{release_tag}/{target}'
   content += f'source=(sane-fmt-{release_tag}::{source_url} {license_url})\n'
