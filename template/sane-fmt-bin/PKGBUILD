@@ -6,8 +6,9 @@ arch=(x86_64)
 license=(MIT)
 url='https://github.com/KSXGitHub/sane-fmt'
 conflicts=(sane-fmt)
+sha1sums=($_checksum SKIP)
 
 package() {
-  install -Dm755 sane-fmt-$pkgver "$pkgdir"/usr/bin/sane-fmt
+  install -Dm755 sane-fmt-$_checksum "$pkgdir"/usr/bin/sane-fmt
   install -Dm644 LICENSE.md "$pkgdir"/usr/share/"$pkgname"/LICENSE.md
 }
