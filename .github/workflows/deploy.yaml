@@ -645,7 +645,7 @@ jobs:
           commit_message: ${{ needs.create_release.outputs.release_tag }}
 
       - name: Publish sane-fmt-bin to the AUR
-        uses: KSXGitHub/github-actions-deploy-aur@v2.0.1
+        uses: KSXGitHub/github-actions-deploy-aur@v2.0.2
         with:
           pkgname: sane-fmt-bin
           pkgbuild: ./pkgbuild/sane-fmt-bin/PKGBUILD
