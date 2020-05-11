@@ -1,6 +1,6 @@
 [package]
 name = "sane-fmt"
-version = "0.2.8"
+version = "0.2.9"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
 keywords = ["format", "typescript", "javascript"]
