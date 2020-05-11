@@ -15,7 +15,7 @@
   * [x] GitHub Actions: Release
   * [x] Travis CI: Test
   * [x] Properly marks release as pre/official-release
-  * [ ] Publish to WAPM
+  * [x] Publish to WAPM _(cancelled: https://github.com/wasmerio/wapm-cli/issues/193)_
   * [ ] Publish to crates.io
 * [x] Treat symlink like a normal file
 * [x] When a directory name is given, traverse that directory
