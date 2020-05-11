@@ -3,6 +3,7 @@ name = "sane-fmt"
 description = "Opinionated code formatter for TypeScript and JavaScript"
 version = "0.2.10"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
+license = "MIT"
 edition = "2018"
 keywords = ["format", "typescript", "javascript"]
 categories = ["command-line-utilities"]
