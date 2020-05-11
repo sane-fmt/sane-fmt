@@ -11,8 +11,9 @@ Opinionated code formatter for TypeScript and JavaScript.
 * No semicolons.
 * Trailing commas for multi-line.
 * No function parentheses for arrow function with single argument.
+* Multi-line union and intersection use consistent leading separator.
 
-Read [rules/mod.rs](https://git.io/JflmV) for more.
+Read [rules/mod.rs](https://git.io/JflmV) and [tests/rules.rs](https://git.io/JflOp) for more information.
 
 ## Installation
 
