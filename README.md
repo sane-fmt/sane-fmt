@@ -99,6 +99,26 @@ sane-fmt --help
 
 [My Patreon Page](https://patreon.com/khai96_).
 
+## Frequently Asked Questions
+
+### What is this program?
+
+`sane-fmt` is an opinionated code formatter for TypeScript and JavaScript powered by [dprint](https://dprint.dev/).
+
+### What is the point of this program?
+
+I want to apply a single, consistent formatting for all my codes regardless of environment without complex tooling.
+
+To use Prettier or Dprint would mean having to set up Node.js even in non-Node.js environments.
+
+Setting up `sane-fmt` is simple: just download the binary.
+
+### How to customized the rules?
+
+Customization is antithetical to the purpose of this project. Just fork this project if you want your own version of `sane-fmt`, or just use Dprint if you want convenient customization.
+
+I plan to divide this package into multiple reusable crates in the future, this would allow use to supply your own rules to create your own version of `sane-fmt`. However, I will never make the rule configurable for the end-user.
+
 ## License
 
 [MIT](https://git.io/Jflmx) © [Hoàng Văn Khải](https://github.com/KSXGitHub/)
