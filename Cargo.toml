@@ -3,6 +3,9 @@ name = "sane-fmt"
 version = "0.2.8"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
+keywords = ["format", "typescript", "javascript"]
+categories = ["command-line-utilities"]
+repository = "https://github.com/KSXGitHub/sane-fmt.git"
 
 [dependencies]
 structopt = "^0.3.14"
