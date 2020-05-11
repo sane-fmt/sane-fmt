@@ -95,6 +95,10 @@ This command would reformat all TypeScript and JavaScript files within `src/` di
 sane-fmt --help
 ```
 
+## Become a Patron
+
+[My Patreon Page](https://patreon.com/khai96_).
+
 ## License
 
 [MIT](https://git.io/Jflmx) © [Hoàng Văn Khải](https://github.com/KSXGitHub/)
