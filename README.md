@@ -29,7 +29,7 @@ Go to [the release page](https://github.com/KSXGitHub/sane-fmt/releases).
 
 #### WASM (all platform)
 
-<pre><code>npm i -g <a href="https://www.npmjs.com/package/@sane-fmt/wasm32-wasi">sane-fmt</a></code></pre>
+<pre><code>npm i -g <a href="https://www.npmjs.com/package/@sane-fmt/wasm32-wasi">@sane-fmt/wasm32-wasi</a></code></pre>
 
 #### Native binaries
 
