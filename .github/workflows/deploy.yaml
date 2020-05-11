@@ -653,3 +653,38 @@ jobs:
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
           commit_message: ${{ needs.create_release.outputs.release_tag }}
+
+  publish_cargo_crate:
+    name: Publish Cargo crate
+
+    needs:
+      - create_release
+      - test
+
+    if: needs.create_release.outputs.release_type == 'official'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        rust:
+          - '1.43.0'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          override: 'true'
+          default: 'true'
+
+      - name: Login
+        run: cargo login ${{ secrets.CRATE_AUTH_TOKEN }}
+
+      - name: List
+        run: cargo package --list
+
+      - name: Publish
+        run: cargo publish
