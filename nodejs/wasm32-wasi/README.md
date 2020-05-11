@@ -106,13 +106,13 @@ sane-fmt --help
 
 ### What is this program?
 
-`sane-fmt` is an opinionated code formatter for TypeScript and JavaScript powered by [dprint](https://dprint.dev/).
+`sane-fmt` is an opinionated code formatter for TypeScript and JavaScript powered by [dprint](https://dprint.dev/). You can think of it as a portable Dprint config file that is always up-to-date.
 
 ### What is the point of this program?
 
 I want to apply a single, consistent formatting for all my codes regardless of environment without complex tooling.
 
-I have considered using Prettier or Dprint, but that would mean having to set up Node.js even in non-Node.js environments.
+I have considered using Prettier or Dprint, but that would mean having to set up Node.js even in non-Node.js environments. I also don't like copying my config files back-and-forth to update them.
 
 On the other hand, setting up `sane-fmt` is simple: just download the binary.
 
