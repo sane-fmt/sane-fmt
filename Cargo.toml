@@ -8,9 +8,11 @@ edition = "2018"
 keywords = ["format", "typescript", "javascript"]
 categories = ["command-line-utilities"]
 repository = "https://github.com/KSXGitHub/sane-fmt.git"
+readme = "README.md"
 include = [
   "/src",
-  "/Cargo.toml"
+  "/Cargo.toml",
+  "/README.md",
 ]
 
 [dependencies]
