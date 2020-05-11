@@ -110,9 +110,9 @@ sane-fmt --help
 
 I want to apply a single, consistent formatting for all my codes regardless of environment without complex tooling.
 
-To use Prettier or Dprint would mean having to set up Node.js even in non-Node.js environments.
+I have considered using Prettier or Dprint, but that would mean having to set up Node.js even in non-Node.js environments.
 
-Setting up `sane-fmt` is simple: just download the binary.
+On the other hand, setting up `sane-fmt` is simple: just download the binary.
 
 ### How to customized the rules?
 
