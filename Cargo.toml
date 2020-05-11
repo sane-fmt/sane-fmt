@@ -1,7 +1,7 @@
 [package]
 name = "sane-fmt"
 description = "Opinionated code formatter for TypeScript and JavaScript"
-version = "0.2.9"
+version = "0.2.10"
 authors = ["khai96_ <hvksmr1996@gmail.com>"]
 edition = "2018"
 keywords = ["format", "typescript", "javascript"]
