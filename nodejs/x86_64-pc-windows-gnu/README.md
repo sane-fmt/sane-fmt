@@ -116,7 +116,7 @@ I have considered using Prettier or Dprint, but that would mean having to set up
 
 On the other hand, setting up `sane-fmt` is simple: just download the binary.
 
-### How to customized the rules?
+### How to customize the rules?
 
 Customization is antithetical to the purpose of this project. Just fork this project if you want your own version of `sane-fmt`, or just use Dprint if you want convenient customization.
 
