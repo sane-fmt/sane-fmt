@@ -13,29 +13,17 @@ pub fn diff_lines<'a>(
     old: &str,
     new: &str,
     theme: &'a BoxedColorScheme,
+    prefixes: (
+        impl Display + Copy + 'a,
+        impl Display + Copy + 'a,
+        impl Display + Copy + 'a,
+    ),
 ) -> impl Iterator<Item = String> + 'a {
+    let (same, add, rem) = prefixes;
     let make_line = move |diff: Difference| match diff {
-        Same(line) => theme.diff_line_same().paint(add_prefix(line, "   ")),
-        Add(line) => theme.diff_line_add().paint(add_prefix(line, "  +")),
-        Rem(line) => theme.diff_line_rem().paint(add_prefix(line, "  -")),
-    };
-    diff(&old, &new)
-        .diffs
-        .into_iter()
-        .map(make_line)
-        .map(|line| format!("{}", line))
-}
-
-/// Emit printable lines of diff without indentation.
-pub fn diff_lines_without_indent<'a>(
-    old: &str,
-    new: &str,
-    theme: &'a BoxedColorScheme,
-) -> impl Iterator<Item = String> + 'a {
-    let make_line = move |diff: Difference| match diff {
-        Same(line) => theme.diff_line_same().paint(add_prefix(line, ' ')),
-        Add(line) => theme.diff_line_add().paint(add_prefix(line, '+')),
-        Rem(line) => theme.diff_line_rem().paint(add_prefix(line, '-')),
+        Same(line) => theme.diff_line_same().paint(add_prefix(line, same)),
+        Add(line) => theme.diff_line_add().paint(add_prefix(line, add)),
+        Rem(line) => theme.diff_line_rem().paint(add_prefix(line, rem)),
     };
     diff(&old, &new)
         .diffs
