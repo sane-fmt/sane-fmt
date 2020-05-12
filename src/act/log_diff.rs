@@ -15,8 +15,9 @@ pub type Act<'a> = Box<dyn Fn(&Path, &str, &str) + 'a>;
 /// * If `--details=name`, the returning function would log names.
 /// * If `--details=diff`, the returning function would log names and diffs.
 pub fn get(details: DetailLevel, log_format: LogFormat, theme: &BoxedColorScheme) -> Act {
+    let stringify_path = |path: &Path| cross_platform_path::to_string(path, '/');
     let format_name = move |path: &Path| {
-        let message = format!("✗ {}", cross_platform_path::to_string(path, '/'));
+        let message = format!("✗ {}", stringify_path(path));
         format!("{}", theme.diff().paint(message))
     };
     let print_name = move |path: &Path| {
@@ -26,7 +27,7 @@ pub fn get(details: DetailLevel, log_format: LogFormat, theme: &BoxedColorScheme
         (Count, _) => Box::new(|_, _, _| ()),
         (Name, Human) => Box::new(move |path, _, _| print_name(path)),
         (Name, GitHubActions) => Box::new(move |path, _, _| {
-            println!("::error file={}::Format error", path.to_string_lossy());
+            println!("::error file={}::Format error", stringify_path(path));
             print_name(path);
         }),
         (Diff, Human) => Box::new(move |path, old, new| {
@@ -36,7 +37,7 @@ pub fn get(details: DetailLevel, log_format: LogFormat, theme: &BoxedColorScheme
             }
         }),
         (Diff, GitHubActions) => Box::new(move |path, old, new| {
-            println!("::error file={}::Format error", path.to_string_lossy());
+            println!("::error file={}::Format error", stringify_path(path));
             println!("::group::{}", format_name(path));
             for line in diff_lines(old, new, theme, (' ', '+', '-')) {
                 println!("{}", line);
