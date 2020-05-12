@@ -1,6 +1,7 @@
 use super::term::color::BoxedColorScheme;
 pub use difference::Changeset as Diff;
 use difference::Difference::{self, *};
+use std::fmt::Display;
 
 /// Calculate changeset of two strings.
 pub fn diff(old: &str, new: &str) -> Diff {
@@ -25,8 +26,26 @@ pub fn diff_lines<'a>(
         .map(|line| format!("{}", line))
 }
 
+/// Emit printable lines of diff without indentation.
+pub fn diff_lines_without_indent<'a>(
+    old: &str,
+    new: &str,
+    theme: &'a BoxedColorScheme,
+) -> impl Iterator<Item = String> + 'a {
+    let make_line = move |diff: Difference| match diff {
+        Same(line) => theme.diff_line_same().paint(add_prefix(line, ' ')),
+        Add(line) => theme.diff_line_add().paint(add_prefix(line, '+')),
+        Rem(line) => theme.diff_line_rem().paint(add_prefix(line, '-')),
+    };
+    diff(&old, &new)
+        .diffs
+        .into_iter()
+        .map(make_line)
+        .map(|line| format!("{}", line))
+}
+
 /// Add prefix to every line in a string.
-fn add_prefix(text: String, prefix: &str) -> String {
+fn add_prefix(text: String, prefix: impl Display) -> String {
     text.lines()
         .map(|line| format!("{}{}", prefix, line))
         .collect::<Vec<_>>()

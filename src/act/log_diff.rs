@@ -1,6 +1,6 @@
 use super::super::{
     cross_platform_path,
-    diff::diff_lines,
+    diff::{diff_lines, diff_lines_without_indent},
     term::color::*,
     DetailLevel::{self, *},
     LogFormat::{self, *},
@@ -38,7 +38,7 @@ pub fn get(details: DetailLevel, log_format: LogFormat, theme: &BoxedColorScheme
         (Diff, GitHubActions) => Box::new(move |path, old, new| {
             println!("::error file={}::Format error", path.to_string_lossy());
             println!("::group::{}", format_name(path));
-            for line in diff_lines(old, new, theme) {
+            for line in diff_lines_without_indent(old, new, theme) {
                 println!("{}", line);
             }
             println!("::endgroup::");
