@@ -6,7 +6,7 @@ mod file_list;
 mod rules;
 mod term;
 
-use cli_opt::{CliOpt, DetailLevel, When};
+use cli_opt::{CliOpt, DetailLevel, LogFormat, When};
 use relative_path::RelativePath;
 use rules::build_fmt;
 use std::{fs, path::MAIN_SEPARATOR};
@@ -38,7 +38,7 @@ fn main() -> Result<(), String> {
 
     let log_scan = act::log_scan::get(opt.color);
     let log_same = act::log_same::get(opt.details, opt.hide_passed, &theme);
-    let log_diff = act::log_diff::get(opt.details, &theme);
+    let log_diff = act::log_diff::get(opt.details, opt.log_format, &theme);
     let may_write = act::may_write::get(opt.write);
     let clear_current_line = act::may_clear_current_line::get(opt.color);
 
@@ -107,6 +107,12 @@ fn main() -> Result<(), String> {
         diff_count,
         file_count - diff_count,
     );
+
+    if opt.log_format == LogFormat::GitHubActions {
+        println!("::set-output name=total::{}", file_count);
+        println!("::set-output name=changed::{}", diff_count);
+        println!("::set-output name=unchanged::{}", file_count - diff_count);
+    }
 
     if file_count == 0 {
         return Err("No files found".to_owned());
