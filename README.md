@@ -92,6 +92,21 @@ sane-fmt --write src/
 
 This command would reformat all TypeScript and JavaScript files within `src/` directory.
 
+### GitHub Actions
+
+`sane-fmt` also provides a convenient way to integrate with GitHub Actions. To use it, simply add `--log-format=github-actions`, like so:
+
+```sh
+sane-fmt --log-format=github-actions --details=diff
+```
+
+When this command is executed within a GitHub Actions runner, it will:
+* Annotates unformatted files.
+* Group diffs by file names (if `--details=diff`).
+* Export `total`, `changed`, and `unchanged` as outputs.
+
+_Recommendation:_ This [action](https://github.com/KSXGitHub/github-actions-sane-fmt) will install `sane-fmt` and execute it for you.
+
 ### Print help message
 
 ```sh

@@ -1,7 +1,9 @@
 pub mod detail_level;
+pub mod log_format;
 pub mod when;
 
 pub use detail_level::*;
+pub use log_format::*;
 use std::{env::args, process::exit};
 use structopt::*;
 pub use when::*;
@@ -26,6 +28,11 @@ pub struct CliOpt {
     /// [possible values: auto, never, always]
     #[structopt(long, default_value = "auto")]
     pub color: When,
+
+    /// Format of log messages
+    /// [possible values: human, github-actions]
+    #[structopt(long, default_value = "human")]
+    pub log_format: LogFormat,
 
     /// Files to process
     ///

@@ -1,0 +1,20 @@
+🗸 correct/a.ts
+🗸 correct/arrow-parens.js
+🗸 correct/arrow-parens.ts
+🗸 correct/b.ts
+🗸 correct/c.js
+🗸 correct/react.tsx
+::error file=incorrect/a.ts::Format error
+✗ incorrect/a.ts
+::error file=incorrect/b.ts::Format error
+✗ incorrect/b.ts
+::error file=incorrect/c.js::Format error
+✗ incorrect/c.js
+::error file=incorrect/multiple-lines.ts::Format error
+✗ incorrect/multiple-lines.ts
+::error file=incorrect/react.tsx::Format error
+✗ incorrect/react.tsx
+SUMMARY: total 11; changed 5; unchanged 6
+::set-output name=total::11
+::set-output name=changed::5
+::set-output name=unchanged::6

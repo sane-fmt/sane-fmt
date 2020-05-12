@@ -1,0 +1,4 @@
+SUMMARY: total 11; changed 5; unchanged 6
+::set-output name=total::11
+::set-output name=changed::5
+::set-output name=unchanged::6

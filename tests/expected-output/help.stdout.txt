@@ -22,6 +22,9 @@ OPTIONS:
         --details <details>
             File diff detail [possible values: count, name, diff] [default: name]
 
+        --log-format <log-format>
+            Format of log messages [possible values: human, github-actions] [default: human]
+
 
 ARGS:
     <files>...
