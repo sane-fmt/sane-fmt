@@ -28,6 +28,6 @@
   * [x] WASM as main package
   * [x] Native binary as side packages
   * [x] Automatic deployment
-* [ ] GitHub Actions support
-  * [ ] Group diffs by filename
-  * [ ] Annotate changed files
+* [x] GitHub Actions support
+  * [x] Group diffs by filename
+  * [x] Annotate changed files
