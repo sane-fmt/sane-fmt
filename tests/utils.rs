@@ -293,6 +293,7 @@ pub fn encode_ansi_text(text: &str) -> String {
         .map(|ch| match ch {
             "\x00" => "\\0",
             "\x1B" => "\\e",
+            "\r" => "\\r",
             "\\" => "\\",
             _ => ch,
         })
