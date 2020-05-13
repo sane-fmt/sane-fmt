@@ -36,7 +36,7 @@ fn main() -> Result<(), String> {
         Box::new(ColorfulScheme)
     };
 
-    let log_scan = act::log_scan::get(opt.color);
+    let log_scan = act::log_scan::get(opt.color, opt.log_format);
     let log_same = act::log_same::get(opt.details, opt.hide_passed, &theme);
     let log_diff = act::log_diff::get(opt.details, opt.log_format, &theme);
     let may_write = act::may_write::get(opt.write);

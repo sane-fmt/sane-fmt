@@ -1,4 +1,4 @@
-use super::super::{cross_platform_path, term::color::*, When};
+use super::super::{cross_platform_path, term::color::*, LogFormat, When};
 use std::path::Path;
 
 /// Lookup a function that may print scanned filesystem objects according to color support.
@@ -6,8 +6,8 @@ use std::path::Path;
 /// * Otherwise, the returning function would print scanned filesystem objects.
 ///
 /// The message (if any) would be deleted by `clear_current_line` afterward
-pub fn get(color: When) -> fn(&Path) {
-    if color == When::Never {
+pub fn get(color: When, log_format: LogFormat) -> fn(&Path) {
+    if color == When::Never || log_format == LogFormat::GitHubActions {
         |_| ()
     } else {
         |path| {
