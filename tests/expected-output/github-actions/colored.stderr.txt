@@ -1,1 +1,0 @@
-\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\r\e[2K\rError: "There are 5 unformatted files"

@@ -68,18 +68,3 @@ fn details_count() {
         .as_str(),
     );
 }
-
-#[test]
-fn log_scan() {
-    let log_format_github_actions_color_always = Exe::fixtures()
-        .cmd
-        .arg("--log-format=github-actions")
-        .arg("--color=always")
-        .output()
-        .unwrap();
-
-    assert_trimmed_str_eq(
-        encode_ansi_text(u8v_to_utf8(&log_format_github_actions_color_always.stderr)).as_str(),
-        include_str!("./expected-output/github-actions/colored.stderr.txt"),
-    )
-}

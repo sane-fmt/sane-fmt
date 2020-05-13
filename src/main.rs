@@ -36,11 +36,9 @@ fn main() -> Result<(), String> {
         Box::new(ColorfulScheme)
     };
 
-    let log_scan = act::log_scan::get(opt.color, opt.log_format);
     let log_same = act::log_same::get(opt.details, opt.hide_passed, &theme);
     let log_diff = act::log_diff::get(opt.details, opt.log_format, &theme);
     let may_write = act::may_write::get(opt.write);
-    let clear_current_line = act::may_clear_current_line::get(opt.color);
 
     for item in files {
         let file_list::Item { path, .. } = item;
@@ -67,7 +65,6 @@ fn main() -> Result<(), String> {
         };
 
         let path = &path;
-        log_scan(path);
         let file_content = fs::read_to_string(path).map_err(|error| {
             format!(
                 "Failed to read {:?}: {}",
@@ -75,7 +72,6 @@ fn main() -> Result<(), String> {
                 error
             )
         })?;
-        clear_current_line();
 
         let formatted = fmt
             .format_text(&path.to_path_buf(), &file_content)
