@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-unknown-linux-musl",
-  "version": "0.2.20",
+  "version": "0.2.21",
   "private": false,
   "bin": {
     "sane-fmt": "./sane-fmt",
