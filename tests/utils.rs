@@ -289,13 +289,13 @@ pub fn visualize_fake_command_output(
 
 /// Convert special characters to escaped form
 pub fn encode_ansi_text(text: &str) -> String {
-    text.split("")
+    text.chars()
         .map(|ch| match ch {
-            "\x00" => "\\0",
-            "\x1B" => "\\e",
-            "\r" => "\\r",
-            "\\" => "\\",
-            _ => ch,
+            '\x00' => "\\0".to_owned(),
+            '\x1B' => "\\e".to_owned(),
+            '\r' => "\\r".to_owned(),
+            '\\' => "\\".to_owned(),
+            _ => ch.to_string(),
         })
         .collect::<Vec<_>>()
         .join("")
