@@ -1,7 +1,7 @@
 dependencies:
   '@types/node': 13.13.4
   '@wasmer/wasi': 0.10.2
-  tslib: 1.11.1
+  tslib: 2.0.0
 devDependencies:
   typescript: 3.8.3
 lockfileVersion: 5.1
@@ -48,10 +48,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-fZEwUGbVl7kouZs1jCdMLdt95hdIv0ZeHg6L7qPeciMZhZ+/gdesW4wgTARkrFWEpspjEATAzUGPG8N2jJiwbg==
-  /tslib/1.11.1:
+  /tslib/2.0.0:
     dev: false
     resolution:
-      integrity: sha512-aZW88SY8kQbU7gpV19lN24LtXh/yD4ZZg6qieAJDDg+YBsJcSmLGK9QpnUjAKVG/xefmvJGd1WUmfpT/g6AJGA==
+      integrity: sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
   /typescript/3.8.3:
     dev: true
     engines:
@@ -62,5 +62,5 @@ packages:
 specifiers:
   '@types/node': ^13.13.4
   '@wasmer/wasi': ^0.10.2
-  tslib: ^1.11.1
+  tslib: ^2.0.0
   typescript: ^3.8.2
