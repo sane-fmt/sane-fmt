@@ -10,7 +10,7 @@
     "sane-fmt-wasm32-wasi": "./bin"
   },
   "dependencies": {
-    "@wasmer/wasi": "^0.10.2",
+    "@wasmer/wasi": "^0.11.0",
     "tslib": "^2.0.0",
     "@types/node": "^13.13.4"
   },
