@@ -6,7 +6,7 @@
 const process = require('process')
 const child_process = require('child_process')
 const main = require.resolve('./dist/main.js')
-const { status } = child_process.spawnSync('node', [
+const { status } = child_process.spawnSync(process.execPath, [
   '--experimental-wasm-bigint',
   main,
   ...process.argv.slice(2),
