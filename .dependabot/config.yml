@@ -7,3 +7,9 @@ update_configs:
       - dependencies
       - dependabot
       - rust
+  - package_manager: github_actions
+    directory: /
+    update_schedule: weekly
+    default_labels:
+      - dependabot
+      - github-actions
