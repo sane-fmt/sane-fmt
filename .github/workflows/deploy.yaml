@@ -385,6 +385,11 @@ jobs:
       - name: Install APT packages
         run: sudo apt install -y python3
 
+      - name: Install pnpm packages
+        uses: pnpm/action-setup@v1.2.0
+        with:
+          run_install: 'true'
+
       - name: Determine release type
         id: release_type
         run: ./ci/github-actions/release-type.js
