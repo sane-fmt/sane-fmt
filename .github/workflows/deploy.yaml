@@ -360,30 +360,23 @@ jobs:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt.wasm
 
-  create_release:
-    name: Create Release
-
-    needs:
-      - test
-      - build_linux
-      - build_macos
-      - build_windows
-      - build_wasm
+  release_type:
+    name: Determine Release Type
 
     runs-on: ubuntu-latest
 
     outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-      release_type: ${{ steps.release_type.outputs.release_type }}
-      is_release: ${{ steps.release_type.outputs.is_release }}
-      is_prerelease: ${{ steps.release_type.outputs.is_prerelease }}
-      release_tag: ${{ steps.release_type.outputs.release_tag }}
+      release_type: ${{ needs.release_type.outputs.release_type }}
+      is_release: ${{ needs.release_type.outputs.is_release }}
+      is_prerelease: ${{ needs.release_type.outputs.is_prerelease }}
+      release_tag: ${{ needs.release_type.outputs.release_tag }}
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Install APT packages
-        run: sudo apt install -y python3
+      - uses: actions/setup-node@v1.4.2
+        with:
+          node-version: '14'
 
       - name: Cache PNPM store
         uses: actions/cache@v1.1.2
@@ -396,28 +389,52 @@ jobs:
       - name: Install pnpm packages
         uses: pnpm/action-setup@v1.2.0
         with:
+          version: '4.14.0'
           run_install: 'true'
 
       - name: Determine release type
         id: release_type
         run: ./ci/github-actions/release-type.js
 
+  create_release:
+    name: Create Release
+
+    needs:
+      - release_type
+      - test
+      - build_linux
+      - build_macos
+      - build_windows
+      - build_wasm
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install APT packages
+        run: sudo apt install -y python3
+
       - name: Create Release
         id: create_release
-        if: steps.release_type.outputs.is_release == 'true'
+        if: needs.release_type.outputs.is_release == 'true'
         uses: actions/create-release@v1.0.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.release_type.outputs.release_tag }}
-          release_name: ${{ steps.release_type.outputs.release_tag }}
+          tag_name: ${{ needs.release_type.outputs.release_tag }}
+          release_name: ${{ needs.release_type.outputs.release_tag }}
           draft: 'false'
-          prerelease: ${{ steps.release_type.outputs.is_prerelease }}
+          prerelease: ${{ needs.release_type.outputs.is_prerelease }}
 
   upload_release_assets:
     name: Upload Release Assets
 
     needs:
+      - release_type
       - create_release
       - test
       - build_linux
@@ -427,7 +444,7 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    if: needs.create_release.outputs.is_release == 'true'
+    if: needs.release_type.outputs.is_release == 'true'
 
     strategy:
       fail-fast: true
@@ -485,6 +502,7 @@ jobs:
     name: Upload Checksums
 
     needs:
+      - release_type
       - create_release
       - test
       - build_linux
@@ -492,7 +510,7 @@ jobs:
       - build_windows
       - build_wasm
 
-    if: needs.create_release.outputs.is_release == 'true'
+    if: needs.release_type.outputs.is_release == 'true'
 
     runs-on: ubuntu-latest
 
@@ -550,6 +568,7 @@ jobs:
     name: Publish NPM packages
 
     needs:
+      - release_type
       - create_release
       - test
       - build_linux
@@ -557,7 +576,7 @@ jobs:
       - build_windows
       - build_wasm
 
-    if: needs.create_release.outputs.is_release == 'true'
+    if: needs.release_type.outputs.is_release == 'true'
 
     runs-on: ubuntu-latest
 
@@ -606,7 +625,7 @@ jobs:
 
       - name: Publish NPM package
         env:
-          IS_PRERELEASE: ${{ needs.create_release.outputs.is_prerelease == true }}
+          IS_PRERELEASE: ${{ needs.release_type.outputs.is_prerelease == true }}
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
           TARGET: ${{ matrix.target }}
         run: ./ci/github-actions/publish-npm-package.py3
@@ -615,12 +634,13 @@ jobs:
     name: Publish AUR package
 
     needs:
+      - release_type
       - create_release
       - test
       - build_linux
       - upload_release_assets
 
-    if: needs.create_release.outputs.release_type == 'official'
+    if: needs.release_type.outputs.release_type == 'official'
 
     runs-on: ubuntu-latest
 
@@ -642,7 +662,7 @@ jobs:
       - name: Generate PKGBUILD
         env:
           TARGET: ${{ matrix.target }}
-          RELEASE_TAG: ${{ needs.create_release.outputs.release_tag }}
+          RELEASE_TAG: ${{ needs.release_type.outputs.release_tag }}
         run: ./ci/github-actions/generate-pkgbuild.py3
 
       - name: Publish sane-fmt to the AUR
@@ -653,7 +673,7 @@ jobs:
           commit_username: ${{ secrets.AUR_USERNAME }}
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
-          commit_message: ${{ needs.create_release.outputs.release_tag }}
+          commit_message: ${{ needs.release_type.outputs.release_tag }}
 
       - name: Publish sane-fmt-bin to the AUR
         uses: KSXGitHub/github-actions-deploy-aur@v2.0.2
@@ -663,16 +683,17 @@ jobs:
           commit_username: ${{ secrets.AUR_USERNAME }}
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
-          commit_message: ${{ needs.create_release.outputs.release_tag }}
+          commit_message: ${{ needs.release_type.outputs.release_tag }}
 
   publish_cargo_crate:
     name: Publish Cargo crate
 
     needs:
+      - release_type
       - create_release
       - test
 
-    if: needs.create_release.outputs.release_type == 'official'
+    if: needs.release_type.outputs.release_type == 'official'
 
     runs-on: ubuntu-latest
 
