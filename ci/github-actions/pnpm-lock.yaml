@@ -1,10 +1,41 @@
 dependencies:
+  '@actions/core': 1.2.4
+  string-template-format-inspect: 0.1.7
   toml: 3.0.0
 lockfileVersion: 5.1
 packages:
+  /@actions/core/1.2.4:
+    dev: false
+    resolution:
+      integrity: sha512-YJCEq8BE3CdN8+7HPZ/4DxJjk/OkZV2FFIf+DlZTC/4iBlzYCD5yjRR6eiOS5llO11zbRltIRuKAjMKaWTE6cg==
+  /@types/node/13.13.6:
+    dev: false
+    resolution:
+      integrity: sha512-zqRj8ugfROCjXCNbmPBe2mmQ0fJWP9lQaN519hwunOgpHgVykme4G6FW95++dyNFDvJUk4rtExkVkL0eciu5NA==
+  /string-template-format-base/0.1.6:
+    dependencies:
+      '@types/node': 13.13.6
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-4mvYtipF6d/XUUEQ5/V/EHlnT1JhdrfOIen2GO7gdt2grF8sd2Wi8+Frmyr0+huedmloca51vvk6R0xYBdr/Hw==
+  /string-template-format-inspect/0.1.7:
+    dependencies:
+      '@types/node': 13.13.6
+      string-template-format-base: 0.1.6
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-1TsPe/viDWaZU6s0vRL0JgKqgZZlzrVfzLOL6CkOX+l2nvOADQh6cjfLOXgYKs/1AW/rBbINRDOZi9KDxw9q3Q==
   /toml/3.0.0:
     dev: false
     resolution:
       integrity: sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==
+  /tslib/1.13.0:
+    dev: false
+    resolution:
+      integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
 specifiers:
+  '@actions/core': ^1.2.4
+  string-template-format-inspect: ^0.1.7
   toml: ^3.0.0
