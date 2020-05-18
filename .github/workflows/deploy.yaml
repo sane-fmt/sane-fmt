@@ -82,13 +82,94 @@ jobs:
       - name: Test
         run: cargo test
 
-      - name: Check formatting
-        if: runner.os == 'Linux'
-        run: ./fmt.sh
+  clippy_check:
+    name: Clippy
 
-      - name: Clippy check
-        if: runner.os == 'Linux'
-        run: ./clippy.sh
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        rust:
+          - '1.43.0'
+        os:
+          - ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache Rust Cargo Registry
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/registry
+          key: 0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Cargo Index
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: ~/.cargo/git
+          key: 0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+
+      - name: Cache Rust Build
+        uses: actions/cache@v1.1.2
+        timeout-minutes: 1
+        continue-on-error: true
+        with:
+          path: target
+          key: 0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: clippy
+          override: 'true'
+          default: 'true'
+
+      - name: Use clippy to lint code
+        uses: actions-rs/clippy-check@v1
+        with:
+          name: Clippy Report (${{ matrix.rust }}, ${{ matrix.os }})
+          token: ${{ secrets.GITHUB_TOKEN }}
+          args: --all-features --all-targets -- -D warnings
+
+  fmt_check:
+    name: Fmt
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        rust:
+          - '1.43.0'
+        os:
+          - ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions-rs/toolchain@v1.0.6
+        with:
+          profile: minimal
+          toolchain: ${{ matrix.rust }}
+          components: rustfmt
+          override: 'true'
+          default: 'true'
+
+      - name: Check code formatting
+        run: cargo fmt -- --check
 
   build_linux:
     name: Build
@@ -401,6 +482,8 @@ jobs:
     needs:
       - release_type
       - test
+      - clippy_check
+      - fmt_check
       - build_linux
       - build_macos
       - build_windows
@@ -436,6 +519,8 @@ jobs:
       - release_type
       - create_release
       - test
+      - clippy_check
+      - fmt_check
       - build_linux
       - build_macos
       - build_windows
@@ -504,6 +589,8 @@ jobs:
       - release_type
       - create_release
       - test
+      - clippy_check
+      - fmt_check
       - build_linux
       - build_macos
       - build_windows
@@ -570,6 +657,8 @@ jobs:
       - release_type
       - create_release
       - test
+      - clippy_check
+      - fmt_check
       - build_linux
       - build_macos
       - build_windows
@@ -636,6 +725,8 @@ jobs:
       - release_type
       - create_release
       - test
+      - clippy_check
+      - fmt_check
       - build_linux
       - upload_release_assets
 
@@ -691,6 +782,8 @@ jobs:
       - release_type
       - create_release
       - test
+      - clippy_check
+      - fmt_check
 
     if: needs.release_type.outputs.release_type == 'official'
 
