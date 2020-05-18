@@ -1,5 +1,11 @@
 const { spawnSync } = require('child_process')
+const { createPrettyExec } = require('pretty-exec')
 const process = require('process')
+
+const prettyExec = createPrettyExec({
+  spawn: (command, args) => spawnSync(command, args, { stdio: 'inherit' }),
+  print: console.log,
+})
 
 /**
  * Execute a command
@@ -8,7 +14,7 @@ const process = require('process')
  * @returns {void}
  */
 function run(command, ...args) {
-  const { error, status } = spawnSync(command, args, { stdio: 'inherit' })
+  const { error, status } = prettyExec(command, args)
 
   if (error) {
     console.error('Unexpected error', [command, ...args])

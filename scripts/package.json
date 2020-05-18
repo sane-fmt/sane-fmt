@@ -1,6 +1,7 @@
 {
   "private": true,
   "dependencies": {
-    "toml": "^3.0.0"
+    "toml": "^3.0.0",
+    "pretty-exec": "^0.3.9"
   }
 }
