@@ -1,9 +1,9 @@
-name: Deployment
+name: CI/CD
 
 on:
   push:
-    tags:
-      - '*.*.*'
+    branches:
+      - '*'
 
 env:
   # Enable symbolic links on Windows
