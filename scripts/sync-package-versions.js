@@ -42,7 +42,4 @@ if (shouldUpdate) {
   console.info('Commit changes')
   run('git', 'add', '.')
   run('git', 'commit', '-m', version)
-
-  console.info('Creating git tag')
-  run('git', 'tag', version)
 }
