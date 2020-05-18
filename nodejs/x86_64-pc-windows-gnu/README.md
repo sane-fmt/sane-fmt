@@ -2,6 +2,7 @@
 
 [![GitHub Actions Status](https://github.com/KSXGitHub/sane-fmt/workflows/Test/badge.svg)](https://github.com/KSXGitHub/sane-fmt/actions)
 [![Travis Build Status](https://travis-ci.org/KSXGitHub/sane-fmt.svg?branch=master)](https://travis-ci.org/KSXGitHub/sane-fmt)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=KSXGitHub/sane-fmt)](https://dependabot.com)
 
 Opinionated code formatter for TypeScript and JavaScript.
 
