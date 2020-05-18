@@ -2,6 +2,7 @@
   "private": true,
   "dependencies": {
     "toml": "^3.0.0",
+    "isomorphic-git": "^1.4.0",
     "@actions/core": "^1.2.4",
     "string-template-format-inspect": "^0.1.7"
   }
