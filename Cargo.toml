@@ -15,6 +15,10 @@ include = [
   "/README.md",
 ]
 
+[lib]
+name = "sane_fmt"
+path = "src/lib.rs"
+
 [[bin]]
 name = "sane-fmt"
 path = "src/main.rs"
