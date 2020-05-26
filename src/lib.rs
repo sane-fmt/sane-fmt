@@ -12,6 +12,7 @@ use rules::build_fmt;
 use std::{fs, path::MAIN_SEPARATOR};
 use term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme};
 
+/// The main function.
 pub fn main() -> Result<(), String> {
     let opt = CliOpt::get();
 
