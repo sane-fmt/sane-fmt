@@ -494,6 +494,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "pipe-trait"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d04c111d28b25750498d8cdc9c4db4554e36bf2db6f619c4bc79c0a67426fbc"
+
+[[package]]
 name = "pmutil"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -794,6 +800,7 @@ dependencies = [
  "difference",
  "dprint-plugin-typescript",
  "fs_extra",
+ "pipe-trait",
  "relative-path",
  "serde",
  "serde_json",
