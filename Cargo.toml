@@ -15,6 +15,10 @@ include = [
   "/README.md",
 ]
 
+[[bin]]
+name = "sane-fmt"
+path = "src/main.rs"
+
 [dependencies]
 structopt = "^0.3.14"
 dprint-plugin-typescript = "^0.18.6"
