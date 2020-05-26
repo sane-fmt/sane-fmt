@@ -134,9 +134,12 @@ On the other hand, setting up `sane-fmt` is simple: just download the binary.
 
 ### How to customize the rules?
 
-Customization is antithetical to the purpose of this project. Just fork this project if you want your own version of `sane-fmt`, or just use Dprint if you want convenient customization.
+Customization is antithetical to the purpose of this project, and as such, the `sane-fmt` command does not have customization capability.
 
-I plan to divide this package into multiple reusable crates in the future, this would allow crate user to provide their own rules to create their own version of `sane-fmt`. However, I will never make the rule configurable for the end-user.
+However, if you still want a copy of `sane-fmt` with your own customized rules, do one of the following:
+* Use [`sane-fmt`](https://docs.rs/sane-fmt) as a library crate.
+* Fork this project.
+* Just use [dprint](https://dprint.dev/).
 
 ## License
 
