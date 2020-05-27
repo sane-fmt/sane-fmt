@@ -1,9 +1,11 @@
 use super::super::{
+    cli_opt::{
+        DetailLevel::{self, *},
+        LogFormat::{self, *},
+    },
     cross_platform_path,
     diff::diff_lines,
     term::color::*,
-    DetailLevel::{self, *},
-    LogFormat::{self, *},
 };
 use std::path::Path;
 

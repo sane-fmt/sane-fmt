@@ -1,7 +1,7 @@
 use super::super::{
+    cli_opt::DetailLevel::{self, *},
     cross_platform_path,
     term::color::*,
-    DetailLevel::{self, *},
 };
 use std::path::Path;
 
