@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-unknown-linux-gnu",
-  "version": "0.2.26",
+  "version": "0.2.27",
   "private": false,
   "bin": {
     "sane-fmt": "./sane-fmt",
