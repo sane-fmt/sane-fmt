@@ -7,7 +7,7 @@ pub mod file_list;
 pub mod rules;
 pub mod term;
 
-/// The main function.
+/// The main program.
 ///
 /// It initializes `app::App` with default values and runs it.
 pub fn main() -> Result<(), String> {
