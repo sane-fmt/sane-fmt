@@ -1,17 +1,35 @@
 dependencies:
   '@actions/core': 1.2.4
   '@types/node': 14.0.1
+  advanced-spawn-async: 0.1.3
   isomorphic-git: 1.4.0
+  string-template-format-inspect: 0.1.7
+  ts-pipe-compose: 0.2.0
 lockfileVersion: 5.1
 packages:
   /@actions/core/1.2.4:
     dev: false
     resolution:
       integrity: sha512-YJCEq8BE3CdN8+7HPZ/4DxJjk/OkZV2FFIf+DlZTC/4iBlzYCD5yjRR6eiOS5llO11zbRltIRuKAjMKaWTE6cg==
+  /@types/node/12.12.39:
+    dev: false
+    resolution:
+      integrity: sha512-pADGfwnDkr6zagDwEiCVE4yQrv7XDkoeVa4OfA9Ju/zRTk6YNDLGtQbkdL4/56mCQQCs4AhNrBIag6jrp7ZuOg==
+  /@types/node/13.13.6:
+    dev: false
+    resolution:
+      integrity: sha512-zqRj8ugfROCjXCNbmPBe2mmQ0fJWP9lQaN519hwunOgpHgVykme4G6FW95++dyNFDvJUk4rtExkVkL0eciu5NA==
   /@types/node/14.0.1:
     dev: false
     resolution:
       integrity: sha512-FAYBGwC+W6F9+huFIDtn43cpy7+SzG+atzRiTfdp3inUKL2hXnd4rG8hylJLIh4+hqrQy1P17kvJByE/z825hA==
+  /advanced-spawn-async/0.1.3:
+    dependencies:
+      '@types/node': 14.0.1
+      tslib: 2.0.0
+    dev: false
+    resolution:
+      integrity: sha512-ixm/qUCBQe08t2bWeXLIhrKiUFpBhZ25npthn+E+6GlszgjiITWbNAf07H3Q+oqoNLiteSldxetabufQDXiPAw==
   /async-lock/1.2.4:
     dev: false
     resolution:
@@ -171,6 +189,21 @@ packages:
     dev: false
     resolution:
       integrity: sha512-bCR6cP+aTdScaQCnQKbPKtJOKDp/hj9EDLJo3Nw4y1QksqaovlW/bnptB6/c1e+qmNIDHRK+oXFDdEqBT8WzUA==
+  /string-template-format-base/0.1.6:
+    dependencies:
+      '@types/node': 13.13.6
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-4mvYtipF6d/XUUEQ5/V/EHlnT1JhdrfOIen2GO7gdt2grF8sd2Wi8+Frmyr0+huedmloca51vvk6R0xYBdr/Hw==
+  /string-template-format-inspect/0.1.7:
+    dependencies:
+      '@types/node': 13.13.6
+      string-template-format-base: 0.1.6
+      tslib: 1.13.0
+    dev: false
+    resolution:
+      integrity: sha512-1TsPe/viDWaZU6s0vRL0JgKqgZZlzrVfzLOL6CkOX+l2nvOADQh6cjfLOXgYKs/1AW/rBbINRDOZi9KDxw9q3Q==
   /string_decoder/1.3.0:
     dependencies:
       safe-buffer: 5.2.1
@@ -181,6 +214,23 @@ packages:
     dev: false
     resolution:
       integrity: sha1-0Xrqcv8vujm55DYBvns/9y4ImFI=
+  /ts-pipe-compose/0.2.0:
+    dependencies:
+      '@types/node': 12.12.39
+      tslib: 1.13.0
+    dev: false
+    engines:
+      node: '>= 8.9.0'
+    resolution:
+      integrity: sha512-FMFVRL3Ct4+S1OHUBapg3HKOU1OY8EfF+LpWKyKz0S9P/Yrdl9krvNxuW/4RlMw42TsgkH6jF3o6Vtk5l8izLg==
+  /tslib/1.13.0:
+    dev: false
+    resolution:
+      integrity: sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
+  /tslib/2.0.0:
+    dev: false
+    resolution:
+      integrity: sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
   /util-deprecate/1.0.2:
     dev: false
     resolution:
@@ -196,4 +246,7 @@ packages:
 specifiers:
   '@actions/core': ^1.2.4
   '@types/node': ^14.0.1
+  advanced-spawn-async: ^0.1.3
   isomorphic-git: ^1.4.0
+  string-template-format-inspect: ^0.1.7
+  ts-pipe-compose: ^0.2.0
