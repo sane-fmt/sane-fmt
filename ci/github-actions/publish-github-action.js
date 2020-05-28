@@ -8,33 +8,14 @@ const spawn = require('advanced-spawn-async').default
 const { pipe } = require('ts-pipe-compose')
 const { dbg } = require('string-template-format-inspect')
 const git = require('isomorphic-git')
-
 const {
-  RELEASE_TAG,
-  GIT_PASSWORD,
-  GIT_AUTHOR_NAME,
-  GIT_AUTHOR_EMAIL,
-} = process.env
+  requireEnv,
+} = require('./lib/utils')
 
-if (!RELEASE_TAG) {
-  setFailed('Environment variable RELEASE_TAG is required but missing')
-  throw process.exit()
-}
-
-if (!GIT_PASSWORD) {
-  setFailed('Environment variable GIT_PASSWORD is required but missing')
-  throw process.exit()
-}
-
-if (!GIT_AUTHOR_NAME) {
-  setFailed('Environment variable GIT_AUTHOR_NAME is required but missing')
-  throw process.exit()
-}
-
-if (!GIT_AUTHOR_EMAIL) {
-  setFailed('Environment variable GIT_AUTHOR_EMAIL is required but missing')
-  throw process.exit()
-}
+const RELEASE_TAG = requireEnv('RELEASE_TAG')
+const GIT_PASSWORD = requireEnv('GIT_PASSWORD')
+const GIT_AUTHOR_NAME = requireEnv('GIT_AUTHOR_NAME')
+const GIT_AUTHOR_EMAIL = requireEnv('GIT_AUTHOR_EMAIL')
 
 const AUTH = Object.freeze({
   username: 'KSXGitHub',
