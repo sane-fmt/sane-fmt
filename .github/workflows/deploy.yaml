@@ -572,12 +572,6 @@ jobs:
             pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
             pnpm-
 
-      - name: Install pnpm
-        run: bash ci/install-pnpm.sh
-
-      - name: Install dependencies
-        run: pnpm recursive install
-
       - name: Install pnpm packages
         uses: pnpm/action-setup@v1.2.0
         with:
