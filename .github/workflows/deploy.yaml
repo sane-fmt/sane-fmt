@@ -6,9 +6,6 @@ on:
       - '*.*.*'
 
 env:
-  # Enable symbolic links on Windows
-  MSYS: winsymlinks:nativestrict
-  CYGWIN: winsymlinks:nativestrict
   PNPM_VERSION: 4.14.0
 
 jobs:
@@ -28,12 +25,6 @@ jobs:
           - macos-latest
 
     steps:
-      - name: Enable symbolic link for Git on Windows
-        if: runner.os == 'Windows'
-        run: |
-          git config --global core.symlinks true
-          git config --system core.symlinks true
-
       - uses: actions/checkout@v2
 
       - name: Cache Rust Cargo Registry
