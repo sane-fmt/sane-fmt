@@ -130,6 +130,9 @@ async function main() {
   }
 
   endGroup()
+
+  // TODO: Create Release
+  // TODO: Mark it as GitHub Action
 }
 
 main().catch(setFailed)
