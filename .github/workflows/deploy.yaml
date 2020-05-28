@@ -701,9 +701,10 @@ jobs:
         uses: actions/cache@v1.1.2
         with:
           path: ~/.pnpm-store
-          key: pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          key: pnpm-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm-${{ github.job }}-
             pnpm-
 
       - name: Install pnpm packages
