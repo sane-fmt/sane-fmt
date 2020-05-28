@@ -4,10 +4,10 @@ const fs = require('fs')
 const http = require('http')
 const process = require('process')
 const { setFailed, startGroup, endGroup } = require('@actions/core')
+const git = require('isomorphic-git')
 const spawn = require('advanced-spawn-async').default
 const { pipe } = require('ts-pipe-compose')
 const { dbg } = require('string-template-format-inspect')
-const git = require('isomorphic-git')
 const {
   requireEnv,
 } = require('./lib/utils')
