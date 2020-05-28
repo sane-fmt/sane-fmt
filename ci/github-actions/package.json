@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "isomorphic-git": "^1.4.0",
+    "@types/node": "^14.0.1"
+  }
+}

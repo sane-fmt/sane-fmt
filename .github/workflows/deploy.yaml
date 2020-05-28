@@ -676,3 +676,43 @@ jobs:
 
       - name: Publish
         run: cargo publish
+
+  publish_github_actions:
+    name: Publish GitHub Action
+
+    needs:
+      - create_release
+      - test
+      - upload_release_assets
+
+    if: needs.create_release.outputs.release_type == 'official'
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: '14.1.0'
+
+      - name: Cache PNPM store
+        uses: actions/cache@v1.1.2
+        with:
+          path: ~/.pnpm-store
+          key: pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm-
+
+      - name: Install pnpm packages
+        uses: pnpm/action-setup@v1.2.0
+        with:
+          version: '4.14.0'
+          run_install: 'true'
+
+      - name: Publish GitHub Action
+        env:
+          GIT_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+        run: ./ci/github-actions/publish-github-action.js
