@@ -57,7 +57,8 @@ async function main() {
   process.chdir(ACTION_REPO_DIR)
 
   startGroup('Install pnpm packages...')
-  await spawn('pnpm', ['install', '--frozen-lockfile'], { stdio: 'inherit' }).onclose
+  await spawn('pnpm', ['install', '--frozen-lockfile'], { stdio: 'inherit' })
+    .onclose
   endGroup()
 
   const jsonFile = path.join(ACTION_REPO_DIR, 'src/upstream-version.json')
@@ -88,7 +89,7 @@ async function main() {
   pipe(
     content,
     x => JSON.stringify(x, undefined, 2) + '\n',
-    x => fs.writeFileSync(jsonFile, x)
+    x => fs.writeFileSync(jsonFile, x),
   )
 
   startGroup('Build')
@@ -137,7 +138,7 @@ async function main() {
       dir: ACTION_REPO_DIR,
       onAuth,
       remote: 'origin',
-      ref
+      ref,
     })
 
     if (pushResult.ok) {
