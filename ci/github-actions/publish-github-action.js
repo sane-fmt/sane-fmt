@@ -5,6 +5,7 @@ const http = require('http')
 const process = require('process')
 const { setFailed, startGroup, endGroup } = require('@actions/core')
 const git = require('isomorphic-git')
+const { Octokit } = require('@octokit/rest')
 const spawn = require('advanced-spawn-async').default
 const { pipe } = require('ts-pipe-compose')
 const { dbg } = require('string-template-format-inspect')
@@ -131,8 +132,23 @@ async function main() {
 
   endGroup()
 
-  // TODO: Create Release
-  // TODO: Mark it as GitHub Action
+  const octokit = new Octokit({
+    auth: GIT_PASSWORD,
+  })
+
+  const response = await octokit.repos.createRelease({
+    owner: 'KSXGitHub',
+    repo: 'github-actions-sane-fmt',
+    tag_name: RELEASE_TAG,
+    name: RELEASE_TAG,
+  })
+
+  if (response.status === 201) {
+    console.info(`Created release ${RELEASE_TAG}`)
+  } else {
+    setFailed(`Release Creation responds with status ${response.status} instead of 201`)
+    return
+  }
 }
 
 main().catch(setFailed)
