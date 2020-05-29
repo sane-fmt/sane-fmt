@@ -154,4 +154,7 @@ async function main() {
   }
 }
 
-main().catch(setFailed)
+main().catch(error => {
+  console.error(error)
+  setFailed(error)
+})
