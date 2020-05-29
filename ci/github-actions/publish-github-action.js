@@ -146,7 +146,9 @@ async function main() {
   if (response.status === 201) {
     console.info(`Created release ${RELEASE_TAG}`)
   } else {
-    setFailed(`Release Creation responds with status ${response.status} instead of 201`)
+    setFailed(
+      `Release Creation responds with status ${response.status} instead of 201`,
+    )
     return
   }
 }
