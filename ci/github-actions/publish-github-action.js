@@ -35,6 +35,7 @@ async function main() {
     dir: ACTION_REPO_DIR,
     url: ACTION_REPO_URL,
   })
+  console.info(`Cloned ${ACTION_REPO_URL} into ${ACTION_REPO_DIR}`)
 
   process.chdir(ACTION_REPO_DIR)
 
