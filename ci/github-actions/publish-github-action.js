@@ -74,6 +74,7 @@ async function main() {
     x => JSON.stringify(x, undefined, 2) + '\n',
     x => fs.writeFileSync(jsonFile, x),
   )
+  console.info(`Updated ${jsonFile}#upstreamVersion to ${RELEASE_TAG}`)
 
   startGroup('Build')
   await spawn('pnpm', ['run', 'build'], { stdio: 'inherit' }).onclose
