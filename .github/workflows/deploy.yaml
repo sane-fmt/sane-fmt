@@ -717,7 +717,7 @@ jobs:
       - name: Publish GitHub Action
         env:
           RELEASE_TAG: ${{ needs.create_release.outputs.release_tag }}
-          GIT_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PASSWORD: ${{ secrets.GHACT_TOKEN }}
           GIT_AUTHOR_NAME: ${{ secrets.GHACT_NAME }}
           GIT_AUTHOR_EMAIL: ${{ secrets.GHACT_EMAIL }}
         run: ./ci/github-actions/publish-github-action.js
