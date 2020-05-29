@@ -1,10 +1,10 @@
 #! /usr/bin/env node
 const path = require('path')
 const fs = require('fs')
-const http = require('http')
 const process = require('process')
 const { setFailed, startGroup, endGroup } = require('@actions/core')
 const git = require('isomorphic-git')
+const http = require('isomorphic-git/http/node')
 const { Octokit } = require('@octokit/rest')
 const spawn = require('advanced-spawn-async').default
 const { pipe } = require('ts-pipe-compose')
