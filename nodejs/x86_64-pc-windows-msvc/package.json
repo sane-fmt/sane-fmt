@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-pc-windows-msvc",
-  "version": "0.2.27",
+  "version": "0.2.28",
   "private": false,
   "bin": {
     "sane-fmt": "./sane-fmt.exe",
