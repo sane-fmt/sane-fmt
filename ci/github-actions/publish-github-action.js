@@ -34,7 +34,6 @@ async function main() {
     http,
     dir: ACTION_REPO_DIR,
     url: ACTION_REPO_URL,
-    onAuth,
   })
 
   process.chdir(ACTION_REPO_DIR)
