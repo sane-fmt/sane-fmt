@@ -34,6 +34,7 @@ async function main() {
     http,
     dir: ACTION_REPO_DIR,
     url: ACTION_REPO_URL,
+    onAuth,
   })
   console.info(`Cloned ${ACTION_REPO_URL} into ${ACTION_REPO_DIR}`)
 
