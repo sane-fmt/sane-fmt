@@ -31,6 +31,7 @@ const onAuth = () => AUTH
 async function main() {
   await git.clone({
     fs,
+    http,
     dir: ACTION_REPO_DIR,
     url: ACTION_REPO_URL,
     onAuth,
