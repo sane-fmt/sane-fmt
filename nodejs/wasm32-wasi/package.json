@@ -2,6 +2,16 @@
   "name": "@sane-fmt/wasm32-wasi",
   "version": "0.3.1",
   "private": false,
+  "homepage": "https://github.com/sane-fmt/sane-fmt",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sane-fmt/sane-fmt"
+  },
+  "readme": "https://github.com/sane-fmt/sane-fmt#readme",
+  "author": {
+    "name": "Hoàng Văn Khải",
+    "email": "hvksmr1996@gmail.com"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "bin": {
