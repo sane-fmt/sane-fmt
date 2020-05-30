@@ -247,3 +247,21 @@ test_rule!(
     .join("\n")
     .as_str()]
 );
+
+test_rule!(
+    ignore_node,
+    "js",
+    vec!["// sane-fmt-ignore", "const a = 123;", "",]
+        .join("\n")
+        .as_str(),
+    &[]
+);
+
+test_rule!(
+    ignore_file,
+    "js",
+    vec!["// sane-fmt-ignore-file", "const a = 123;", "",]
+        .join("\n")
+        .as_str(),
+    &[]
+);
