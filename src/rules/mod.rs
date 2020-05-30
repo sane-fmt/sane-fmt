@@ -11,6 +11,7 @@ use pipe_trait::*;
 pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
     builder
         .deno()
+        .line_width(120)
         .quote_style(QuoteStyle::PreferSingle)
         .semi_colons(SemiColons::Asi)
         .trailing_commas(TrailingCommas::OnlyMultiLine)
