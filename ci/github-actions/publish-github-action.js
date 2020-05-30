@@ -23,7 +23,7 @@ const AUTH = Object.freeze({
   password: GIT_PASSWORD,
 })
 const ACTION_REPO_URL =
-  'https://github.com/KSXGitHub/github-actions-sane-fmt.git'
+  'https://github.com/sane-fmt/action.git'
 const ACTION_REPO_DIR = path.join(__dirname, '../../action-repo')
 
 const onAuth = () => AUTH
@@ -140,8 +140,8 @@ async function main() {
   })
 
   const response = await octokit.repos.createRelease({
-    owner: 'KSXGitHub',
-    repo: 'github-actions-sane-fmt',
+    owner: 'sane-fmt',
+    repo: 'action',
     tag_name: RELEASE_TAG,
     name: RELEASE_TAG,
   })
