@@ -22,8 +22,7 @@ const AUTH = Object.freeze({
   username: 'KSXGitHub',
   password: GIT_PASSWORD,
 })
-const ACTION_REPO_URL =
-  'https://github.com/sane-fmt/action.git'
+const ACTION_REPO_URL = 'https://github.com/sane-fmt/action.git'
 const ACTION_REPO_DIR = path.join(__dirname, '../../action-repo')
 
 const onAuth = () => AUTH
@@ -55,17 +54,12 @@ async function main() {
   )
 
   if (typeof content !== 'object') {
-    setFailed(
-      dbg`Expecting src/upstream-version.json to be an object: ${content}`,
-    )
+    setFailed(dbg`Expecting src/upstream-version.json to be an object: ${content}`)
     return
   }
 
   if (typeof content.upstreamVersion !== 'string') {
-    setFailed(
-      dbg
-        `Expecting src/upstream-version.json#upstreamVersion to be a string: ${content.upstreamVersion}`,
-    )
+    setFailed(dbg`Expecting src/upstream-version.json#upstreamVersion to be a string: ${content.upstreamVersion}`)
     return
   }
 
@@ -149,9 +143,7 @@ async function main() {
   if (response.status === 201) {
     console.info(`Created release ${RELEASE_TAG}`)
   } else {
-    setFailed(
-      `Release Creation responds with status ${response.status} instead of 201`,
-    )
+    setFailed(`Release Creation responds with status ${response.status} instead of 201`)
     return
   }
 }
