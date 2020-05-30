@@ -1,8 +1,8 @@
 # sane-fmt
 
 [![GitHub Actions Status](https://github.com/sane-fmt/sane-fmt/workflows/Test/badge.svg)](https://github.com/sane-fmt/sane-fmt/actions)
-[![Travis Build Status](https://travis-ci.org/KSXGitHub/sane-fmt.svg?branch=master)](https://travis-ci.org/KSXGitHub/sane-fmt)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=KSXGitHub/sane-fmt)](https://dependabot.com)
+[![Travis Build Status](https://travis-ci.org/sane-fmt/sane-fmt.svg?branch=master)](https://travis-ci.org/KSXGitHub/sane-fmt)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=sane-fmt/sane-fmt)](https://dependabot.com)
 
 Opinionated code formatter for TypeScript and JavaScript.
 
