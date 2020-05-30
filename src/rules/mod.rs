@@ -16,6 +16,8 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .semi_colons(SemiColons::Asi)
         .trailing_commas(TrailingCommas::OnlyMultiLine)
         .arrow_function_use_parentheses(UseParentheses::PreferNone)
+        .ignore_node_comment_text("sane-fmt-ignore")
+        .ignore_file_comment_text("sane-fmt-ignore-file")
 }
 
 /// Create desired configuration.
