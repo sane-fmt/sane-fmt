@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-apple-darwin",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "private": false,
   "bin": {
     "sane-fmt": "./sane-fmt",
