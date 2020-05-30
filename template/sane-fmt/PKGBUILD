@@ -4,7 +4,7 @@ pkgdesc='Opinionated code formatter for TypeScript and JavaScript'
 pkgrel=0
 arch=(x86_64)
 license=(MIT)
-url='https://github.com/KSXGitHub/sane-fmt'
+url='https://github.com/sane-fmt/sane-fmt'
 makedepends=(cargo)
 
 build() {
