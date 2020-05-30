@@ -7,7 +7,7 @@ license = "MIT"
 edition = "2018"
 keywords = ["format", "typescript", "javascript"]
 categories = ["command-line-utilities"]
-repository = "https://github.com/KSXGitHub/sane-fmt.git"
+repository = "https://github.com/sane-fmt/sane-fmt.git"
 readme = "README.md"
 include = [
   "/src",
