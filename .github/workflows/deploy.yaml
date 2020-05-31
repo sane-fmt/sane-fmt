@@ -566,12 +566,12 @@ jobs:
       - name: Cache PNPM store
         uses: actions/cache@v1.1.2
         with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store/v3
+          key: pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            pnpm-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-            pnpm-${{ github.job }}-
-            pnpm-
+            pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm5-${{ github.job }}-
+            pnpm5-
 
       - name: Install pnpm packages
         uses: pnpm/action-setup@v1.2.0
@@ -701,12 +701,12 @@ jobs:
       - name: Cache PNPM store
         uses: actions/cache@v1.1.2
         with:
-          path: ~/.pnpm-store
-          key: pnpm-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          path: ~/.pnpm-store/v3
+          key: pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            pnpm-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
-            pnpm-${{ github.job }}-
-            pnpm-
+            pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+            pnpm5-${{ github.job }}-
+            pnpm5-
 
       - name: Install pnpm packages
         uses: pnpm/action-setup@v1.2.0
