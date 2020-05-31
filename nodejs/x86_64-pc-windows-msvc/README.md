@@ -106,7 +106,7 @@ When this command is executed within a GitHub Actions runner, it will:
 * Group diffs by file names (if `--details=diff`).
 * Export `total`, `changed`, and `unchanged` as outputs.
 
-_Recommendation:_ This [action](https://github.com/KSXGitHub/github-actions-sane-fmt) will install `sane-fmt` and execute it for you.
+_Recommendation:_ This [action](https://github.com/sane-fmt/action) will install `sane-fmt` and execute it for you.
 
 ### Print help message
 
