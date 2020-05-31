@@ -7,10 +7,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
-  /@types/node/13.13.6:
+  /@types/node/13.13.9:
     dev: false
     resolution:
-      integrity: sha512-zqRj8ugfROCjXCNbmPBe2mmQ0fJWP9lQaN519hwunOgpHgVykme4G6FW95++dyNFDvJUk4rtExkVkL0eciu5NA==
+      integrity: sha512-EPZBIGed5gNnfWCiwEIwTE2Jdg4813odnG8iNPMQGrqVxrI+wL68SPtPeCX+ZxGBaA6pKAVc6jaKgP/Q0QzfdQ==
   /@types/shell-escape/0.2.0:
     dev: false
     resolution:
@@ -53,7 +53,7 @@ packages:
       integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==
   /pretty-exec/0.3.9:
     dependencies:
-      '@types/node': 13.13.6
+      '@types/node': 13.13.9
       '@types/shell-escape': 0.2.0
       chalk: 4.0.0
       shell-escape: 0.2.0
@@ -69,7 +69,7 @@ packages:
       integrity: sha1-aP0CXrBJC09WegJ/C/IkgLX4QTM=
   /split-string-once/0.0.2:
     dependencies:
-      '@types/node': 13.13.6
+      '@types/node': 13.13.9
       tslib: 1.13.0
     dev: false
     engines:

@@ -1,16 +1,16 @@
 dependencies:
-  '@types/node': 13.13.4
-  '@wasmer/wasi': 0.11.0
+  '@types/node': 13.13.9
+  '@wasmer/wasi': 0.11.2
   tslib: 2.0.0
 devDependencies:
-  typescript: 3.8.3
+  typescript: 3.9.3
 lockfileVersion: 5.1
 packages:
-  /@types/node/13.13.4:
+  /@types/node/13.13.9:
     dev: false
     resolution:
-      integrity: sha512-x26ur3dSXgv5AwKS0lNfbjpCakGIduWU1DU91Zz58ONRWrIKGunmZBNv4P7N+e27sJkiGDsw/3fT4AtsqQBrBA==
-  /@wasmer/wasi/0.11.0:
+      integrity: sha512-EPZBIGed5gNnfWCiwEIwTE2Jdg4813odnG8iNPMQGrqVxrI+wL68SPtPeCX+ZxGBaA6pKAVc6jaKgP/Q0QzfdQ==
+  /@wasmer/wasi/0.11.2:
     dependencies:
       browser-process-hrtime: 1.0.0
       buffer-es6: 4.9.3
@@ -18,7 +18,7 @@ packages:
       randomfill: 1.0.4
     dev: false
     resolution:
-      integrity: sha512-LAHfvwBUHELBioyuyMPDigVtaqH8U9xsnOS7lKxAjY/Ykz0EIXQmsNWlVeXNECTvWB0rH4EU2z4/Ds3c0pHdxA==
+      integrity: sha512-9Oi68ZsD8HTZRjWj5VvnhN0dLL6nSacrgGvdwJeHd9q5bMrlFaXTckQAYm84zXJWg+b5yeFhaEZqGEhe7q4VFQ==
   /browser-process-hrtime/1.0.0:
     dev: false
     resolution:
@@ -52,13 +52,13 @@ packages:
     dev: false
     resolution:
       integrity: sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==
-  /typescript/3.8.3:
+  /typescript/3.9.3:
     dev: true
     engines:
       node: '>=4.2.0'
     hasBin: true
     resolution:
-      integrity: sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+      integrity: sha512-D/wqnB2xzNFIcoBG9FG8cXRDjiqSTbG2wd8DMZeQyJlP1vfTkIxH4GKveWaEBYySKIg+USu+E+EDIR47SqnaMQ==
 specifiers:
   '@types/node': ^13.13.4
   '@wasmer/wasi': ^0.11.0
