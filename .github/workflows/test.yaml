@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Cache Rust Cargo Registry
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2
         timeout-minutes: 1
         continue-on-error: true
         with:
@@ -35,7 +35,7 @@ jobs:
             0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2
         timeout-minutes: 1
         continue-on-error: true
         with:
@@ -46,7 +46,7 @@ jobs:
             0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2
         timeout-minutes: 1
         continue-on-error: true
         with:
@@ -85,7 +85,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Cache Rust Cargo Registry
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2
         timeout-minutes: 1
         continue-on-error: true
         with:
@@ -96,7 +96,7 @@ jobs:
             0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2
         timeout-minutes: 1
         continue-on-error: true
         with:
@@ -107,7 +107,7 @@ jobs:
             0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
 
       - name: Cache Rust Build
-        uses: actions/cache@v1.1.2
+        uses: actions/cache@v2
         timeout-minutes: 1
         continue-on-error: true
         with:
