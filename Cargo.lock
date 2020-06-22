@@ -764,9 +764,9 @@ checksum = "7fe5bd57d1d7414c6b5ed48563a2c855d995ff777729dcd91c369ec7fea395ae"
 
 [[package]]
 name = "relative-path"
-version = "1.2.0"
+version = "1.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "629a4b40d41677dde754d00bb392d777c80b8716d9271b6e2aa5f6a2b3d4261e"
+checksum = "c602122c47b382cd045b10866a084b184035d45d8c2609cdd3762852ddfae2a1"
 
 [[package]]
 name = "remove_dir_all"
