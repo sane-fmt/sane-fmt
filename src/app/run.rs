@@ -6,7 +6,10 @@ use super::super::{
 };
 use super::App;
 use relative_path::RelativePath;
-use std::{fs, path::MAIN_SEPARATOR};
+use std::{
+    fs,
+    path::{PathBuf, MAIN_SEPARATOR},
+};
 
 impl App {
     /// Run the program base on application state.
@@ -52,7 +55,13 @@ impl App {
             let path = RelativePath::from_path(&path)
                 .unwrap()
                 .normalize()
-                .to_path("");
+                .to_string();
+
+            let path = PathBuf::from(if path.starts_with("./") || path.starts_with(".\\") {
+                &path[2..]
+            } else {
+                &path
+            });
 
             // Because of the above workaround, this is necessary
             let path = if cfg!(unix) {
