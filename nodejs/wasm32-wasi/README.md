@@ -1,7 +1,7 @@
 # sane-fmt
 
 [![GitHub Actions Status](https://github.com/sane-fmt/sane-fmt/workflows/Test/badge.svg)](https://github.com/sane-fmt/sane-fmt/actions)
-[![Travis Build Status](https://travis-ci.org/sane-fmt/sane-fmt.svg?branch=master)](https://travis-ci.org/KSXGitHub/sane-fmt)
+[![Travis Build Status](https://travis-ci.org/sane-fmt/sane-fmt.svg?branch=master)](https://travis-ci.org/sane-fmt/sane-fmt)
 
 Opinionated code formatter for TypeScript and JavaScript.
 
