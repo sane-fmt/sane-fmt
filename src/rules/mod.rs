@@ -21,12 +21,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .ignore_file_comment_text("sane-fmt-ignore-file")
 }
 
-/// Create desired configuration.
-pub fn build_cfg() -> Cfg {
-    CfgBuilder::new().pipe_mut(modify).build()
-}
-
 /// Create a formatter for desired configuration.
 pub fn build_fmt() -> Fmt {
-    Fmt::new(build_cfg())
+    CfgBuilder::new().pipe_mut(modify).build().pipe(Fmt::new)
 }
