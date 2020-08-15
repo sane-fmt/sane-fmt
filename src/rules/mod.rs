@@ -25,3 +25,12 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
 pub fn build_fmt() -> Fmt {
     CfgBuilder::new().pipe_mut(modify).build().pipe(Fmt::new)
 }
+
+/// Get rules in form of JSON.
+pub fn json() -> String {
+    CfgBuilder::new()
+        .pipe_mut(modify)
+        .build()
+        .pipe_ref(serde_json::to_string_pretty)
+        .expect("convert rules object to json")
+}
