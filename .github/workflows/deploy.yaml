@@ -24,39 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Rust Cargo Registry
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/registry
-          key: test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            test-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            test-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            test-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            test-build-${{ matrix.rust }}-${{ runner.os }}-
-
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
@@ -96,39 +63,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Rust Cargo Registry
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/registry
-          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-
-
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
@@ -161,39 +95,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Cache Rust Cargo Registry
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/registry
-          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-
 
       - uses: actions-rs/toolchain@v1.0.6
         with:
@@ -229,39 +130,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Cache Rust Cargo Registry
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/registry
-          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-
-
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
@@ -294,39 +162,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Cache Rust Cargo Registry
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/registry
-          key: build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-registry-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Cargo Index
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: ~/.cargo/git
-          key: build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-cargo-index-${{ matrix.rust }}-${{ matrix.target }}-
-
-      - name: Cache Rust Build
-        uses: actions/cache@v2
-        timeout-minutes: 1
-        continue-on-error: true
-        with:
-          path: target
-          key: build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: |
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-${{ hashFiles('**/Cargo.lock') }}
-            build-build-${{ matrix.rust }}-${{ matrix.target }}-
 
       - uses: actions-rs/toolchain@v1.0.6
         with:
