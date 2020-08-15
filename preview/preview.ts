@@ -43,6 +43,6 @@ namespace arrowFunctions {
 }
 
 type MultiLineUnion =
-  | { tag: 0; 0: 'zero' }
-  | { tag: 1; 1: 'one' }
-  | { tag: 2; 2: 'two' }
+  | { tag: 0, 0: 'zero' }
+  | { tag: 1, 1: 'one' }
+  | { tag: 2, 2: 'two' }
