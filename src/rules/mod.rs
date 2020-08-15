@@ -1,5 +1,5 @@
 use dprint_plugin_typescript::configuration::{
-    QuoteStyle, SemiColons, TrailingCommas, UseParentheses,
+    QuoteStyle, SemiColonOrComma, SemiColons, TrailingCommas, UseParentheses,
 };
 pub use dprint_plugin_typescript::{
     configuration::{Configuration as Cfg, ConfigurationBuilder as CfgBuilder},
@@ -14,6 +14,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .line_width(120)
         .quote_style(QuoteStyle::PreferSingle)
         .semi_colons(SemiColons::Asi)
+        .type_literal_separator_kind_single_line(SemiColonOrComma::Comma)
         .trailing_commas(TrailingCommas::OnlyMultiLine)
         .arrow_function_use_parentheses(UseParentheses::PreferNone)
         .ignore_node_comment_text("sane-fmt-ignore")
