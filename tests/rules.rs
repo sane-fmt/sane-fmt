@@ -146,8 +146,7 @@ test_rule!(
 test_rule!(
     separator_between_properties_of_inline_object_literal_type,
     "ts",
-    // NOTE: I actually prefer commas, but I have yet find the config key
-    "export type MyObject = { foo: number; bar: string }\n",
+    "export type MyObject = { foo: number, bar: string }\n",
     &[]
 );
 
@@ -156,9 +155,9 @@ test_rule!(
     "ts",
     vec![
         "export type MyUnion =",
-        "  | { type: 0; value: number }",
-        "  | { type: 1; value: string }",
-        "  | { type: 2; value: symbol }",
+        "  | { type: 0, value: number }",
+        "  | { type: 1, value: string }",
+        "  | { type: 2, value: symbol }",
         "",
         "type MyIntersection =",
         "  & { a: number }",

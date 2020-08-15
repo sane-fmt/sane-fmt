@@ -1,11 +1,12 @@
-pub mod act;
 pub mod app;
 pub mod cli_opt;
-pub mod cross_platform_path;
-pub mod diff;
-pub mod file_list;
 pub mod rules;
-pub mod term;
+
+mod act;
+mod cross_platform_path;
+mod diff;
+mod file_list;
+mod term;
 
 /// The main program.
 ///
