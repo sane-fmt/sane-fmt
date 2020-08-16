@@ -226,6 +226,40 @@ jobs:
           draft: 'false'
           prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
+  upload_json_configs:
+    name: Upload JSON Configuration Files
+
+    needs:
+      - create_release
+      - test
+
+    runs-on: ubuntu-latest
+
+    if: needs.create_release.outputs.is_release == 'true'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Upload Dprint configuration
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/sane-fmt.dprintrc.json
+          asset_name: sane-fmt.dprintrc.json
+          asset_content_type: application/json
+
+      - name: Upload TypeScript configuration
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/sane-fmt.typescript.json
+          asset_name: sane-fmt.typescript.json
+          asset_content_type: application/json
+
   upload_release_assets:
     name: Upload Release Assets
 
