@@ -8,5 +8,5 @@ elif [ "$FMT_UPDATE" = 'false' ] || [ "$FMT_UPDATE" = '' ]; then
   sane_fmt_flag=()
 fi
 
-cargo run nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}" || exit $?
+cargo run --bin=sane-fmt nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}" || exit $?
 cargo fmt -- "${cargo_fmt_flag[@]}" || exit $?

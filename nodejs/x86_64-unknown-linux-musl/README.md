@@ -23,11 +23,11 @@ Read [rules/mod.rs](https://git.io/JflmV) and [tests/rules.rs](https://git.io/Jf
 
 Go to [the release page](https://github.com/sane-fmt/sane-fmt/releases).
 
-### From crates.io
+### From [crates.io](https://crates.io)
 
 <pre><code>cargo install <a href="https://crates.io/crates/sane-fmt">sane-fmt</a></code></pre>
 
-### From NPM
+### From [NPM](https://www.npmjs.com)
 
 #### WASM (all platform)
 
@@ -48,7 +48,7 @@ The WASM package while work on all platform, it is slow to start. For better spe
   * [@sane-fmt/x86_64-pc-windows-gnu](https://www.npmjs.com/package/@sane-fmt/x86_64-pc-windows-gnu)
   * [@sane-fmt/x86_64-pc-windows-msvc](https://www.npmjs.com/package/@sane-fmt/x86_64-pc-windows-msvc)
 
-### From Arch User Repository
+### From [Arch User Repository](https://aur.archlinux.org)
 
 #### Download source and compile
 
@@ -57,6 +57,37 @@ The WASM package while work on all platform, it is slow to start. For better spe
 #### Download prebuilt binary
 
 <pre><code>yay -S <a href="https://aur.archlinux.org/packages/sane-fmt-bin/">sane-fmt-bin</a></code></pre>
+
+### Use with [Dprint](https://dprint.dev/)
+
+If you already have Dprint, you can skip installing `sane-fmt` binary. Create a `.dprintrc.json` file with the following content:
+
+```json
+{
+  "$schema": "https://dprint.dev/schemas/v0.json",
+  "projectType": "openSource",
+  "extends": "https://github.com/sane-fmt/sane-fmt/raw/master/exports/sane-fmt.dprintrc.json",
+  "includes": [
+    "**/*.js",
+    "**/*.ts"
+  ],
+  "excludes": [
+    ".git",
+    "node_modules"
+  ],
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-${DPRINT_TYPESCRIPT_VERSION}.wasm"
+  ]
+}
+```
+
+**Notes:**
+  * Replace `master` in the `"extends"` line above with appropriate sane-fmt version.
+  * Replace `${DPRINT_TYPESCRIPT_VERSION}` above with appropriate [dprint-plugin-typescript](https://github.com/dprint/dprint-plugin-typescript) version.
+
+**See also:**
+  * [sane-fmt.dprintrc.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.dprintrc.json): Dprint configuration with rules of sane-fmt.
+  * [sane-fmt.typescript.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.typescript.json): Configuration of dprint-plugin-typescript with rules of sane-fmt.
 
 ## Usage
 
@@ -138,7 +169,7 @@ Customization is antithetical to the purpose of this project, and as such, the `
 However, if you still want a copy of `sane-fmt` with your own customized rules, do one of the following:
 * Use [`sane-fmt`](https://docs.rs/sane-fmt) as a library crate.
 * Fork this project.
-* Just use [dprint](https://dprint.dev/).
+* Just use [dprint](#use-with-dprint).
 
 ## License
 

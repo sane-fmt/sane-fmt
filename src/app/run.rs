@@ -12,7 +12,7 @@ use std::{
 };
 
 impl App {
-    /// Run the program base on application state.
+    /// Run the program based on application state.
     pub fn run(&self) -> Result<(), String> {
         let Self { opt, fmt } = self;
 
