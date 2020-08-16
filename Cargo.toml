@@ -24,7 +24,7 @@ name = "sane-fmt"
 path = "src/main.rs"
 
 [[bin]]
-name = "sane-fmt-json"
+name = "sane-fmt-export-json-config"
 path = "src/export_json_config/main.rs"
 
 [dependencies]
