@@ -64,7 +64,17 @@ If you already have Dprint, you can skip installing `sane-fmt` binary. Create a 
 
 ```json
 {
+  "$schema": "https://dprint.dev/schemas/v0.json",
+  "projectType": "openSource",
   "extends": "https://github.com/sane-fmt/sane-fmt/raw/master/exports/sane-fmt.dprintrc.json",
+  "includes": [
+    "**/*.js",
+    "**/*.ts"
+  ],
+  "excludes": [
+    ".git",
+    "node_modules"
+  ],
   "plugins": [
     "https://plugins.dprint.dev/typescript-${DPRINT_TYPESCRIPT_VERSION}.wasm"
   ]
