@@ -58,6 +58,27 @@ The WASM package while work on all platform, it is slow to start. For better spe
 
 <pre><code>yay -S <a href="https://aur.archlinux.org/packages/sane-fmt-bin/">sane-fmt-bin</a></code></pre>
 
+### Use with Dprint
+
+If you already have [dprint](https://dprint.dev/), you can skip installing `sane-fmt` binary. Create a `.dprintrc.json` file with the following content:
+
+```json
+{
+  "extends": "https://github.com/sane-fmt/sane-fmt/raw/master/exports/sane-fmt.dprintrc.json",
+  "plugins": [
+    "https://plugins.dprint.dev/typescript-${DPRINT_TYPESCRIPT_VERSION}.wasm"
+  ]
+}
+```
+
+**Notes:**
+  * Replace `master` in the `"extends"` line above with appropriate sane-fmt version.
+  * Replace `${DPRINT_TYPESCRIPT_VERSION}` above with appropriate [dprint-plugin-typescript](https://github.com/dprint/dprint-plugin-typescript) version.
+
+**See also:**
+  * [sane-fmt.dprintrc.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.dprintrc.json): Dprint configuration with rules of sane-fmt.
+  * [sane-fmt.typescript.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.typescript.json): Configuration of dprint-plugin-typescript with rules of sane-fmt.
+
 ## Usage
 
 ### Format all TypeScript and JavaScript files
@@ -138,7 +159,7 @@ Customization is antithetical to the purpose of this project, and as such, the `
 However, if you still want a copy of `sane-fmt` with your own customized rules, do one of the following:
 * Use [`sane-fmt`](https://docs.rs/sane-fmt) as a library crate.
 * Fork this project.
-* Just use [dprint](https://dprint.dev/).
+* Just use [dprint](#use-with-dprint).
 
 ## License
 
