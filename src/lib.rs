@@ -1,6 +1,6 @@
 pub mod app;
 pub mod cli_opt;
-pub mod export_json;
+pub mod export_json_config;
 pub mod rules;
 
 mod act;
