@@ -1,17 +1,10 @@
 pub mod app;
+pub mod cfg;
 pub mod cli_opt;
-pub mod export_json;
-pub mod rules;
-
-mod act;
-mod cross_platform_path;
-mod diff;
-mod file_list;
-mod term;
 
 /// The main program.
 ///
 /// It initializes `app::App` with default values and runs it.
-pub fn main() -> Result<(), String> {
+pub fn main() {
     app::App::default().run()
 }

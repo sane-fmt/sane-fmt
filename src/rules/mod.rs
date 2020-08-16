@@ -30,10 +30,3 @@ pub fn build_cfg() -> Cfg {
 pub fn build_fmt() -> Fmt {
     Fmt::new(build_cfg())
 }
-
-/// Get rules in form of JSON.
-pub fn json() -> String {
-    build_cfg()
-        .pipe_ref(serde_json::to_string_pretty)
-        .expect("convert rules object to json")
-}
