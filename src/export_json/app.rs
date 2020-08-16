@@ -26,7 +26,7 @@ impl App {
 
         let json = match kind {
             OutputKind::TypeScript => dump_json(&cfg),
-            OutputKind::Dprint => cfg.pipe(DprintCfg::from).pipe_ref(dump_json),
+            OutputKind::DprintRc => cfg.pipe(DprintCfg::from).pipe_ref(dump_json),
         }
         .expect("convert config to json");
 

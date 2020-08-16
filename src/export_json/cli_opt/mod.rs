@@ -13,7 +13,7 @@ pub struct CliOpt {
     pub output: Option<PathBuf>,
 
     /// Type of config
-    /// [possible values: typescript, dprint]
+    /// [possible values: typescript, dprintrc]
     #[structopt(name = "type")]
     pub kind: output_kind::OutputKind,
 }
