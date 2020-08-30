@@ -43,31 +43,37 @@ impl App {
         for item in files {
             let file_list::Item { path, .. } = item;
 
-            // Problem: RelativePath only recognize unix path separator
-            // Workaround: Always use unix path separator
-            let path = if cfg!(unix) {
+            // Problem: RelativePath panics on absolute path
+            // Workaround: Only use RelativePath on relative path
+            let path = if path.is_absolute() {
                 path
             } else {
-                // This is an expensive operation, therefore should only be performed when necessary
-                cross_platform_path::convert_path(&path, '/')
-            };
+                // Problem: RelativePath only recognize unix path separator
+                // Workaround: Always use unix path separator
+                let path = if cfg!(unix) {
+                    path
+                } else {
+                    // This is an expensive operation, therefore should only be performed when necessary
+                    cross_platform_path::convert_path(&path, '/')
+                };
 
-            let path = RelativePath::from_path(&path)
-                .unwrap()
-                .normalize()
-                .to_string();
+                let path = RelativePath::from_path(&path)
+                    .unwrap()
+                    .normalize()
+                    .to_string();
 
-            let path = PathBuf::from(if path.starts_with("./") || path.starts_with(".\\") {
-                &path[2..]
-            } else {
-                &path
-            });
+                let path = PathBuf::from(if path.starts_with("./") || path.starts_with(".\\") {
+                    &path[2..]
+                } else {
+                    &path
+                });
 
-            // Because of the above workaround, this is necessary
-            let path = if cfg!(unix) {
-                path
-            } else {
-                cross_platform_path::convert_path(&path, MAIN_SEPARATOR)
+                // Because of the above workaround, this is necessary
+                if cfg!(unix) {
+                    path
+                } else {
+                    cross_platform_path::convert_path(&path, MAIN_SEPARATOR)
+                }
             };
 
             let path = &path;
