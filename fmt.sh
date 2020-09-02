@@ -1,4 +1,5 @@
 #! /bin/bash
+set -o errexit -o pipefail -o nounset
 
 if [ "$FMT_UPDATE" = 'true' ]; then
   cargo_fmt_flag=()
@@ -8,5 +9,5 @@ elif [ "$FMT_UPDATE" = 'false' ] || [ "$FMT_UPDATE" = '' ]; then
   sane_fmt_flag=()
 fi
 
-cargo run --bin=sane-fmt nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}" || exit $?
-cargo fmt -- "${cargo_fmt_flag[@]}" || exit $?
+cargo run --bin=sane-fmt nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}"
+cargo fmt -- "${cargo_fmt_flag[@]}"

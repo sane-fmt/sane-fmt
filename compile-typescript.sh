@@ -1,4 +1,5 @@
-#! /bin/sh
+#! /bin/bash
+set -o errexit -o pipefail -o nounset
 
 compile() {
   dirname=./nodejs/"$1"

@@ -1,5 +1,6 @@
-#! /bin/sh
-./clippy.sh || exit $?
-./fmt.sh --check || exit $?
-cargo build || exit $?
+#! /bin/bash
+set -o errexit -o pipefail -o nounset
+./clippy.sh
+./fmt.sh --check
+cargo build
 exec cargo test
