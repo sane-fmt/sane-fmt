@@ -1,5 +1,5 @@
 #! /bin/bash
-set -o errexit pipefail nounset
+set -o errexit -o pipefail -o nounset
 
 cd "$(dirname "$0")"
 mkdir -pv exports
