@@ -24,8 +24,7 @@ fn prints_formatted_code() {
 
 #[test]
 fn parse_failure() {
-    let unformatted = b"this is not a valid code";
-    let output = Exe::workspace().run_with_stdio(unformatted, &["--stdio"]);
+    let output = Exe::workspace().run_with_stdio(b"this is not a valid code", &["--stdio"]);
 
     assert_eq!(
         (u8v_to_utf8(&output.stdout), output.status.success()),
