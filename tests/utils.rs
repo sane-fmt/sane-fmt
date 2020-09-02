@@ -7,7 +7,7 @@ use std::{
     fmt::Write,
     fs::{create_dir, write as write_file},
     path::{Path, PathBuf, MAIN_SEPARATOR},
-    process::{Child as ChildProcess, Command, Output as CommandOutput},
+    process::{Child as ChildProcess, Command, Output as CommandOutput, Stdio},
 };
 use tempfile as tmp;
 
@@ -55,6 +55,30 @@ impl Exe {
             .spawn()
             .map_err(|error| format!("Failed to execute main command: {}", error))
             .unwrap()
+    }
+
+    /// Takes stdin, runs command,and returns `Output`
+    pub fn run_with_stdio(
+        &mut self,
+        stdin: &[u8],
+        args: impl IntoIterator<Item = impl AsRef<OsStr>>,
+    ) -> CommandOutput {
+        use std::io::Write;
+        let mut child = self
+            .cmd
+            .args(args)
+            .stdin(Stdio::piped())
+            .stdout(Stdio::piped())
+            .stderr(Stdio::piped())
+            .spawn()
+            .unwrap();
+        child
+            .stdin
+            .as_mut()
+            .expect("unwrap child's stdin")
+            .write_all(stdin)
+            .expect("write data to child's stdin");
+        child.wait_with_output().expect("wait for child's output")
     }
 
     /// Use workspace directory as working directory

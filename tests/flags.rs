@@ -34,6 +34,11 @@ fn version() {
 fn help() {
     let output = Exe::workspace().cmd.arg("--help").output().unwrap();
 
+    println!(
+        "Output of `sane-fmt --help`:\n{}",
+        u8v_to_utf8(&output.stdout),
+    );
+
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
         format!(

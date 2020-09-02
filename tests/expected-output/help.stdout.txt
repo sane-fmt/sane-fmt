@@ -8,6 +8,9 @@ FLAGS:
         --hide-passed
             Do not log passed filenames
 
+        --stdio
+            Reads unformatted code from standard input, prints formatted code to standard output, then exits
+
     -V, --version
             Prints version information
 

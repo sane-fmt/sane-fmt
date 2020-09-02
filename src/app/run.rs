@@ -8,6 +8,7 @@ use super::App;
 use relative_path::RelativePath;
 use std::{
     fs,
+    io::{stdin, Read},
     path::{PathBuf, MAIN_SEPARATOR},
 };
 
@@ -15,6 +16,18 @@ impl App {
     /// Run the program based on application state.
     pub fn run(&self) -> Result<(), String> {
         let Self { opt, fmt } = self;
+
+        if opt.stdio {
+            let mut buffer = String::new();
+            stdin()
+                .read_to_string(&mut buffer)
+                .map_err(|error| format!("Failed to read from STDIN: {}", error))?;
+            let formatted = fmt
+                .format_text(&PathBuf::from("STDIN"), &buffer)
+                .map_err(|error| format!("Failed to parse STDIN: {}", error))?;
+            print!("{}", formatted);
+            return Ok(());
+        }
 
         let files = if opt.files.is_empty() {
             file_list::default_files()
