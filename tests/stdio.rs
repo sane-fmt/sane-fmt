@@ -2,11 +2,6 @@
 pub mod utils;
 pub use utils::*;
 
-use std::{
-    io::Write,
-    process::{Command, Stdio},
-};
-
 #[test]
 fn prints_formatted_code() {
     let unformatted = b"function hello () { return \"world\"; }";
@@ -15,24 +10,7 @@ fn prints_formatted_code() {
         "function hello() {", "  return 'world'", "}",
     );
 
-    let mut child = Command::new(EXE)
-        .arg("--stdio")
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .expect("spawn child process");
-
-    child
-        .stdin
-        .as_mut()
-        .unwrap()
-        .write_all(unformatted)
-        .expect("write unformatted code to stdin");
-
-    let output = child
-        .wait_with_output()
-        .expect("wait child process with output");
+    let output = Exe::workspace().run_with_stdio(unformatted, &["--stdio"]);
 
     assert_eq!(
         (
@@ -47,25 +25,7 @@ fn prints_formatted_code() {
 #[test]
 fn parse_failure() {
     let unformatted = b"this is not a valid code";
-
-    let mut child = Command::new(EXE)
-        .arg("--stdio")
-        .stdin(Stdio::piped())
-        .stdout(Stdio::piped())
-        .stderr(Stdio::piped())
-        .spawn()
-        .expect("spawn child process");
-
-    child
-        .stdin
-        .as_mut()
-        .unwrap()
-        .write_all(unformatted)
-        .expect("write unformatted code to stdin");
-
-    let output = child
-        .wait_with_output()
-        .expect("wait child process with output");
+    let output = Exe::workspace().run_with_stdio(unformatted, &["--stdio"]);
 
     assert_eq!(
         (u8v_to_utf8(&output.stdout), output.status.success()),
