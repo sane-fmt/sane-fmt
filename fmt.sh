@@ -1,5 +1,5 @@
 #! /bin/bash
-set -o errexit -o pipefail -o nounset
+set -o errexit -o pipefail
 
 FMT_UPDATE="${FMT_UPDATE:-false}"
 cargo_fmt_flag=()
