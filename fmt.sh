@@ -11,6 +11,10 @@ if [ "$FMT_UPDATE" = 'true' ]; then
 elif [ "$FMT_UPDATE" = 'false' ]; then
   cargo_fmt_flag=('--check')
   sane_fmt_flag=()
+else
+  echo "ERROR: Invalid value of \$FMT_UPDATE: '$FMT_UPDATE'" > /dev/stderr
+  echo "Hint: It's must either be 'true' or 'false'" > /dev/stderr
+  exit 1
 fi
 
 cargo run --bin=sane-fmt nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}"
