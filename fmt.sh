@@ -12,8 +12,7 @@ elif [ "$FMT_UPDATE" = 'false' ]; then
   cargo_fmt_flag=('--check')
   sane_fmt_flag=()
 else
-  echo "ERROR: Invalid value of \$FMT_UPDATE: '$FMT_UPDATE'" > /dev/stderr
-  echo "Hint: It's must either be 'true' or 'false'" > /dev/stderr
+  echo "error: \$FMT_UPDATE is neither 'true' or 'false': '$FMT_UPDATE'" > /dev/stderr
   exit 1
 fi
 
