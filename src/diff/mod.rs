@@ -1,5 +1,6 @@
-use super::term::color::BoxedColorScheme;
 pub use difference::Changeset as Diff;
+
+use super::term::color::BoxedColorScheme;
 use difference::Difference::{self, *};
 use std::fmt::Display;
 

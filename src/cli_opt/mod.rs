@@ -6,9 +6,10 @@ pub mod when;
 pub use detail_level::*;
 pub use input_stream_address::*;
 pub use log_format::*;
+pub use when::*;
+
 use std::{env::args, process::exit};
 use structopt::*;
-pub use when::*;
 
 #[derive(StructOpt, Debug)]
 #[structopt(name = "sane-fmt", rename_all = "kebab")]
