@@ -1,0 +1,2 @@
+correct/a.ts
+correct/b.ts
