@@ -1,7 +1,8 @@
 #![cfg(test)]
 pub mod utils;
-use ansi_term::*;
 pub use utils::*;
+
+use ansi_term::*;
 
 #[test]
 fn unix_style_only() {

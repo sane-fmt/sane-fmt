@@ -1,6 +1,6 @@
 error: Found argument '--completely-unknown-flag' which wasn't expected, or isn't valid in this context
 
 USAGE:
-    sane-fmt [FLAGS] [OPTIONS] [files]...
+    sane-fmt [FLAGS] [OPTIONS] [--] [files]...
 
 For more information try --help

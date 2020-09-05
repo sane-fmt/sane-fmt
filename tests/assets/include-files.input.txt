@@ -1,0 +1,3 @@
+correct/a.ts
+correct/b.ts
+incorrect/a.ts

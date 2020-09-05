@@ -1,5 +1,5 @@
 USAGE:
-    sane-fmt [FLAGS] [OPTIONS] [files]...
+    sane-fmt [FLAGS] [OPTIONS] [--] [files]...
 
 FLAGS:
     -h, --help
@@ -24,6 +24,9 @@ OPTIONS:
 
         --details <details>
             File diff detail [possible values: count, name, diff] [default: name]
+
+    -I, --include <include>...
+            Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)
 
         --log-format <log-format>
             Format of log messages [possible values: human, github-actions] [default: human]

@@ -1,6 +1,7 @@
 pub mod schema_url;
 
 pub use dprint_plugin_typescript::configuration::Configuration as TypeScriptCfg;
+
 use serde::Serialize;
 
 #[derive(Serialize, Clone)]

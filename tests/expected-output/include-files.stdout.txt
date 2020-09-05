@@ -1,0 +1,4 @@
+🗸 correct/a.ts
+🗸 correct/b.ts
+✗ incorrect/a.ts
+SUMMARY: total 3; changed 1; unchanged 2

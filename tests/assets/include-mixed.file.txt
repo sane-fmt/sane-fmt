@@ -1,0 +1,2 @@
+correct/arrow-parens.js
+correct/arrow-parens.ts

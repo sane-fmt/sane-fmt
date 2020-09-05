@@ -5,6 +5,7 @@ use super::super::{
     term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme},
 };
 use super::App;
+use pipe_trait::*;
 use relative_path::RelativePath;
 use std::{
     fs,
@@ -29,16 +30,25 @@ impl App {
             return Ok(());
         }
 
-        let files = if opt.files.is_empty() {
-            file_list::default_files()
+        let files = if opt.files.is_empty() && opt.include.is_empty() {
+            file_list::default_files().map_err(|error| error.to_string())?
         } else {
-            file_list::create_list(
-                opt.files
-                    .iter()
-                    .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR)),
-            )
-        }
-        .map_err(|error| error.to_string())?;
+            let from_files_opt = opt
+                .files
+                .iter()
+                .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR))
+                .pipe(file_list::create_list)
+                .map_err(|error| error.to_string())?;
+            let from_includes_opt = opt
+                .include
+                .iter()
+                .map(file_list::read_list)
+                .collect::<Result<Vec<_>, _>>()
+                .map_err(|error| error.to_string())?
+                .into_iter()
+                .flatten();
+            from_includes_opt.chain(from_files_opt).collect::<Vec<_>>()
+        };
 
         let file_count = files.len();
         let mut diff_count = 0;

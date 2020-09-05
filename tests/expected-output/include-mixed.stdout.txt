@@ -1,0 +1,6 @@
+🗸 correct/a.ts
+🗸 correct/b.ts
+🗸 correct/arrow-parens.js
+🗸 correct/arrow-parens.ts
+🗸 correct/react.tsx
+SUMMARY: total 5; changed 0; unchanged 5
