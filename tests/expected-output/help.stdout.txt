@@ -20,16 +20,16 @@ FLAGS:
 
 OPTIONS:
         --color <color>
-            When to use terminal color [possible values: auto, never, always] [default: auto]
+            When to use terminal color [default: auto]  [possible values: auto, never, always]
 
         --details <details>
-            File diff detail [possible values: count, name, diff] [default: name]
+            File diff detail [default: name]  [possible values: count, name, diff]
 
     -I, --include <include>...
             Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)
 
         --log-format <log-format>
-            Format of log messages [possible values: human, github-actions] [default: human]
+            Format of log messages [default: human]  [possible values: human, github-actions]
 
 
 ARGS:
