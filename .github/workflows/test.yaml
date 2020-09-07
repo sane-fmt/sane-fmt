@@ -159,4 +159,4 @@ jobs:
           default: 'true'
 
       - name: Check code formatting
-        run: cargo fmt -- --check
+        run: ./fmt.sh
