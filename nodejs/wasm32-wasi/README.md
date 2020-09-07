@@ -123,6 +123,20 @@ sane-fmt --write src/
 
 This command would reformat all TypeScript and JavaScript files within `src/` directory.
 
+### Check all TypeScript and JavaScript files in a list
+
+Each line of `list.txt` is a path to a TypeScript/JavaScript file.
+
+```sh
+sane-fmt --include=list.txt
+```
+
+### Check all TypeScript and JavaScript files from a Git repo
+
+```sh
+git ls-files | grep -Ei '\.(js|ts)$' | sane-fmt --include=-
+```
+
 ### GitHub Actions
 
 `sane-fmt` also provides a convenient way to integrate with GitHub Actions. To use it, simply add `--log-format=github-actions`, like so:
