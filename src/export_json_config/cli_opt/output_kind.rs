@@ -11,7 +11,7 @@ impl std::str::FromStr for OutputKind {
         Ok(match text {
             "typescript" => OutputKind::TypeScript,
             "dprintrc" => OutputKind::DprintRc,
-            _ => return Err(text.to_owned()),
+            _ => return Err(text.to_string()),
         })
     }
 }

@@ -222,7 +222,7 @@ pub fn trim_trailing_whitespaces(text: &str) -> String {
         .collect::<Vec<_>>()
         .join("\n")
         .trim_end()
-        .to_owned()
+        .to_string()
 }
 
 /// Assert two strings are equal after being trimmed of trailing whitespaces.
@@ -315,10 +315,10 @@ pub fn visualize_fake_command_output(
 pub fn encode_ansi_text(text: &str) -> String {
     text.chars()
         .map(|ch| match ch {
-            '\x00' => "\\0".to_owned(),
-            '\x1B' => "\\e".to_owned(),
-            '\r' => "\\r".to_owned(),
-            '\\' => "\\".to_owned(),
+            '\x00' => "\\0".to_string(),
+            '\x1B' => "\\e".to_string(),
+            '\r' => "\\r".to_string(),
+            '\\' => "\\".to_string(),
             _ => ch.to_string(),
         })
         .collect::<Vec<_>>()
