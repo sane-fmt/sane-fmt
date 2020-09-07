@@ -11,7 +11,7 @@ impl std::str::FromStr for LogFormat {
         Ok(match text {
             "human" => LogFormat::Human,
             "github-actions" => LogFormat::GitHubActions,
-            _ => return Err(text.to_owned()),
+            _ => return Err(text.to_string()),
         })
     }
 }

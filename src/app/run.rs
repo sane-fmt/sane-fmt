@@ -146,7 +146,7 @@ impl App {
         }
 
         if file_count == 0 {
-            return Err("No files found".to_owned());
+            return Err("No files found".to_string());
         }
 
         if !opt.write && diff_count != 0 {

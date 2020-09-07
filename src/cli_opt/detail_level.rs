@@ -13,7 +13,7 @@ impl std::str::FromStr for DetailLevel {
             "count" => DetailLevel::Count,
             "name" => DetailLevel::Name,
             "diff" => DetailLevel::Diff,
-            _ => return Err(text.to_owned()),
+            _ => return Err(text.to_string()),
         })
     }
 }
