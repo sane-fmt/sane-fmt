@@ -1,7 +1,6 @@
-use super::{Item, List};
+use super::{Error, Item, List};
 use std::{
     fs::{metadata, read_dir},
-    io,
     path::PathBuf,
 };
 
@@ -9,15 +8,18 @@ pub const IGNORED_NAMES: &[&str] = &[".git", "node_modules"];
 pub const EXTENSIONS: &[&str] = &["ts", "tsx", "js", "jsx"];
 
 /// Add all applicable files in a directory into an existing list
-pub fn read_into(list: &mut List, dirname: &PathBuf) -> io::Result<()> {
-    let mut entries = read_dir(dirname)?
-        .map(|entry| -> io::Result<_> {
-            let entry = entry?;
+pub fn read_into(list: &mut List, dirname: &PathBuf) -> Result<(), Error> {
+    let mut entries = read_dir(dirname)
+        .map_err(|error| Error::new(dirname.clone(), error))?
+        .map(|entry| -> Result<_, _> {
+            let entry = entry.map_err(|error| Error::new(dirname.clone(), error))?;
             let path = entry.path();
-            let file_type = metadata(&path)?.file_type();
+            let file_type = metadata(&path)
+                .map_err(|error| Error::new(path.clone(), error))?
+                .file_type();
             Ok((entry, path, file_type))
         })
-        .collect::<io::Result<Vec<_>>>()?;
+        .collect::<Result<Vec<_>, _>>()?;
     entries.sort_by(|(_, a, _), (_, b, _)| a.cmp(b));
     for (entry, path, file_type) in entries {
         if file_type.is_dir() {
