@@ -15,3 +15,22 @@ pub struct Item {
 }
 
 pub type List = Vec<Item>;
+
+#[derive(Debug, Clone)]
+pub struct Error {
+    pub path: PathBuf,
+    pub message: String,
+}
+impl Error {
+    fn new(path: PathBuf, message: impl ToString) -> Self {
+        Error {
+            path,
+            message: message.to_string(),
+        }
+    }
+}
+impl ToString for Error {
+    fn to_string(&self) -> String {
+        format!("{}: {}", self.path.to_string_lossy(), self.message)
+    }
+}
