@@ -11,16 +11,18 @@ fn not_exist() {
         .output()
         .unwrap();
 
+    #[cfg(unix)]
+    let expected_stderr =
+        "Error: \"path that does not exist: No such file or directory (os error 2)\"\n";
+    #[cfg(windows)]
+    let expected_stderr = "Error: \"path that does not exist: The system cannot find the file specified. (os error 2)\"\n";
+
     assert_eq!(
         (
             u8v_to_utf8(&output.stdout),
             u8v_to_utf8(&output.stderr),
             output.status.success(),
         ),
-        (
-            "",
-            "Error: \"path that does not exist: No such file or directory (os error 2)\"\n",
-            false,
-        ),
+        ("", expected_stderr, false),
     );
 }
