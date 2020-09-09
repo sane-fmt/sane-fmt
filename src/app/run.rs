@@ -39,15 +39,15 @@ impl App {
                 .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR))
                 .pipe(file_list::create_list)
                 .map_err(|error| error.to_string())?;
-            let from_includes_opt = opt
-                .include
-                .iter()
-                .map(file_list::read_list)
-                .collect::<Result<Vec<_>, _>>()
-                .map_err(|error| error.to_string())?
-                .into_iter()
-                .flatten();
-            from_includes_opt.chain(from_files_opt).collect::<Vec<_>>()
+            if let Some(list_file_address) = &opt.include {
+                let mut from_include_opt = list_file_address
+                    .pipe(file_list::read_list)
+                    .map_err(|error| error.to_string())?;
+                from_include_opt.extend(from_files_opt);
+                from_include_opt
+            } else {
+                from_files_opt
+            }
         };
 
         let file_count = files.len();
