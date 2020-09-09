@@ -19,3 +19,5 @@ ls ./downloads | while read -r name; do
 	echo Copying "$src" to "$dst"...
 	cp "$src" "$dst" || exit $?
 done
+
+cp -v ./exports/* ./flatten/
