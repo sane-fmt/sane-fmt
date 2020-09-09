@@ -12,6 +12,7 @@ use std::{
     io::{stdin, Read},
     path::{PathBuf, MAIN_SEPARATOR},
 };
+use tap::*;
 
 impl App {
     /// Run the program based on application state.
@@ -33,20 +34,19 @@ impl App {
         let files = if opt.files.is_empty() && opt.include.is_none() {
             file_list::default_files().map_err(|error| error.to_string())?
         } else {
-            let from_files_opt = opt
+            let files = opt
                 .files
                 .iter()
                 .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR))
                 .pipe(file_list::create_list)
                 .map_err(|error| error.to_string())?;
             if let Some(list_file_address) = &opt.include {
-                let mut from_include_opt = list_file_address
+                list_file_address
                     .pipe(file_list::read_list)
-                    .map_err(|error| error.to_string())?;
-                from_include_opt.extend(from_files_opt);
-                from_include_opt
+                    .map_err(|error| error.to_string())?
+                    .tap(|x| x.extend(files))
             } else {
-                from_files_opt
+                files
             }
         };
 

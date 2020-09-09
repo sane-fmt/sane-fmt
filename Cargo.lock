@@ -547,6 +547,7 @@ dependencies = [
  "serde_json",
  "strip-ansi-escapes",
  "structopt",
+ "tap",
  "tempfile",
  "toml",
 ]
@@ -837,6 +838,12 @@ dependencies = [
  "quote",
  "unicode-xid",
 ]
+
+[[package]]
+name = "tap"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8dd9f05986b21b281a08e4b1a1f0e9c1c1675ede56e0e5d9af47eecc0522c420"
 
 [[package]]
 name = "tempfile"
