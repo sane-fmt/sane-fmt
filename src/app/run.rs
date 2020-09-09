@@ -30,7 +30,7 @@ impl App {
             return Ok(());
         }
 
-        let files = if opt.files.is_empty() && opt.include.is_empty() {
+        let files = if opt.files.is_empty() && opt.include.is_none() {
             file_list::default_files().map_err(|error| error.to_string())?
         } else {
             let from_files_opt = opt
