@@ -25,7 +25,7 @@ impl App {
         let CliOpt { output, bin, shell } = &self.opt;
 
         let mut buf: Box<dyn Write> = if let Some(file_name) = output {
-            file_name.pipe(File::open).unwrap().pipe(Box::new)
+            file_name.pipe(File::create).unwrap().pipe(Box::new)
         } else {
             Box::new(stdout())
         };
