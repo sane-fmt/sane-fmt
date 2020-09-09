@@ -12,12 +12,17 @@ if not release_tag:
   print('::error ::RELEASE_TAG is required but missing')
   exit(1)
 
-checksum = None
+sha1sum_lines = open('checksums/sha1sum.txt').readlines()
 word_splitter = re.compile(r'\s+')
-for line in open('checksums/sha1sum.txt').readlines():
-  line = line.strip()
-  if line.endswith(target):
-    checksum, _ = word_splitter.split(line)
+def get_checksum(name: str) -> str:
+  for line in sha1sum_lines:
+    line = line.strip()
+    if line.endswith(name):
+      checksum, _ = word_splitter.split(line)
+      return checksum
+  raise KeyError(f'Key {name} does not exist')
+
+checksum = get_checksum(target)
 
 maintainer = '# Maintainer: Hoàng Văn Khải <hvksmr1996@gmail.com>\n'
 license_url = 'https://raw.githubusercontent.com/sane-fmt/sane-fmt/master/LICENSE.md'
@@ -49,7 +54,7 @@ with open('./pkgbuild/sane-fmt-bin/PKGBUILD', 'w') as pkgbuild:
     f'completion.{release_tag}.{ext}::{source_url_prefix}/completion.{ext}'
     for ext in supported_completions
   )
-  completion_checksums = ' '.join('SKIP' for _ in supported_completions)
+  completion_checksums = ' '.join(get_checksum(f'completion.{ext}') for ext in supported_completions)
   content += f'source=(sane-fmt-{checksum}::{source_url} {completions} {license_url})\n'
   content += f'_checksum={checksum}\n'
   content += f'_completion_checksums=({completion_checksums})\n'

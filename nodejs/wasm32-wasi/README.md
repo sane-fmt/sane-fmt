@@ -158,6 +158,12 @@ _Recommendation:_ This [action](https://github.com/sane-fmt/action) will install
 sane-fmt --help
 ```
 
+## Shell Completions
+
+If you installed sane-fmt [via the AUR](#from-arch-user-repository), completions for bash, fish, and zsh are already installed for you.
+
+Shell completion files are located in [./exports directory of this repo](https://github.com/sane-fmt/sane-fmt/tree/master/exports) or [the Release Page](https://github.com/sane-fmt/sane-fmt/releases) with name in form of `completion.<extension>` where `<extension>` is corresponding file extension of target language. Install them to appropriate locations in your filesystem to use.
+
 ## Become a Patron
 
 [My Patreon Page](https://patreon.com/khai96_).
