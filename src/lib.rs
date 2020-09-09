@@ -1,3 +1,5 @@
+pub use structopt;
+
 pub mod app;
 pub mod cli_opt;
 pub mod export_json_config;
