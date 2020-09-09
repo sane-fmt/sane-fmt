@@ -85,20 +85,3 @@ fn file_dirs() {
         ),
     );
 }
-
-#[test]
-fn mixed() {
-    let output = Exe::fixtures().run_with_stdio(
-        include_bytes!("./assets/include-mixed.stdin.txt"),
-        &[
-            "--color=never",
-            "--include=-",
-            "--include=../assets/include-mixed.file.txt",
-            "correct/react.tsx",
-        ],
-    );
-    assert_eq!(
-        u8v_to_utf8(&output.stdout),
-        include_str!("./expected-output/include-mixed.stdout.txt"),
-    );
-}

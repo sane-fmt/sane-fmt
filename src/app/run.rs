@@ -12,6 +12,7 @@ use std::{
     io::{stdin, Read},
     path::{PathBuf, MAIN_SEPARATOR},
 };
+use tap::*;
 
 impl App {
     /// Run the program based on application state.
@@ -30,24 +31,23 @@ impl App {
             return Ok(());
         }
 
-        let files = if opt.files.is_empty() && opt.include.is_empty() {
+        let files = if opt.files.is_empty() && opt.include.is_none() {
             file_list::default_files().map_err(|error| error.to_string())?
         } else {
-            let from_files_opt = opt
+            let files = opt
                 .files
                 .iter()
                 .map(|x| cross_platform_path::from_string(x.as_str(), MAIN_SEPARATOR))
                 .pipe(file_list::create_list)
                 .map_err(|error| error.to_string())?;
-            let from_includes_opt = opt
-                .include
-                .iter()
-                .map(file_list::read_list)
-                .collect::<Result<Vec<_>, _>>()
-                .map_err(|error| error.to_string())?
-                .into_iter()
-                .flatten();
-            from_includes_opt.chain(from_files_opt).collect::<Vec<_>>()
+            if let Some(list_file_address) = &opt.include {
+                list_file_address
+                    .pipe(file_list::read_list)
+                    .map_err(|error| error.to_string())?
+                    .tap(|x| x.extend(files))
+            } else {
+                files
+            }
         };
 
         let file_count = files.len();

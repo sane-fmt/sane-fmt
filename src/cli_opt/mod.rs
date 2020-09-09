@@ -42,7 +42,7 @@ pub struct CliOpt {
     /// Files whose contents contain paths to target files
     /// (`-` means stdin, other strings mean text file)
     #[structopt(long, short = "I")]
-    pub include: Vec<InputStreamAddress>,
+    pub include: Option<InputStreamAddress>,
 
     /// Files to process
     ///
