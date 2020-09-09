@@ -1,21 +1,24 @@
-pub mod output_kind;
-
 use std::path::PathBuf;
 use std::{env::args, process::exit};
 use structopt::*;
 
+pub use clap::Shell;
+
 #[derive(StructOpt, Debug)]
-#[structopt(name = "sane-fmt-export-json-config", rename_all = "kebab")]
+#[structopt(name = "sane-fmt-generate-shell-completions", rename_all = "kebab")]
 pub struct CliOpt {
     /// File to write to
     /// [default: stdout]
     #[structopt(long, short = "o")]
     pub output: Option<PathBuf>,
 
-    /// Type of config
-    /// [possible values: typescript, dprintrc]
-    #[structopt(name = "type")]
-    pub kind: output_kind::OutputKind,
+    /// Binary name
+    #[structopt(long, default_value = "sane-fmt")]
+    pub bin: String,
+
+    /// Type of shell
+    #[structopt(name = "shell", possible_values = &["bash", "fish", "zsh", "powershell", "elvish"])]
+    pub shell: Shell,
 }
 
 impl CliOpt {

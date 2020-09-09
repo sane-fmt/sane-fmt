@@ -43,7 +43,14 @@ with open('./pkgbuild/sane-fmt-bin/PKGBUILD', 'w') as pkgbuild:
   content += 'pkgname=sane-fmt-bin\n'
   content += f'pkgver={release_tag}\n'
   source_url = f'https://github.com/sane-fmt/sane-fmt/releases/download/{release_tag}/sane-fmt-{target}'
-  content += f'source=(sane-fmt-{checksum}::{source_url} {license_url})\n'
+  supported_completions = ['bash', 'elv', 'fish']
+  completions = ' '.join(
+    f'completion.{release_tag}.{ext}::https://github.com/sane-fmt/sane-fmt/releases/download/completion.{ext}'
+    for ext in supported_completions
+  )
+  completion_checksums = ' '.join('SKIP' for _ in supported_completions)
+  content += f'source=(sane-fmt-{checksum}::{source_url} {completions} {license_url})\n'
   content += f'_checksum={checksum}\n'
+  content += f'_completion_checksums=({completion_checksums})\n'
   content += open('./template/sane-fmt-bin/PKGBUILD').read() + '\n'
   pkgbuild.write(content)

@@ -1,6 +1,9 @@
+pub use structopt::{self, clap};
+
 pub mod app;
 pub mod cli_opt;
 pub mod export_json_config;
+pub mod generate_shell_completions;
 pub mod rules;
 
 mod act;

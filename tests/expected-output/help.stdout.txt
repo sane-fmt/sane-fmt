@@ -25,7 +25,7 @@ OPTIONS:
         --details <details>
             File diff detail [default: name]  [possible values: count, name, diff]
 
-    -I, --include <include>
+    -I, --include <list>
             Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)
 
         --log-format <log-format>

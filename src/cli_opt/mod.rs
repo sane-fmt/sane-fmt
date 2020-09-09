@@ -41,7 +41,7 @@ pub struct CliOpt {
 
     /// Files whose contents contain paths to target files
     /// (`-` means stdin, other strings mean text file)
-    #[structopt(long, short = "I")]
+    #[structopt(long, short = "I", name = "list")]
     pub include: Option<InputStreamAddress>,
 
     /// Files to process

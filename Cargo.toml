@@ -27,6 +27,10 @@ path = "src/main.rs"
 name = "sane-fmt-export-json-config"
 path = "src/export_json_config/main.rs"
 
+[[bin]]
+name = "sane-fmt-generate-shell-completions"
+path = "src/generate_shell_completions/main.rs"
+
 [dependencies]
 structopt = "^0.3.16"
 dprint-plugin-typescript = "^0.30.0"
