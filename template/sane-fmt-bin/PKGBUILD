@@ -5,6 +5,7 @@ pkgrel=0
 arch=(x86_64)
 license=(MIT)
 url='https://github.com/sane-fmt/sane-fmt'
+provides=(sane-fmt)
 conflicts=(sane-fmt)
 sha1sums=($_checksum SKIP)
 
