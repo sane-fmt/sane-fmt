@@ -54,7 +54,7 @@ with open('./pkgbuild/sane-fmt-bin/PKGBUILD', 'w') as pkgbuild:
     f'completion.{release_tag}.{ext}::{source_url_prefix}/completion.{ext}'
     for ext in supported_completions
   )
-  completion_checksums = ' '.join('SKIP' for _ in supported_completions)
+  completion_checksums = ' '.join(get_checksum(f'completion.{ext}') for ext in supported_completions)
   content += f'source=(sane-fmt-{checksum}::{source_url} {completions} {license_url})\n'
   content += f'_checksum={checksum}\n'
   content += f'_completion_checksums=({completion_checksums})\n'
