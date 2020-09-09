@@ -226,8 +226,8 @@ jobs:
           draft: 'false'
           prerelease: ${{ steps.release_type.outputs.is_prerelease }}
 
-  upload_json_configs:
-    name: Upload JSON Configuration Files
+  upload_generated_files:
+    name: Upload Generated Files
 
     needs:
       - create_release
@@ -259,6 +259,56 @@ jobs:
           asset_path: ./exports/sane-fmt.typescript.json
           asset_name: sane-fmt.typescript.json
           asset_content_type: application/json
+
+      - name: Upload Tab-Completion file for Bash
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/completion.bash
+          asset_name: completion.bash
+          asset_content_type: text/plain
+
+      - name: Upload Tab-Completion file for Fish
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/completion.fish
+          asset_name: completion.fish
+          asset_content_type: text/plain
+
+      - name: Upload Tab-Completion file for Zsh
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/completion.zsh
+          asset_name: completion.zsh
+          asset_content_type: text/plain
+
+      - name: Upload Tab-Completion file for Elvish
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/completion.elv
+          asset_name: completion.elv
+          asset_content_type: text/plain
+
+      - name: Upload Tab-Completion file for PowerShell
+        uses: actions/upload-release-asset@v1.0.2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./exports/completion.ps1
+          asset_name: completion.ps1
+          asset_content_type: text/plain
 
   upload_release_assets:
     name: Upload Release Assets
