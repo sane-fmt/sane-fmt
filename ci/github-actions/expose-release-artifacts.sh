@@ -16,8 +16,7 @@ ls ./downloads | while read -r name; do
 
 	src="./downloads/${name}/sane-fmt${suffix}"
 	dst="./flatten/${name}${suffix}"
-	echo Copying "$src" to "$dst"...
-	cp "$src" "$dst" || exit $?
+	cp -v "$src" "$dst" || exit $?
 done
 
 cp -v ./exports/* ./flatten/
