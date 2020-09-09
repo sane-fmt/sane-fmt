@@ -44,7 +44,7 @@ with open('./pkgbuild/sane-fmt-bin/PKGBUILD', 'w') as pkgbuild:
   content += f'pkgver={release_tag}\n'
   source_url_prefix=f'https://github.com/sane-fmt/sane-fmt/releases/download/{release_tag}'
   source_url = f'{source_url_prefix}/sane-fmt-{target}'
-  supported_completions = ['bash', 'elv', 'fish']
+  supported_completions = ['bash', 'fish', 'zsh']
   completions = ' '.join(
     f'completion.{release_tag}.{ext}::{source_url_prefix}/completion.{ext}'
     for ext in supported_completions
