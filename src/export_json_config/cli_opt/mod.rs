@@ -5,7 +5,7 @@ use std::{env::args, process::exit};
 use structopt::*;
 
 #[derive(StructOpt, Debug)]
-#[structopt(name = "sane-fmt-json", rename_all = "kebab")]
+#[structopt(name = "sane-fmt-export-json-config", rename_all = "kebab")]
 pub struct CliOpt {
     /// File to write to
     /// [default: stdout]

@@ -5,7 +5,7 @@ use structopt::*;
 pub use clap::Shell;
 
 #[derive(StructOpt, Debug)]
-#[structopt(name = "sane-fmt-completions", rename_all = "kebab")]
+#[structopt(name = "sane-fmt-generate-shell-completions", rename_all = "kebab")]
 pub struct CliOpt {
     /// File to write to
     /// [default: stdout]
