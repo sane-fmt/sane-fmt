@@ -1,4 +1,6 @@
 #! /bin/bash
+set -o errexit -o pipefail
+
 mkdir ./flatten
 
 [ -d ./downloads ] || {
@@ -16,7 +18,7 @@ ls ./downloads | while read -r name; do
 
 	src="./downloads/${name}/sane-fmt${suffix}"
 	dst="./flatten/${name}${suffix}"
-	cp -v "$src" "$dst" || exit $?
+	cp -v "$src" "$dst"
 done
 
 cp -v ./exports/* ./flatten/

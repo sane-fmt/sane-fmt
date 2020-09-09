@@ -1,4 +1,5 @@
-#! /bin/sh
+#! /bin/bash
+set -o errexit -o pipefail
 
 if [ -z "$PNPM_VERSION" ]; then
 	# shellcheck disable=SC2016
