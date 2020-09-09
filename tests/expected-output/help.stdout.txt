@@ -31,6 +31,9 @@ OPTIONS:
         --log-format <log-format>
             Format of log messages [default: human]  [possible values: human, github-actions]
 
+        --generate-completion <shell>
+            Generates completions and exits [possible values: bash, fish, zsh, powershell, elvish]
+
 
 ARGS:
     <files>...

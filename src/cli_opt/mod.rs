@@ -8,6 +8,7 @@ pub use input_stream_address::*;
 pub use log_format::*;
 pub use when::*;
 
+use clap::Shell;
 use std::{env::args, process::exit};
 use structopt::*;
 
@@ -18,6 +19,10 @@ pub struct CliOpt {
     /// prints formatted code to standard output, then exits.
     #[structopt(long)]
     pub stdio: bool,
+
+    /// Generates completions and exits.
+    #[structopt(long, name = "shell", possible_values = &["bash", "fish", "zsh", "powershell", "elvish"])]
+    pub generate_completion: Option<Shell>,
 
     /// Whether to write or check
     #[structopt(long, short = "w")]

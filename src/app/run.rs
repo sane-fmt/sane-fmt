@@ -1,6 +1,6 @@
 use super::super::{
     act,
-    cli_opt::{LogFormat, When},
+    cli_opt::{CliOpt, LogFormat, When},
     cross_platform_path, file_list,
     term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme},
 };
@@ -9,7 +9,7 @@ use pipe_trait::*;
 use relative_path::RelativePath;
 use std::{
     fs,
-    io::{stdin, Read},
+    io::{stdin, stdout, Read},
     path::{PathBuf, MAIN_SEPARATOR},
 };
 use tap::*;
@@ -18,6 +18,12 @@ impl App {
     /// Run the program based on application state.
     pub fn run(&self) -> Result<(), String> {
         let Self { opt, fmt } = self;
+
+        if let Some(shell) = &opt.generate_completion {
+            use structopt::StructOpt;
+            CliOpt::clap().gen_completions_to("sane-fmt", *shell, &mut stdout());
+            return Ok(());
+        }
 
         if opt.stdio {
             let mut buffer = String::new();
