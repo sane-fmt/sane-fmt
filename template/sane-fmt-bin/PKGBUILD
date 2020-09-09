@@ -7,7 +7,11 @@ license=(MIT)
 url='https://github.com/sane-fmt/sane-fmt'
 provides=(sane-fmt)
 conflicts=(sane-fmt)
-sha1sums=("$_checksum" "${_completion_checksums[@]}" SKIP)
+sha1sums=(
+  "$_checksum"                  # for the sane-fmt binary
+  "${_completion_checksums[@]}" # for the completions
+  SKIP                          # for the license
+)
 
 package() {
   install -Dm755 "sane-fmt-$_checksum" "$pkgdir/usr/bin/sane-fmt"
