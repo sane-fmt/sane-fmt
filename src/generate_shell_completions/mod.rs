@@ -1,9 +1,6 @@
-pub mod app;
-pub mod cli_opt;
+use super::cli_opt::CliOpt;
+use structopt_utilities::StructOptUtils;
 
-/// The main program.
-///
-/// It initializes `app::App` with default values and runs it.
 pub fn main() {
-    app::App::default().run()
+    CliOpt::run_completion_generator("sane-fmt-generate-shell-completions", "sane-fmt")
 }
