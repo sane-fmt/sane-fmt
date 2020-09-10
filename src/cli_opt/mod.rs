@@ -8,7 +8,6 @@ pub use input_stream_address::*;
 pub use log_format::*;
 pub use when::*;
 
-use std::{env::args, process::exit};
 use structopt::*;
 
 #[derive(StructOpt, Debug)]
@@ -49,25 +48,4 @@ pub struct CliOpt {
     /// If none are provided, a default set of files will be assumed
     #[structopt(name = "files")]
     pub files: Vec<String>,
-}
-
-impl CliOpt {
-    /// Parse arguments from `env::args`.
-    ///
-    /// Unlike `StructOpt::from_args`, this function treat unknown flags as errors.
-    pub fn get() -> Self {
-        match Self::from_iter_safe(args()) as Result<Self, clap::Error> {
-            Ok(value) => value,
-            Err(clap::Error { kind, message, .. }) => match kind {
-                clap::ErrorKind::HelpDisplayed | clap::ErrorKind::VersionDisplayed => {
-                    println!("{}", message);
-                    exit(0);
-                }
-                _ => {
-                    println!("{}", message);
-                    exit(1);
-                }
-            },
-        }
-    }
 }

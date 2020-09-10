@@ -61,8 +61,8 @@ fn unknown_flag() {
         .unwrap();
 
     assert_str_eq(
-        u8v_to_utf8(&output.stdout),
-        correct_snapshot(include_str!("./expected-output/unknown-flag.stdout.txt")).as_str(),
+        u8v_to_utf8(&output.stderr),
+        correct_snapshot(include_str!("./expected-output/unknown-flag.stderr.txt")).as_str(),
     );
     assert_eq!(output.status.success(), false);
 }
