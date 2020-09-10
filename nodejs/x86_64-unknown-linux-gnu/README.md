@@ -25,13 +25,25 @@ Go to [the release page](https://github.com/sane-fmt/sane-fmt/releases).
 
 ### From [crates.io](https://crates.io)
 
-<pre><code>cargo install <a href="https://crates.io/crates/sane-fmt">sane-fmt</a></code></pre>
+```sh
+cargo install sane-fmt
+```
+
+**Links:**
+  * https://crates.io/crates/sane-fmt/
+  * https://docs.rs/crate/sane-fmt/
+  * https://lib.rs/crates/sane-fmt/
 
 ### From [NPM](https://www.npmjs.com)
 
 #### WASM (all platform)
 
-<pre><code>npm i -g <a href="https://www.npmjs.com/package/@sane-fmt/wasm32-wasi">@sane-fmt/wasm32-wasi</a></code></pre>
+```sh
+npm i -g @sane-fmt/wasm32-wasi
+```
+
+**Links:**
+  * https://www.npmjs.com/package/@sane-fmt/wasm32-wasi
 
 #### Native binaries
 
@@ -52,11 +64,21 @@ The WASM package while work on all platform, it is slow to start. For better spe
 
 #### Download source and compile
 
-<pre><code>yay -S <a href="https://aur.archlinux.org/packages/sane-fmt/">sane-fmt</a></code></pre>
+```sh
+yay -S sane-fmt
+```
+
+**Links:**
+  * https://aur.archlinux.org/packages/sane-fmt/
 
 #### Download prebuilt binary
 
-<pre><code>yay -S <a href="https://aur.archlinux.org/packages/sane-fmt-bin/">sane-fmt-bin</a></code></pre>
+```sh
+yay -S sane-fmt-bin
+```
+
+**Links:**
+  * https://aur.archlinux.org/packages/sane-fmt-bin/
 
 ### Use with [Dprint](https://dprint.dev/)
 
