@@ -547,6 +547,7 @@ dependencies = [
  "serde_json",
  "strip-ansi-escapes",
  "structopt",
+ "structopt-utilities",
  "tap",
  "tempfile",
  "toml",
@@ -688,6 +689,16 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn",
+]
+
+[[package]]
+name = "structopt-utilities"
+version = "0.0.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2c5e3f07034a647fa595dd8240f216141f9175c4605f936960f9b670d94678ba"
+dependencies = [
+ "pipe-trait",
+ "structopt",
 ]
 
 [[package]]
