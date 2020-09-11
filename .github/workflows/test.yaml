@@ -14,7 +14,7 @@ jobs:
       fail-fast: false
       matrix:
         rust:
-          - '1.43.0'
+          - '1.46.0'
         os:
           - ubuntu-latest
           - windows-latest
@@ -80,7 +80,7 @@ jobs:
     strategy:
       matrix:
         rust:
-          - '1.43.0'
+          - '1.46.0'
         os:
           - ubuntu-latest
 
@@ -143,7 +143,7 @@ jobs:
     strategy:
       matrix:
         rust:
-          - '1.43.0'
+          - '1.46.0'
         os:
           - ubuntu-latest
 
