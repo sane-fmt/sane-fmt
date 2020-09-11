@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/wasm32-wasi",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "private": false,
   "homepage": "https://github.com/sane-fmt/sane-fmt",
   "repository": {
