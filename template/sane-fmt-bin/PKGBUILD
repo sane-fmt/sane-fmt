@@ -10,11 +10,13 @@ conflicts=(sane-fmt)
 sha1sums=(
   "$_checksum"                  # for the sane-fmt binary
   "${_completion_checksums[@]}" # for the completions
+  SKIP                          # for the readme
   SKIP                          # for the license
 )
 
 package() {
   install -Dm755 "sane-fmt-$_checksum" "$pkgdir/usr/bin/sane-fmt"
+  install -Dm644 README.md "$pkgdir/usr/share/doc/$pkgname/README.md"
   install -Dm644 LICENSE.md "$pkgdir/usr/share/licenses/$pkgname/LICENSE.md"
   install -Dm644 "completion.$pkgver.bash" "$pkgdir/usr/share/bash-completion/completions/sane-fmt"
   install -Dm644 "completion.$pkgver.fish" "$pkgdir/usr/share/fish/completions/sane-fmt.fish"
