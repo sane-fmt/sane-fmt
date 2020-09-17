@@ -557,6 +557,7 @@ jobs:
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
           commit_message: ${{ needs.create_release.outputs.release_tag }}
+          force_push: 'true'
 
       - name: Publish sane-fmt-bin to the AUR
         uses: KSXGitHub/github-actions-deploy-aur@v2.2.0
@@ -567,6 +568,7 @@ jobs:
           commit_email: ${{ secrets.AUR_EMAIL }}
           ssh_private_key: ${{ secrets.AUR_SSH_PRIVATE_KEY }}
           commit_message: ${{ needs.create_release.outputs.release_tag }}
+          force_push: 'true'
 
   publish_cargo_crate:
     name: Publish Cargo crate
