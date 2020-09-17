@@ -37,8 +37,8 @@ with open('./pkgbuild/sane-fmt/PKGBUILD', 'w') as pkgbuild:
   content += 'pkgname=sane-fmt\n'
   content += f'pkgver={release_tag}\n'
   source_url = f'https://github.com/sane-fmt/sane-fmt/archive/{release_tag}.tar.gz'
-  content += f'source=(sane-fmt-{release_tag}.tar.gz::{source_url} {readme_url} {license_url})\n'
-  content += 'sha1sums=(SKIP SKIP SKIP)\n'
+  content += f'source=(sane-fmt-{release_tag}.tar.gz::{source_url})\n'
+  content += 'sha1sums=(SKIP)\n'
   content += open('./template/sane-fmt/PKGBUILD').read() + '\n'
   pkgbuild.write(content)
 
