@@ -1,8 +1,5 @@
 language: rust
 
-rust:
-  - '1.46.0'
-
 before_install:
   - rustup component add clippy rustfmt
 
