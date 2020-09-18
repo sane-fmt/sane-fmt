@@ -13,8 +13,6 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        rust:
-          - '1.46.0'
         os:
           - ubuntu-latest
           - windows-latest
@@ -30,10 +28,10 @@ jobs:
         if: matrix.os != 'macos-latest' # Cache seems to messing up macOS build
         with:
           path: ~/.cargo/registry
-          key: 0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-${{ github.job }}-cargo-registry-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            0-${{ github.job }}-cargo-registry-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-registry-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v2
@@ -42,10 +40,10 @@ jobs:
         if: matrix.os != 'macos-latest' # Cache seems to messing up macOS build
         with:
           path: ~/.cargo/git
-          key: 0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-${{ github.job }}-cargo-index-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            0-${{ github.job }}-cargo-index-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-index-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v2
@@ -54,15 +52,14 @@ jobs:
         if: matrix.os != 'macos-latest' # Cache seems to messing up macOS build
         with:
           path: target
-          key: 0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-${{ github.job }}-build-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            0-${{ github.job }}-build-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-build-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
           override: 'true'
           default: 'true'
 
@@ -79,8 +76,6 @@ jobs:
 
     strategy:
       matrix:
-        rust:
-          - '1.46.0'
         os:
           - ubuntu-latest
 
@@ -93,10 +88,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/registry
-          key: 0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-${{ github.job }}-cargo-registry-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-cargo-registry-${{ matrix.rust }}-${{ runner.os }}-
+            0-${{ github.job }}-cargo-registry-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-registry-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-
 
       - name: Cache Rust Cargo Index
         uses: actions/cache@v2
@@ -104,10 +99,10 @@ jobs:
         continue-on-error: true
         with:
           path: ~/.cargo/git
-          key: 0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-${{ github.job }}-cargo-index-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-cargo-index-${{ matrix.rust }}-${{ runner.os }}-
+            0-${{ github.job }}-cargo-index-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-cargo-index-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-
 
       - name: Cache Rust Build
         uses: actions/cache@v2
@@ -115,15 +110,14 @@ jobs:
         continue-on-error: true
         with:
           path: target
-          key: 0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+          key: 0-${{ github.job }}-build-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
-            0-${{ github.job }}-build-${{ matrix.rust }}-${{ runner.os }}-
+            0-${{ github.job }}-build-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-${{ hashFiles('**/Cargo.lock') }}
+            0-${{ github.job }}-build-${{ hashFiles('rust-toolchain') }}-${{ runner.os }}-
 
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
           components: clippy
           override: 'true'
           default: 'true'
@@ -131,7 +125,7 @@ jobs:
       - name: Use clippy to lint code
         uses: actions-rs/clippy-check@v1
         with:
-          name: Clippy Report (${{ matrix.rust }}, ${{ matrix.os }})
+          name: Clippy Report (${{ hashFiles('rust-toolchain') }}, ${{ matrix.os }})
           token: ${{ secrets.GITHUB_TOKEN }}
           args: --all-features --all-targets -- -D warnings
 
@@ -142,8 +136,6 @@ jobs:
 
     strategy:
       matrix:
-        rust:
-          - '1.46.0'
         os:
           - ubuntu-latest
 
@@ -153,7 +145,6 @@ jobs:
       - uses: actions-rs/toolchain@v1.0.6
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
           components: rustfmt
           override: 'true'
           default: 'true'
