@@ -80,7 +80,8 @@ impl App {
                     cross_platform_path::convert_path(&path, '/')
                 };
 
-                let path = RelativePath::from_path(&path)
+                let path = path
+                    .pipe_ref(RelativePath::from_path)
                     .unwrap()
                     .normalize()
                     .to_string();
