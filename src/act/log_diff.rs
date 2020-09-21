@@ -16,7 +16,7 @@ pub type Act<'a> = Box<dyn Fn(&Path, &str, &str) + 'a>;
 /// * If `--details=count`, the returning function would do nothing.
 /// * If `--details=name`, the returning function would log names.
 /// * If `--details=diff`, the returning function would log names and diffs.
-pub fn get(details: DetailLevel, log_format: LogFormat, theme: &BoxedColorScheme) -> Act {
+pub fn get(details: DetailLevel, log_format: LogFormat, theme: &dyn ColorScheme) -> Act {
     let stringify_path = |path: &Path| cross_platform_path::to_string(path, '/');
     let format_name = move |path: &Path| {
         let message = format!("✗ {}", stringify_path(path));

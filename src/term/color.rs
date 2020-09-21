@@ -55,5 +55,3 @@ impl ColorScheme for ColorfulScheme {
         Color::RGB(127, 0, 0).into()
     }
 }
-
-pub type BoxedColorScheme = Box<dyn ColorScheme>;

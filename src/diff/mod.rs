@@ -1,6 +1,6 @@
 pub use difference::Changeset as Diff;
 
-use super::term::color::BoxedColorScheme;
+use super::term::color::ColorScheme;
 use difference::Difference::{self, *};
 use std::fmt::Display;
 
@@ -13,7 +13,7 @@ pub fn diff(old: &str, new: &str) -> Diff {
 pub fn diff_lines<'a>(
     old: &str,
     new: &str,
-    theme: &'a BoxedColorScheme,
+    theme: &'a dyn ColorScheme,
     prefixes: (
         impl Display + Copy + 'a,
         impl Display + Copy + 'a,

@@ -2,7 +2,7 @@ use super::super::{
     act,
     cli_opt::{LogFormat, When},
     cross_platform_path, file_list,
-    term::color::{BoxedColorScheme, ColorfulScheme, ColorlessScheme},
+    term::color::{ColorScheme, ColorfulScheme, ColorlessScheme},
 };
 use super::App;
 use pipe_trait::*;
@@ -53,14 +53,14 @@ impl App {
         let file_count = files.len();
         let mut diff_count = 0;
 
-        let theme: BoxedColorScheme = if opt.color == When::Never {
-            Box::new(ColorlessScheme)
+        let theme: &dyn ColorScheme = if opt.color == When::Never {
+            &ColorlessScheme
         } else {
-            Box::new(ColorfulScheme)
+            &ColorfulScheme
         };
 
-        let log_same = act::log_same::get(opt.details, opt.hide_passed, &theme);
-        let log_diff = act::log_diff::get(opt.details, opt.log_format, &theme);
+        let log_same = act::log_same::get(opt.details, opt.hide_passed, theme);
+        let log_diff = act::log_diff::get(opt.details, opt.log_format, theme);
         let may_write = act::may_write::get(opt.write);
 
         for item in files {
