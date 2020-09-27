@@ -10,7 +10,7 @@ use relative_path::RelativePath;
 use std::{
     fs,
     io::{stdin, Read},
-    path::{PathBuf, MAIN_SEPARATOR},
+    path::{Path, PathBuf, MAIN_SEPARATOR},
 };
 use tap::*;
 
@@ -86,17 +86,18 @@ impl App {
                     .normalize()
                     .to_string();
 
-                let path = PathBuf::from(if path.starts_with("./") || path.starts_with(".\\") {
+                let path: &Path = if path.starts_with("./") || path.starts_with(".\\") {
                     &path[2..]
                 } else {
                     &path
-                });
+                }
+                .as_ref();
 
                 // Because of the above workaround, this is necessary
                 if cfg!(unix) {
-                    path
+                    path.to_path_buf()
                 } else {
-                    cross_platform_path::convert_path(&path, MAIN_SEPARATOR)
+                    cross_platform_path::convert_path(path, MAIN_SEPARATOR)
                 }
             };
 
@@ -109,15 +110,13 @@ impl App {
                 )
             })?;
 
-            let formatted = fmt
-                .format_text(&path.to_path_buf(), &file_content)
-                .map_err(|error| {
-                    format!(
-                        "Failed to parse {:?}: {}",
-                        cross_platform_path::to_string(path, '/'),
-                        error
-                    )
-                })?;
+            let formatted = fmt.format_text(path, &file_content).map_err(|error| {
+                format!(
+                    "Failed to parse {:?}: {}",
+                    cross_platform_path::to_string(path, '/'),
+                    error
+                )
+            })?;
             if file_content == formatted {
                 log_same(path);
             } else {

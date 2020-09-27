@@ -1,18 +1,18 @@
 use super::{Error, Item, List};
 use std::{
     fs::{metadata, read_dir},
-    path::PathBuf,
+    path::Path,
 };
 
 pub const IGNORED_NAMES: &[&str] = &[".git", "node_modules"];
 pub const EXTENSIONS: &[&str] = &["ts", "tsx", "js", "jsx"];
 
 /// Add all applicable files in a directory into an existing list
-pub fn read_into(list: &mut List, dirname: &PathBuf) -> Result<(), Error> {
+pub fn read_into(list: &mut List, dirname: &Path) -> Result<(), Error> {
     let mut entries = read_dir(dirname)
-        .map_err(|error| Error::new(dirname.clone(), error))?
+        .map_err(|error| Error::new(dirname.to_path_buf(), error))?
         .map(|entry| -> Result<_, _> {
-            let entry = entry.map_err(|error| Error::new(dirname.clone(), error))?;
+            let entry = entry.map_err(|error| Error::new(dirname.to_path_buf(), error))?;
             let path = entry.path();
             let file_type = metadata(&path)
                 .map_err(|error| Error::new(path.clone(), error))?
