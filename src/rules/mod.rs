@@ -1,13 +1,14 @@
+mod fmt;
+
 pub use dprint_plugin_typescript::configuration::{
     Configuration as Cfg, ConfigurationBuilder as CfgBuilder,
 };
+pub use fmt::Fmt;
 
-use dprint_plugin_typescript::{
-    configuration::{QuoteStyle, SemiColonOrComma, SemiColons, TrailingCommas, UseParentheses},
-    format_text,
+use dprint_plugin_typescript::configuration::{
+    QuoteStyle, SemiColonOrComma, SemiColons, TrailingCommas, UseParentheses,
 };
 use pipe_trait::*;
-use std::path::Path;
 
 /// Shape a `ConfigurationBuilder` to desired configuration.
 pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
@@ -31,24 +32,4 @@ pub fn build_cfg() -> Cfg {
 /// Create a formatter for desired configuration.
 pub fn build_fmt() -> Fmt {
     Fmt::new(build_cfg())
-}
-
-/// Wrapper type of configuration.
-pub struct Fmt(Cfg);
-
-impl Fmt {
-    /// Create a formatter
-    pub fn new(cfg: Cfg) -> Self {
-        Fmt(cfg)
-    }
-
-    /// Extract internal configuration
-    pub fn into_cfg(self) -> Cfg {
-        self.0
-    }
-
-    /// Format a file
-    pub fn format_text(&self, path: &Path, content: &str) -> Result<String, String> {
-        format_text(path, content, &self.0)
-    }
 }
