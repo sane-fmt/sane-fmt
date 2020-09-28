@@ -6,7 +6,7 @@ pub struct Fmt(Cfg);
 
 impl Fmt {
     /// Create a formatter
-    pub fn new(cfg: Cfg) -> Self {
+    pub fn from_cfg(cfg: Cfg) -> Self {
         Fmt(cfg)
     }
 
