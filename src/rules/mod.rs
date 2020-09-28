@@ -31,5 +31,5 @@ pub fn build_cfg() -> Cfg {
 
 /// Create a formatter for desired configuration.
 pub fn build_fmt() -> Fmt {
-    Fmt::new(build_cfg())
+    Fmt::from_cfg(build_cfg())
 }
