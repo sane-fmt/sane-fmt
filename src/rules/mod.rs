@@ -30,13 +30,18 @@ pub fn build_cfg() -> Cfg {
 
 /// Create a formatter for desired configuration.
 pub fn build_fmt() -> Fmt {
-    Fmt(build_cfg())
+    Fmt::new(build_cfg())
 }
 
 /// Wrapper type of configuration.
 pub struct Fmt(Cfg);
 
 impl Fmt {
+    /// Create a formatter
+    pub fn new(cfg: Cfg) -> Self {
+        Fmt(cfg)
+    }
+
     /// Format a file
     pub fn format_text(&self, path: &Path, content: &str) -> Result<String, String> {
         format_text(path, content, &self.0)
