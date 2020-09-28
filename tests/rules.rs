@@ -248,11 +248,14 @@ test_rule!(
 );
 
 test_rule!(
-    ignore_node,
+    import_order,
     "js",
-    vec!["// sane-fmt-ignore", "const a = 123;", "",]
-        .join("\n")
-        .as_str(),
+    vec![
+        "import { ABC_DEF, GHI_JKL, AbcDef, GhiJkl, abcDef, ghiJkl } from 'foo'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
     &[]
 );
 

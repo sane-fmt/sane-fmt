@@ -6,7 +6,7 @@ pub use dprint_plugin_typescript::configuration::{
 pub use fmt::Fmt;
 
 use dprint_plugin_typescript::configuration::{
-    QuoteStyle, SemiColonOrComma, SemiColons, TrailingCommas, UseParentheses,
+    QuoteStyle, SemiColonOrComma, SemiColons, SortOrder, TrailingCommas, UseParentheses,
 };
 use pipe_trait::*;
 
@@ -20,6 +20,8 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .type_literal_separator_kind_single_line(SemiColonOrComma::Comma)
         .trailing_commas(TrailingCommas::OnlyMultiLine)
         .arrow_function_use_parentheses(UseParentheses::PreferNone)
+        .import_declaration_sort_named_imports(SortOrder::Maintain)
+        .export_declaration_sort_named_exports(SortOrder::Maintain)
         .ignore_node_comment_text("sane-fmt-ignore")
         .ignore_file_comment_text("sane-fmt-ignore-file")
 }
