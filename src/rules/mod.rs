@@ -42,13 +42,13 @@ impl Fmt {
         Fmt(cfg)
     }
 
-    /// Format a file
-    pub fn format_text(&self, path: &Path, content: &str) -> Result<String, String> {
-        format_text(path, content, &self.0)
-    }
-
     /// Extract internal configuration
     pub fn into_cfg(self) -> Cfg {
         self.0
+    }
+
+    /// Format a file
+    pub fn format_text(&self, path: &Path, content: &str) -> Result<String, String> {
+        format_text(path, content, &self.0)
     }
 }
