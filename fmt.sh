@@ -20,5 +20,5 @@ false)
 	;;
 esac
 
-cargo run --bin=sane-fmt nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}"
+./run.sh sane-fmt nodejs/*/src scripts preview ci "${sane_fmt_flag[@]}"
 cargo fmt -- "${cargo_fmt_flag[@]}"
