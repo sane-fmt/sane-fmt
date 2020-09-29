@@ -33,10 +33,10 @@ jobs:
             ~/.cargo/registry
             ~/.cargo/git
             target
-          key: miri-${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('**/Cargo.lock') }}
+          key: miri-${{ github.job }}-${{ runner.os }}-${{ matrix.toolchain }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: |
-            miri-${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('**/Cargo.lock') }}
-            miri-${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-
+            miri-${{ github.job }}-${{ runner.os }}-${{ matrix.toolchain }}-${{ hashFiles('**/Cargo.lock') }}
+            miri-${{ github.job }}-${{ runner.os }}-${{ matrix.toolchain }}-
 
       - uses: actions-rs/toolchain@v1
         with:
