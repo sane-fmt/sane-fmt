@@ -1,0 +1,53 @@
+name: Miri
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    name: Test
+
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: true
+      matrix:
+        toolchain:
+          - nightly-2020-09-28
+        os:
+          - ubuntu-latest
+          - windows-latest
+          - macos-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Cache
+        uses: actions/cache@v2
+        timeout-minutes: 1
+        continue-on-error: true
+        if: matrix.os != 'macos-latest' # Cache seems to messing up macOS build
+        with:
+          path:
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: |
+            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-${{ hashFiles('**/Cargo.lock') }}
+            ${{ github.job }}-${{ runner.os }}-${{ hashFiles('rust-toolchain') }}-
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          override: 'true'
+          default: 'true'
+          toolchain: ${{ matrix.toolchain }}
+          components: miri
+
+      - name: Build
+        run: cargo miri build --locked
+
+      - name: Test
+        run: cargo miri test
