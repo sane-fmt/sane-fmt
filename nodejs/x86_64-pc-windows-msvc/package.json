@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-pc-windows-msvc",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "private": false,
   "homepage": "https://github.com/sane-fmt/sane-fmt",
   "repository": {
