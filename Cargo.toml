@@ -39,7 +39,7 @@ difference = "^2.0.0"
 relative-path = "^1.2.1"
 ansi_term = "^0.12.1"
 pipe-trait = "^0.2.1"
-tap = "^0.4.0"
+tap = "^1.0.0"
 serde_json = "^1.0.59"
 
 [dependencies.serde]
