@@ -12,7 +12,7 @@ use std::{
     io::{stdin, Read},
     path::{Path, PathBuf, MAIN_SEPARATOR},
 };
-use tap::*;
+use tap::tap::*;
 
 impl App {
     /// Run the program based on application state.
@@ -44,7 +44,7 @@ impl App {
                 list_file_address
                     .pipe(file_list::read_list)
                     .map_err(|error| error.to_string())?
-                    .tap(|x| x.extend(files))
+                    .tap_mut(|x| x.extend(files))
             } else {
                 files
             }
