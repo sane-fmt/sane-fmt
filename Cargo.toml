@@ -38,7 +38,7 @@ dprint-plugin-typescript = "^0.32.1"
 difference = "^2.0.0"
 relative-path = "^1.2.1"
 ansi_term = "^0.12.1"
-pipe-trait = "^0.2.0"
+pipe-trait = "^0.2.1"
 tap = "^0.4.0"
 serde_json = "^1.0.57"
 
