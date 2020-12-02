@@ -20,6 +20,8 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .type_literal_separator_kind_single_line(SemiColonOrComma::Comma)
         .trailing_commas(TrailingCommas::OnlyMultiLine)
         .arrow_function_use_parentheses(UseParentheses::PreferNone)
+        .module_sort_import_declarations(SortOrder::CaseSensitive)
+        .module_sort_export_declarations(SortOrder::CaseSensitive)
         .import_declaration_sort_named_imports(SortOrder::Maintain)
         .export_declaration_sort_named_exports(SortOrder::Maintain)
         .ignore_node_comment_text("sane-fmt-ignore")

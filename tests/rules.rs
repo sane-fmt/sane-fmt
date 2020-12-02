@@ -248,6 +248,56 @@ test_rule!(
 );
 
 test_rule!(
+    module_sort_import_declarations,
+    "ts",
+    vec![
+        "import {} from 'ABC'",
+        "import {} from 'DEF'",
+        "import {} from 'abc'",
+        "import {} from 'def'",
+        "import {} from '../lib'",
+        "import {} from '../utils'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
+    &[vec![
+        "import {} from 'ABC'",
+        "import {} from 'abc'",
+        "import {} from 'DEF'",
+        "import {} from 'def'",
+        "import {} from '../utils'",
+        "import {} from '../lib'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),]
+);
+
+test_rule!(
+    module_sort_export_declarations,
+    "ts",
+    vec![
+        "export {} from 'ABC'",
+        "export {} from 'DEF'",
+        "export {} from 'abc'",
+        "export {} from 'def'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
+    &[vec![
+        "export {} from 'ABC'",
+        "export {} from 'abc'",
+        "export {} from 'DEF'",
+        "export {} from 'def'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),]
+);
+
+test_rule!(
     ignore_node,
     "js",
     vec!["// sane-fmt-ignore", "const a = 123;", "",]
