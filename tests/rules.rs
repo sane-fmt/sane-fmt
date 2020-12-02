@@ -28,7 +28,7 @@ test_rule!(
     allow_double_quotes_in_some_cases,
     "ts",
     "const a = \"'hello world'\"\n",
-    &["const a = '\\'hello there\\''\n"]
+    &["const a = '\\'hello world\\''\n"]
 );
 
 test_rule!(
@@ -174,6 +174,11 @@ test_rule!(
             "  | { type: 1; value: string }",
             "  | { type: 2; value: symbol }",
             "",
+            "type MyIntersection =",
+            "  & { a: number }",
+            "  & { b: number }",
+            "  & { c: number }",
+            "",
         ]
         .join("\n")
         .as_str(),
@@ -183,10 +188,20 @@ test_rule!(
             "  { type: 1; value: string } |",
             "  { type: 2; value: symbol }",
             "",
+            "type MyIntersection =",
+            "  & { a: number }",
+            "  & { b: number }",
+            "  & { c: number }",
+            "",
         ]
         .join("\n")
         .as_str(),
         vec![
+            "export type MyUnion =",
+            "  | { type: 0, value: number }",
+            "  | { type: 1, value: string }",
+            "  | { type: 2, value: symbol }",
+            "",
             "type MyIntersection =",
             "  { a: number }",
             "  & { b: number }",
@@ -196,6 +211,11 @@ test_rule!(
         .join("\n")
         .as_str(),
         vec![
+            "export type MyUnion =",
+            "  | { type: 0, value: number }",
+            "  | { type: 1, value: string }",
+            "  | { type: 2, value: symbol }",
+            "",
             "type MyIntersection = { a: number }",
             "  & { b: number }",
             "  & { c: number }",
