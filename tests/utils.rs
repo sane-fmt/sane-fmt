@@ -2,6 +2,7 @@
 use ansi_term::{Color, Style};
 use difference::{Changeset, Difference};
 use fs_extra::dir::{copy as copy_dir, CopyOptions as DirCopyOptions};
+use sane_fmt::rules::build_fmt;
 use std::{
     ffi::OsStr,
     fmt::Write,
@@ -241,31 +242,21 @@ pub fn run_rule_test(
     formatted: &str,
     unformatted: &[&str],
 ) {
-    let file_name = format!("{}.{}", test_name, file_ext);
+    let file_name = PathBuf::from(format!("{}.{}", test_name, file_ext));
+    let fmt = build_fmt();
 
-    let output = |content| {
-        Exe::temp_file(file_name.as_str(), content)
-            .cmd
-            .arg("--details=diff")
-            .arg("--color=auto")
-            .arg(file_name.as_str())
-            .output()
-            .unwrap()
-    };
+    let actual_formatted = fmt
+        .format_text(&file_name, formatted)
+        .expect("format correctly styled code");
+    assert_str_eq(formatted, &actual_formatted);
 
-    let test = |assert: fn(bool) -> bool, content| {
-        let out = output(content);
-        if !assert(out.status.success()) {
-            panic!(visualize_command_output(
-                &out,
-                &Style::new().bold().underline()
-            ));
-        }
-    };
-
-    test(|x| x, formatted);
-    for content in unformatted {
-        test(|x| !x, content);
+    for (index, unformatted) in unformatted.iter().enumerate() {
+        eprintln!("unformatted[{}]", index);
+        let formatted = fmt
+            .format_text(&file_name, unformatted)
+            .expect("format incorrectly styled code");
+        assert_ne!(&formatted, *unformatted, "code style does not change");
+        assert_str_eq(&formatted, &actual_formatted);
     }
 }
 
