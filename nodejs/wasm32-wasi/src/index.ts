@@ -1,7 +1,7 @@
-import path from 'path'
-import fs from 'fs'
 import { WASI } from '@wasmer/wasi'
 import bindings from '@wasmer/wasi/lib/bindings/node'
+import fs from 'fs'
+import path from 'path'
 
 export const wasmFile = require.resolve('../sane-fmt.wasm')
 

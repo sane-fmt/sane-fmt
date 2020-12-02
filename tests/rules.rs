@@ -28,7 +28,7 @@ test_rule!(
     allow_double_quotes_in_some_cases,
     "ts",
     "const a = \"'hello world'\"\n",
-    &["const a = '\\'hello there\\''\n"]
+    &["const a = '\\'hello world\\''\n"]
 );
 
 test_rule!(
@@ -174,6 +174,11 @@ test_rule!(
             "  | { type: 1; value: string }",
             "  | { type: 2; value: symbol }",
             "",
+            "type MyIntersection =",
+            "  & { a: number }",
+            "  & { b: number }",
+            "  & { c: number }",
+            "",
         ]
         .join("\n")
         .as_str(),
@@ -183,10 +188,20 @@ test_rule!(
             "  { type: 1; value: string } |",
             "  { type: 2; value: symbol }",
             "",
+            "type MyIntersection =",
+            "  & { a: number }",
+            "  & { b: number }",
+            "  & { c: number }",
+            "",
         ]
         .join("\n")
         .as_str(),
         vec![
+            "export type MyUnion =",
+            "  | { type: 0, value: number }",
+            "  | { type: 1, value: string }",
+            "  | { type: 2, value: symbol }",
+            "",
             "type MyIntersection =",
             "  { a: number }",
             "  & { b: number }",
@@ -196,6 +211,11 @@ test_rule!(
         .join("\n")
         .as_str(),
         vec![
+            "export type MyUnion =",
+            "  | { type: 0, value: number }",
+            "  | { type: 1, value: string }",
+            "  | { type: 2, value: symbol }",
+            "",
             "type MyIntersection = { a: number }",
             "  & { b: number }",
             "  & { c: number }",
@@ -245,6 +265,56 @@ test_rule!(
     ]
     .join("\n")
     .as_str()]
+);
+
+test_rule!(
+    module_sort_import_declarations,
+    "ts",
+    vec![
+        "import {} from 'ABC'",
+        "import {} from 'DEF'",
+        "import {} from 'abc'",
+        "import {} from 'def'",
+        "import {} from '../lib'",
+        "import {} from '../utils'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
+    &[vec![
+        "import {} from 'ABC'",
+        "import {} from 'abc'",
+        "import {} from 'DEF'",
+        "import {} from 'def'",
+        "import {} from '../utils'",
+        "import {} from '../lib'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),]
+);
+
+test_rule!(
+    module_sort_export_declarations,
+    "ts",
+    vec![
+        "export {} from 'ABC'",
+        "export {} from 'DEF'",
+        "export {} from 'abc'",
+        "export {} from 'def'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
+    &[vec![
+        "export {} from 'ABC'",
+        "export {} from 'abc'",
+        "export {} from 'DEF'",
+        "export {} from 'def'",
+        "",
+    ]
+    .join("\n")
+    .as_str(),]
 );
 
 test_rule!(

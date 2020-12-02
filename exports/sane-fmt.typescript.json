@@ -10,6 +10,8 @@
   "memberExpression.linePerExpression": false,
   "typeLiteral.separatorKind.singleLine": "comma",
   "typeLiteral.separatorKind.multiLine": "semiColon",
+  "module.sortImportDeclarations": "caseSensitive",
+  "module.sortExportDeclarations": "caseSensitive",
   "importDeclaration.sortNamedImports": "maintain",
   "exportDeclaration.sortNamedExports": "maintain",
   "ignoreNodeCommentText": "sane-fmt-ignore",
