@@ -12,6 +12,8 @@
     "memberExpression.linePerExpression": false,
     "typeLiteral.separatorKind.singleLine": "comma",
     "typeLiteral.separatorKind.multiLine": "semiColon",
+    "module.sortImportDeclarations": "maintain",
+    "module.sortExportDeclarations": "maintain",
     "importDeclaration.sortNamedImports": "maintain",
     "exportDeclaration.sortNamedExports": "maintain",
     "ignoreNodeCommentText": "sane-fmt-ignore",
