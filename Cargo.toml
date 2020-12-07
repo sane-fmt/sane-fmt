@@ -32,7 +32,7 @@ name = "sane-fmt-generate-shell-completions"
 path = "src/generate_shell_completions/main.rs"
 
 [dependencies]
-structopt = "^0.3.17"
+structopt = "^0.3.21"
 structopt-utilities = "^0.0.8"
 dprint-plugin-typescript = "^0.35.0"
 difference = "^2.0.0"
