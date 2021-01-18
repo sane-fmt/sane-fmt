@@ -43,7 +43,7 @@ tap = "^1.0.0"
 serde_json = "^1.0.61"
 
 [dependencies.serde]
-version = "^1.0.118"
+version = "^1.0.119"
 features = ["derive"]
 
 [dev-dependencies]
