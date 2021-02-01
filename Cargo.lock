@@ -156,9 +156,9 @@ checksum = "524cbf6897b527295dff137cec09ecf3a05f4fddffd7dfcd1585403449e74198"
 
 [[package]]
 name = "dprint-core"
-version = "0.34.0"
+version = "0.35.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c7fc292281fc3ec69dfbd36c3c5c73886469a6630e1747ff452b46f5deed208d"
+checksum = "db5b96c278cf35e2dd2c225c16abcdbf46b2e39d3058426ac67b105f023ac148"
 dependencies = [
  "bumpalo",
  "fnv",
@@ -167,9 +167,9 @@ dependencies = [
 
 [[package]]
 name = "dprint-plugin-typescript"
-version = "0.38.1"
+version = "0.38.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "67bb41b131e30df80105eb6b4f183a4bf003ee7dfb20661ac15a2a6f329de5b1"
+checksum = "e001087c38c806b97d07fdcda613d77dec262fcdb9d4f954bb558ac53919b873"
 dependencies = [
  "dprint-core",
  "dprint-swc-ecma-ast-view",
