@@ -474,7 +474,7 @@ jobs:
           node-version: '14.1.0'
 
       - name: Cache PNPM store
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/.pnpm-store/v3
           key: pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -605,7 +605,7 @@ jobs:
           node-version: '14.1.0'
 
       - name: Cache PNPM store
-        uses: actions/cache@v2
+        uses: actions/cache@v2.1.4
         with:
           path: ~/.pnpm-store/v3
           key: pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
