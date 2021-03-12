@@ -284,7 +284,7 @@ test_rule!(
 test_rule!(
     multiple_nested_parentheses,
     "js",
-    vec![
+    text_block!(
         "export default new Promise(resolve =>",
         "  cp.once('error', error =>",
         "    resolve({",
@@ -295,10 +295,8 @@ test_rule!(
         "  )",
         ")",
         "",
-    ]
-    .join("\n")
-    .as_str(),
-    &[vec![
+    ),
+    &[text_block!(
         "export default new Promise(resolve =>",
         "  cp.once('error', error =>",
         "    resolve({",
@@ -307,9 +305,7 @@ test_rule!(
         "      value: null,",
         "    })))",
         "",
-    ]
-    .join("\n")
-    .as_str(),]
+    )]
 );
 
 test_rule!(
