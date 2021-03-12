@@ -12,15 +12,13 @@ test_rule!(
 test_rule!(
     template_string,
     "ts",
-    vec![
+    text_block!(
         "const a = 123",
         "const b = 456",
         "const c = 789",
         "const abc = `a ${a} b ${b} c ${c}`",
         "",
-    ]
-    .join("\n")
-    .as_str(),
+    ),
     &[]
 );
 
@@ -34,7 +32,7 @@ test_rule!(
 test_rule!(
     trailing_commas,
     "js",
-    vec![
+    text_block!(
         "const array = [",
         "  123,",
         "  456,",
@@ -47,10 +45,8 @@ test_rule!(
         "  'this is a string',",
         ")",
         "",
-    ]
-    .join("\n")
-    .as_str(),
-    &[[
+    ),
+    &[text_block!(
         "const array = [",
         "  123,",
         "  456,",
@@ -63,9 +59,7 @@ test_rule!(
         "  'this is a string'",
         ")",
         ""
-    ]
-    .join("\n")
-    .as_str()]
+    )]
 );
 
 test_rule!(
@@ -92,7 +86,7 @@ test_rule!(
 test_rule!(
     interface,
     "ts",
-    vec![
+    text_block!(
         "export interface MyInterface {",
         "  readonly a: number",
         "  readonly b: string",
@@ -100,10 +94,8 @@ test_rule!(
         "  d: string",
         "}",
         ""
-    ]
-    .join("\n")
-    .as_str(),
-    &[[
+    ),
+    &[text_block!(
         "export interface MyInterface {",
         "  readonly a: number;",
         "  readonly b: string;",
@@ -111,15 +103,13 @@ test_rule!(
         "  d: string;",
         "}",
         ""
-    ]
-    .join("\n")
-    .as_str()]
+    )]
 );
 
 test_rule!(
     object_literal_type,
     "ts",
-    vec![
+    text_block!(
         "export type MyObject = {",
         "  readonly a: number",
         "  readonly b: string",
@@ -127,10 +117,8 @@ test_rule!(
         "  d: string",
         "}",
         ""
-    ]
-    .join("\n")
-    .as_str(),
-    &[vec![
+    ),
+    &[text_block!(
         "export type MyObject = {",
         "  readonly a: number;",
         "  readonly b: string;",
@@ -138,9 +126,7 @@ test_rule!(
         "  d: string;",
         "}",
         ""
-    ]
-    .join("\n")
-    .as_str()]
+    )]
 );
 
 test_rule!(
@@ -153,7 +139,7 @@ test_rule!(
 test_rule!(
     multi_line_union_or_intersection,
     "ts",
-    vec![
+    text_block!(
         "export type MyUnion =",
         "  | { type: 0, value: number }",
         "  | { type: 1, value: string }",
@@ -164,11 +150,9 @@ test_rule!(
         "  & { b: number }",
         "  & { c: number }",
         "",
-    ]
-    .join("\n")
-    .as_str(),
+    ),
     &[
-        vec![
+        text_block!(
             "export type MyUnion =",
             "  { type: 0; value: number }",
             "  | { type: 1; value: string }",
@@ -179,10 +163,8 @@ test_rule!(
             "  & { b: number }",
             "  & { c: number }",
             "",
-        ]
-        .join("\n")
-        .as_str(),
-        vec![
+        ),
+        text_block!(
             "export type MyUnion =",
             "  { type: 0; value: number } |",
             "  { type: 1; value: string } |",
@@ -193,10 +175,8 @@ test_rule!(
             "  & { b: number }",
             "  & { c: number }",
             "",
-        ]
-        .join("\n")
-        .as_str(),
-        vec![
+        ),
+        text_block!(
             "export type MyUnion =",
             "  | { type: 0, value: number }",
             "  | { type: 1, value: string }",
@@ -207,10 +187,8 @@ test_rule!(
             "  & { b: number }",
             "  & { c: number }",
             "",
-        ]
-        .join("\n")
-        .as_str(),
-        vec![
+        ),
+        text_block!(
             "export type MyUnion =",
             "  | { type: 0, value: number }",
             "  | { type: 1, value: string }",
@@ -220,16 +198,14 @@ test_rule!(
             "  & { b: number }",
             "  & { c: number }",
             "",
-        ]
-        .join("\n")
-        .as_str(),
+        ),
     ]
 );
 
 test_rule!(
     multi_line_union_of_multi_line_object,
     "ts",
-    vec![
+    text_block!(
         "export type MyUnion =",
         "  | {",
         "    readonly type: 0",
@@ -244,10 +220,8 @@ test_rule!(
         "    readonly value: symbol",
         "  }",
         "",
-    ]
-    .join("\n")
-    .as_str(),
-    &[vec![
+    ),
+    &[text_block!(
         "export type MyUnion =",
         "  {",
         "    readonly type: 0",
@@ -262,15 +236,13 @@ test_rule!(
         "    readonly value: symbol",
         "  }",
         "",
-    ]
-    .join("\n")
-    .as_str()]
+    )]
 );
 
 test_rule!(
     module_sort_import_declarations,
     "ts",
-    vec![
+    text_block!(
         "import {} from 'ABC'",
         "import {} from 'DEF'",
         "import {} from 'abc'",
@@ -278,10 +250,8 @@ test_rule!(
         "import {} from '../lib'",
         "import {} from '../utils'",
         "",
-    ]
-    .join("\n")
-    .as_str(),
-    &[vec![
+    ),
+    &[text_block!(
         "import {} from 'ABC'",
         "import {} from 'abc'",
         "import {} from 'DEF'",
@@ -289,48 +259,38 @@ test_rule!(
         "import {} from '../utils'",
         "import {} from '../lib'",
         "",
-    ]
-    .join("\n")
-    .as_str(),]
+    )]
 );
 
 test_rule!(
     module_sort_export_declarations,
     "ts",
-    vec![
+    text_block!(
         "export {} from 'ABC'",
         "export {} from 'DEF'",
         "export {} from 'abc'",
         "export {} from 'def'",
         "",
-    ]
-    .join("\n")
-    .as_str(),
-    &[vec![
+    ),
+    &[text_block!(
         "export {} from 'ABC'",
         "export {} from 'abc'",
         "export {} from 'DEF'",
         "export {} from 'def'",
         "",
-    ]
-    .join("\n")
-    .as_str(),]
+    )]
 );
 
 test_rule!(
     ignore_node,
     "js",
-    vec!["// sane-fmt-ignore", "const a = 123;", "",]
-        .join("\n")
-        .as_str(),
+    text_block!("// sane-fmt-ignore", "const a = 123;", ""),
     &[]
 );
 
 test_rule!(
     ignore_file,
     "js",
-    vec!["// sane-fmt-ignore-file", "const a = 123;", "",]
-        .join("\n")
-        .as_str(),
+    text_block!("// sane-fmt-ignore-file", "const a = 123;", ""),
     &[]
 );

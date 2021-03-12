@@ -272,6 +272,18 @@ macro_rules! test_rule {
     };
 }
 
+/// Define a block of text composed of multiple lines
+#[macro_export]
+macro_rules! text_block {
+    () => ("");
+    ($line:literal) => {
+        concat!($line)
+    };
+    ($line:literal, $($rest:literal),+ $(,)?) => {
+        concat!($line, "\n", text_block!($($rest),+))
+    };
+}
+
 /// Show status code, stdout, and stderr of a command in a pretty manner
 pub fn visualize_command_output(output: &CommandOutput, title_style: &Style) -> String {
     visualize_fake_command_output(
