@@ -318,6 +318,37 @@ test_rule!(
 );
 
 test_rule!(
+    multiple_nested_parentheses,
+    "js",
+    vec![
+        "export default new Promise(resolve =>",
+        "  cp.once('error', error =>",
+        "    resolve({",
+        "      type: 'error',",
+        "      error,",
+        "      value: null,",
+        "    })",
+        "  )",
+        ")",
+        "",
+    ]
+    .join("\n")
+    .as_str(),
+    &[vec![
+        "export default new Promise(resolve =>",
+        "  cp.once('error', error =>",
+        "    resolve({",
+        "      type: 'error',",
+        "      error,",
+        "      value: null,",
+        "    })))",
+        "",
+    ]
+    .join("\n")
+    .as_str(),]
+);
+
+test_rule!(
     ignore_node,
     "js",
     vec!["// sane-fmt-ignore", "const a = 123;", "",]
