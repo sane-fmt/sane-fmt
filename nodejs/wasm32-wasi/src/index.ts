@@ -1,5 +1,5 @@
-import { WASI } from '@wasmer/wasi'
 import bindings from '@wasmer/wasi/lib/bindings/node'
+import { WASI } from '@wasmer/wasi'
 import fs from 'fs'
 import path from 'path'
 
