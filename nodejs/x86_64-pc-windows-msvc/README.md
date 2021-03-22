@@ -15,7 +15,7 @@ Opinionated code formatter for TypeScript and JavaScript.
 
 [Preview](https://git.io/JflcU).
 
-Read [rules/mod.rs](https://git.io/JflmV) and [tests/rules.rs](https://git.io/JflOp) for more information.
+Read [exports/sane-fmt.typescript.json](https://git.io/JmNWN), [src/rules.rs](https://git.io/JmNlv), and [tests/rules.rs](https://git.io/JflOp) for more information.
 
 ## Installation
 
