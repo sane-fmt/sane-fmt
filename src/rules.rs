@@ -2,9 +2,7 @@ pub mod cfg;
 
 mod fmt;
 
-pub use dprint_plugin_typescript::configuration::{
-    Configuration as Cfg, ConfigurationBuilder as CfgBuilder,
-};
+pub use cfg::{Configuration as Cfg, ConfigurationBuilder as CfgBuilder};
 pub use fmt::Fmt;
 
 use cfg::*;
