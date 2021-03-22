@@ -131,9 +131,13 @@
   "importDeclaration.spaceSurroundingNamedImports": true,
   "jsxExpressionContainer.spaceSurroundingExpression": false,
   "method.spaceBeforeParentheses": false,
+  "objectExpression.spaceSurroundingProperties": true,
+  "objectPattern.spaceSurroundingProperties": true,
   "setAccessor.spaceBeforeParentheses": false,
+  "spaceSurroundingProperties": true,
   "taggedTemplate.spaceBeforeLiteral": false,
   "typeAnnotation.spaceBeforeColon": false,
   "typeAssertion.spaceBeforeExpression": true,
+  "typeLiteral.spaceSurroundingProperties": true,
   "whileStatement.spaceAfterWhileKeyword": true
 }
