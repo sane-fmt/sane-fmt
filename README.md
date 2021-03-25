@@ -215,4 +215,4 @@ However, if you still want a copy of `sane-fmt` with your own customized rules, 
 
 ## License
 
-[MIT](https://git.io/Jflmx) © [Hoàng Văn Khải](https://github.com/KSXGitHub/)
+[MIT](https://git.io/Jflmx) © [Hoàng Văn Khải](https://ksxgithub.github.io/)
