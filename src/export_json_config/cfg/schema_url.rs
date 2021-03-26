@@ -6,8 +6,8 @@ const SCHEMA_URL: &str = "https://dprint.dev/schemas/v0.json";
 #[serde(into = "&str")]
 pub struct SchemaUrl;
 
-impl Into<&'static str> for SchemaUrl {
-    fn into(self) -> &'static str {
+impl From<SchemaUrl> for &str {
+    fn from(_: SchemaUrl) -> Self {
         SCHEMA_URL
     }
 }
