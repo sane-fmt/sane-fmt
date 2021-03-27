@@ -65,7 +65,7 @@ The WASM package while work on all platform, it is slow to start. For better spe
 #### Download source and compile
 
 ```sh
-yay -S sane-fmt
+paru -S sane-fmt
 ```
 
 **Links:**
@@ -74,7 +74,7 @@ yay -S sane-fmt
 #### Download prebuilt binary
 
 ```sh
-yay -S sane-fmt-bin
+paru -S sane-fmt-bin
 ```
 
 **Links:**
