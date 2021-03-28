@@ -14,7 +14,7 @@ use structopt::*;
 #[structopt(name = "sane-fmt", rename_all = "kebab")]
 pub struct CliOpt {
     /// Reads unformatted code from standard input,
-    /// prints formatted code to standard output, then exits.
+    /// prints formatted code to standard output, then exits
     #[structopt(long)]
     pub stdio: bool,
 
