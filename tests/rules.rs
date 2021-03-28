@@ -13,11 +13,11 @@ test_rule!(
     template_string,
     "ts",
     text_block! {
-        "const a = 123",
-        "const b = 456",
-        "const c = 789",
-        "const abc = `a ${a} b ${b} c ${c}`",
-        "",
+        "const a = 123"
+        "const b = 456"
+        "const c = 789"
+        "const abc = `a ${a} b ${b} c ${c}`"
+        ""
     },
     &[]
 );
@@ -33,31 +33,31 @@ test_rule!(
     trailing_commas,
     "js",
     text_block! {
-        "const array = [",
-        "  123,",
-        "  456,",
-        "  789,",
-        "]",
-        "",
-        "someFunc(",
-        "  123,",
-        "  123456789,",
-        "  'this is a string',",
-        ")",
-        "",
+        "const array = ["
+        "  123,"
+        "  456,"
+        "  789,"
+        "]"
+        ""
+        "someFunc("
+        "  123,"
+        "  123456789,"
+        "  'this is a string',"
+        ")"
+        ""
     },
     &[text_block! {
-        "const array = [",
-        "  123,",
-        "  456,",
-        "  789",
-        "]",
-        "",
-        "someFunc(",
-        "  123,",
-        "  123456789,",
-        "  'this is a string'",
-        ")",
+        "const array = ["
+        "  123,"
+        "  456,"
+        "  789"
+        "]"
+        ""
+        "someFunc("
+        "  123,"
+        "  123456789,"
+        "  'this is a string'"
+        ")"
         ""
     }]
 );
@@ -87,21 +87,21 @@ test_rule!(
     interface,
     "ts",
     text_block! {
-        "export interface MyInterface {",
-        "  readonly a: number",
-        "  readonly b: string",
-        "  c: number",
-        "  d: string",
-        "}",
+        "export interface MyInterface {"
+        "  readonly a: number"
+        "  readonly b: string"
+        "  c: number"
+        "  d: string"
+        "}"
         ""
     },
     &[text_block! {
-        "export interface MyInterface {",
-        "  readonly a: number;",
-        "  readonly b: string;",
-        "  c: number;",
-        "  d: string;",
-        "}",
+        "export interface MyInterface {"
+        "  readonly a: number;"
+        "  readonly b: string;"
+        "  c: number;"
+        "  d: string;"
+        "}"
         ""
     }]
 );
@@ -110,21 +110,21 @@ test_rule!(
     object_literal_type,
     "ts",
     text_block! {
-        "export type MyObject = {",
-        "  readonly a: number",
-        "  readonly b: string",
-        "  c: number",
-        "  d: string",
-        "}",
+        "export type MyObject = {"
+        "  readonly a: number"
+        "  readonly b: string"
+        "  c: number"
+        "  d: string"
+        "}"
         ""
     },
     &[text_block! {
-        "export type MyObject = {",
-        "  readonly a: number;",
-        "  readonly b: string;",
-        "  c: number;",
-        "  d: string;",
-        "}",
+        "export type MyObject = {"
+        "  readonly a: number;"
+        "  readonly b: string;"
+        "  c: number;"
+        "  d: string;"
+        "}"
         ""
     }]
 );
@@ -140,64 +140,64 @@ test_rule!(
     multi_line_union_or_intersection,
     "ts",
     text_block! {
-        "export type MyUnion =",
-        "  | { type: 0, value: number }",
-        "  | { type: 1, value: string }",
-        "  | { type: 2, value: symbol }",
-        "",
-        "type MyIntersection =",
-        "  & { a: number }",
-        "  & { b: number }",
-        "  & { c: number }",
-        "",
+        "export type MyUnion ="
+        "  | { type: 0, value: number }"
+        "  | { type: 1, value: string }"
+        "  | { type: 2, value: symbol }"
+        ""
+        "type MyIntersection ="
+        "  & { a: number }"
+        "  & { b: number }"
+        "  & { c: number }"
+        ""
     },
     &[
         text_block! {
-            "export type MyUnion =",
-            "  { type: 0; value: number }",
-            "  | { type: 1; value: string }",
-            "  | { type: 2; value: symbol }",
-            "",
-            "type MyIntersection =",
-            "  & { a: number }",
-            "  & { b: number }",
-            "  & { c: number }",
-            "",
+            "export type MyUnion ="
+            "  { type: 0; value: number }"
+            "  | { type: 1; value: string }"
+            "  | { type: 2; value: symbol }"
+            ""
+            "type MyIntersection ="
+            "  & { a: number }"
+            "  & { b: number }"
+            "  & { c: number }"
+            ""
         },
         text_block! {
-            "export type MyUnion =",
-            "  { type: 0; value: number } |",
-            "  { type: 1; value: string } |",
-            "  { type: 2; value: symbol }",
-            "",
-            "type MyIntersection =",
-            "  & { a: number }",
-            "  & { b: number }",
-            "  & { c: number }",
-            "",
+            "export type MyUnion ="
+            "  { type: 0; value: number } |"
+            "  { type: 1; value: string } |"
+            "  { type: 2; value: symbol }"
+            ""
+            "type MyIntersection ="
+            "  & { a: number }"
+            "  & { b: number }"
+            "  & { c: number }"
+            ""
         },
         text_block! {
-            "export type MyUnion =",
-            "  | { type: 0, value: number }",
-            "  | { type: 1, value: string }",
-            "  | { type: 2, value: symbol }",
-            "",
-            "type MyIntersection =",
-            "  { a: number }",
-            "  & { b: number }",
-            "  & { c: number }",
-            "",
+            "export type MyUnion ="
+            "  | { type: 0, value: number }"
+            "  | { type: 1, value: string }"
+            "  | { type: 2, value: symbol }"
+            ""
+            "type MyIntersection ="
+            "  { a: number }"
+            "  & { b: number }"
+            "  & { c: number }"
+            ""
         },
         text_block! {
-            "export type MyUnion =",
-            "  | { type: 0, value: number }",
-            "  | { type: 1, value: string }",
-            "  | { type: 2, value: symbol }",
-            "",
-            "type MyIntersection = { a: number }",
-            "  & { b: number }",
-            "  & { c: number }",
-            "",
+            "export type MyUnion ="
+            "  | { type: 0, value: number }"
+            "  | { type: 1, value: string }"
+            "  | { type: 2, value: symbol }"
+            ""
+            "type MyIntersection = { a: number }"
+            "  & { b: number }"
+            "  & { c: number }"
+            ""
         },
     ]
 );
@@ -206,36 +206,36 @@ test_rule!(
     multi_line_union_of_multi_line_object,
     "ts",
     text_block! {
-        "export type MyUnion =",
-        "  | {",
-        "    readonly type: 0",
-        "    readonly value: number",
-        "  }",
-        "  | {",
-        "    readonly type: 1",
-        "    readonly value: string",
-        "  }",
-        "  | {",
-        "    readonly type: 2",
-        "    readonly value: symbol",
-        "  }",
-        "",
+        "export type MyUnion ="
+        "  | {"
+        "    readonly type: 0"
+        "    readonly value: number"
+        "  }"
+        "  | {"
+        "    readonly type: 1"
+        "    readonly value: string"
+        "  }"
+        "  | {"
+        "    readonly type: 2"
+        "    readonly value: symbol"
+        "  }"
+        ""
     },
     &[text_block! {
-        "export type MyUnion =",
-        "  {",
-        "    readonly type: 0",
-        "    readonly value: number",
-        "  }",
-        "  | {",
-        "    readonly type: 1",
-        "    readonly value: string",
-        "  }",
-        "  | {",
-        "    readonly type: 2",
-        "    readonly value: symbol",
-        "  }",
-        "",
+        "export type MyUnion ="
+        "  {"
+        "    readonly type: 0"
+        "    readonly value: number"
+        "  }"
+        "  | {"
+        "    readonly type: 1"
+        "    readonly value: string"
+        "  }"
+        "  | {"
+        "    readonly type: 2"
+        "    readonly value: symbol"
+        "  }"
+        ""
     }]
 );
 
@@ -243,22 +243,22 @@ test_rule!(
     module_sort_import_declarations,
     "ts",
     text_block! {
-        "import {} from 'ABC'",
-        "import {} from 'DEF'",
-        "import {} from 'abc'",
-        "import {} from 'def'",
-        "import {} from '../lib'",
-        "import {} from '../utils'",
-        "",
+        "import {} from 'ABC'"
+        "import {} from 'DEF'"
+        "import {} from 'abc'"
+        "import {} from 'def'"
+        "import {} from '../lib'"
+        "import {} from '../utils'"
+        ""
     },
     &[text_block! {
-        "import {} from 'ABC'",
-        "import {} from 'abc'",
-        "import {} from 'DEF'",
-        "import {} from 'def'",
-        "import {} from '../utils'",
-        "import {} from '../lib'",
-        "",
+        "import {} from 'ABC'"
+        "import {} from 'abc'"
+        "import {} from 'DEF'"
+        "import {} from 'def'"
+        "import {} from '../utils'"
+        "import {} from '../lib'"
+        ""
     }]
 );
 
@@ -266,18 +266,18 @@ test_rule!(
     module_sort_export_declarations,
     "ts",
     text_block! {
-        "export {} from 'ABC'",
-        "export {} from 'DEF'",
-        "export {} from 'abc'",
-        "export {} from 'def'",
-        "",
+        "export {} from 'ABC'"
+        "export {} from 'DEF'"
+        "export {} from 'abc'"
+        "export {} from 'def'"
+        ""
     },
     &[text_block! {
-        "export {} from 'ABC'",
-        "export {} from 'abc'",
-        "export {} from 'DEF'",
-        "export {} from 'def'",
-        "",
+        "export {} from 'ABC'"
+        "export {} from 'abc'"
+        "export {} from 'DEF'"
+        "export {} from 'def'"
+        ""
     }]
 );
 
@@ -285,9 +285,9 @@ test_rule!(
     ignore_node,
     "js",
     text_block! {
-        "// sane-fmt-ignore",
-        "const a = 123;",
-        "",
+        "// sane-fmt-ignore"
+        "const a = 123;"
+        ""
     },
     &[]
 );
@@ -296,9 +296,9 @@ test_rule!(
     ignore_file,
     "js",
     text_block! {
-        "// sane-fmt-ignore-file",
-        "const a = 123;",
-        "",
+        "// sane-fmt-ignore-file"
+        "const a = 123;"
+        ""
     },
     &[]
 );

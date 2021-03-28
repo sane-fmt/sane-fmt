@@ -6,10 +6,10 @@ pub use utils::*;
 fn prints_formatted_code() {
     let unformatted = b"function hello () { return \"world\"; }";
     let formatted = text_block! {
-        "function hello() {",
-        "  return 'world'",
-        "}",
-        "",
+        "function hello() {"
+        "  return 'world'"
+        "}"
+        ""
     };
 
     let output = Exe::workspace().run_with_stdio(unformatted, &["--stdio"]);

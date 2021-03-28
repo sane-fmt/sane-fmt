@@ -282,8 +282,8 @@ macro_rules! text_block {
     ($line:literal) => {
         concat!($line)
     };
-    ($line:literal, $($rest:literal),+ $(,)?) => {
-        concat!($line, "\n", text_block!($($rest),+))
+    ($line:literal $($rest:literal)+) => {
+        concat!($line, "\n", text_block!($($rest)+))
     };
 }
 
