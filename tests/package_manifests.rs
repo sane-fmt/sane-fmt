@@ -17,3 +17,20 @@ macro_rules! test_version {
 }
 
 test_version!(wasi_version, "../nodejs/wasm32-wasi/package.json");
+test_version!(apple_version, "../nodejs/x86_64-apple-darwin/package.json");
+test_version!(
+    windows_gnu_version,
+    "../nodejs/x86_64-pc-windows-gnu/package.json"
+);
+test_version!(
+    windows_msvc_version,
+    "../nodejs/x86_64-pc-windows-msvc/package.json"
+);
+test_version!(
+    linux_gnu_version,
+    "../nodejs/x86_64-unknown-linux-gnu/package.json"
+);
+test_version!(
+    linux_musl_version,
+    "../nodejs/x86_64-unknown-linux-musl/package.json"
+);
