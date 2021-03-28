@@ -1,6 +1,7 @@
 {
   "name": "@sane-fmt/wasm32-wasi",
   "version": "0.8.3",
+  "description": "Opinionated code formatter for TypeScript and JavaScript",
   "private": false,
   "homepage": "https://github.com/sane-fmt/sane-fmt",
   "repository": {

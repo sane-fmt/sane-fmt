@@ -351,6 +351,7 @@ pub mod cargo_toml {
     #[derive(Serialize, Deserialize)]
     pub struct Package {
         pub version: String,
+        pub description: String,
     }
 }
 
@@ -361,6 +362,7 @@ pub mod package_json {
     #[derive(Serialize, Deserialize)]
     pub struct NodeManifest {
         pub version: String,
+        pub description: String,
     }
 
     impl NodeManifest {
