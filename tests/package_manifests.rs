@@ -16,4 +16,4 @@ macro_rules! test_version {
     };
 }
 
-test_version!(wasm32_wasi_version, "../nodejs/wasm32-wasi/package.json");
+test_version!(wasi_version, "../nodejs/wasm32-wasi/package.json");
