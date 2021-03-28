@@ -18,9 +18,3 @@ impl From<TypeScriptCfg> for TypeScriptCfgWithSchema {
         }
     }
 }
-
-impl From<TypeScriptCfgWithSchema> for TypeScriptCfg {
-    fn from(wrapper: TypeScriptCfgWithSchema) -> Self {
-        wrapper.config
-    }
-}

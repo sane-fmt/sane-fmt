@@ -23,9 +23,3 @@ impl From<TypeScriptCfg> for DprintCfg {
         }
     }
 }
-
-impl From<TypeScriptCfgWithSchema> for DprintCfg {
-    fn from(typescript: TypeScriptCfgWithSchema) -> Self {
-        TypeScriptCfg::from(typescript).into()
-    }
-}
