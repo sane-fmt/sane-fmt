@@ -25,7 +25,7 @@ fn version() {
     let output = Exe::workspace().cmd.arg("--version").output().unwrap();
     assert_str_eq(
         u8v_to_utf8(&output.stdout),
-        format!("{} {}\n", NAME, VERSION).as_str(),
+        format!("{name} {version}\n", name = NAME, version = VERSION).as_str(),
     );
     assert_eq!(output.status.success(), true);
 }
@@ -42,11 +42,11 @@ fn help() {
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
         format!(
-            "{} {}\n{}\n\n{}",
-            NAME,
-            VERSION,
-            DESCRIPTION,
-            correct_snapshot(include_str!("./expected-output/help.stdout.txt"))
+            "{name} {version}\n{description}\n\n{rest}",
+            name = NAME,
+            version = VERSION,
+            description = DESCRIPTION,
+            rest = correct_snapshot(include_str!("./expected-output/help.stdout.txt")),
         )
         .as_str(),
     );

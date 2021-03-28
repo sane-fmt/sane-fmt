@@ -104,17 +104,17 @@ impl App {
             let path = &path;
             let file_content = fs::read_to_string(path).map_err(|error| {
                 format!(
-                    "Failed to read {:?}: {}",
-                    cross_platform_path::to_string(path, '/'),
-                    error
+                    "Failed to read {path:?}: {error}",
+                    path = cross_platform_path::to_string(path, '/'),
+                    error = error,
                 )
             })?;
 
             let formatted = fmt.format_text(path, &file_content).map_err(|error| {
                 format!(
-                    "Failed to parse {:?}: {}",
-                    cross_platform_path::to_string(path, '/'),
-                    error
+                    "Failed to parse {path:?}: {error}",
+                    path = cross_platform_path::to_string(path, '/'),
+                    error = error,
                 )
             })?;
             if file_content == formatted {
@@ -124,9 +124,9 @@ impl App {
                 log_diff(path, &file_content, &formatted);
                 may_write(path, &formatted).map_err(|error| {
                     format!(
-                        "failed to write to {:?}: {}",
-                        cross_platform_path::to_string(path, '/'),
-                        error
+                        "failed to write to {path:?}: {error}",
+                        path = cross_platform_path::to_string(path, '/'),
+                        error = error,
                     )
                 })?;
             }

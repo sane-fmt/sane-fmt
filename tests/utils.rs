@@ -245,7 +245,7 @@ pub fn run_rule_test(
     formatted: &str,
     unformatted: &[&str],
 ) {
-    let file_name = PathBuf::from(format!("{}.{}", test_name, file_ext));
+    let file_name = PathBuf::from(format!("{name}.{ext}", name = test_name, ext = file_ext));
     let fmt = build_fmt();
 
     let actual_formatted = fmt
