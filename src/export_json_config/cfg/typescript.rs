@@ -5,9 +5,9 @@ use serde::Serialize;
 #[serde(rename_all = "camelCase")]
 pub struct TypeScriptCfgWithSchema {
     #[serde(rename = "$schema")]
-    pub schema_url: schema_url::DprintTypeScriptSchemaUrl,
+    schema_url: schema_url::DprintTypeScriptSchemaUrl,
     #[serde(flatten)]
-    pub config: TypeScriptCfg,
+    config: TypeScriptCfg,
 }
 
 impl From<TypeScriptCfg> for TypeScriptCfgWithSchema {

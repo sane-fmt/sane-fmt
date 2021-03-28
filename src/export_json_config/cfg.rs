@@ -10,9 +10,9 @@ use serde::Serialize;
 #[serde(rename_all = "camelCase")]
 pub struct DprintCfg {
     #[serde(rename = "$schema")]
-    pub schema_url: schema_url::DprintCoreSchemaUrl,
+    schema_url: schema_url::DprintCoreSchemaUrl,
 
-    pub typescript: TypeScriptCfg,
+    typescript: TypeScriptCfg,
 }
 
 impl From<TypeScriptCfg> for DprintCfg {
