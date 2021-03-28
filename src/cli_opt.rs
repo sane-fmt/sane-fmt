@@ -10,6 +10,7 @@ pub use when::*;
 
 use structopt::*;
 
+/// Opinionated code formatter for TypeScript and JavaScript
 #[derive(StructOpt, Debug)]
 #[structopt(name = "sane-fmt", rename_all = "kebab")]
 pub struct CliOpt {

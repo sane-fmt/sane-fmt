@@ -18,6 +18,9 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// Name of the package
 pub const NAME: &str = env!("CARGO_PKG_NAME");
 
+/// Description of the package
+pub const DESCRIPTION: &str = env!("CARGO_PKG_DESCRIPTION");
+
 /// Path to main executable.
 pub const EXE: &str = env!("CARGO_BIN_EXE_sane-fmt");
 

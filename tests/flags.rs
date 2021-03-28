@@ -42,9 +42,10 @@ fn help() {
     assert_trimmed_str_eq(
         u8v_to_utf8(&output.stdout),
         format!(
-            "{} {}\n\n{}",
+            "{} {}\n{}\n\n{}",
             NAME,
             VERSION,
+            DESCRIPTION,
             correct_snapshot(include_str!("./expected-output/help.stdout.txt"))
         )
         .as_str(),
