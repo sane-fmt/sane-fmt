@@ -1,6 +1,6 @@
 use super::super::rules::build_cfg;
 use super::{
-    cfg::DprintCfg,
+    cfg::{DprintCfg, TypeScriptCfgWithSchema},
     cli_opt::{output_kind::OutputKind, CliOpt},
 };
 use pipe_trait::*;
@@ -28,7 +28,7 @@ impl App {
         let cfg = build_cfg();
 
         let json = match kind {
-            OutputKind::TypeScript => dump_json(&cfg),
+            OutputKind::TypeScript => cfg.pipe(TypeScriptCfgWithSchema::from).pipe_ref(dump_json),
             OutputKind::DprintRc => cfg.pipe(DprintCfg::from).pipe_ref(dump_json),
         }
         .expect("convert config to json");

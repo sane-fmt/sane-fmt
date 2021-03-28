@@ -4,7 +4,7 @@ pub use utils::*;
 
 use pipe_trait::*;
 use sane_fmt::{
-    export_json_config::cfg::{DprintCfg, TypeScriptCfg},
+    export_json_config::cfg::{DprintCfg, TypeScriptCfgWithSchema},
     rules::build_cfg,
 };
 
@@ -26,6 +26,6 @@ macro_rules! test_json_config {
 test_json_config!(dprintrc, DprintCfg, "../exports/sane-fmt.dprintrc.json");
 test_json_config!(
     typescript,
-    TypeScriptCfg,
+    TypeScriptCfgWithSchema,
     "../exports/sane-fmt.typescript.json"
 );

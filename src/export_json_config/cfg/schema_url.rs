@@ -1,13 +1,24 @@
 use serde::Serialize;
 
-const SCHEMA_URL: &str = "https://dprint.dev/schemas/v0.json";
+const DPRINT_CORE_SCHEMA_URL: &str = "https://dprint.dev/schemas/v0.json";
+const DPRINT_TYPESCRIPT_SCHEMA_URL: &str = "https://plugins.dprint.dev/schemas/typescript-v0.json";
 
 #[derive(Debug, Default, Serialize, Clone)]
 #[serde(into = "&str")]
-pub struct SchemaUrl;
+pub struct DprintCoreSchemaUrl;
 
-impl From<SchemaUrl> for &str {
-    fn from(_: SchemaUrl) -> Self {
-        SCHEMA_URL
+impl From<DprintCoreSchemaUrl> for &str {
+    fn from(_: DprintCoreSchemaUrl) -> Self {
+        DPRINT_CORE_SCHEMA_URL
+    }
+}
+
+#[derive(Debug, Default, Serialize, Clone)]
+#[serde(into = "&str")]
+pub struct DprintTypeScriptSchemaUrl;
+
+impl From<DprintTypeScriptSchemaUrl> for &str {
+    fn from(_: DprintTypeScriptSchemaUrl) -> Self {
+        DPRINT_TYPESCRIPT_SCHEMA_URL
     }
 }
