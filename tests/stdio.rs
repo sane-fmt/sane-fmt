@@ -5,10 +5,12 @@ pub use utils::*;
 #[test]
 fn prints_formatted_code() {
     let unformatted = b"function hello () { return \"world\"; }";
-    let formatted = format!(
-        "{}\n{}\n{}\n",
-        "function hello() {", "  return 'world'", "}",
-    );
+    let formatted = text_block! {
+        "function hello() {",
+        "  return 'world'",
+        "}",
+        "",
+    };
 
     let output = Exe::workspace().run_with_stdio(unformatted, &["--stdio"]);
 
@@ -18,7 +20,7 @@ fn prints_formatted_code() {
             u8v_to_utf8(&output.stderr),
             output.status.success(),
         ),
-        (formatted.as_str(), "", true),
+        (formatted, "", true),
     );
 }
 
