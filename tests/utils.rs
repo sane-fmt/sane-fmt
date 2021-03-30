@@ -331,30 +331,6 @@ pub fn encode_ansi_text(text: &str) -> String {
         .join("")
 }
 
-pub mod cargo_toml {
-    use serde::{Deserialize, Serialize};
-
-    /// Structure of Cargo.toml
-    #[derive(Serialize, Deserialize)]
-    pub struct CargoManifest {
-        pub package: Package,
-    }
-
-    impl CargoManifest {
-        /// Load content of Cargo.toml
-        pub fn load() -> Self {
-            toml::from_str(include_str!("../Cargo.toml")).expect("parse Cargo.toml")
-        }
-    }
-
-    /// Sub object `package`
-    #[derive(Serialize, Deserialize)]
-    pub struct Package {
-        pub version: String,
-        pub description: String,
-    }
-}
-
 pub mod package_json {
     use serde::{Deserialize, Serialize};
 

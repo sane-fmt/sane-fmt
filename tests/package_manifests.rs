@@ -2,7 +2,6 @@
 pub mod utils;
 pub use utils::*;
 
-use cargo_toml::*;
 use package_json::*;
 
 #[derive(Debug, PartialEq, Eq)]
@@ -16,22 +15,18 @@ macro_rules! test_case {
         mod $test_name {
             use super::*;
 
-            fn cargo_manifest() -> Package {
-                CargoManifest::load().package
-            }
-
             fn node_manifest() -> NodeManifest {
                 NodeManifest::parse(include_str!($manifest_path))
             }
 
             #[test]
             fn version() {
-                assert_eq!(node_manifest().version, cargo_manifest().version);
+                assert_eq!(node_manifest().version, VERSION);
             }
 
             #[test]
             fn description() {
-                assert_eq!(node_manifest().description, cargo_manifest().description);
+                assert_eq!(node_manifest().description, DESCRIPTION);
             }
         }
     };
