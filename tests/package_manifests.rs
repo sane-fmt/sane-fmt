@@ -11,37 +11,28 @@ struct PkgInfo {
     description: String,
 }
 
-impl PkgInfo {
-    fn load_cargo_manifest() -> Self {
-        let Package {
-            version,
-            description,
-        } = CargoManifest::load().package;
-        PkgInfo {
-            version,
-            description,
-        }
-    }
-
-    fn parse_node_manifest(text: &'static str) -> Self {
-        let NodeManifest {
-            version,
-            description,
-        } = NodeManifest::parse(text);
-        PkgInfo {
-            version,
-            description,
-        }
-    }
-}
-
 macro_rules! test_case {
     ($test_name:ident, $manifest_path:literal) => {
-        #[test]
-        fn $test_name() {
-            let native = PkgInfo::load_cargo_manifest();
-            let nodejs = PkgInfo::parse_node_manifest(include_str!($manifest_path));
-            assert_eq!(native, nodejs);
+        mod $test_name {
+            use super::*;
+
+            fn cargo_manifest() -> Package {
+                CargoManifest::load().package
+            }
+
+            fn node_manifest() -> NodeManifest {
+                NodeManifest::parse(include_str!($manifest_path))
+            }
+
+            #[test]
+            fn version() {
+                assert_eq!(node_manifest().version, cargo_manifest().version);
+            }
+
+            #[test]
+            fn description() {
+                assert_eq!(node_manifest().description, cargo_manifest().description);
+            }
         }
     };
 }
