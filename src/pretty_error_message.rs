@@ -17,7 +17,7 @@ impl<ErrorMessage: AsRef<str>> Display for PrettyErrorMessage<ErrorMessage> {
 
         writeln!(formatter, "ERROR:")?;
         for line in lines {
-            writeln!(formatter, "    {}", line)?;
+            writeln!(formatter, "  {}", line)?;
         }
         Ok(())
     }
@@ -65,15 +65,15 @@ fn multiple_lines() {
 
     let expected = concat! {
         "ERROR:\n",
-        "    Something goes wrong:\n",
-        "    \n",
-        "    const x = 123\n",
-        "          ^ this name is too short\n",
-        "    \n",
-        "    Something goes wrong:\n",
-        "    \n",
-        "    var foo = 456\n",
-        "    ^^^ var? This my modern JavaScript?\n",
+        "  Something goes wrong:\n",
+        "  \n",
+        "  const x = 123\n",
+        "        ^ this name is too short\n",
+        "  \n",
+        "  Something goes wrong:\n",
+        "  \n",
+        "  var foo = 456\n",
+        "  ^^^ var? This my modern JavaScript?\n",
     };
 
     assert_eq!(&actual, expected, "\nACTUAL:\n{}", &actual);
