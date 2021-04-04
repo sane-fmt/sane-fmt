@@ -26,7 +26,7 @@ fn prints_formatted_code() {
 
 #[test]
 fn parse_failure() {
-    let output = Exe::workspace().run_with_stdio(b"this is not a valid code", &["--stdio"]);
+    let output = Exe::workspace().run_with_stdio(b"const invalid_code == invalid ;)", &["--stdio"]);
 
     assert_eq!(
         (u8v_to_utf8(&output.stdout), output.status.success()),
@@ -35,9 +35,26 @@ fn parse_failure() {
     );
 
     let stderr = u8v_to_utf8(&output.stderr);
+
     assert!(
         stderr.starts_with("ERROR: Failed to parse STDIN:"),
         "stderr: {}",
         stderr,
+    );
+
+    assert_str_eq(
+        stderr,
+        text_block! {
+            "ERROR: Failed to parse STDIN: Line 1, column 20: Expected a semicolon"
+            ""
+            "  const invalid_code == invalid ;"
+            "                     ~~"
+            ""
+            "Line 1, column 20: Expression expected"
+            ""
+            "  const invalid_code == invalid ;"
+            "                     ~~"
+            ""
+        },
     );
 }
