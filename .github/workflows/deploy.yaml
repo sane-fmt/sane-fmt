@@ -237,8 +237,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./exports/sane-fmt.dprintrc.json
-          asset_name: sane-fmt.dprintrc.json
+          asset_path: ./exports/sane-fmt.dprint.json
+          asset_name: sane-fmt.dprint.json
           asset_content_type: application/json
 
       - name: Upload TypeScript configuration
