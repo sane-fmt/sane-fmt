@@ -36,16 +36,10 @@ fn parse_failure() {
 
     let stderr = u8v_to_utf8(&output.stderr);
 
-    assert!(
-        stderr.starts_with("ERROR: Failed to parse STDIN:"),
-        "stderr: {}",
-        stderr,
-    );
-
     assert_str_eq(
         stderr,
         text_block! {
-            "ERROR: Failed to parse STDIN: Line 1, column 20: Expected a semicolon"
+            "ERROR: Line 1, column 20: Expected a semicolon"
             ""
             "  const invalid_code == invalid ;"
             "                     ~~"

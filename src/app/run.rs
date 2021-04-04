@@ -24,9 +24,7 @@ impl App {
             stdin()
                 .read_to_string(&mut buffer)
                 .map_err(|error| format!("Failed to read from STDIN: {}", error))?;
-            let formatted = fmt
-                .format_text(&PathBuf::from("STDIN"), &buffer)
-                .map_err(|error| format!("Failed to parse STDIN: {}", error))?;
+            let formatted = fmt.format_text(&PathBuf::from("STDIN"), &buffer)?;
             print!("{}", formatted);
             return Ok(());
         }
