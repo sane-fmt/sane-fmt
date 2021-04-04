@@ -23,7 +23,7 @@ macro_rules! test_json_config {
     };
 }
 
-test_json_config!(dprintrc, DprintCfg, "../exports/sane-fmt.dprint.json");
+test_json_config!(dprint, DprintCfg, "../exports/sane-fmt.dprint.json");
 test_json_config!(
     typescript,
     TypeScriptCfgWithSchema,
