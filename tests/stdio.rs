@@ -36,7 +36,7 @@ fn parse_failure() {
 
     let stderr = u8v_to_utf8(&output.stderr);
     assert!(
-        stderr.starts_with("Error: \"Failed to parse STDIN:"),
+        stderr.starts_with("ERROR: Failed to parse STDIN:"),
         "stderr: {}",
         stderr,
     );

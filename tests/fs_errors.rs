@@ -13,9 +13,9 @@ fn not_exist() {
 
     #[cfg(unix)]
     let expected_stderr =
-        "Error: \"path that does not exist: No such file or directory (os error 2)\"\n";
+        "ERROR: path that does not exist: No such file or directory (os error 2)\n";
     #[cfg(windows)]
-    let expected_stderr = "Error: \"path that does not exist: The system cannot find the file specified. (os error 2)\"\n";
+    let expected_stderr = "ERROR: path that does not exist: The system cannot find the file specified. (os error 2)\n";
 
     assert_eq!(
         (

@@ -16,7 +16,7 @@ fn stdin_files() {
         ),
         (
             include_str!("./expected-output/include-files.stdout.txt"),
-            "Error: \"There are 1 unformatted files\"\n",
+            "ERROR: There are 1 unformatted files\n",
             false,
         ),
     );
@@ -36,7 +36,7 @@ fn stdin_dirs() {
         ),
         (
             include_str!("./expected-output/include-dirs.stdout.txt"),
-            "Error: \"There are 5 unformatted files\"\n",
+            "ERROR: There are 5 unformatted files\n",
             false,
         ),
     );
@@ -58,7 +58,7 @@ fn file_files() {
         ),
         (
             include_str!("./expected-output/include-files.stdout.txt"),
-            "Error: \"There are 1 unformatted files\"\n",
+            "ERROR: There are 1 unformatted files\n",
             false,
         ),
     );
@@ -80,7 +80,7 @@ fn file_dirs() {
         ),
         (
             include_str!("./expected-output/include-dirs.stdout.txt"),
-            "Error: \"There are 5 unformatted files\"\n",
+            "ERROR: There are 5 unformatted files\n",
             false,
         ),
     );
