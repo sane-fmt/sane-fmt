@@ -1,7 +1,7 @@
 #[derive(PartialEq, Debug, Copy, Clone)]
 pub enum OutputKind {
     TypeScript,
-    DprintRc,
+    Dprint,
 }
 
 impl std::str::FromStr for OutputKind {
@@ -10,7 +10,7 @@ impl std::str::FromStr for OutputKind {
     fn from_str(text: &str) -> Result<Self, Self::Err> {
         Ok(match text {
             "typescript" => OutputKind::TypeScript,
-            "dprintrc" => OutputKind::DprintRc,
+            "dprint" => OutputKind::Dprint,
             _ => return Err(text.to_string()),
         })
     }

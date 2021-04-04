@@ -9,4 +9,4 @@ run() {
 }
 
 run typescript
-run dprintrc
+run dprint

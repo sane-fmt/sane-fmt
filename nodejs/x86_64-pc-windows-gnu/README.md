@@ -82,13 +82,13 @@ paru -S sane-fmt-bin
 
 ### Use with [Dprint](https://dprint.dev/)
 
-If you already have Dprint, you can skip installing `sane-fmt` binary. Create a `.dprintrc.json` file with the following content:
+If you already have Dprint, you can skip installing `sane-fmt` binary. Create a `dprint.json` file with the following content:
 
 ```json
 {
   "$schema": "https://dprint.dev/schemas/v0.json",
   "projectType": "openSource",
-  "extends": "https://github.com/sane-fmt/sane-fmt/raw/master/exports/sane-fmt.dprintrc.json",
+  "extends": "https://github.com/sane-fmt/sane-fmt/raw/master/exports/sane-fmt.dprint.json",
   "includes": [
     "**/*.js",
     "**/*.ts"
@@ -108,7 +108,7 @@ If you already have Dprint, you can skip installing `sane-fmt` binary. Create a 
   * Replace `${DPRINT_TYPESCRIPT_VERSION}` above with appropriate [dprint-plugin-typescript](https://github.com/dprint/dprint-plugin-typescript) version.
 
 **See also:**
-  * [sane-fmt.dprintrc.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.dprintrc.json): Dprint configuration with rules of sane-fmt.
+  * [sane-fmt.dprint.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.dprint.json): Dprint configuration with rules of sane-fmt.
   * [sane-fmt.typescript.json](https://github.com/sane-fmt/sane-fmt/blob/master/exports/sane-fmt.typescript.json): Configuration of dprint-plugin-typescript with rules of sane-fmt.
 
 ## Usage
