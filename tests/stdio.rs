@@ -39,16 +39,16 @@ fn parse_failure() {
     assert_str_eq(
         stderr,
         text_block! {
-            "ERROR: Line 1, column 20: Expected a semicolon"
-            ""
-            "  const invalid_code == invalid ;"
-            "                     ~~"
-            ""
-            "Line 1, column 20: Expression expected"
-            ""
-            "  const invalid_code == invalid ;"
-            "                     ~~"
-            ""
+            "ERROR:"
+            "    Line 1, column 20: Expected a semicolon"
+            "    "
+            "      const invalid_code == invalid ;"
+            "                         ~~"
+            "    "
+            "    Line 1, column 20: Expression expected"
+            "    "
+            "      const invalid_code == invalid ;"
+            "                         ~~"
         },
     );
 }

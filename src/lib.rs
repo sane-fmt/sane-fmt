@@ -4,6 +4,7 @@ pub mod app;
 pub mod cli_opt;
 pub mod export_json_config;
 pub mod generate_shell_completions;
+pub mod pretty_error_message;
 pub mod rules;
 
 mod act;
@@ -24,7 +25,7 @@ pub fn run() -> Result<(), String> {
 /// * If it returns an `Err`, prints the message to stdout and exits with status `1`.
 pub fn main() -> ! {
     std::process::exit(if let Err(message) = run() {
-        eprintln!("ERROR: {}", message);
+        eprint!("{}", pretty_error_message::PrettyErrorMessage(message));
         1
     } else {
         0
