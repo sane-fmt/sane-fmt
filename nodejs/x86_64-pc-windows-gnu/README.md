@@ -60,6 +60,13 @@ The WASM package while work on all platform, it is slow to start. For better spe
   * [@sane-fmt/x86_64-pc-windows-gnu](https://www.npmjs.com/package/@sane-fmt/x86_64-pc-windows-gnu)
   * [@sane-fmt/x86_64-pc-windows-msvc](https://www.npmjs.com/package/@sane-fmt/x86_64-pc-windows-msvc)
 
+### From [Deno Registry](https://deno.land/x)
+
+**Links:**
+  * https://deno.land/x/sane_fmt/
+  * https://github.com/sane-fmt/deno/
+  * https://sane-fmt.github.io/deno/
+
 ### From [Arch User Repository](https://aur.archlinux.org)
 
 #### Download source and compile
