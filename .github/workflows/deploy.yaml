@@ -555,13 +555,13 @@ jobs:
         uses: actions/download-artifact@v2.0.8
         with:
           name: sane-fmt-${{ matrix.target }}
-          path: ./downloads
+          path: .
 
       - name: Generate the new version of sane-fmt/deno
         env:
           VERSION: ${{ steps.package_info.outputs.version }}
           DESCRIPTION: ${{ steps.package_info.outputs.description }}
-          FILENAME: ./downloads/sane-fmt-${{ matrix.target }}
+          FILENAME: sane-fmt-${{ matrix.target }}/sane-fmt-${{ matrix.target }}.wasm
         run: |
           flags=(
             --tag "$VERSION"
