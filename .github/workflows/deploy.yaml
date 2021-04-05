@@ -499,6 +499,122 @@ jobs:
           TARGET: ${{ matrix.target }}
         run: ./ci/github-actions/publish-npm-package.py3
 
+  publish_deno_module:
+    name: Publish Deno module
+
+    needs:
+      - create_release
+      - test
+      - build_wasm
+
+    if: needs.create_release.outputs.is_release == 'true'
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        target:
+          - wasm32-wasi
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install APT packages
+        run: sudo apt install -y python3 python3-toml
+
+      - name: Get package info
+        id: package_info
+        run: ./ci/github-actions/package-info.py3
+
+      - name: Cache Deno modules
+        timeout-minutes: 1
+        continue-on-error: true
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.cache/deno
+          key: deno-${{ runner.os }}
+          restore-keys: |
+            deno-${{ runner.os }}
+            deno-
+
+      - name: Install Deno
+        uses: denolib/setup-deno@v2.3.0
+        with:
+          deno-version: 1.8.0
+
+      - name: Clone sane-fmt/deno
+        run: git clone https://github.com/sane-fmt/deno.git sane-fmt-deno
+
+      - name: Refresh and Test
+        run: |
+          deno cache --unstable sane-fmt-deno/**/*.{ts,js}
+          ./sane-fmt-deno/scripts/test.ts
+
+      - name: Download the WASI binary
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: sane-fmt-${{ matrix.target }}
+          path: .
+
+      - name: Generate the new version of sane-fmt/deno
+        env:
+          VERSION: ${{ steps.package_info.outputs.version }}
+          DESCRIPTION: ${{ steps.package_info.outputs.description }}
+          FILENAME: sane-fmt.wasm
+        run: |
+          flags=(
+            --tag "$VERSION"
+            --description "$DESCRIPTION"
+            --filename "$FILENAME"
+          )
+          ./sane-fmt-deno/scripts/generate.ts "${flags[@]}"
+
+      - name: Refresh and Test
+        run: |
+          deno cache --unstable sane-fmt-deno/**/*.{ts,js}
+          ./sane-fmt-deno/scripts/test.ts
+
+      - name: Configure git password
+        env:
+          GIT_USERNAME: KSXGitHub
+          GIT_PASSWORD: ${{ secrets.DENO_REPO_TOKEN }}
+          GIT_AUTHOR_NAME: ${{ secrets.DENO_REPO_COMMIT_NAME }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.DENO_REPO_COMMIT_EMAIL }}
+        run: |
+          if [[ -z "$GIT_PASSWORD" ]]; then
+            echo '::error::secrets.DENO_REPO_TOKEN is missing'
+            exit 1
+          fi
+
+          cd sane-fmt-deno
+
+          echo Configuring git...
+          git config user.name "$GIT_AUTHOR_NAME"
+          git config user.email "$GIT_AUTHOR_EMAIL"
+
+          echo Setting up credentials...
+          echo "username=$GIT_USERNAME" >> /tmp/git-login.txt
+          echo "password=$GIT_PASSWORD" >> /tmp/git-login.txt
+          echo '#! /bin/bash' >> /tmp/git-credential-helper
+          echo 'cat /tmp/git-login.txt' >> /tmp/git-credential-helper
+          chmod +x /tmp/git-credential-helper
+          git config credential.helper '/tmp/git-credential-helper'
+
+      - name: Publish the changes
+        env:
+          VERSION: ${{ steps.package_info.outputs.version }}
+        run: |
+          cd sane-fmt-deno
+          echo STAGING...
+          git add -v .
+          echo CREATING COMMIT...
+          git commit --allow-empty -m "$VERSION"
+          echo CREATING TAG...
+          git tag "$VERSION"
+          echo PUSHING...
+          git push -u origin --tags master
+
   publish_aur_package:
     name: Publish AUR package
 
