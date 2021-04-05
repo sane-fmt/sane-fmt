@@ -561,7 +561,7 @@ jobs:
         env:
           VERSION: ${{ steps.package_info.outputs.version }}
           DESCRIPTION: ${{ steps.package_info.outputs.description }}
-          FILENAME: sane-fmt-${{ matrix.target }}/sane-fmt-${{ matrix.target }}.wasm
+          FILENAME: sane-fmt-${{ matrix.target }}/sane-fmt.wasm
         run: |
           flags=(
             --tag "$VERSION"
