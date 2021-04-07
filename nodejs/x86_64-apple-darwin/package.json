@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-apple-darwin",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "Opinionated code formatter for TypeScript and JavaScript",
   "private": false,
   "homepage": "https://github.com/sane-fmt/sane-fmt",
