@@ -4,7 +4,7 @@ specifiers:
   '@types/node': ^13.13.4
   '@wasmer/wasi': ^0.12.0
   tslib: ^2.0.0
-  typescript: ^3.8.2
+  typescript: ^4.0.0
 
 dependencies:
   '@types/node': 13.13.9
@@ -12,7 +12,7 @@ dependencies:
   tslib: 2.0.0
 
 devDependencies:
-  typescript: 3.9.3
+  typescript: 4.2.4
 
 packages:
 
@@ -62,8 +62,8 @@ packages:
     resolution: {integrity: sha512-lTqkx847PI7xEDYJntxZH89L2/aXInsyF2luSafe/+0fHOMjlBNXdH6th7f70qxLDhul7KZK0zC8V5ZIyHl0/g==}
     dev: false
 
-  /typescript/3.9.3:
-    resolution: {integrity: sha512-D/wqnB2xzNFIcoBG9FG8cXRDjiqSTbG2wd8DMZeQyJlP1vfTkIxH4GKveWaEBYySKIg+USu+E+EDIR47SqnaMQ==}
+  /typescript/4.2.4:
+    resolution: {integrity: sha512-V+evlYHZnQkaz8TRBuxTA92yZBPotr5H+WhQ7bD3hZUndx5tGOa1fuCgeSjxAzM1RiN5IzvadIXTVefuuwZCRg==}
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
