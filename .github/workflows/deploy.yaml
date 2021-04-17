@@ -474,7 +474,7 @@ jobs:
           node-version: '14.1.0'
 
       - name: Cache PNPM store
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: ~/.pnpm-store/v3
           key: pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
@@ -530,7 +530,7 @@ jobs:
       - name: Cache Deno modules
         timeout-minutes: 1
         continue-on-error: true
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: ~/.cache/deno
           key: deno-${{ runner.os }}
@@ -721,7 +721,7 @@ jobs:
           node-version: '14.1.0'
 
       - name: Cache PNPM store
-        uses: actions/cache@v2.1.4
+        uses: actions/cache@v2.1.5
         with:
           path: ~/.pnpm-store/v3
           key: pnpm5-${{ github.job }}-${{ hashFiles('**/pnpm-lock.yaml') }}
