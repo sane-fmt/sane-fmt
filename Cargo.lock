@@ -166,12 +166,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "dprint-core"
+version = "0.43.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "92a4571aa19f70392c2e2868242c5bb1d12dbb489abd29f09411a49483d83d0e"
+dependencies = [
+ "bumpalo",
+ "fnv",
+ "serde",
+]
+
+[[package]]
 name = "dprint-plugin-typescript"
 version = "0.44.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c8008a8a2abd9c476e942bf27ab80719aaeb2cce24eca6815b204fabf7acf7e6"
 dependencies = [
- "dprint-core",
+ "dprint-core 0.37.0",
  "dprint-swc-ecma-ast-view",
  "fnv",
  "serde",
@@ -628,7 +639,7 @@ version = "0.9.11"
 dependencies = [
  "ansi_term 0.12.1",
  "difference",
- "dprint-core",
+ "dprint-core 0.43.0",
  "dprint-plugin-typescript",
  "fs_extra",
  "pipe-trait 0.3.2",
