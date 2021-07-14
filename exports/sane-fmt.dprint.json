@@ -9,6 +9,7 @@
     "semiColons": "asi",
     "arrowFunction.useParentheses": "preferNone",
     "binaryExpression.linePerExpression": false,
+    "jsx.quoteStyle": "preferSingle",
     "memberExpression.linePerExpression": false,
     "typeLiteral.separatorKind.singleLine": "comma",
     "typeLiteral.separatorKind.multiLine": "semiColon",
