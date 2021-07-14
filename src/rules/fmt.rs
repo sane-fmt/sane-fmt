@@ -1,3 +1,5 @@
+pub use dprint_core::types::ErrBox;
+
 use dprint_plugin_typescript::{configuration::Configuration as Cfg, format_text};
 use std::path::Path;
 
@@ -16,7 +18,7 @@ impl Fmt {
     }
 
     /// Format a file
-    pub fn format_text(&self, path: &Path, content: &str) -> Result<String, String> {
+    pub fn format_text(&self, path: &Path, content: &str) -> Result<String, ErrBox> {
         format_text(path, content, &self.0)
     }
 }
