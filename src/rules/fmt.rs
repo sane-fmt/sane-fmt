@@ -17,6 +17,6 @@ impl Fmt {
 
     /// Format a file
     pub fn format_text(&self, path: &Path, content: &str) -> Result<String, String> {
-        format_text(path, content, &self.0)
+        format_text(path, content, &self.0).map_err(|error| error.to_string())
     }
 }

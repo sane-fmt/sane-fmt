@@ -21,6 +21,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .module_sort_export_declarations(SortOrder::CaseSensitive)
         .import_declaration_sort_named_imports(SortOrder::Maintain)
         .export_declaration_sort_named_exports(SortOrder::Maintain)
+        .jsx_quote_style(JsxQuoteStyle::PreferSingle)
         .ignore_node_comment_text("sane-fmt-ignore")
         .ignore_file_comment_text("sane-fmt-ignore-file")
 }
@@ -36,6 +37,7 @@ pub fn build_cfg() -> Cfg {
         semi_colons: SemiColons::Asi,
         arrow_function_use_parentheses: UseParentheses::PreferNone,
         binary_expression_line_per_expression: false,
+        jsx_quote_style: JsxQuoteStyle::PreferSingle,
         member_expression_line_per_expression: false,
         type_literal_separator_kind_single_line: SemiColonOrComma::Comma,
         type_literal_separator_kind_multi_line: SemiColonOrComma::SemiColon,
