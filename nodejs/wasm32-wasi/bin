@@ -1,8 +1,12 @@
 #! /usr/bin/env node
+const process = require('process')
+const majorNodeVersion = parseInt(process.versions.node.split('.')[0])
 
 // Initialize WASM BigInt support
-const v8 = require('v8')
-v8.setFlagsFromString('--experimental-wasm-bigint')
+if (majorNodeVersion < 16) {
+  const v8 = require('v8')
+  v8.setFlagsFromString('--experimental-wasm-bigint')
+}
 
 // Call the main program
 require('./dist/main.js')
