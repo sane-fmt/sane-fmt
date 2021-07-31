@@ -2,6 +2,8 @@
 pub mod utils;
 pub use utils::*;
 
+use std::ops::Not;
+
 #[test]
 fn write() {
     let Exe {
@@ -19,7 +21,7 @@ fn write() {
         u8v_to_utf8(&first_check.stderr),
         include_str!("./expected-output/stderr.txt"),
     );
-    assert_eq!(first_check.status.success(), false);
+    assert!(first_check.status.success().not());
 
     let write_output = Exe::new(&wdir)
         .cmd
@@ -33,7 +35,7 @@ fn write() {
         include_str!("./expected-output/details-name.stdout.txt"),
     );
     assert_str_eq(u8v_to_utf8(&write_output.stderr), "");
-    assert_eq!(write_output.status.success(), true);
+    assert!(write_output.status.success());
 
     let second_check = check_cmd.output().unwrap();
     assert_trimmed_str_eq(
@@ -41,5 +43,5 @@ fn write() {
         include_str!("./expected-output/write-all-passed.stdout.txt"),
     );
     assert_str_eq(u8v_to_utf8(&second_check.stderr), "");
-    assert_eq!(second_check.status.success(), true);
+    assert!(second_check.status.success());
 }

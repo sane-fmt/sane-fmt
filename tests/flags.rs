@@ -2,6 +2,8 @@
 pub mod utils;
 pub use utils::*;
 
+use std::ops::Not;
+
 fn executable() -> String {
     if cfg!(windows) {
         format!("{}.exe", NAME)
@@ -27,7 +29,7 @@ fn version() {
         u8v_to_utf8(&output.stdout),
         format!("{name} {version}\n", name = NAME, version = VERSION).as_str(),
     );
-    assert_eq!(output.status.success(), true);
+    assert!(output.status.success());
 }
 
 #[test]
@@ -50,7 +52,7 @@ fn help() {
         )
         .as_str(),
     );
-    assert_eq!(output.status.success(), true);
+    assert!(output.status.success());
 }
 
 #[test]
@@ -65,5 +67,5 @@ fn unknown_flag() {
         u8v_to_utf8(&output.stderr),
         correct_snapshot(include_str!("./expected-output/unknown-flag.stderr.txt")).as_str(),
     );
-    assert_eq!(output.status.success(), false);
+    assert!(output.status.success().not());
 }
