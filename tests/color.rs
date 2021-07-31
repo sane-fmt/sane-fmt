@@ -42,7 +42,7 @@ fn without_color() {
         .unwrap();
 
     fn test(text: &[u8]) {
-        assert_str_eq(u8v_to_utf8(&strip_ansi(text).unwrap()), u8v_to_utf8(&text));
+        assert_str_eq(u8v_to_utf8(&strip_ansi(text).unwrap()), u8v_to_utf8(text));
     }
 
     test(&output.stdout);

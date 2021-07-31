@@ -192,8 +192,8 @@ pub fn assert_str_eq(a: &str, b: &str) {
             writeln!(
                 diff_text,
                 "{}{}",
-                paint(prefix, &style),
-                paint(line, &style)
+                paint(prefix, style),
+                paint(line, style)
             )
             .expect("add a line to diff_text");
         }
