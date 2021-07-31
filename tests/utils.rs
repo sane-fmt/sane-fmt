@@ -189,13 +189,8 @@ pub fn assert_str_eq(a: &str, b: &str) {
 
     let mut make_lines = |text: String, prefix: &str, style: &Style| {
         for line in text.lines() {
-            writeln!(
-                diff_text,
-                "{}{}",
-                paint(prefix, style),
-                paint(line, style)
-            )
-            .expect("add a line to diff_text");
+            writeln!(diff_text, "{}{}", paint(prefix, style), paint(line, style))
+                .expect("add a line to diff_text");
         }
     };
 
