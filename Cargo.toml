@@ -41,7 +41,7 @@ relative-path = "^1.4.0"
 ansi_term = "^0.12.1"
 pipe-trait = "^0.3.2"
 tap = "^1.0.1"
-serde_json = "^1.0.64"
+serde_json = "^1.0.66"
 
 [dependencies.serde]
 version = "^1.0.126"
