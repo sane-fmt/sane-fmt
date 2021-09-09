@@ -2,6 +2,8 @@
 pub mod utils;
 pub use utils::*;
 
+use pretty_assertions::assert_eq;
+
 #[test]
 fn prints_formatted_code() {
     let unformatted = b"function hello () { return \"world\"; }";

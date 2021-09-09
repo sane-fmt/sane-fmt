@@ -1,3 +1,4 @@
+use pretty_assertions::assert_eq;
 use std::fmt::{Display, Error, Formatter};
 
 /// A wrapper around a string of error message to print beautifully.

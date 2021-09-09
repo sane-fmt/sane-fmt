@@ -2,6 +2,8 @@
 pub mod utils;
 pub use utils::*;
 
+use pretty_assertions::assert_eq;
+
 #[test]
 fn stdin_files() {
     let output = Exe::fixtures().run_with_stdio(

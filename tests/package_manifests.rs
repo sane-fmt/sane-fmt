@@ -3,6 +3,7 @@ pub mod utils;
 pub use utils::*;
 
 use package_json::*;
+use pretty_assertions::assert_eq;
 
 #[derive(Debug, PartialEq, Eq)]
 struct PkgInfo {

@@ -183,6 +183,7 @@ pub fn build_cfg() -> Cfg {
 fn test_cfg() {
     use pipe_trait::*;
     use serde_json::to_value;
+    use pretty_assertions::assert_eq;
 
     let actual = CfgBuilder::new()
         .pipe_mut(modify)
