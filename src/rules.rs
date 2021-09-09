@@ -24,6 +24,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .jsx_quote_style(JsxQuoteStyle::PreferSingle)
         .jsx_multi_line_parens(false)
         .jsx_element_space_before_self_closing_tag_slash(true)
+        .static_block_brace_position(BracePosition::SameLineUnlessHanging)
         .ignore_node_comment_text("sane-fmt-ignore")
         .ignore_file_comment_text("sane-fmt-ignore-file")
 }
