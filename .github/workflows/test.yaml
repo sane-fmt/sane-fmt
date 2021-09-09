@@ -47,7 +47,7 @@ jobs:
       - name: Test
         run: cargo test
 
-  clippy_check:
+  clippy:
     name: Clippy
 
     runs-on: ${{ matrix.os }}
@@ -84,7 +84,7 @@ jobs:
       - name: Use clippy to lint code
         run: cargo clippy -- -D warnings
 
-  fmt_check:
+  fmt:
     name: Fmt
 
     runs-on: ${{ matrix.os }}
