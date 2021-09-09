@@ -22,6 +22,8 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .import_declaration_sort_named_imports(SortOrder::Maintain)
         .export_declaration_sort_named_exports(SortOrder::Maintain)
         .jsx_quote_style(JsxQuoteStyle::PreferSingle)
+        .jsx_multi_line_parens(false)
+        .jsx_element_space_before_self_closing_tag_slash(true)
         .ignore_node_comment_text("sane-fmt-ignore")
         .ignore_file_comment_text("sane-fmt-ignore-file")
 }
@@ -38,6 +40,7 @@ pub fn build_cfg() -> Cfg {
         arrow_function_use_parentheses: UseParentheses::PreferNone,
         binary_expression_line_per_expression: false,
         jsx_quote_style: JsxQuoteStyle::PreferSingle,
+        jsx_multi_line_parens: false,
         member_expression_line_per_expression: false,
         type_literal_separator_kind_single_line: SemiColonOrComma::Comma,
         type_literal_separator_kind_multi_line: SemiColonOrComma::SemiColon,
@@ -161,10 +164,12 @@ pub fn build_cfg() -> Cfg {
         if_statement_space_after_if_keyword: true,
         import_declaration_space_surrounding_named_imports: true,
         jsx_expression_container_space_surrounding_expression: false,
+        jsx_element_space_before_self_closing_tag_slash: true,
         method_space_before_parentheses: false,
         object_expression_space_surrounding_properties: true,
         object_pattern_space_surrounding_properties: true,
         set_accessor_space_before_parentheses: false,
+        static_block_brace_position: BracePosition::SameLineUnlessHanging,
         space_surrounding_properties: true,
         tagged_template_space_before_literal: false,
         type_annotation_space_before_colon: false,
