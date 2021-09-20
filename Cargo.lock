@@ -191,9 +191,9 @@ checksum = "524cbf6897b527295dff137cec09ecf3a05f4fddffd7dfcd1585403449e74198"
 
 [[package]]
 name = "dprint-core"
-version = "0.46.1"
+version = "0.46.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5493eb33410e8fc2bada30f26807245040d67daf0137fe7de41c2d7c9c580f42"
+checksum = "e591a70ef877cc01110ed3e28318fe98e6175fa4aaccc293857af8491c8e4f3e"
 dependencies = [
  "bumpalo",
  "fnv",
