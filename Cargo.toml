@@ -34,7 +34,7 @@ path = "src/generate_shell_completions/main.rs"
 [dependencies]
 structopt = "^0.3.23"
 structopt-utilities = "^0.1.0"
-dprint-core = "^0.46.2"
+dprint-core = "^0.46.1"
 dprint-plugin-typescript = "^0.55.0"
 difference = "^2.0.0"
 relative-path = "^1.5.0"
