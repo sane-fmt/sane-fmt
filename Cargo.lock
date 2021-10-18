@@ -191,12 +191,12 @@ checksum = "524cbf6897b527295dff137cec09ecf3a05f4fddffd7dfcd1585403449e74198"
 
 [[package]]
 name = "dprint-core"
-version = "0.46.3"
+version = "0.46.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "87f1c6d4df7c373f49dc25a511382aab15747862306f64152e7852a29ff2f483"
+checksum = "df98b7d98583d9d57311b9df81f571f35a6ca3e8675d0128333b2e923dc85bcd"
 dependencies = [
  "bumpalo",
- "fnv",
+ "rustc-hash",
  "serde",
 ]
 
@@ -722,6 +722,12 @@ checksum = "3acd125665422973a33ac9d3dd2df85edad0f4ae9b00dafb1a05e43a9f5ef8e7"
 dependencies = [
  "winapi",
 ]
+
+[[package]]
+name = "rustc-hash"
+version = "1.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
 
 [[package]]
 name = "ryu"
