@@ -202,9 +202,9 @@ dependencies = [
 
 [[package]]
 name = "dprint-plugin-typescript"
-version = "0.56.1"
+version = "0.56.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "bb60de010018d6347d448a2a1ebdcca8b4643e5e03354dbe44d83d8852dc6ba3"
+checksum = "9b76b65eec6e3c32aa4a5e6a8ae3ea901c2f18f88ade9fa46e375b1e58762391"
 dependencies = [
  "dprint-core",
  "dprint-swc-ecma-ast-view",
