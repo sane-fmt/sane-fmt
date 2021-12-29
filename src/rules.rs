@@ -22,7 +22,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .import_declaration_sort_named_imports(SortOrder::Maintain)
         .export_declaration_sort_named_exports(SortOrder::Maintain)
         .jsx_quote_style(JsxQuoteStyle::PreferSingle)
-        .jsx_multi_line_parens(false)
+        .jsx_multi_line_parens(JsxMultiLineParens::Never)
         .jsx_element_space_before_self_closing_tag_slash(true)
         .static_block_brace_position(BracePosition::SameLineUnlessHanging)
         .ignore_node_comment_text("sane-fmt-ignore")
@@ -41,7 +41,7 @@ pub fn build_cfg() -> Cfg {
         arrow_function_use_parentheses: UseParentheses::PreferNone,
         binary_expression_line_per_expression: false,
         jsx_quote_style: JsxQuoteStyle::PreferSingle,
-        jsx_multi_line_parens: false,
+        jsx_multi_line_parens: JsxMultiLineParens::Never,
         member_expression_line_per_expression: false,
         type_literal_separator_kind_single_line: SemiColonOrComma::Comma,
         type_literal_separator_kind_multi_line: SemiColonOrComma::SemiColon,

@@ -9,7 +9,7 @@
   "arrowFunction.useParentheses": "preferNone",
   "binaryExpression.linePerExpression": false,
   "jsx.quoteStyle": "preferSingle",
-  "jsx.multiLineParens": false,
+  "jsx.multiLineParens": "never",
   "memberExpression.linePerExpression": false,
   "typeLiteral.separatorKind.singleLine": "comma",
   "typeLiteral.separatorKind.multiLine": "semiColon",
