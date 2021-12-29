@@ -42,6 +42,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "anyhow"
+version = "1.0.52"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "84450d0b4a8bd1ba4144ce8ce718fbc5d071358b1e5384bace6536b3d1f2d5b3"
+
+[[package]]
 name = "arrayvec"
 version = "0.5.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -218,13 +224,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "dprint-core"
+version = "0.49.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8113ac9998173de8fa4fcf6fc7fe80c15c93df290828afa060dbdbb84337afbf"
+dependencies = [
+ "anyhow",
+ "bumpalo",
+ "rustc-hash",
+ "serde",
+]
+
+[[package]]
 name = "dprint-plugin-typescript"
 version = "0.60.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b0a43c5093e898d4fc54b14c2583d83e9ab30d68e3bde374ab6a74996af2f1e2"
 dependencies = [
  "deno_ast",
- "dprint-core",
+ "dprint-core 0.47.1",
  "parking_lot_core",
  "rustc-hash",
  "serde",
@@ -795,7 +813,7 @@ version = "0.12.0"
 dependencies = [
  "ansi_term",
  "difference",
- "dprint-core",
+ "dprint-core 0.49.0",
  "dprint-plugin-typescript",
  "fs_extra",
  "pipe-trait",
