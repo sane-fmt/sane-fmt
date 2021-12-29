@@ -28,7 +28,7 @@ fn prints_formatted_code() {
 
 #[test]
 fn parse_failure() {
-    let output = Exe::workspace().run_with_stdio(b"const invalid_code == invalid ;)", &["--stdio"]);
+    let output = Exe::workspace().run_with_stdio(b"const const code == 0", &["--stdio"]);
 
     assert_eq!(
         (u8v_to_utf8(&output.stdout), output.status.success()),
@@ -42,15 +42,10 @@ fn parse_failure() {
         stderr,
         text_block! {
             "ERROR:"
-            "  Line 1, column 20: Expected a semicolon"
+            "  Line 1, column 7: Expected ident"
             "  "
-            "    const invalid_code == invalid ;"
-            "                       ~~"
-            "  "
-            "  Line 1, column 20: Expression expected"
-            "  "
-            "    const invalid_code == invalid ;"
-            "                       ~~"
+            "    const const code == 0"
+            "          ~~~~~"
         },
     );
 }
