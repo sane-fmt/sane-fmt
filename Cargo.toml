@@ -48,7 +48,7 @@ version = "^1.0.133"
 features = ["derive"]
 
 [dev-dependencies]
-tempfile = "^3.2.0"
+tempfile = "^3.3.0"
 strip-ansi-escapes = "^0.1.1"
 fs_extra = "^1.2.0"
 toml = "^0.5.8"
