@@ -52,7 +52,7 @@ tempfile = "^3.3.0"
 strip-ansi-escapes = "^0.1.1"
 fs_extra = "^1.2.0"
 toml = "^0.5.8"
-pretty_assertions = "^1.0.0"
+pretty_assertions = "^1.1.0"
 
 [profile.release]
 opt-level = "z"
