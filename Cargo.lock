@@ -572,6 +572,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3fd92f5561e74c246a0b7332e09d2364afb40b67d152c4520b3ba2a7d3dea5b3"
 
 [[package]]
+name = "pipe-trait"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c1be1ec9e59f0360aefe84efa6f699198b685ab0d5718081e9f72aa2344289e2"
+
+[[package]]
 name = "pmutil"
 version = "0.5.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -767,7 +773,7 @@ dependencies = [
  "dprint-core",
  "dprint-plugin-typescript",
  "fs_extra",
- "pipe-trait",
+ "pipe-trait 0.4.0",
  "pretty_assertions",
  "relative-path",
  "serde",
@@ -937,7 +943,7 @@ version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "86d8a1aea356c5b00463fad9e975ff02d097a360a2efadf4bc1dfbdf35302b71"
 dependencies = [
- "pipe-trait",
+ "pipe-trait 0.3.2",
  "structopt",
 ]
 
