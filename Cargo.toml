@@ -57,6 +57,7 @@ strip-ansi-escapes = "^0.1.1"
 fs_extra = "^1.2.0"
 toml = "^0.5.9"
 pretty_assertions = "^1.2.1"
+text-block-macros = "0.1.1"
 
 [profile.release]
 opt-level = "z"

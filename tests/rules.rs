@@ -2,6 +2,8 @@
 pub mod utils;
 pub use utils::*;
 
+use text_block_macros::text_block;
+
 test_rule! {
     name: prefer_single_quotes,
     ext: "ts",

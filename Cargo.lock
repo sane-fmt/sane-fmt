@@ -801,6 +801,7 @@ dependencies = [
  "structopt-utilities",
  "tap",
  "tempfile",
+ "text-block-macros",
  "toml",
 ]
 
@@ -1119,6 +1120,12 @@ dependencies = [
  "remove_dir_all",
  "winapi",
 ]
+
+[[package]]
+name = "text-block-macros"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f8b59b4da1c1717deaf1de80f0179a9d8b4ac91c986d5fd9f4a8ff177b84049"
 
 [[package]]
 name = "text_lines"
