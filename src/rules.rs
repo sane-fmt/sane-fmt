@@ -21,6 +21,7 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
         .module_sort_export_declarations(SortOrder::CaseSensitive)
         .import_declaration_sort_named_imports(SortOrder::Maintain)
         .export_declaration_sort_named_exports(SortOrder::Maintain)
+        .quote_props(QuoteProps::AsNeeded)
         .jsx_quote_style(JsxQuoteStyle::PreferSingle)
         .jsx_multi_line_parens(JsxMultiLineParens::Never)
         .jsx_element_space_before_self_closing_tag_slash(true)

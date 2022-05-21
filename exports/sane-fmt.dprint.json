@@ -6,11 +6,13 @@
     "useTabs": false,
     "newLineKind": "lf",
     "quoteStyle": "preferSingle",
+    "quoteProps": "asNeeded",
     "semiColons": "asi",
     "arrowFunction.useParentheses": "preferNone",
     "binaryExpression.linePerExpression": false,
     "jsx.quoteStyle": "preferSingle",
     "jsx.multiLineParens": "never",
+    "jsx.forceNewLinesSurroundingContent": false,
     "memberExpression.linePerExpression": false,
     "typeLiteral.separatorKind.singleLine": "comma",
     "typeLiteral.separatorKind.multiLine": "semiColon",
@@ -145,6 +147,18 @@
     "typeAnnotation.spaceBeforeColon": false,
     "typeAssertion.spaceBeforeExpression": true,
     "typeLiteral.spaceSurroundingProperties": true,
-    "whileStatement.spaceAfterWhileKeyword": true
+    "whileStatement.spaceAfterWhileKeyword": true,
+    "arguments.spaceAround": false,
+    "arrayExpression.spaceAround": false,
+    "arrayPattern.spaceAround": false,
+    "doWhileStatement.spaceAround": false,
+    "forInStatement.spaceAround": false,
+    "forOfStatement.spaceAround": false,
+    "forStatement.spaceAround": false,
+    "ifStatement.spaceAround": false,
+    "parameters.spaceAround": false,
+    "switchStatement.spaceAround": false,
+    "tupleType.spaceAround": false,
+    "whileStatement.spaceAround": false
   }
 }
