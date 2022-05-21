@@ -237,24 +237,25 @@ pub fn assert_trimmed_str_eq(a: &str, b: &str) {
 pub fn run_rule_test(
     test_name: &'static str,
     file_ext: &'static str,
-    formatted: &str,
-    unformatted: &[&str],
+    given_formatted: &str,
+    given_unformatted: &[&str],
 ) {
     let file_name = PathBuf::from(format!("{name}.{ext}", name = test_name, ext = file_ext));
     let fmt = build_fmt();
 
     let actual_formatted = fmt
-        .format_text(&file_name, formatted)
+        .format_text(&file_name, given_formatted)
         .expect("format correctly styled code");
-    assert_str_eq(formatted, &actual_formatted);
+    assert_eq!(actual_formatted, None);
 
-    for (index, unformatted) in unformatted.iter().enumerate() {
+    for (index, unformatted) in given_unformatted.iter().enumerate() {
         eprintln!("unformatted[{}]", index);
         let formatted = fmt
             .format_text(&file_name, unformatted)
-            .expect("format incorrectly styled code");
+            .expect("format incorrectly styled code")
+            .expect("get formatted code");
         assert_ne!(&formatted, *unformatted, "code style does not change");
-        assert_str_eq(&formatted, &actual_formatted);
+        assert_str_eq(&formatted, given_formatted);
     }
 }
 

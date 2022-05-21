@@ -25,8 +25,8 @@ impl App {
                 .read_to_string(&mut buffer)
                 .map_err(|error| format!("Failed to read from STDIN: {}", error))?;
             let formatted = fmt
-                .format_text(&PathBuf::from("STDIN"), &buffer)
-                .map_err(|error| error.to_string())?;
+                .format_text(&PathBuf::from("STDIN"), &buffer)?
+                .unwrap_or(buffer);
             print!("{}", formatted);
             return Ok(());
         }
@@ -117,9 +117,8 @@ impl App {
                     error = error,
                 )
             })?;
-            if file_content == formatted {
-                log_same(path);
-            } else {
+            if let Some(formatted) = formatted {
+                assert_ne!(file_content, formatted);
                 diff_count += 1;
                 log_diff(path, &file_content, &formatted);
                 may_write(path, &formatted).map_err(|error| {
@@ -129,6 +128,8 @@ impl App {
                         error = error,
                     )
                 })?;
+            } else {
+                log_same(path);
             }
         }
 
