@@ -38,7 +38,7 @@ doc = false
 [dependencies]
 structopt = "^0.3.26"
 structopt-utilities = "^0.1.0"
-dprint-core = "0.56.0"
+dprint-core = "0.58.0"
 dprint-plugin-typescript = "0.68.2"
 difference = "^2.0.0"
 relative-path = "^1.7.0"
