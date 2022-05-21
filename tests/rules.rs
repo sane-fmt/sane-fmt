@@ -282,6 +282,55 @@ test_rule!(
 );
 
 test_rule!(
+    quote_props,
+    "ts",
+    text_block! {
+        "interface Foo {"
+        "  noQuotes: 123"
+        "  unneededQuotes: 456"
+        "  'needed quotes': 789"
+        "}"
+        ""
+        "const foo: Foo = {"
+        "  noQuotes: 123,"
+        "  unneededQuotes: 456,"
+        "  'needed quotes': 789,"
+        "}"
+        ""
+    },
+    &[
+        text_block! {
+            "interface Foo {"
+            "  noQuotes: 123"
+            "  'unneededQuotes': 456"
+            "  'needed quotes': 789"
+            "}"
+            ""
+            "const foo: Foo = {"
+            "  noQuotes: 123,"
+            "  'unneededQuotes': 456,"
+            "  'needed quotes': 789,"
+            "}"
+            ""
+        },
+        text_block! {
+            "interface Foo {"
+            "  noQuotes: 123"
+            "  \"unneededQuotes\": 456"
+            "  \"needed quotes\": 789"
+            "}"
+            ""
+            "const foo: Foo = {"
+            "  noQuotes: 123,"
+            "  \"unneededQuotes\": 456,"
+            "  \"needed quotes\": 789,"
+            "}"
+            ""
+        },
+    ]
+);
+
+test_rule!(
     ignore_node,
     "js",
     text_block! {
