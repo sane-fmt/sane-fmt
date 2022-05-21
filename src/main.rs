@@ -1,3 +1,3 @@
-fn main() -> Result<(), String> {
+fn main() -> ! {
     sane_fmt::main()
 }
