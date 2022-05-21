@@ -6,7 +6,7 @@ use strip_ansi_escapes::strip as strip_ansi;
 
 #[test]
 fn color_match_non_color() {
-    let with_color = Exe::workspace()
+    let with_color = Exe::fixtures()
         .cmd
         .arg("--details=diff")
         .arg("--color=always")
@@ -14,7 +14,7 @@ fn color_match_non_color() {
         .expect("spawn command with color")
         .stdout;
 
-    let without_color = Exe::workspace()
+    let without_color = Exe::fixtures()
         .cmd
         .arg("--details=diff")
         .arg("--color=never")
@@ -34,7 +34,7 @@ fn color_match_non_color() {
 
 #[test]
 fn without_color() {
-    let output = Exe::workspace()
+    let output = Exe::fixtures()
         .cmd
         .arg("--details=diff")
         .arg("--color=never")
