@@ -265,11 +265,16 @@ pub fn run_rule_test(
 /// Test a rule
 #[macro_export]
 macro_rules! test_rule {
-    ($test_name:ident, $file_ext:expr, $formatted:expr, $unformatted:expr) => {
+    (
+        name: $test_name:ident,
+        ext: $file_ext:expr,
+        into: $formatted:expr,
+        $(from: $unformatted:expr,)*
+    ) => {
         #[test]
         fn $test_name() {
             let test_name = std::stringify!($test_name);
-            run_rule_test(test_name, $file_ext, $formatted, $unformatted);
+            run_rule_test(test_name, $file_ext, $formatted, &[$($unformatted),*]);
         }
     };
 }
