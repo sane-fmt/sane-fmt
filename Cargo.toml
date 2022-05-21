@@ -18,18 +18,22 @@ include = [
 [lib]
 name = "sane_fmt"
 path = "src/lib.rs"
+doc = true
 
 [[bin]]
 name = "sane-fmt"
 path = "src/main.rs"
+doc = false
 
 [[bin]]
 name = "sane-fmt-export-json-config"
 path = "src/export_json_config/main.rs"
+doc = false
 
 [[bin]]
 name = "sane-fmt-generate-shell-completions"
 path = "src/generate_shell_completions/main.rs"
+doc = false
 
 [dependencies]
 structopt = "^0.3.26"
