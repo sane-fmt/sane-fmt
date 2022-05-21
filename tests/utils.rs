@@ -303,7 +303,7 @@ pub fn visualize_fake_command_output(
     let mut write_stream = |title, stream: &str| {
         writeln!(result, "{}", title_style.paint(title)).expect("write title");
         for line in stream.split('\n') {
-            let line = line.replace("\r", "\r  "); // make sure "\r" does not delete indentation
+            let line = line.replace('\r', "\r  "); // make sure "\r" does not delete indentation
             writeln!(result, "{}", line).expect("write line");
         }
     };
