@@ -13,6 +13,8 @@ mod diff;
 mod file_list;
 mod term;
 
+use std::process::ExitCode;
+
 /// Initialize `app::App` with default values and runs it.
 pub fn run() -> Result<(), String> {
     app::App::default().run()
@@ -21,13 +23,13 @@ pub fn run() -> Result<(), String> {
 /// The main program.
 ///
 /// It calls [`run`], analyses the result:
-/// * If it returns an `Ok`, exits with status `0`.
-/// * If it returns an `Err`, prints the message to stdout and exits with status `1`.
-pub fn main() -> ! {
-    std::process::exit(if let Err(message) = run() {
+/// * If it returns an `Ok`, returns [`ExitCode::SUCCESS`].
+/// * If it returns an `Err`, prints the message to stdout and returns [`ExitCode::FAILURE`].
+pub fn main() -> ExitCode {
+    if let Err(message) = run() {
         eprint!("{}", pretty_error_message::PrettyErrorMessage(message));
-        1
+        ExitCode::FAILURE
     } else {
-        0
-    })
+        ExitCode::SUCCESS
+    }
 }
