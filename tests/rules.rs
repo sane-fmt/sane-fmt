@@ -5,8 +5,8 @@ pub use utils::*;
 test_rule! {
     name: prefer_single_quotes,
     ext: "ts",
-    into: "const a = 'hello world'\n",
     from: "const a = \"hello world\"\n",
+    into: "const a = 'hello world'\n",
 }
 
 test_rule! {
@@ -24,27 +24,13 @@ test_rule! {
 test_rule! {
     name: allow_double_quotes_in_some_cases,
     ext: "ts",
-    into: "const a = \"'hello world'\"\n",
     from: "const a = '\\'hello world\\''\n",
+    into: "const a = \"'hello world'\"\n",
 }
 
 test_rule! {
     name: trailing_commas,
     ext: "js",
-    into: text_block! {
-        "const array = ["
-        "  123,"
-        "  456,"
-        "  789,"
-        "]"
-        ""
-        "someFunc("
-        "  123,"
-        "  123456789,"
-        "  'this is a string',"
-        ")"
-        ""
-    },
     from: text_block! {
         "const array = ["
         "  123,"
@@ -59,13 +45,27 @@ test_rule! {
         ")"
         ""
     },
+    into: text_block! {
+        "const array = ["
+        "  123,"
+        "  456,"
+        "  789,"
+        "]"
+        ""
+        "someFunc("
+        "  123,"
+        "  123456789,"
+        "  'this is a string',"
+        ")"
+        ""
+    },
 }
 
 test_rule! {
     name: do_not_use_parentheses_for_arrow_function_with_one_parameter,
     ext: "js",
-    into: "const fn = x => x * x\n",
     from: "const fn = (x) => x * x\n",
+    into: "const fn = x => x * x\n",
 }
 
 test_rule! {
@@ -83,21 +83,21 @@ test_rule! {
 test_rule! {
     name: interface,
     ext: "ts",
-    into: text_block! {
-        "export interface MyInterface {"
-        "  readonly a: number"
-        "  readonly b: string"
-        "  c: number"
-        "  d: string"
-        "}"
-        ""
-    },
     from: text_block! {
         "export interface MyInterface {"
         "  readonly a: number;"
         "  readonly b: string;"
         "  c: number;"
         "  d: string;"
+        "}"
+        ""
+    },
+    into: text_block! {
+        "export interface MyInterface {"
+        "  readonly a: number"
+        "  readonly b: string"
+        "  c: number"
+        "  d: string"
         "}"
         ""
     },
@@ -106,21 +106,21 @@ test_rule! {
 test_rule! {
     name: object_literal_type,
     ext: "ts",
-    into: text_block! {
-        "export type MyObject = {"
-        "  readonly a: number"
-        "  readonly b: string"
-        "  c: number"
-        "  d: string"
-        "}"
-        ""
-    },
     from: text_block! {
         "export type MyObject = {"
         "  readonly a: number;"
         "  readonly b: string;"
         "  c: number;"
         "  d: string;"
+        "}"
+        ""
+    },
+    into: text_block! {
+        "export type MyObject = {"
+        "  readonly a: number"
+        "  readonly b: string"
+        "  c: number"
+        "  d: string"
         "}"
         ""
     },
@@ -135,18 +135,6 @@ test_rule! {
 test_rule! {
     name: multi_line_union_or_intersection,
     ext: "ts",
-    into: text_block! {
-        "export type MyUnion ="
-        "  | { type: 0, value: number }"
-        "  | { type: 1, value: string }"
-        "  | { type: 2, value: symbol }"
-        ""
-        "type MyIntersection ="
-        "  & { a: number }"
-        "  & { b: number }"
-        "  & { c: number }"
-        ""
-    },
     from: text_block! {
         "export type MyUnion ="
         "  { type: 0; value: number }"
@@ -194,14 +182,26 @@ test_rule! {
         "  & { c: number }"
         ""
     },
+    into: text_block! {
+        "export type MyUnion ="
+        "  | { type: 0, value: number }"
+        "  | { type: 1, value: string }"
+        "  | { type: 2, value: symbol }"
+        ""
+        "type MyIntersection ="
+        "  & { a: number }"
+        "  & { b: number }"
+        "  & { c: number }"
+        ""
+    },
 }
 
 test_rule! {
     name: multi_line_union_of_multi_line_object,
     ext: "ts",
-    into: text_block! {
+    from: text_block! {
         "export type MyUnion ="
-        "  | {"
+        "  {"
         "    readonly type: 0"
         "    readonly value: number"
         "  }"
@@ -215,9 +215,9 @@ test_rule! {
         "  }"
         ""
     },
-    from: text_block! {
+    into: text_block! {
         "export type MyUnion ="
-        "  {"
+        "  | {"
         "    readonly type: 0"
         "    readonly value: number"
         "  }"
@@ -236,15 +236,6 @@ test_rule! {
 test_rule! {
     name: module_sort_import_declarations,
     ext: "ts",
-    into: text_block! {
-        "import {} from 'ABC'"
-        "import {} from 'DEF'"
-        "import {} from 'abc'"
-        "import {} from 'def'"
-        "import {} from '../lib'"
-        "import {} from '../utils'"
-        ""
-    },
     from: text_block! {
         "import {} from 'ABC'"
         "import {} from 'abc'"
@@ -252,6 +243,15 @@ test_rule! {
         "import {} from 'def'"
         "import {} from '../utils'"
         "import {} from '../lib'"
+        ""
+    },
+    into: text_block! {
+        "import {} from 'ABC'"
+        "import {} from 'DEF'"
+        "import {} from 'abc'"
+        "import {} from 'def'"
+        "import {} from '../lib'"
+        "import {} from '../utils'"
         ""
     },
 }
@@ -259,17 +259,17 @@ test_rule! {
 test_rule! {
     name: module_sort_export_declarations,
     ext: "ts",
-    into: text_block! {
-        "export {} from 'ABC'"
-        "export {} from 'DEF'"
-        "export {} from 'abc'"
-        "export {} from 'def'"
-        ""
-    },
     from: text_block! {
         "export {} from 'ABC'"
         "export {} from 'abc'"
         "export {} from 'DEF'"
+        "export {} from 'def'"
+        ""
+    },
+    into: text_block! {
+        "export {} from 'ABC'"
+        "export {} from 'DEF'"
+        "export {} from 'abc'"
         "export {} from 'def'"
         ""
     },
@@ -278,20 +278,6 @@ test_rule! {
 test_rule! {
     name: quote_props,
     ext: "ts",
-    into: text_block! {
-        "interface Foo {"
-        "  noQuotes: 123"
-        "  unneededQuotes: 456"
-        "  'needed quotes': 789"
-        "}"
-        ""
-        "const foo: Foo = {"
-        "  noQuotes: 123,"
-        "  unneededQuotes: 456,"
-        "  'needed quotes': 789,"
-        "}"
-        ""
-    },
     from: text_block! {
         "interface Foo {"
         "  noQuotes: 123"
@@ -317,6 +303,20 @@ test_rule! {
         "  noQuotes: 123,"
         "  \"unneededQuotes\": 456,"
         "  \"needed quotes\": 789,"
+        "}"
+        ""
+    },
+    into: text_block! {
+        "interface Foo {"
+        "  noQuotes: 123"
+        "  unneededQuotes: 456"
+        "  'needed quotes': 789"
+        "}"
+        ""
+        "const foo: Foo = {"
+        "  noQuotes: 123,"
+        "  unneededQuotes: 456,"
+        "  'needed quotes': 789,"
         "}"
         ""
     },

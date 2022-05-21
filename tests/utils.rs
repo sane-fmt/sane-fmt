@@ -268,8 +268,8 @@ macro_rules! test_rule {
     (
         name: $test_name:ident,
         ext: $file_ext:expr,
-        into: $formatted:expr,
         $(from: $unformatted:expr,)*
+        into: $formatted:expr,
     ) => {
         #[test]
         fn $test_name() {
