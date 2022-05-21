@@ -246,7 +246,10 @@ pub fn run_rule_test(
     let actual_formatted = fmt
         .format_text(&file_name, given_formatted)
         .expect("format correctly styled code");
-    assert_eq!(actual_formatted, None);
+    if let Some(actual_formatted) = &actual_formatted {
+        assert_str_eq(given_formatted, actual_formatted);
+        panic!("Assumption that format_text returns None on formatted text turns out to be no longer true");
+    }
 
     for (index, unformatted) in given_unformatted.iter().enumerate() {
         eprintln!("unformatted[{}]", index);
