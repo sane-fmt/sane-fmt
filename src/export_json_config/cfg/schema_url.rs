@@ -1,7 +1,8 @@
 use serde::Serialize;
 
 const DPRINT_CORE_SCHEMA_URL: &str = "https://dprint.dev/schemas/v0.json";
-const DPRINT_TYPESCRIPT_SCHEMA_URL: &str = "https://plugins.dprint.dev/schemas/typescript-v0.json";
+const DPRINT_TYPESCRIPT_SCHEMA_URL: &str =
+    "https://plugins.dprint.dev/dprint/dprint-plugin-typescript/latest/schema.json";
 
 #[derive(Debug, Default, Serialize, Clone)]
 #[serde(into = "&str")]
