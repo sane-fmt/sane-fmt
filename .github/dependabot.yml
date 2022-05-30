@@ -6,14 +6,14 @@ updates:
     interval: weekly
   open-pull-requests-limit: 10
   labels:
-  - dependabot
-  - github-actions
+    - dependabot
+    - github-actions
 - package-ecosystem: cargo
   directory: "/"
   schedule:
     interval: weekly
   open-pull-requests-limit: 10
   labels:
-  - dependencies
-  - dependabot
-  - rust
+    - dependencies
+    - dependabot
+    - rust
