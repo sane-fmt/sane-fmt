@@ -119,6 +119,8 @@
     "typeParameters.preferSingleLine": false,
     "unionAndIntersectionType.preferSingleLine": false,
     "variableStatement.preferSingleLine": false,
+    "importDeclaration.forceSingleLine": false,
+    "exportDeclaration.forceSingleLine": false,
     "binaryExpression.spaceSurroundingBitwiseAndArithmeticOperator": true,
     "commentLine.forceSpaceAfterSlashes": false,
     "constructSignature.spaceAfterNewKeyword": true,

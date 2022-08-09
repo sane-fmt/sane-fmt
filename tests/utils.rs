@@ -255,10 +255,11 @@ pub fn run_rule_test(
         eprintln!("unformatted[{index}]");
         let formatted = fmt
             .format_text(&file_name, unformatted)
-            .expect("format incorrectly styled code")
-            .expect("get formatted code");
-        assert_ne!(&formatted, *unformatted, "code style does not change");
-        assert_str_eq(&formatted, given_formatted);
+            .expect("format incorrectly styled code");
+        if let Some(formatted) = formatted {
+            assert_ne!(&formatted, *unformatted, "code style does not change");
+            assert_str_eq(&formatted, given_formatted);
+        }
     }
 }
 
