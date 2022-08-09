@@ -1,6 +1,5 @@
 #![cfg(test)]
-use ansi_term::{Color, Style};
-use difference::{Changeset, Difference};
+use ansi_term::Style;
 use fs_extra::dir::{copy as copy_dir, CopyOptions as DirCopyOptions};
 use sane_fmt::rules::build_fmt;
 use std::{
@@ -175,38 +174,7 @@ pub fn assert_str_eq(a: &str, b: &str) {
     let a = a.as_str();
     let b = normalize_line_ending(b);
     let b = b.as_str();
-
-    if a == b {
-        return;
-    }
-
-    let change_set = Changeset::new(a, b, "\n");
-    let mut diff_text = String::new();
-
-    fn paint(text: &str, style: &Style) -> String {
-        style.paint(text).to_string()
-    }
-
-    let mut make_lines = |text: String, prefix: &str, style: &Style| {
-        for line in text.lines() {
-            writeln!(diff_text, "{}{}", paint(prefix, style), paint(line, style))
-                .expect("add a line to diff_text");
-        }
-    };
-
-    let same_style = Style::new().dimmed();
-    let add_style = Color::Green.into();
-    let rem_style = Color::Red.into();
-
-    for diff in change_set.diffs {
-        match diff {
-            Difference::Same(text) => make_lines(text, "   ", &same_style),
-            Difference::Add(text) => make_lines(text, "  +", &add_style),
-            Difference::Rem(text) => make_lines(text, "  -", &rem_style),
-        };
-    }
-
-    panic!("strings are not equal:\n{}", diff_text);
+    pretty_assertions::assert_eq!(a, b);
 }
 
 /// Convert a vector of bytes to UTF-8 string
