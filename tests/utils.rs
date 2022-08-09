@@ -252,7 +252,7 @@ pub fn run_rule_test(
     }
 
     for (index, unformatted) in given_unformatted.iter().enumerate() {
-        eprintln!("unformatted[{}]", index);
+        eprintln!("unformatted[{index}]");
         let formatted = fmt
             .format_text(&file_name, unformatted)
             .expect("format incorrectly styled code")
