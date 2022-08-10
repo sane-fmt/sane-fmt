@@ -15,29 +15,26 @@ _sane-fmt() {
 
     local context curcontext="$curcontext" state line
     _arguments "${_arguments_options[@]}" \
-'--details=[File diff detail]: :(count name diff)' \
-'--color=[When to use terminal color]: :(auto never always)' \
-'--log-format=[Format of log messages]: :(human github-actions)' \
-'-I+[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]' \
-'--include=[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]' \
+'--details=[File diff detail]:DETAILS:(count name diff)' \
+'--color=[When to use terminal color]:COLOR:(auto never always)' \
+'--log-format=[Format of log messages]:LOG_FORMAT:(human github-actions)' \
+'-I+[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE: ' \
+'--include=[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE: ' \
+'-h[Print help information]' \
+'--help[Print help information]' \
+'-V[Print version information]' \
+'--version[Print version information]' \
 '--stdio[Reads unformatted code from standard input, prints formatted code to standard output, then exits]' \
 '-w[Whether to write or check]' \
 '--write[Whether to write or check]' \
 '--hide-passed[Do not log passed filenames]' \
-'-h[Prints help information]' \
-'--help[Prints help information]' \
-'-V[Prints version information]' \
-'--version[Prints version information]' \
-'::files -- Files to process:_files' \
+'*::files -- Files to process:' \
 && ret=0
-    
 }
 
 (( $+functions[_sane-fmt_commands] )) ||
 _sane-fmt_commands() {
-    local commands; commands=(
-        
-    )
+    local commands; commands=()
     _describe -t commands 'sane-fmt commands' commands "$@"
 }
 

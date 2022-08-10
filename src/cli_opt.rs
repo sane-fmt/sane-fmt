@@ -8,45 +8,44 @@ pub use input_stream_address::*;
 pub use log_format::*;
 pub use when::*;
 
-use structopt::*;
+use clap::Parser;
 
 /// Opinionated code formatter for TypeScript and JavaScript
-#[derive(StructOpt, Debug)]
-#[structopt(name = "sane-fmt", rename_all = "kebab")]
+#[derive(Debug, Parser)]
+#[clap(name = "sane-fmt", rename_all = "kebab", version)]
 pub struct CliOpt {
     /// Reads unformatted code from standard input,
     /// prints formatted code to standard output, then exits
-    #[structopt(long)]
+    #[clap(long)]
     pub stdio: bool,
 
     /// Whether to write or check
-    #[structopt(long, short = "w")]
+    #[clap(long, short = 'w')]
     pub write: bool,
 
     /// File diff detail
-    #[structopt(long, default_value = "name", possible_values = &["count", "name", "diff"])]
+    #[clap(long, value_enum, default_value_t = DetailLevel::Name)]
     pub details: DetailLevel,
 
     /// Do not log passed filenames
-    #[structopt(long)]
+    #[clap(long)]
     pub hide_passed: bool,
 
     /// When to use terminal color
-    #[structopt(long, default_value = "auto", possible_values = &["auto", "never", "always"])]
+    #[clap(long, value_enum, default_value_t = When::Auto)]
     pub color: When,
 
     /// Format of log messages
-    #[structopt(long, default_value = "human", possible_values = &["human", "github-actions"])]
+    #[clap(long, value_enum, default_value_t = LogFormat::Human)]
     pub log_format: LogFormat,
 
     /// Files whose contents contain paths to target files
     /// (`-` means stdin, other strings mean text file)
-    #[structopt(long, short = "I", name = "list")]
+    #[clap(long, short = 'I')]
     pub include: Option<InputStreamAddress>,
 
     /// Files to process
     ///
     /// If none are provided, a default set of files will be assumed
-    #[structopt(name = "files")]
     pub files: Vec<String>,
 }

@@ -3,9 +3,9 @@ use super::{
     cfg::{DprintCfg, TypeScriptCfgWithSchema},
     cli_opt::{output_kind::OutputKind, CliOpt},
 };
+use clap::Parser;
 use pipe_trait::*;
 use serde_json::to_string_pretty as dump_json;
-use structopt_utilities::StructOptUtils;
 
 /// Application state.
 pub struct App {
@@ -16,7 +16,7 @@ pub struct App {
 impl Default for App {
     fn default() -> Self {
         App {
-            opt: CliOpt::strict_from_args(),
+            opt: CliOpt::parse(),
         }
     }
 }
