@@ -12,7 +12,6 @@ pub struct CliOpt {
     pub output: Option<PathBuf>,
 
     /// Type of config
-    /// [possible values: typescript, dprint]
-    #[clap(name = "TYPE")]
+    #[clap(name = "TYPE", value_enum)]
     pub kind: output_kind::OutputKind,
 }

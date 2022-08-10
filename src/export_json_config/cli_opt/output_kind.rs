@@ -1,17 +1,9 @@
-#[derive(PartialEq, Debug, Copy, Clone)]
+use clap::ValueEnum;
+
+#[derive(PartialEq, Debug, Copy, Clone, ValueEnum)]
 pub enum OutputKind {
+    #[clap(name = "typescript")]
     TypeScript,
+    #[clap(name = "dprint")]
     Dprint,
-}
-
-impl std::str::FromStr for OutputKind {
-    type Err = String;
-
-    fn from_str(text: &str) -> Result<Self, Self::Err> {
-        Ok(match text {
-            "typescript" => OutputKind::TypeScript,
-            "dprint" => OutputKind::Dprint,
-            _ => return Err(text.to_string()),
-        })
-    }
 }
