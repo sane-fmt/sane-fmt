@@ -4,7 +4,7 @@ pub use utils::*;
 
 fn executable() -> String {
     if cfg!(windows) {
-        format!("{}.exe", NAME)
+        format!("{NAME}.exe")
     } else {
         NAME.to_string()
     }
