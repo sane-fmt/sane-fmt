@@ -12,8 +12,8 @@ fn executable() -> String {
 
 fn correct_snapshot(text: &str) -> String {
     if cfg!(windows) {
-        let from = format!("{} [FLAGS] [OPTIONS]", NAME);
-        let to = format!("{} [FLAGS] [OPTIONS]", executable());
+        let from = format!("{} [OPTIONS]", NAME);
+        let to = format!("{} [OPTIONS]", executable());
         text.replace(from.as_str(), to.as_str())
     } else {
         text.to_string()
