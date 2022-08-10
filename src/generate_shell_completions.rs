@@ -1,6 +1,7 @@
 use super::cli_opt::CliOpt;
-use structopt_utilities::StructOptUtils;
+use clap_utilities::CommandFactoryExtra;
+use std::process::ExitCode;
 
-pub fn main() {
-    CliOpt::run_completion_generator("sane-fmt-generate-shell-completions", "sane-fmt")
+pub fn main() -> ExitCode {
+    CliOpt::run_completion_generator()
 }

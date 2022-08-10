@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 mkdir -pv exports
 
 run() {
-	cargo run --bin=sane-fmt-generate-shell-completions -- "$1" --output="exports/$2"
+	./run.sh sane-fmt-generate-shell-completions --name='sane-fmt' --shell="$1" --output="exports/$2"
 }
 
 run bash completion.bash

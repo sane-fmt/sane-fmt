@@ -1,39 +1,47 @@
 USAGE:
-    sane-fmt [FLAGS] [OPTIONS] [files]...
+    sane-fmt [OPTIONS] [FILES]...
 
-FLAGS:
+ARGS:
+    <FILES>...
+            Files to process
+
+            If none are provided, a default set of files will be assumed
+
+OPTIONS:
+        --color <COLOR>
+            When to use terminal color
+
+            [default: auto]
+            [possible values: auto, never, always]
+
+        --details <DETAILS>
+            File diff detail
+
+            [default: name]
+            [possible values: count, name, diff]
+
     -h, --help
-            Prints help information
+            Print help information
 
         --hide-passed
             Do not log passed filenames
 
+    -I, --include <INCLUDE>
+            Files whose contents contain paths to target files (`-` means stdin, other strings mean
+            text file)
+
+        --log-format <LOG_FORMAT>
+            Format of log messages
+
+            [default: human]
+            [possible values: human, github-actions]
+
         --stdio
-            Reads unformatted code from standard input, prints formatted code to standard output, then exits
+            Reads unformatted code from standard input, prints formatted code to standard output,
+            then exits
 
     -V, --version
-            Prints version information
+            Print version information
 
     -w, --write
             Whether to write or check
-
-
-OPTIONS:
-        --color <color>
-            When to use terminal color [default: auto]  [possible values: auto, never, always]
-
-        --details <details>
-            File diff detail [default: name]  [possible values: count, name, diff]
-
-    -I, --include <list>
-            Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)
-
-        --log-format <log-format>
-            Format of log messages [default: human]  [possible values: human, github-actions]
-
-
-ARGS:
-    <files>...
-            Files to process
-
-            If none are provided, a default set of files will be assumed

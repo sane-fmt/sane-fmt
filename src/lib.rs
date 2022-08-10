@@ -1,4 +1,5 @@
-pub use structopt::{self, clap};
+pub use clap;
+pub use clap_utilities;
 
 pub mod app;
 pub mod cli_opt;

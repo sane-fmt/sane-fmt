@@ -9,24 +9,22 @@ _sane-fmt() {
     for i in ${COMP_WORDS[@]}
     do
         case "${i}" in
-            sane-fmt)
-                cmd="sane-fmt"
+            "$1")
+                cmd="sane__fmt"
                 ;;
-            
             *)
                 ;;
         esac
     done
 
     case "${cmd}" in
-        sane-fmt)
-            opts=" -w -h -V -I  --stdio --write --hide-passed --help --version --details --color --log-format --include  <files>... "
+        sane__fmt)
+            opts="-h -V -w -I --help --version --stdio --write --details --hide-passed --color --log-format --include <FILES>..."
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
             fi
             case "${prev}" in
-                
                 --details)
                     COMPREPLY=($(compgen -W "count name diff" -- "${cur}"))
                     return 0
@@ -43,7 +41,7 @@ _sane-fmt() {
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
-                    -I)
+                -I)
                     COMPREPLY=($(compgen -f "${cur}"))
                     return 0
                     ;;
@@ -54,7 +52,6 @@ _sane-fmt() {
             COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
             return 0
             ;;
-        
     esac
 }
 
