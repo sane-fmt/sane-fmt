@@ -24,7 +24,7 @@ pub struct CliOpt {
     pub write: bool,
 
     /// File diff detail
-    #[clap(long, default_value = "name", possible_values = &["count", "name", "diff"])]
+    #[clap(long, value_enum, default_value_t = DetailLevel::Name)]
     pub details: DetailLevel,
 
     /// Do not log passed filenames
@@ -32,11 +32,11 @@ pub struct CliOpt {
     pub hide_passed: bool,
 
     /// When to use terminal color
-    #[clap(long, default_value = "auto", possible_values = &["auto", "never", "always"])]
+    #[clap(long, value_enum, default_value_t = When::Auto)]
     pub color: When,
 
     /// Format of log messages
-    #[clap(long, default_value = "human", possible_values = &["human", "github-actions"])]
+    #[clap(long, value_enum, default_value_t = LogFormat::Human)]
     pub log_format: LogFormat,
 
     /// Files whose contents contain paths to target files

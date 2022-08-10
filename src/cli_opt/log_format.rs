@@ -1,17 +1,9 @@
-#[derive(Debug, PartialEq, Clone, Copy)]
+use clap::ValueEnum;
+
+#[derive(Debug, PartialEq, Clone, Copy, ValueEnum)]
 pub enum LogFormat {
+    #[clap(name = "human")]
     Human,
+    #[clap(name = "github-actions")]
     GitHubActions,
-}
-
-impl std::str::FromStr for LogFormat {
-    type Err = String;
-
-    fn from_str(text: &str) -> Result<Self, Self::Err> {
-        Ok(match text {
-            "human" => LogFormat::Human,
-            "github-actions" => LogFormat::GitHubActions,
-            _ => return Err(text.to_string()),
-        })
-    }
 }
