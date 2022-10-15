@@ -36,8 +36,8 @@ path = "src/generate_shell_completions/main.rs"
 doc = false
 
 [dependencies]
-dprint-core = "^0.58.3"
-dprint-plugin-typescript = "^0.71.2"
+dprint-core = "^0.59.0"
+dprint-plugin-typescript = "^0.74.0"
 difference = "^2.0.0"
 relative-path = "^1.7.2"
 ansi_term = "^0.12.1"
