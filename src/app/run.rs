@@ -133,12 +133,29 @@ impl App {
             }
         }
 
-        println!(
-            "SUMMARY: total {}; changed {}; unchanged {}",
-            file_count,
-            diff_count,
-            file_count - diff_count,
-        );
+        if let (LogFormat::GitHubActions, Some(gh_sum_file)) =
+            (opt.log_format, env::var_os("GITHUB_STEP_SUMMARY"))
+        {
+            let mut gh_sum_file = fs::OpenOptions::new()
+                .write(true)
+                .create(true)
+                .open(&gh_sum_file)
+                .map_err(|error| {
+                    format!("Attempt at opening {gh_sum_file:?} has failed: {error}")
+                })?;
+            let (a, b, c) = (file_count, diff_count, file_count - diff_count);
+            writeln!(gh_sum_file, "### Summary").unwrap();
+            writeln!(gh_sum_file, "| total | changed | unchanged |").unwrap();
+            writeln!(gh_sum_file, "|:-----:|:-------:|:---------:|").unwrap();
+            writeln!(gh_sum_file, "|  {a:5}|    {b:5}|      {c:5}|").unwrap();
+        } else {
+            println!(
+                "SUMMARY: total {}; changed {}; unchanged {}",
+                file_count,
+                diff_count,
+                file_count - diff_count,
+            );
+        }
 
         if opt.log_format == LogFormat::GitHubActions {
             if let Some(gh_output_file) = env::var_os("GITHUB_OUTPUT") {

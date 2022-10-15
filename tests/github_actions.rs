@@ -5,18 +5,25 @@ pub use utils::*;
 
 use ansi_term::*;
 use std::fs::read_to_string;
+use tempfile::NamedTempFile;
 
-fn gh_output_file() -> tempfile::NamedTempFile {
-    tempfile::Builder::new()
+fn gh_files() -> (NamedTempFile, NamedTempFile) {
+    let gh_output_file = tempfile::Builder::new()
         .prefix("github-output")
         .suffix(".txt")
         .tempfile()
-        .expect("create temporary file for GITHUB_OUTPUT")
+        .expect("create temporary file for GITHUB_OUTPUT");
+    let gh_sum_file = tempfile::Builder::new()
+        .prefix("github-step-summary")
+        .suffix(".md")
+        .tempfile()
+        .expect("create temporary file for GITHUB_STEP_SUMMARY");
+    (gh_output_file, gh_sum_file)
 }
 
 #[test]
 fn details_diff() {
-    let gh_output_file = gh_output_file();
+    let (gh_output_file, gh_sum_file) = gh_files();
 
     let output = Exe::fixtures()
         .cmd
@@ -24,6 +31,7 @@ fn details_diff() {
         .arg("--details=diff")
         .arg("--color=never")
         .env("GITHUB_OUTPUT", gh_output_file.path())
+        .env("GITHUB_STEP_SUMMARY", gh_sum_file.path())
         .output()
         .unwrap();
 
@@ -42,11 +50,16 @@ fn details_diff() {
         &read_to_string(gh_output_file.path()).expect("read GITHUB_OUTPUT file"),
         include_str!("./expected-output/github-actions/github-output.txt"),
     );
+
+    assert_trimmed_str_eq(
+        &read_to_string(gh_sum_file.path()).expect("read GITHUB_STEP_SUMMARY file"),
+        include_str!("./expected-output/github-actions/github-step-summary.md"),
+    );
 }
 
 #[test]
 fn details_name() {
-    let gh_output_file = gh_output_file();
+    let (gh_output_file, gh_sum_file) = gh_files();
 
     let output = Exe::fixtures()
         .cmd
@@ -54,6 +67,7 @@ fn details_name() {
         .arg("--details=name")
         .arg("--color=never")
         .env("GITHUB_OUTPUT", gh_output_file.path())
+        .env("GITHUB_STEP_SUMMARY", gh_sum_file.path())
         .output()
         .unwrap();
 
@@ -72,11 +86,16 @@ fn details_name() {
         &read_to_string(gh_output_file.path()).expect("read GITHUB_OUTPUT file"),
         include_str!("./expected-output/github-actions/github-output.txt"),
     );
+
+    assert_trimmed_str_eq(
+        &read_to_string(gh_sum_file.path()).expect("read GITHUB_STEP_SUMMARY file"),
+        include_str!("./expected-output/github-actions/github-step-summary.md"),
+    );
 }
 
 #[test]
 fn details_count() {
-    let gh_output_file = gh_output_file();
+    let (gh_output_file, gh_sum_file) = gh_files();
 
     let output = Exe::fixtures()
         .cmd
@@ -84,6 +103,7 @@ fn details_count() {
         .arg("--details=count")
         .arg("--color=never")
         .env("GITHUB_OUTPUT", gh_output_file.path())
+        .env("GITHUB_STEP_SUMMARY", gh_sum_file.path())
         .output()
         .unwrap();
 
@@ -101,5 +121,10 @@ fn details_count() {
     assert_trimmed_str_eq(
         &read_to_string(gh_output_file.path()).expect("read GITHUB_OUTPUT file"),
         include_str!("./expected-output/github-actions/github-output.txt"),
+    );
+
+    assert_trimmed_str_eq(
+        &read_to_string(gh_sum_file.path()).expect("read GITHUB_STEP_SUMMARY file"),
+        include_str!("./expected-output/github-actions/github-step-summary.md"),
     );
 }
