@@ -5,12 +5,13 @@ pub use utils::*;
 use ansi_term::*;
 
 #[test]
-fn details_diff() {
+fn details_diff_legacy() {
     let output = Exe::fixtures()
         .cmd
         .arg("--log-format=github-actions")
         .arg("--details=diff")
         .arg("--color=never")
+        .env_remove("GITHUB_OUTPUT")
         .output()
         .unwrap();
 
@@ -18,7 +19,7 @@ fn details_diff() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/github-actions/details-diff.stdout.txt"),
+            include_str!("./expected-output/github-actions/details-diff-legacy.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
@@ -27,12 +28,13 @@ fn details_diff() {
 }
 
 #[test]
-fn details_name() {
+fn details_name_legacy() {
     let output = Exe::fixtures()
         .cmd
         .arg("--log-format=github-actions")
         .arg("--details=name")
         .arg("--color=never")
+        .env_remove("GITHUB_OUTPUT")
         .output()
         .unwrap();
 
@@ -40,7 +42,7 @@ fn details_name() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/github-actions/details-name.stdout.txt"),
+            include_str!("./expected-output/github-actions/details-name-legacy.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
@@ -49,12 +51,13 @@ fn details_name() {
 }
 
 #[test]
-fn details_count() {
+fn details_count_legacy() {
     let output = Exe::fixtures()
         .cmd
         .arg("--log-format=github-actions")
         .arg("--details=count")
         .arg("--color=never")
+        .env_remove("GITHUB_OUTPUT")
         .output()
         .unwrap();
 
@@ -62,7 +65,7 @@ fn details_count() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/github-actions/details-count.stdout.txt"),
+            include_str!("./expected-output/github-actions/details-count-legacy.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
