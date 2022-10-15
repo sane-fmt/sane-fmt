@@ -20,14 +20,14 @@ _sane-fmt() {
 '--log-format=[Format of log messages]:LOG_FORMAT:(human github-actions)' \
 '-I+[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE: ' \
 '--include=[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE: ' \
-'-h[Print help information]' \
-'--help[Print help information]' \
-'-V[Print version information]' \
-'--version[Print version information]' \
 '--stdio[Reads unformatted code from standard input, prints formatted code to standard output, then exits]' \
 '-w[Whether to write or check]' \
 '--write[Whether to write or check]' \
 '--hide-passed[Do not log passed filenames]' \
+'-h[Print help information (use `--help` for more detail)]' \
+'--help[Print help information (use `--help` for more detail)]' \
+'-V[Print version information]' \
+'--version[Print version information]' \
 '*::files -- Files to process:' \
 && ret=0
 }

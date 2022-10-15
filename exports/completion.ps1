@@ -26,14 +26,14 @@ Register-ArgumentCompleter -Native -CommandName 'sane-fmt' -ScriptBlock {
             [CompletionResult]::new('--log-format', 'log-format', [CompletionResultType]::ParameterName, 'Format of log messages')
             [CompletionResult]::new('-I', 'I', [CompletionResultType]::ParameterName, 'Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)')
             [CompletionResult]::new('--include', 'include', [CompletionResultType]::ParameterName, 'Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)')
-            [CompletionResult]::new('-h', 'h', [CompletionResultType]::ParameterName, 'Print help information')
-            [CompletionResult]::new('--help', 'help', [CompletionResultType]::ParameterName, 'Print help information')
-            [CompletionResult]::new('-V', 'V', [CompletionResultType]::ParameterName, 'Print version information')
-            [CompletionResult]::new('--version', 'version', [CompletionResultType]::ParameterName, 'Print version information')
             [CompletionResult]::new('--stdio', 'stdio', [CompletionResultType]::ParameterName, 'Reads unformatted code from standard input, prints formatted code to standard output, then exits')
             [CompletionResult]::new('-w', 'w', [CompletionResultType]::ParameterName, 'Whether to write or check')
             [CompletionResult]::new('--write', 'write', [CompletionResultType]::ParameterName, 'Whether to write or check')
             [CompletionResult]::new('--hide-passed', 'hide-passed', [CompletionResultType]::ParameterName, 'Do not log passed filenames')
+            [CompletionResult]::new('-h', 'h', [CompletionResultType]::ParameterName, 'Print help information (use `--help` for more detail)')
+            [CompletionResult]::new('--help', 'help', [CompletionResultType]::ParameterName, 'Print help information (use `--help` for more detail)')
+            [CompletionResult]::new('-V', 'V', [CompletionResultType]::ParameterName, 'Print version information')
+            [CompletionResult]::new('--version', 'version', [CompletionResultType]::ParameterName, 'Print version information')
             break
         }
     })

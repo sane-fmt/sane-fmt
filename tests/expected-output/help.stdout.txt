@@ -1,47 +1,44 @@
-USAGE:
-    sane-fmt [OPTIONS] [FILES]...
+Usage: sane-fmt [OPTIONS] [FILES]...
 
-ARGS:
-    <FILES>...
-            Files to process
+Arguments:
+  [FILES]...
+          Files to process
 
-            If none are provided, a default set of files will be assumed
+          If none are provided, a default set of files will be assumed
 
-OPTIONS:
-        --color <COLOR>
-            When to use terminal color
+Options:
+      --stdio
+          Reads unformatted code from standard input, prints formatted code to standard output, then exits
 
-            [default: auto]
-            [possible values: auto, never, always]
+  -w, --write
+          Whether to write or check
 
-        --details <DETAILS>
-            File diff detail
+      --details <DETAILS>
+          File diff detail
 
-            [default: name]
-            [possible values: count, name, diff]
+          [default: name]
+          [possible values: count, name, diff]
 
-    -h, --help
-            Print help information
+      --hide-passed
+          Do not log passed filenames
 
-        --hide-passed
-            Do not log passed filenames
+      --color <COLOR>
+          When to use terminal color
 
-    -I, --include <INCLUDE>
-            Files whose contents contain paths to target files (`-` means stdin, other strings mean
-            text file)
+          [default: auto]
+          [possible values: auto, never, always]
 
-        --log-format <LOG_FORMAT>
-            Format of log messages
+      --log-format <LOG_FORMAT>
+          Format of log messages
 
-            [default: human]
-            [possible values: human, github-actions]
+          [default: human]
+          [possible values: human, github-actions]
 
-        --stdio
-            Reads unformatted code from standard input, prints formatted code to standard output,
-            then exits
+  -I, --include <INCLUDE>
+          Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)
 
-    -V, --version
-            Print version information
+  -h, --help
+          Print help information (use `-h` for a summary)
 
-    -w, --write
-            Whether to write or check
+  -V, --version
+          Print version information

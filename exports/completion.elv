@@ -23,14 +23,14 @@ set edit:completion:arg-completer[sane-fmt] = {|@words|
             cand --log-format 'Format of log messages'
             cand -I 'Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)'
             cand --include 'Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)'
-            cand -h 'Print help information'
-            cand --help 'Print help information'
-            cand -V 'Print version information'
-            cand --version 'Print version information'
             cand --stdio 'Reads unformatted code from standard input, prints formatted code to standard output, then exits'
             cand -w 'Whether to write or check'
             cand --write 'Whether to write or check'
             cand --hide-passed 'Do not log passed filenames'
+            cand -h 'Print help information (use `--help` for more detail)'
+            cand --help 'Print help information (use `--help` for more detail)'
+            cand -V 'Print version information'
+            cand --version 'Print version information'
         }
     ]
     $completions[$command]
