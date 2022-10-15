@@ -8,8 +8,8 @@ use super::App;
 use pipe_trait::*;
 use relative_path::RelativePath;
 use std::{
-    fs,
-    io::{stdin, Read},
+    env, fs,
+    io::{stdin, Read, Write},
     path::{Path, PathBuf, MAIN_SEPARATOR},
 };
 use tap::tap::*;
@@ -141,9 +141,23 @@ impl App {
         );
 
         if opt.log_format == LogFormat::GitHubActions {
-            println!("::set-output name=total::{}", file_count);
-            println!("::set-output name=changed::{}", diff_count);
-            println!("::set-output name=unchanged::{}", file_count - diff_count);
+            if let Some(gh_output_file) = env::var_os("GITHUB_OUTPUT") {
+                let mut gh_output_file = fs::OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .open(&gh_output_file)
+                    .map_err(|error| {
+                        format!("Attempt at opening {gh_output_file:?} has failed: {error}")
+                    })?;
+                writeln!(gh_output_file, "total={}", file_count).map_err(|e| e.to_string())?;
+                writeln!(gh_output_file, "changed={}", diff_count).map_err(|e| e.to_string())?;
+                writeln!(gh_output_file, "unchanged={}", file_count - diff_count)
+                    .map_err(|e| e.to_string())?;
+            } else {
+                println!("::set-output name=total::{}", file_count);
+                println!("::set-output name=changed::{}", diff_count);
+                println!("::set-output name=unchanged::{}", file_count - diff_count);
+            }
         }
 
         if file_count == 0 {
