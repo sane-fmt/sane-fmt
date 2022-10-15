@@ -147,7 +147,7 @@ impl App {
                     .create(true)
                     .open(&gh_output_file)
                     .map_err(|error| {
-                        format!("Attempt at opening {gh_output_file:?} has failed: {error}")
+                        format!("attempt at opening {gh_output_file:?} has failed: {error}")
                     })?;
                 writeln!(gh_output_file, "total={}", file_count).unwrap();
                 writeln!(gh_output_file, "changed={}", diff_count).unwrap();
