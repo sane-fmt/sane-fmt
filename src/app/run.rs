@@ -149,10 +149,9 @@ impl App {
                     .map_err(|error| {
                         format!("Attempt at opening {gh_output_file:?} has failed: {error}")
                     })?;
-                writeln!(gh_output_file, "total={}", file_count).map_err(|e| e.to_string())?;
-                writeln!(gh_output_file, "changed={}", diff_count).map_err(|e| e.to_string())?;
-                writeln!(gh_output_file, "unchanged={}", file_count - diff_count)
-                    .map_err(|e| e.to_string())?;
+                writeln!(gh_output_file, "total={}", file_count).unwrap();
+                writeln!(gh_output_file, "changed={}", diff_count).unwrap();
+                writeln!(gh_output_file, "unchanged={}", file_count - diff_count).unwrap();
             } else {
                 println!("::set-output name=total::{}", file_count);
                 println!("::set-output name=changed::{}", diff_count);
