@@ -140,9 +140,7 @@ impl App {
                 .write(true)
                 .create(true)
                 .open(&gh_sum_file)
-                .map_err(|error| {
-                    format!("Attempt at opening {gh_sum_file:?} has failed: {error}")
-                })?;
+                .unwrap();
             let (a, b, c) = (file_count, diff_count, file_count - diff_count);
             writeln!(gh_sum_file, "### Summary").unwrap();
             writeln!(gh_sum_file, "| total | changed | unchanged |").unwrap();
@@ -163,9 +161,7 @@ impl App {
                     .write(true)
                     .create(true)
                     .open(&gh_output_file)
-                    .map_err(|error| {
-                        format!("Attempt at opening {gh_output_file:?} has failed: {error}")
-                    })?;
+                    .unwrap();
                 writeln!(gh_output_file, "total={}", file_count).unwrap();
                 writeln!(gh_output_file, "changed={}", diff_count).unwrap();
                 writeln!(gh_output_file, "unchanged={}", file_count - diff_count).unwrap();
