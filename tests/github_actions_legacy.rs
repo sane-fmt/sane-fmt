@@ -5,7 +5,7 @@ pub use utils::*;
 use ansi_term::*;
 
 #[test]
-fn details_diff_legacy() {
+fn details_diff() {
     let output = Exe::fixtures()
         .cmd
         .arg("--log-format=github-actions")
@@ -19,7 +19,7 @@ fn details_diff_legacy() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/github-actions/details-diff-legacy.stdout.txt"),
+            include_str!("./expected-output/github-actions-legacy/details-diff.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
@@ -28,7 +28,7 @@ fn details_diff_legacy() {
 }
 
 #[test]
-fn details_name_legacy() {
+fn details_name() {
     let output = Exe::fixtures()
         .cmd
         .arg("--log-format=github-actions")
@@ -42,7 +42,7 @@ fn details_name_legacy() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/github-actions/details-name-legacy.stdout.txt"),
+            include_str!("./expected-output/github-actions-legacy/details-name.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
@@ -51,7 +51,7 @@ fn details_name_legacy() {
 }
 
 #[test]
-fn details_count_legacy() {
+fn details_count() {
     let output = Exe::fixtures()
         .cmd
         .arg("--log-format=github-actions")
@@ -65,7 +65,7 @@ fn details_count_legacy() {
         visualize_command_output(&output, &Style::new()).as_str(),
         visualize_fake_command_output(
             1,
-            include_str!("./expected-output/github-actions/details-count-legacy.stdout.txt"),
+            include_str!("./expected-output/github-actions-legacy/details-count.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
             &Style::new(),
         )
