@@ -484,7 +484,7 @@ jobs:
             pnpm5-
 
       - name: Install pnpm packages
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.3
         with:
           version: '7.13.4'
           run_install: 'true'
@@ -731,7 +731,7 @@ jobs:
             pnpm5-
 
       - name: Install pnpm packages
-        uses: pnpm/action-setup@v2.2.2
+        uses: pnpm/action-setup@v2.2.3
         with:
           version: '7.13.4'
           run_install: 'true'
