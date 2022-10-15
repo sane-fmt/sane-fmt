@@ -471,7 +471,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14.1.0'
+          node-version: '18.10.0'
 
       - name: Cache PNPM store
         uses: actions/cache@v3
@@ -718,7 +718,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '14.1.0'
+          node-version: '18.10.0'
 
       - name: Cache PNPM store
         uses: actions/cache@v3
