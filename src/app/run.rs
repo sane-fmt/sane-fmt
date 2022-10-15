@@ -8,8 +8,8 @@ use super::App;
 use pipe_trait::*;
 use relative_path::RelativePath;
 use std::{
-    fs,
-    io::{stdin, Read},
+    env, fs,
+    io::{stdin, Read, Write},
     path::{Path, PathBuf, MAIN_SEPARATOR},
 };
 use tap::tap::*;
@@ -123,7 +123,7 @@ impl App {
                 log_diff(path, &file_content, &formatted);
                 may_write(path, &formatted).map_err(|error| {
                     format!(
-                        "failed to write to {path:?}: {error}",
+                        "Failed to write to {path:?}: {error}",
                         path = cross_platform_path::to_string(path, '/'),
                         error = error,
                     )
@@ -133,17 +133,43 @@ impl App {
             }
         }
 
-        println!(
-            "SUMMARY: total {}; changed {}; unchanged {}",
-            file_count,
-            diff_count,
-            file_count - diff_count,
-        );
+        if let (LogFormat::GitHubActions, Some(gh_sum_file)) =
+            (opt.log_format, env::var_os("GITHUB_STEP_SUMMARY"))
+        {
+            let mut gh_sum_file = fs::OpenOptions::new()
+                .write(true)
+                .create(true)
+                .open(&gh_sum_file)
+                .unwrap();
+            let (a, b, c) = (file_count, diff_count, file_count - diff_count);
+            writeln!(gh_sum_file, "### Summary").unwrap();
+            writeln!(gh_sum_file, "| total | changed | unchanged |").unwrap();
+            writeln!(gh_sum_file, "|:-----:|:-------:|:---------:|").unwrap();
+            writeln!(gh_sum_file, "|  {a:5}|    {b:5}|      {c:5}|").unwrap();
+        } else {
+            println!(
+                "SUMMARY: total {}; changed {}; unchanged {}",
+                file_count,
+                diff_count,
+                file_count - diff_count,
+            );
+        }
 
         if opt.log_format == LogFormat::GitHubActions {
-            println!("::set-output name=total::{}", file_count);
-            println!("::set-output name=changed::{}", diff_count);
-            println!("::set-output name=unchanged::{}", file_count - diff_count);
+            if let Some(gh_output_file) = env::var_os("GITHUB_OUTPUT") {
+                let mut gh_output_file = fs::OpenOptions::new()
+                    .write(true)
+                    .create(true)
+                    .open(&gh_output_file)
+                    .unwrap();
+                writeln!(gh_output_file, "total={}", file_count).unwrap();
+                writeln!(gh_output_file, "changed={}", diff_count).unwrap();
+                writeln!(gh_output_file, "unchanged={}", file_count - diff_count).unwrap();
+            } else {
+                println!("::set-output name=total::{}", file_count);
+                println!("::set-output name=changed::{}", diff_count);
+                println!("::set-output name=unchanged::{}", file_count - diff_count);
+            }
         }
 
         if file_count == 0 {

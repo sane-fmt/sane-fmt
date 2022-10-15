@@ -8,8 +8,8 @@ _sane-fmt() {
 
     for i in ${COMP_WORDS[@]}
     do
-        case "${i}" in
-            "$1")
+        case "${cmd},${i}" in
+            ",$1")
                 cmd="sane__fmt"
                 ;;
             *)
@@ -19,7 +19,7 @@ _sane-fmt() {
 
     case "${cmd}" in
         sane__fmt)
-            opts="-h -V -w -I --help --version --stdio --write --details --hide-passed --color --log-format --include <FILES>..."
+            opts="-w -I -h -V --stdio --write --details --hide-passed --color --log-format --include --help --version [FILES]..."
             if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
                 COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
                 return 0
