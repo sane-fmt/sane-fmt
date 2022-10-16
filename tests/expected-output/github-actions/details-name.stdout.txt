@@ -14,3 +14,4 @@
 ✗ incorrect/multiple-lines.ts
 ::error file=incorrect/react.tsx::Format error
 ✗ incorrect/react.tsx
+SUMMARY: total 11; changed 5; unchanged 6

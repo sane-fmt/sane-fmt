@@ -12,7 +12,6 @@ fn details_diff() {
         .arg("--details=diff")
         .arg("--color=never")
         .env_remove("GITHUB_OUTPUT")
-        .env_remove("GITHUB_STEP_SUMMARY")
         .output()
         .unwrap();
 
@@ -36,7 +35,6 @@ fn details_name() {
         .arg("--details=name")
         .arg("--color=never")
         .env_remove("GITHUB_OUTPUT")
-        .env_remove("GITHUB_STEP_SUMMARY")
         .output()
         .unwrap();
 
@@ -60,7 +58,6 @@ fn details_count() {
         .arg("--details=count")
         .arg("--color=never")
         .env_remove("GITHUB_OUTPUT")
-        .env_remove("GITHUB_STEP_SUMMARY")
         .output()
         .unwrap();
 
