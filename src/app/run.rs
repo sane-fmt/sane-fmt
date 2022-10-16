@@ -143,7 +143,7 @@ impl App {
         if opt.log_format == LogFormat::GitHubActions {
             if let Some(gh_output_file) = env::var_os("GITHUB_OUTPUT") {
                 let mut gh_output_file = fs::OpenOptions::new()
-                    .write(true)
+                    .append(true)
                     .create(true)
                     .open(&gh_output_file)
                     .unwrap();
