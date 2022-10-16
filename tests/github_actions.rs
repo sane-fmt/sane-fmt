@@ -4,14 +4,17 @@ pub mod utils;
 pub use utils::*;
 
 use ansi_term::*;
-use std::fs::read_to_string;
+use std::{fs::read_to_string, io::Write};
 
 fn gh_output_file() -> tempfile::NamedTempFile {
-    tempfile::Builder::new()
+    let mut file = tempfile::Builder::new()
         .prefix("github-output")
         .suffix(".txt")
         .tempfile()
-        .expect("create temporary file for GITHUB_OUTPUT")
+        .expect("create temporary file for GITHUB_OUTPUT");
+    writeln!(file, "EXISTING_VALUE=Something else").unwrap();
+    file.flush().unwrap();
+    file
 }
 
 #[test]
