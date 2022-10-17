@@ -8,7 +8,7 @@ pub use input_stream_address::*;
 pub use log_format::*;
 pub use when::*;
 
-use clap::Parser;
+use clap::{Parser, ValueHint};
 
 /// Opinionated code formatter for TypeScript and JavaScript
 #[derive(Debug, Parser)]
@@ -41,11 +41,12 @@ pub struct CliOpt {
 
     /// Files whose contents contain paths to target files
     /// (`-` means stdin, other strings mean text file)
-    #[clap(long, short = 'I')]
+    #[clap(long, short = 'I', value_hint = ValueHint::FilePath)]
     pub include: Option<InputStreamAddress>,
 
     /// Files to process
     ///
     /// If none are provided, a default set of files will be assumed
+    #[clap(value_hint = ValueHint::AnyPath)]
     pub files: Vec<String>,
 }

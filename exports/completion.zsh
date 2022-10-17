@@ -18,8 +18,8 @@ _sane-fmt() {
 '--details=[File diff detail]:DETAILS:(count name diff)' \
 '--color=[When to use terminal color]:COLOR:(auto never always)' \
 '--log-format=[Format of log messages]:LOG_FORMAT:(human github-actions)' \
-'-I+[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE: ' \
-'--include=[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE: ' \
+'-I+[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE:_files' \
+'--include=[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE:_files' \
 '--stdio[Reads unformatted code from standard input, prints formatted code to standard output, then exits]' \
 '-w[Whether to write or check]' \
 '--write[Whether to write or check]' \
@@ -28,7 +28,7 @@ _sane-fmt() {
 '--help[Print help information (use `--help` for more detail)]' \
 '-V[Print version information]' \
 '--version[Print version information]' \
-'*::files -- Files to process:' \
+'*::files -- Files to process:_files' \
 && ret=0
 }
 
