@@ -29,6 +29,7 @@
   -  (x: number): number;
   +  (x: number): number
    }
+
   -export function func (): Func {
   +export function func(): Func {
      return x => x * x

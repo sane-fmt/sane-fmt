@@ -14,27 +14,28 @@
 \e[38;2;127;0;0m  -export const name = "c";\e[0m
 \e[38;2;0;127;0m  +export const name = 'c'\e[0m
 \e[1;38;2;255;64;64m✗ incorrect/multiple-lines.ts\e[0m
-\e[2m   export const a = 'correct'
-   export const b = 'correct'\e[0m
+\e[2m   export const a = 'correct'\e[0m
+\e[2m   export const b = 'correct'\e[0m
 \e[38;2;127;0;0m  -export const c = "incorrect"\e[0m
 \e[38;2;0;127;0m  +export const c = 'incorrect'\e[0m
 \e[2m   export const d = 'correct'\e[0m
-\e[38;2;127;0;0m  -export const e = "incorrect";
-  -export const f =   'incorrect'\e[0m
-\e[38;2;0;127;0m  +export const e = 'incorrect'
-  +export const f = 'incorrect'\e[0m
-\e[2m   export const g = 'correct'
-
-   interface Func {\e[0m
+\e[38;2;127;0;0m  -export const e = "incorrect";\e[0m
+\e[38;2;127;0;0m  -export const f =   'incorrect'\e[0m
+\e[38;2;0;127;0m  +export const e = 'incorrect'\e[0m
+\e[38;2;0;127;0m  +export const f = 'incorrect'\e[0m
+\e[2m   export const g = 'correct'\e[0m
+\e[2m   \e[0m
+\e[2m   interface Func {\e[0m
 \e[38;2;127;0;0m  -  (x: number): number;\e[0m
 \e[38;2;0;127;0m  +  (x: number): number\e[0m
 \e[2m   }\e[0m
+\e[2m   \e[0m
 \e[38;2;127;0;0m  -export function func (): Func {\e[0m
 \e[38;2;0;127;0m  +export function func(): Func {\e[0m
-\e[2m     return x => x * x
-   }\e[0m
+\e[2m     return x => x * x\e[0m
+\e[2m   }\e[0m
 \e[1;38;2;255;64;64m✗ incorrect/react.tsx\e[0m
-\e[38;2;127;0;0m  -export const name =
-  -"react";\e[0m
+\e[38;2;127;0;0m  -export const name =\e[0m
+\e[38;2;127;0;0m  -"react";\e[0m
 \e[38;2;0;127;0m  +export const name = 'react'\e[0m
 SUMMARY: total 11; changed 5; unchanged 6
