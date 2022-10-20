@@ -18,11 +18,11 @@ pub fn diff_lines<'a, Prefix: Display + Copy + 'a>(
     theme: &'a dyn ColorScheme,
     prefixes: (Prefix, Prefix, Prefix),
 ) -> Vec<DiffLine<'a, Prefix>> {
-    let (same, add, rem) = prefixes;
+    let (equal, insert, delete) = prefixes;
     let painted_prefixed = |tag, value| match tag {
-        ChangeTag::Equal => theme.diff_line_same().paint(Prefixed::new(same, value)),
-        ChangeTag::Insert => theme.diff_line_add().paint(Prefixed::new(add, value)),
-        ChangeTag::Delete => theme.diff_line_rem().paint(Prefixed::new(rem, value)),
+        ChangeTag::Equal => theme.diff_line_equal().paint(Prefixed::new(equal, value)),
+        ChangeTag::Insert => theme.diff_line_insert().paint(Prefixed::new(insert, value)),
+        ChangeTag::Delete => theme.diff_line_delete().paint(Prefixed::new(delete, value)),
     };
     diff(old, new)
         .iter_all_changes()
