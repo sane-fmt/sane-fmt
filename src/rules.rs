@@ -66,6 +66,7 @@ pub fn build_cfg() -> Cfg {
         constructor_type_space_after_new_keyword: true,
         decorators_prefer_single_line: false,
         do_while_statement_brace_position: BracePosition::SameLine,
+        do_while_statement_next_control_flow_position: NextControlFlowPosition::SameLine,
         do_while_statement_prefer_hanging: false,
         do_while_statement_space_after_while_keyword: true,
         do_while_statement_space_around: false,

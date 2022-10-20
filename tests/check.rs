@@ -2,7 +2,7 @@
 pub mod utils;
 pub use utils::*;
 
-use ansi_term::*;
+use yansi::*;
 
 #[test]
 fn details_diff() {
@@ -14,12 +14,12 @@ fn details_diff() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/details-diff.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -35,12 +35,12 @@ fn details_name() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/details-name.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -56,12 +56,12 @@ fn details_count() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             "SUMMARY: total 11; changed 5; unchanged 6\n",
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -92,12 +92,12 @@ fn directory() {
         .output()
         .unwrap();
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/directory.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -115,12 +115,12 @@ fn some_correct_files_only() {
         .output()
         .unwrap();
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             0,
             include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -136,12 +136,12 @@ fn correct_directory_only() {
         .output()
         .unwrap();
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             0,
             include_str!("./expected-output/correct-directory-only.stdout.txt"),
             "",
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );

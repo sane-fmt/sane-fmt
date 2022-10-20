@@ -2,7 +2,7 @@
 pub mod utils;
 pub use utils::*;
 
-use ansi_term::*;
+use yansi::*;
 
 #[test]
 fn details_diff() {
@@ -16,12 +16,12 @@ fn details_diff() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/github-actions-legacy/details-diff.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -39,12 +39,12 @@ fn details_name() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/github-actions-legacy/details-name.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -62,12 +62,12 @@ fn details_count() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/github-actions-legacy/details-count.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );

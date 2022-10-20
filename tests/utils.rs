@@ -1,5 +1,4 @@
 #![cfg(test)]
-use ansi_term::Style;
 use fs_extra::dir::{copy as copy_dir, CopyOptions as DirCopyOptions};
 use sane_fmt::rules::build_fmt;
 use std::{
@@ -10,6 +9,7 @@ use std::{
     process::{Child as ChildProcess, Command, Output as CommandOutput, Stdio},
 };
 use tempfile as tmp;
+use yansi::Style;
 
 /// Version of the package
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
