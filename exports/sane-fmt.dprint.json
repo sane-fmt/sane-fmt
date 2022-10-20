@@ -72,6 +72,7 @@
     "enumDeclaration.memberSpacing": "maintain",
     "ifStatement.nextControlFlowPosition": "sameLine",
     "tryStatement.nextControlFlowPosition": "sameLine",
+    "doWhileStatement.nextControlFlowPosition": "sameLine",
     "binaryExpression.operatorPosition": "sameLine",
     "conditionalExpression.operatorPosition": "nextLine",
     "conditionalType.operatorPosition": "nextLine",
