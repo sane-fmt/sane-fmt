@@ -2,7 +2,7 @@
 pub mod utils;
 pub use utils::*;
 
-use ansi_term::*;
+use yansi::*;
 
 #[test]
 fn unix_style_only() {
@@ -16,12 +16,12 @@ fn unix_style_only() {
         .output()
         .unwrap();
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             0,
             include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -39,12 +39,12 @@ fn windows_style_only() {
         .output()
         .unwrap();
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             0,
             include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -62,12 +62,12 @@ fn both_styles() {
         .output()
         .unwrap();
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             0,
             include_str!("./expected-output/some-correct-files-only.stdout.txt"),
             "",
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );

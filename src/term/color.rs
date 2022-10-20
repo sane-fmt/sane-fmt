@@ -1,4 +1,6 @@
-pub use ansi_term::{Color, Style};
+use pipe_trait::*;
+
+pub use yansi::{Color, Style};
 
 /// Define a scheme of color
 pub trait ColorScheme {
@@ -14,22 +16,22 @@ pub trait ColorScheme {
 pub struct ColorlessScheme;
 impl ColorScheme for ColorlessScheme {
     fn scan(&self) -> Style {
-        Style::new()
+        Style::default()
     }
     fn same(&self) -> Style {
-        Style::new()
+        Style::default()
     }
     fn diff(&self) -> Style {
-        Style::new()
+        Style::default()
     }
     fn diff_line_same(&self) -> Style {
-        Style::new()
+        Style::default()
     }
     fn diff_line_add(&self) -> Style {
-        Style::new()
+        Style::default()
     }
     fn diff_line_rem(&self) -> Style {
-        Style::new()
+        Style::default()
     }
 }
 
@@ -40,18 +42,18 @@ impl ColorScheme for ColorfulScheme {
         Style::default().dimmed()
     }
     fn same(&self) -> Style {
-        Color::RGB(64, 255, 64).bold()
+        Color::RGB(64, 255, 64).pipe(Style::new).bold()
     }
     fn diff(&self) -> Style {
-        Color::RGB(255, 64, 64).bold()
+        Color::RGB(255, 64, 64).pipe(Style::new).bold()
     }
     fn diff_line_same(&self) -> Style {
         Style::default().dimmed()
     }
     fn diff_line_add(&self) -> Style {
-        Color::RGB(0, 127, 0).into()
+        Color::RGB(0, 127, 0).pipe(Style::new)
     }
     fn diff_line_rem(&self) -> Style {
-        Color::RGB(127, 0, 0).into()
+        Color::RGB(127, 0, 0).pipe(Style::new)
     }
 }

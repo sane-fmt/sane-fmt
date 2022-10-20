@@ -3,8 +3,8 @@ pub mod utils;
 
 pub use utils::*;
 
-use ansi_term::*;
 use std::{fs::read_to_string, io::Write};
+use yansi::*;
 
 fn gh_output_file() -> tempfile::NamedTempFile {
     let mut file = tempfile::Builder::new()
@@ -31,12 +31,12 @@ fn details_diff() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/github-actions/details-diff.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -61,12 +61,12 @@ fn details_name() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/github-actions/details-name.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
@@ -91,12 +91,12 @@ fn details_count() {
         .unwrap();
 
     assert_trimmed_str_eq(
-        visualize_command_output(&output, &Style::new()).as_str(),
+        visualize_command_output(&output, &Style::default()).as_str(),
         visualize_fake_command_output(
             1,
             include_str!("./expected-output/github-actions/details-count.stdout.txt"),
             include_str!("./expected-output/stderr.txt"),
-            &Style::new(),
+            &Style::default(),
         )
         .as_str(),
     );
