@@ -4,7 +4,7 @@ use super::super::{
         LogFormat::{self, *},
     },
     cross_platform_path,
-    diff::diff_lines,
+    diff::Diff,
     term::color::*,
 };
 use std::path::Path;
@@ -34,14 +34,14 @@ pub fn get(details: DetailLevel, log_format: LogFormat, theme: &dyn ColorScheme)
         }),
         (Diff, Human) => Box::new(move |path, old, new| {
             print_name(path);
-            for line in diff_lines(old, new, theme, ("   ", "  +", "  -")) {
+            for line in Diff::new(old, new).lines(theme, ("   ", "  +", "  -")) {
                 println!("{}", line);
             }
         }),
         (Diff, GitHubActions) => Box::new(move |path, old, new| {
             println!("::error file={}::Format error", stringify_path(path));
             println!("::group::{}", format_name(path));
-            for line in diff_lines(old, new, theme, (' ', '+', '-')) {
+            for line in Diff::new(old, new).lines(theme, (' ', '+', '-')) {
                 println!("{}", line);
             }
             println!("::endgroup::");

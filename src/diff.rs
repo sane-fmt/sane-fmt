@@ -1,36 +1,39 @@
-pub use similar::TextDiff as Diff;
-
 use super::term::color::ColorScheme;
 use derive_more::Display;
+use pipe_trait::*;
 use similar::ChangeTag;
+use similar::TextDiff;
 use std::fmt::Display;
 use yansi::Paint;
 
-/// Calculate changeset of two strings.
-pub fn diff<'a>(old: &'a str, new: &'a str) -> Diff<'a, 'a, 'a, str> {
-    Diff::from_lines(old, new)
-}
+/// Differences between two strings.
+pub struct Diff<'a>(TextDiff<'a, 'a, 'a, str>);
 
-/// Emit printable lines of diff.
-pub fn diff_lines<'a, Prefix: Display + Copy + 'a>(
-    old: &'a str,
-    new: &'a str,
-    theme: &'a dyn ColorScheme,
-    prefixes: (Prefix, Prefix, Prefix),
-) -> Vec<DiffLine<'a, Prefix>> {
-    let (equal, insert, delete) = prefixes;
-    let painted_prefixed = |(tag, value)| match tag {
-        ChangeTag::Equal => theme.diff_line_equal().paint(Prefixed::new(equal, value)),
-        ChangeTag::Insert => theme.diff_line_insert().paint(Prefixed::new(insert, value)),
-        ChangeTag::Delete => theme.diff_line_delete().paint(Prefixed::new(delete, value)),
-    };
-    diff(old, new)
-        .iter_all_changes()
-        .map(|change| (change.tag(), change.value()))
-        .map(|(tag, value)| (tag, value.strip_suffix('\n').unwrap_or(value)))
-        .map(painted_prefixed)
-        .map(DiffLine)
-        .collect()
+impl<'a> Diff<'a> {
+    /// Compute the differences between two strings.
+    pub fn new(old: &'a str, new: &'a str) -> Self {
+        TextDiff::from_lines(old, new).pipe(Diff)
+    }
+
+    /// Emit printable lines of differences.
+    pub fn lines<Prefix: Display + Copy + 'a>(
+        &'a self,
+        theme: &'a dyn ColorScheme,
+        prefixes: (Prefix, Prefix, Prefix),
+    ) -> impl Iterator<Item = DiffLine<'a, Prefix>> + 'a {
+        let (equal, insert, delete) = prefixes;
+        let painted_prefixed = move |(tag, value)| match tag {
+            ChangeTag::Equal => theme.diff_line_equal().paint(Prefixed::new(equal, value)),
+            ChangeTag::Insert => theme.diff_line_insert().paint(Prefixed::new(insert, value)),
+            ChangeTag::Delete => theme.diff_line_delete().paint(Prefixed::new(delete, value)),
+        };
+        self.0
+            .iter_all_changes()
+            .map(|change| (change.tag(), change.value()))
+            .map(|(tag, value)| (tag, value.strip_suffix('\n').unwrap_or(value)))
+            .map(painted_prefixed)
+            .map(DiffLine)
+    }
 }
 
 #[derive(Debug, Display)]
