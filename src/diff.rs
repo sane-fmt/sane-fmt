@@ -1,42 +1,50 @@
-pub use difference::Changeset as Diff;
+pub use similar::TextDiff as Diff;
 
 use super::term::color::ColorScheme;
-use difference::Difference::{self, *};
+use derive_more::Display;
+use similar::ChangeTag;
 use std::fmt::Display;
+use yansi::Paint;
 
 /// Calculate changeset of two strings.
-pub fn diff(old: &str, new: &str) -> Diff {
-    Diff::new(old, new, "\n")
+pub fn diff<'a>(old: &'a str, new: &'a str) -> Diff<'a, 'a, 'a, str> {
+    Diff::from_lines(old, new)
 }
 
 /// Emit printable lines of diff.
-pub fn diff_lines<'a>(
-    old: &str,
-    new: &str,
+pub fn diff_lines<'a, Prefix: Display + Copy + 'a>(
+    old: &'a str,
+    new: &'a str,
     theme: &'a dyn ColorScheme,
-    prefixes: (
-        impl Display + Copy + 'a,
-        impl Display + Copy + 'a,
-        impl Display + Copy + 'a,
-    ),
-) -> impl Iterator<Item = String> + 'a {
+    prefixes: (Prefix, Prefix, Prefix),
+) -> Vec<DiffLine<'a, Prefix>> {
     let (same, add, rem) = prefixes;
-    let make_line = move |diff: Difference| match diff {
-        Same(line) => theme.diff_line_same().paint(add_prefix(line, same)),
-        Add(line) => theme.diff_line_add().paint(add_prefix(line, add)),
-        Rem(line) => theme.diff_line_rem().paint(add_prefix(line, rem)),
+    let painted_prefixed = |tag, value| match tag {
+        ChangeTag::Equal => theme.diff_line_same().paint(Prefixed::new(same, value)),
+        ChangeTag::Insert => theme.diff_line_add().paint(Prefixed::new(add, value)),
+        ChangeTag::Delete => theme.diff_line_rem().paint(Prefixed::new(rem, value)),
     };
     diff(old, new)
-        .diffs
-        .into_iter()
-        .map(make_line)
-        .map(|line| format!("{}", line))
+        .iter_all_changes()
+        .map(|change| (change.tag(), change.value()))
+        .map(|(tag, value)| (tag, value.strip_suffix('\n').unwrap_or(value)))
+        .map(|(tag, value)| painted_prefixed(tag, value))
+        .map(DiffLine)
+        .collect()
 }
 
-/// Add prefix to every line in a string.
-fn add_prefix(text: String, prefix: impl Display) -> String {
-    text.lines()
-        .map(|line| format!("{}{}", prefix, line))
-        .collect::<Vec<_>>()
-        .join("\n")
+#[derive(Debug, Display)]
+pub struct DiffLine<'a, Prefix: Display>(Paint<Prefixed<'a, Prefix>>);
+
+#[derive(Debug, Display)]
+#[display(fmt = "{prefix}{value}")]
+struct Prefixed<'a, Prefix: Display> {
+    prefix: Prefix,
+    value: &'a str,
+}
+
+impl<'a, Prefix: Display> Prefixed<'a, Prefix> {
+    fn new(prefix: Prefix, value: &'a str) -> Self {
+        Self { prefix, value }
+    }
 }
