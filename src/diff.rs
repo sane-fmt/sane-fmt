@@ -36,6 +36,7 @@ impl<'a> Diff<'a> {
     }
 }
 
+/// Item of [`Diff::lines`].
 #[derive(Debug, Display)]
 pub struct DiffLine<'a, Prefix: Display>(Paint<Prefixed<'a, Prefix>>);
 
