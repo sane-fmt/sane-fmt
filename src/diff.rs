@@ -19,7 +19,7 @@ pub fn diff_lines<'a, Prefix: Display + Copy + 'a>(
     prefixes: (Prefix, Prefix, Prefix),
 ) -> Vec<DiffLine<'a, Prefix>> {
     let (equal, insert, delete) = prefixes;
-    let painted_prefixed = |tag, value| match tag {
+    let painted_prefixed = |(tag, value)| match tag {
         ChangeTag::Equal => theme.diff_line_equal().paint(Prefixed::new(equal, value)),
         ChangeTag::Insert => theme.diff_line_insert().paint(Prefixed::new(insert, value)),
         ChangeTag::Delete => theme.diff_line_delete().paint(Prefixed::new(delete, value)),
@@ -28,7 +28,7 @@ pub fn diff_lines<'a, Prefix: Display + Copy + 'a>(
         .iter_all_changes()
         .map(|change| (change.tag(), change.value()))
         .map(|(tag, value)| (tag, value.strip_suffix('\n').unwrap_or(value)))
-        .map(|(tag, value)| painted_prefixed(tag, value))
+        .map(painted_prefixed)
         .map(DiffLine)
         .collect()
 }
