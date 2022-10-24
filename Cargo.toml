@@ -48,7 +48,7 @@ serde_json = "^1.0.86"
 clap-utilities = "^0.2.0"
 
 [dependencies.serde]
-version = "^1.0.145"
+version = "^1.0.147"
 features = ["derive"]
 
 [dependencies.clap]
