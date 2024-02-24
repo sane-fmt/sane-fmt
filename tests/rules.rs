@@ -83,6 +83,17 @@ test_rule! {
 }
 
 test_rule! {
+    name: no_space_before_opening_parenthesis_in_function_declaration,
+    ext: "js",
+    into: text_block! {
+        "function main() {"
+        "  console.log('hello world')"
+        "}"
+        ""
+    },
+}
+
+test_rule! {
     name: interface,
     ext: "ts",
     from: text_block! {
