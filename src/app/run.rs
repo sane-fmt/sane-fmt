@@ -25,7 +25,7 @@ impl App {
                 .read_to_string(&mut buffer)
                 .map_err(|error| format!("Failed to read from STDIN: {}", error))?;
             let formatted = fmt
-                .format_text(&PathBuf::from("STDIN"), &buffer)?
+                .format_text(&PathBuf::from("STDIN.ts"), &buffer)?
                 .unwrap_or(buffer);
             print!("{}", formatted);
             return Ok(());

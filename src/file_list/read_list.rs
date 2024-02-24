@@ -10,7 +10,10 @@ use std::{
 /// Read a list of TypeScript/JavaScript files from an `InputStreamAddress`
 pub fn read_list(list_file_address: &InputStreamAddress) -> Result<List, Error> {
     let (mut list_file, path): (Box<dyn Read>, PathBuf) = match list_file_address {
-        InputStreamAddress::Stdin => (Box::new(stdin()) as Box<dyn Read>, PathBuf::from("STDIN")),
+        InputStreamAddress::Stdin => (
+            Box::new(stdin()) as Box<dyn Read>,
+            PathBuf::from("STDIN.ts"),
+        ),
         InputStreamAddress::File(path) => path
             .pipe(File::open)
             .map_err(|error| Error::new(path.clone(), error))?

@@ -28,6 +28,28 @@ fn prints_formatted_code() {
 }
 
 #[test]
+fn works_with_typescript() {
+    let unformatted = b"interface HelloWorld { foo: \"bar\" }";
+    let formatted = text_block! {
+        "interface HelloWorld {"
+        "  foo: 'bar'"
+        "}"
+        ""
+    };
+
+    let output = Exe::workspace().run_with_stdio(unformatted, ["--stdio"]);
+
+    assert_eq!(
+        (
+            u8v_to_utf8(&output.stdout),
+            u8v_to_utf8(&output.stderr),
+            output.status.success(),
+        ),
+        (formatted, "", true),
+    );
+}
+
+#[test]
 fn parse_failure() {
     let output = Exe::workspace().run_with_stdio(b"const const code == 0", ["--stdio"]);
 
