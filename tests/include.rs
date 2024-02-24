@@ -8,7 +8,7 @@ use pretty_assertions::assert_eq;
 fn stdin_files() {
     let output = Exe::fixtures().run_with_stdio(
         include_bytes!("./assets/include-files.input.txt"),
-        &["-I", "-", "--color=never"],
+        ["-I", "-", "--color=never"],
     );
     assert_eq!(
         (
@@ -28,7 +28,7 @@ fn stdin_files() {
 fn stdin_dirs() {
     let output = Exe::fixtures().run_with_stdio(
         include_bytes!("./assets/include-dirs.input.txt"),
-        &["-I", "-", "--color=never"],
+        ["-I", "-", "--color=never"],
     );
     assert_eq!(
         (

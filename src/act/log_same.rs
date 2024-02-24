@@ -19,6 +19,6 @@ pub fn get(details: DetailLevel, hide_passed: bool, theme: &'_ dyn ColorScheme) 
     };
     match (details, hide_passed) {
         (Count, _) | (_, true) => Box::new(|_| ()),
-        (Name, false) | (Diff, false) => Box::new(move |path| print_name(path)),
+        (Name, false) | (Diff, false) => Box::new(print_name),
     }
 }

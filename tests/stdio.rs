@@ -15,7 +15,7 @@ fn prints_formatted_code() {
         ""
     };
 
-    let output = Exe::workspace().run_with_stdio(unformatted, &["--stdio"]);
+    let output = Exe::workspace().run_with_stdio(unformatted, ["--stdio"]);
 
     assert_eq!(
         (
@@ -29,7 +29,7 @@ fn prints_formatted_code() {
 
 #[test]
 fn parse_failure() {
-    let output = Exe::workspace().run_with_stdio(b"const const code == 0", &["--stdio"]);
+    let output = Exe::workspace().run_with_stdio(b"const const code == 0", ["--stdio"]);
 
     assert_eq!(
         (u8v_to_utf8(&output.stdout), output.status.success()),

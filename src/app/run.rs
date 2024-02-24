@@ -145,7 +145,7 @@ impl App {
                 let mut gh_output_file = fs::OpenOptions::new()
                     .append(true)
                     .create(true)
-                    .open(&gh_output_file)
+                    .open(gh_output_file)
                     .unwrap();
                 writeln!(gh_output_file, "total={}", file_count).unwrap();
                 writeln!(gh_output_file, "changed={}", diff_count).unwrap();

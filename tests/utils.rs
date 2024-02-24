@@ -133,7 +133,7 @@ impl Exe {
             .unwrap()
             .into_path();
         let file_path = temp_dir.join(file_name);
-        write_file(&file_path, file_content).expect("write file");
+        write_file(file_path, file_content).expect("write file");
         Self::new(&temp_dir)
     }
 }
