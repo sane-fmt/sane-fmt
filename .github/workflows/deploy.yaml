@@ -65,6 +65,10 @@ jobs:
           override: 'true'
           default: 'true'
 
+      - name: Install musl-tools (for musl on linux)
+        if: contains(matrix.target, 'musl')
+        run: sudo apt install -y musl-tools
+
       - name: Build
         run: cargo build --target ${{ matrix.target }} --release
 
