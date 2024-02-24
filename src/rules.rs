@@ -9,6 +9,9 @@ use cfg::*;
 
 /// Shape a `ConfigurationBuilder` to desired configuration.
 pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
+    // The rules of sane-fmt is based on deno's but with a few modifications.
+    // This function lists these modifications.
+    // This function serves as documentation for programmers.
     builder
         .deno()
         .line_width(120)
@@ -31,6 +34,9 @@ pub fn modify(builder: &mut CfgBuilder) -> &mut CfgBuilder {
 
 /// Create desired configuration.
 pub fn build_cfg() -> Cfg {
+    // Whilst `modify` lists necessary modifications, this function gives the resulting config directly.
+    // Its consistency with `modify` is ensured by a test.
+    // This function serves as production code.
     Cfg {
         arguments_prefer_hanging: PreferHanging::Never,
         arguments_prefer_single_line: false,
