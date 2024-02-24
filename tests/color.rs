@@ -24,7 +24,7 @@ fn color_match_non_color() {
 
     // Identical in visible content
     assert_str_eq(
-        u8v_to_utf8(&strip_ansi(&with_color).unwrap()),
+        u8v_to_utf8(&strip_ansi(&with_color)),
         u8v_to_utf8(&without_color),
     );
 
@@ -42,7 +42,7 @@ fn without_color() {
         .unwrap();
 
     fn test(text: &[u8]) {
-        assert_str_eq(u8v_to_utf8(&strip_ansi(text).unwrap()), u8v_to_utf8(text));
+        assert_str_eq(u8v_to_utf8(&strip_ansi(text)), u8v_to_utf8(text));
     }
 
     test(&output.stdout);
