@@ -27,10 +27,10 @@ set edit:completion:arg-completer[sane-fmt] = {|@words|
             cand -w 'Whether to write or check'
             cand --write 'Whether to write or check'
             cand --hide-passed 'Do not log passed filenames'
-            cand -h 'Print help information (use `--help` for more detail)'
-            cand --help 'Print help information (use `--help` for more detail)'
-            cand -V 'Print version information'
-            cand --version 'Print version information'
+            cand -h 'Print help (see more with ''--help'')'
+            cand --help 'Print help (see more with ''--help'')'
+            cand -V 'Print version'
+            cand --version 'Print version'
         }
     ]
     $completions[$command]

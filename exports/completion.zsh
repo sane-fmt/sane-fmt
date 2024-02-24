@@ -18,16 +18,16 @@ _sane-fmt() {
 '--details=[File diff detail]:DETAILS:(count name diff)' \
 '--color=[When to use terminal color]:COLOR:(auto never always)' \
 '--log-format=[Format of log messages]:LOG_FORMAT:(human github-actions)' \
-'-I+[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE:_files' \
-'--include=[Files whose contents contain paths to target files (`-` means stdin, other strings mean text file)]:INCLUDE:_files' \
+'-I+[Files whose contents contain paths to target files (\`-\` means stdin, other strings mean text file)]:INCLUDE:_files' \
+'--include=[Files whose contents contain paths to target files (\`-\` means stdin, other strings mean text file)]:INCLUDE:_files' \
 '--stdio[Reads unformatted code from standard input, prints formatted code to standard output, then exits]' \
 '-w[Whether to write or check]' \
 '--write[Whether to write or check]' \
 '--hide-passed[Do not log passed filenames]' \
-'-h[Print help information (use `--help` for more detail)]' \
-'--help[Print help information (use `--help` for more detail)]' \
-'-V[Print version information]' \
-'--version[Print version information]' \
+'-h[Print help (see more with '\''--help'\'')]' \
+'--help[Print help (see more with '\''--help'\'')]' \
+'-V[Print version]' \
+'--version[Print version]' \
 '*::files -- Files to process:_files' \
 && ret=0
 }
@@ -38,4 +38,8 @@ _sane-fmt_commands() {
     _describe -t commands 'sane-fmt commands' commands "$@"
 }
 
-_sane-fmt "$@"
+if [ "$funcstack[1]" = "_sane-fmt" ]; then
+    _sane-fmt "$@"
+else
+    compdef _sane-fmt sane-fmt
+fi
