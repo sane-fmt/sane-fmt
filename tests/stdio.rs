@@ -65,7 +65,7 @@ fn parse_failure() {
         stderr,
         text_block! {
             "ERROR:"
-            "  Line 1, column 7: Expected ident"
+            "  Expected ident at file:///STDIN.ts:1:7"
             "  "
             "    const const code == 0"
             "          ~~~~~"
