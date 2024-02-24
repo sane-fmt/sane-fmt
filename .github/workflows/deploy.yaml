@@ -144,6 +144,8 @@ jobs:
   build_wasm:
     name: Build
 
+    if: false # disable temporarily because errno fails to build on stable for wasm32-wasi
+
     runs-on: ubuntu-latest
 
     strategy:
@@ -182,7 +184,7 @@ jobs:
       - build_linux
       - build_macos
       - build_windows
-      - build_wasm
+      # - build_wasm
 
     runs-on: ubuntu-latest
 
@@ -310,7 +312,7 @@ jobs:
       - build_linux
       - build_macos
       - build_windows
-      - build_wasm
+      # - build_wasm
 
     runs-on: ubuntu-latest
 
@@ -325,7 +327,7 @@ jobs:
           - x86_64-pc-windows-gnu
           - x86_64-pc-windows-msvc
           - x86_64-apple-darwin
-          - wasm32-wasi
+          # - wasm32-wasi
 
     steps:
       - uses: actions/checkout@v3
@@ -377,7 +379,7 @@ jobs:
       - build_linux
       - build_macos
       - build_windows
-      - build_wasm
+      # - build_wasm
 
     if: needs.create_release.outputs.is_release == 'true'
 
@@ -442,7 +444,7 @@ jobs:
       - build_linux
       - build_macos
       - build_windows
-      - build_wasm
+      # - build_wasm
 
     if: needs.create_release.outputs.is_release == 'true'
 
@@ -457,7 +459,7 @@ jobs:
           - x86_64-pc-windows-gnu
           - x86_64-pc-windows-msvc
           - x86_64-apple-darwin
-          - wasm32-wasi
+          # - wasm32-wasi
 
     steps:
       - uses: actions/checkout@v3
@@ -501,6 +503,8 @@ jobs:
 
   publish_deno_module:
     name: Publish Deno module
+
+    if: false # disable temporarily because errno fails to build on stable for wasm32-wasi
 
     needs:
       - create_release
