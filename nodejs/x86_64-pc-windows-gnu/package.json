@@ -1,6 +1,6 @@
 {
   "name": "@sane-fmt/x86_64-pc-windows-gnu",
-  "version": "0.18.0",
+  "version": "0.17.0",
   "description": "Opinionated code formatter for TypeScript and JavaScript",
   "private": false,
   "homepage": "https://github.com/sane-fmt/sane-fmt",
