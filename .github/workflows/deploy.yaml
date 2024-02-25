@@ -545,14 +545,14 @@ jobs:
       - name: Install Deno
         uses: denolib/setup-deno@v2.3.0
         with:
-          deno-version: 1.8.0
+          deno-version: 1.40.4
 
       - name: Clone sane-fmt/deno
         run: git clone https://github.com/sane-fmt/deno.git sane-fmt-deno
 
       - name: Refresh and Test
         run: |
-          deno cache --unstable sane-fmt-deno/**/*.{ts,js}
+          deno cache sane-fmt-deno/**/*.{ts,js}
           ./sane-fmt-deno/scripts/test.ts
 
       - name: Download the WASI binary
@@ -576,7 +576,7 @@ jobs:
 
       - name: Refresh and Test
         run: |
-          deno cache --unstable sane-fmt-deno/**/*.{ts,js}
+          deno cache sane-fmt-deno/**/*.{ts,js}
           ./sane-fmt-deno/scripts/test.ts
 
       - name: Configure git password
