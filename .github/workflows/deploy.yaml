@@ -20,7 +20,7 @@ jobs:
           - macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -56,7 +56,7 @@ jobs:
           - x86_64-unknown-linux-musl
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
@@ -93,7 +93,7 @@ jobs:
           - x86_64-apple-darwin
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
@@ -127,7 +127,7 @@ jobs:
           - x86_64-pc-windows-msvc
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
@@ -157,7 +157,7 @@ jobs:
           - wasm32-wasi
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions-rs/toolchain@v1.0.7
         with:
@@ -198,7 +198,7 @@ jobs:
       release_tag: ${{ steps.release_type.outputs.release_tag }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install APT packages
         run: sudo apt install -y python3
@@ -233,7 +233,7 @@ jobs:
     if: needs.create_release.outputs.is_release == 'true'
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Upload Dprint configuration
         uses: actions/upload-release-asset@v1.0.2
@@ -332,7 +332,7 @@ jobs:
           - wasm32-wasi
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download artifact
         uses: actions/download-artifact@v5.0.0
@@ -388,7 +388,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download all artifacts
         uses: actions/download-artifact@v5.0.0
@@ -464,7 +464,7 @@ jobs:
           - wasm32-wasi
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download artifact
         uses: actions/download-artifact@v5.0.0
@@ -522,7 +522,7 @@ jobs:
           - wasm32-wasi
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install APT packages
         run: sudo apt install -y python3 python3-toml
@@ -639,7 +639,7 @@ jobs:
           - x86_64-unknown-linux-gnu
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Download checksums
         uses: actions/download-artifact@v5.0.0
@@ -687,7 +687,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions-rs/toolchain@v1
         with:
@@ -717,7 +717,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
