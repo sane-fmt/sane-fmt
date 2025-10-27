@@ -76,7 +76,7 @@ jobs:
         run: strip --strip-all target/${{ matrix.target }}/release/sane-fmt
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt
@@ -109,7 +109,7 @@ jobs:
         run: strip target/${{ matrix.target }}/release/sane-fmt
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt
@@ -140,7 +140,7 @@ jobs:
         run: cargo build --target ${{ matrix.target }} --release
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt.exe
@@ -173,7 +173,7 @@ jobs:
         run: cargo wasi build --release
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: sane-fmt-${{ matrix.target }}
           path: target/${{ matrix.target }}/release/sane-fmt.wasm
@@ -402,7 +402,7 @@ jobs:
         run: ./ci/github-actions/create-checksums.sh
 
       - name: Upload as artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: checksums
           path: sha*sum.txt
